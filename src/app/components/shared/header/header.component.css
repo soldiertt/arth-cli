@@ -1,0 +1,108 @@
+#header {
+  padding: 15px 0 0 0;
+  margin-bottom: 10px;
+}
+
+#header a, #header a:visited {
+  color:#9c9c9c;
+}
+
+#header .header-top-row {
+  color:#9c9c9c;
+  overflow: hidden;
+  border-bottom: 1px solid #eee;
+}
+
+#header .header-middle-row {
+  height: 150px;
+}
+
+#header .call {
+  float: left;
+}
+
+#header .call span {
+  font-weight: bold;
+  color:#303030;
+}
+
+#header .call span.number {
+  color:#DC4823;
+}
+
+#header .account_desc {
+  float:right;
+  font-family: ambleregular;
+}
+#header .account_desc ul li {
+  display: inline-block;
+  border-left: 1px dotted #ccc;
+  padding: 0 10px 0 10px;
+}
+#header .account_desc ul li:first-child {
+  border: none;
+}
+
+#header .account_desc .language i {
+  cursor: pointer;
+}
+
+#header .account_desc .language.active i {
+  cursor: default;
+  opacity: 0.4;
+}
+
+#header .logo {
+  float: left;
+}
+
+#header .navbar {
+  background-color: #383838;
+  font-family: ambleregular;
+  text-transform: uppercase;
+  padding: 0 10px 0 10px;
+}
+
+#header .navbar-nav > .nav-item {
+  line-height: 40px;
+}
+
+#header .navbar .dropdown-menu {
+  line-height: 27px;
+}
+
+#header .navbar .submit-search {
+  cursor: pointer;
+}
+
+#header .navbar a {
+  color: white;
+}
+
+#header .navbar .dropdown-menu a {
+  color: #666;
+  border-bottom: 1px solid #e6e6e6;
+  font-size: 0.9em;
+}
+
+#header .navbar a:hover {
+  color: white;
+  background-color: #DC4823;
+  transition: all .9s;
+}
+#header .navbar .dropdown-menu a:hover {
+  color: white;
+}
+
+#header .nav-item {
+  border-right: 2px ridge #585858;
+}
+#header .navbar-nav>.active>a, .navbar-nav>.active>a:focus, .navbar-nav>.active>a:hover {
+  background-color: #DC4823;
+}
+
+@media (min-width: 768px) {
+  #header .navbar {
+    border-radius: 8px;
+  }
+}

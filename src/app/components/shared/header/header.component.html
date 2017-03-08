@@ -1,0 +1,56 @@
+<div id="header">
+  <div class="header-top-row clear">
+    <div class="call">
+      <p><span>{{'comp.header.questions' | trans}}</span> {{'comp.header.contactus' | trans}} <span class="number">+32 479.367.479</span></p>
+    </div>
+    <div class="account_desc">
+      <ul>
+        <li class="language" [class.active]="i18nService.isFr()"><i class="famfamfam-flag-fr" (click)="i18nService.saveLang('fr')" title="Français"></i></li>
+        <li class="language" [class.active]="i18nService.isNl()"><i class="famfamfam-flag-nl" (click)="i18nService.saveLang('nl')" title="Nederlands"></i></li>
+        <li class="language" [class.active]="i18nService.isEn()"><i class="famfamfam-flag-gb" (click)="i18nService.saveLang('en')" title="English"></i></li>
+        <li *ngIf="!authService.authenticated()"><a href (click)="authService.login($event)">{{'common.links.login' | trans}}</a></li>
+        <li><a href routerLink="/mycart">{{'common.links.mycart' | trans}}</a></li>
+        <li *ngIf="authService.authenticated()"><a href routerLink="/profile">{{'common.links.profile' | trans}}</a></li>
+        <li *ngIf="authService.authenticated()"><a href (click)="authService.logout($event)">{{'common.links.logout' | trans}}</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="header-middle-row clear">
+    <div class="logo responsive-hidden-small">
+      <a href routerLink=""><img src="assets/images/logo.png" alt="Arthurius" /></a>
+    </div>
+    <arth-cart-dropdown></arth-cart-dropdown>
+  </div>
+  <div class="clear">
+    <nav class="navbar navbar-light navbar-toggleable-md">
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <span class="navbar-brand">
+        <img src="/assets/images/arth-logo.png" width="30" height="30" alt="">
+      </span>
+      <div class="collapse navbar-collapse" id="main-navbar">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }"><a href class="nav-link" routerLink="">{{'common.links.home' | trans}}</a></li>
+          <li class="nav-item dropdown" *ngIf="!isHome()">
+            <a href="#" class="nav-link dropdown-toggle" id="categoriesDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{'common.links.categories' | trans}}</a>
+            <div class="dropdown-menu" aria-labelledby="categoriesDropdown">
+              <a href class="dropdown-item" *ngFor="let category of rootCategories" (click)="goToCateg($event, category)">{{category | catTitle}}</a>
+            </div>
+          </li>
+          <li class="nav-item" [routerLinkActive]="['active']"><a href class="nav-link" routerLink="/brands">{{'common.links.ourbrands' | trans}}</a></li>
+          <li class="nav-item" [routerLinkActive]="['active']"><a href class="nav-link" routerLink="/steels">{{'common.links.steels' | trans}}</a></li>
+          <li class="nav-item" [routerLinkActive]="['active']"><a href class="nav-link" routerLink="/mycart">{{'common.links.mycart' | trans}}</a></li>
+          <li class="nav-item" [routerLinkActive]="['active']"><a href class="nav-link" routerLink="/about">{{'common.links.contact' | trans}}</a></li>
+          <li class="nav-item" [routerLinkActive]="['active']" *ngIf="authService.authenticated()"><a class="nav-link" href routerLink="/profile">{{'common.links.profile' | trans}}</a></li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0" (ngSubmit)="search()">
+          <div class="input-group">
+            <input class="form-control" type="text" name="searchTerm" [(ngModel)]="searchTerm" placeholder="Search" aria-describedby="basic-addon2">
+            <span class="input-group-addon submit-search" id="basic-addon2" (click)="search()"><i class="fa fa-search" aria-hidden="true"></i></span>
+          </div>
+        </form>
+      </div>
+    </nav>
+  </div>
+</div>

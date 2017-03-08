@@ -1,0 +1,71 @@
+
+/********************************
+********* ARTICLE BOX ***********
+*********************************/
+
+.article-box {
+  width: 24%;
+  min-width: 270px;
+  height: 220px;
+  float: left;
+  border: 1px solid #cccccc;
+  padding: 15px;
+  margin: 0.5%;
+}
+
+.article-box .article-box-link {
+  display: flex;
+  justify-content: center;
+  min-height: 140px;
+  cursor: pointer;
+}
+
+.article-box .article-box-link img {
+  align-self: center;
+}
+
+.article-box .article-box-link h3 {
+  align-self: center;
+  margin-left: 10px;
+  font-family: ambleregular;
+  font-size: 1.3em;
+  text-transform: uppercase;
+  color: #6A82A4;
+}
+
+.article-box .price-details {
+  border-top: 1px solid #DC4823;
+  position: relative;
+}
+
+.article-box .price-details .add-cart {
+  border-top: 1px solid #DC4823;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #DC4823;
+  padding: 7px 10px 7px 10px;
+  transition: all 0.5s ease-in-out;
+}
+
+.article-box .price-details .add-cart:hover {
+  text-shadow: 0px 0px 1px #000;
+  background: #292929;
+}
+
+.article-box .price-details .add-cart span {
+  font-family: ambleregular;
+  color: white;
+  font-size: 0.9em;
+}
+
+.article-box .add-cart {
+  cursor: pointer;
+}
+
+.article-box .price-details .price-number {
+  font-family: ambleregular;
+  color: #383838;
+  font-size: 1.6em;
+  padding: 5px;
+}

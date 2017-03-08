@@ -1,0 +1,35 @@
+.categories {
+  min-width: 280px;
+  display: inline-block;
+}
+
+.categories .list-group .list-group-title {
+  font-weight: normal;
+  font-size: 1.1em;
+  color: white;
+  display: block;
+  text-transform: uppercase;
+  background-color: #DC4823;
+  padding: 7px 15px 7px 15px;
+  margin-bottom: 0;
+}
+
+.categories .list-group {
+  font-family: ambleregular;
+  text-transform: uppercase;
+}
+
+.categories .list-group .list-group-item {
+  padding: 4px 10px 4px 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.categories .list-group .list-group-item a {
+  padding: 0 15px;
+  color: #9C9C9C;
+  background: url(/assets/images/drop_arrow.png) no-repeat 0;
+}
+
+.categories .list-group .list-group-item a:hover {
+  color: #DC4823;
+}

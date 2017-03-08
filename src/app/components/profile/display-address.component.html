@@ -1,0 +1,12 @@
+<div class="form-group row form-read-row">
+  <label class="col-form-label col-2">{{'common.label.address' | trans}}</label>
+  <div class="col-5">
+    <p *ngIf="address">
+      {{address.street}}, {{address.houseNumber}} <span *ngIf="address.postbox"> / {{address.postbox}}</span><br/>
+      {{address.postcode}} {{address.city}}<br/>
+      {{address.country}}
+    </p>
+    <p *ngIf="!address" class="alert alert-warning">{{'page.profile.missingaddress' | trans}}</p>
+  </div>
+  <div class="col-5"><button type="button" (click)="editAddress()" class="btn btn-warning">{{'page.profile.edit' | trans}}</button></div>
+</div>

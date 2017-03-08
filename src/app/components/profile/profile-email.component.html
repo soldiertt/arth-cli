@@ -1,0 +1,27 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <fieldset formGroupName="emails">
+    <legend>{{'common.label.email' | trans}}</legend>
+    <div class="form-group">
+      <label for="email">
+        {{'common.label.email' | trans}}
+      </label>
+      <div>
+        <input type="email" name="email" id="email" formControlName="email" maxlength="100" class="form-control">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="emailConfirm">
+        {{'common.label.emailconfirm' | trans}}
+      </label>
+      <div>
+        <input type="email" name="emailConfirm" id="emailConfirm" formControlName="emailConfirm" maxlength="100" class="form-control">
+      </div>
+    </div>
+  </fieldset>
+  <fieldset>
+    <div class="alert alert-danger" *ngIf="form.invalid && submitAttempt">{{'page.profile.pleasefillallrequiredfields' | trans}}</div>
+    <button type="submit" class="btn btn-warning">{{'page.profile.save' | trans}}</button>
+    <button type="button" class="btn btn-secondary" (click)="cancelEdit()">{{'page.profile.cancel' | trans}}</button>
+  </fieldset>
+</form>
+

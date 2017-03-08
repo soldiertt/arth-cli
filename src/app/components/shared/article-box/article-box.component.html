@@ -1,0 +1,14 @@
+<div class="article-box">
+  <div class="article-box-link" [routerLink]="['/detail', article.id]">
+    <img [src]="miniPicture(article)" alt="{{ article.name}}" />
+    <h3>{{ article.name}}</h3>
+  </div>
+  <div class="price-details">
+    <div class="price-number">
+      {{ article.price}} €
+    </div>
+    <div class="add-cart" (click)="addToCart(article)">
+      <span>{{'common.links.addtocart' | trans}}</span>
+    </div>
+  </div>
+</div>

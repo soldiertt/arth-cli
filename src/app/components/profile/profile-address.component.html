@@ -1,0 +1,53 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <fieldset>
+    <legend>{{'common.label.address' | trans}}</legend>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="street">{{'common.label.street' | trans}} *</label>
+          <input type="text" name="street" id="street" formControlName="street" maxlength="100" class="form-control">
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <label for="houseNumber">{{'common.label.housenumber' | trans}} *</label>
+          <input type="text" name="houseNumber" id="houseNumber" formControlName="houseNumber" maxlength="10" class="form-control">
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <label for="postbox">{{'common.label.postbox' | trans}}</label>
+          <input type="text" name="postbox" id="postbox" formControlName="postbox" maxlength="10" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="postcode">{{'common.label.postcode' | trans}} *</label>
+          <input type="text" name="postcode" id="postcode" formControlName="postcode" maxlength="10" class="form-control">
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="city">{{'common.label.city' | trans}} *</label>
+          <input type="text" name="city" id="city" formControlName="city" maxlength="100" class="form-control">
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="country">{{'common.label.country' | trans}} *</label>
+          <select id="country" class="form-control" formControlName="country">
+            <option value="">[{{'page.profile.choosecountry' | trans}}]</option>
+            <option *ngFor="let country of countries" [value]="country.alpha2">{{country.name_fr}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </fieldset>
+  <fieldset>
+    <div class="alert alert-danger" *ngIf="form.invalid && submitAttempt">{{'page.profile.pleasefillallrequiredfields' | trans}}</div>
+    <button type="submit" class="btn btn-warning">{{'page.profile.save' | trans}}</button>
+    <button type="button" class="btn btn-secondary" (click)="cancelEdit()">{{'page.profile.cancel' | trans}}</button>
+  </fieldset>
+</form>

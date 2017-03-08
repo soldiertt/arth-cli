@@ -1,0 +1,16 @@
+<div class="main">
+  <div class="content">
+    <div class="content_top">
+      <div class="heading">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item responsive-hidden-small"><a href routerLink="">{{'common.links.home' | trans}}</a></li>
+          <li class="breadcrumb-item"*ngIf="parentCategory"><a href [routerLink]="['/parent-categ', parentCategory.name]" >{{parentCategory | catTitle}}</a></li>
+          <li class="breadcrumb-item">{{category | catTitle}}</li>
+         </ol>
+      </div>
+    </div>
+    <div>
+      <arth-article-box *ngFor="let article of articles" [article]="article"></arth-article-box>
+    </div>
+  </div>
+</div>

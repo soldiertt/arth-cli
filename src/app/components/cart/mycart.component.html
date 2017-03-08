@@ -1,0 +1,54 @@
+<h1>{{'common.links.mycart' | trans}} - {{cart.totalCount}} {{'common.label.article-pp' | trans}}</h1>
+<table class="table table-mycart table-striped" *ngIf="cart.orders.length">
+  <thead>
+    <tr>
+      <th></th>
+      <th>{{'common.label.article' | trans}}</th>
+      <th class="price-cell">{{'common.label.price' | trans}}</th>
+      <th>{{'common.label.quantity' | trans}}</th>
+      <th class="amount-cell">{{'common.label.total' | trans}}</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let order of cart.orders">
+      <td class="picture-cell">
+        <a href [routerLink]="['/detail', order.article.id]">
+          <img class="product-image-photo" [src]="miniPicture(order.article)" [attr.alt]="order.article.name">
+        </a>
+       </td>
+      <td class="name-cell">
+        <a href [routerLink]="['/detail', order.article.id]">{{order.article.name}}</a>
+      </td>
+      <td class="price-cell">{{order.article.price | number : '1.2-2'}} €</td>
+      <td class="qty-cell">{{order.count}}
+        <span>
+          <a href (click)="removeArticle($event, order.article.id)" *ngIf="order.count > 1">
+              <i class="fa fa-minus-circle" aria-hidden="true" title="{{'page.mycart.removearticle' | trans}}"></i>
+          </a>
+          <a href (click)="addArticle($event, order.article)">
+            <i class="fa fa-plus-circle" aria-hidden="true" title="{{'page.mycart.addarticle' | trans}}"></i>
+          </a>
+        </span>
+      </td>
+      <td class="amount-cell">{{order.article.price * order.count | number : '1.2-2'}} €</td>
+      <td>
+        <span>
+        <a href (click)="removeOrder($event, order.article.id)">
+          <i class="fa fa-times" aria-hidden="true" title="{{'page.mycart.removefromcart' | trans}}"></i>
+        </a>
+        </span>
+      </td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="4" class="total-cell">{{'common.label.total' | trans}} : </td>
+      <td class="cart-total">{{cart.totalAmount | number : '1.2-2'}} €</td>
+      <td>
+        <div id="paypal-button" [hidden]="isNotOnStep(4)"></div>
+      </td>
+    </tr>
+  </tfoot>
+</table>
+

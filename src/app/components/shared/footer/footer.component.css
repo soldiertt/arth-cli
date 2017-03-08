@@ -1,0 +1,21 @@
+#footer {
+  font-family: ambleregular;
+  border-top: 1px solid #ccc;
+  margin-top: 50px;
+}
+#footer h4 {
+  font-size: 1.2em;
+  text-transform: uppercase;
+  padding: 10px 15px 15px 15px;
+  border-bottom: 1px solid #ccc;
+}
+#footer .footer-column {
+  padding: 0;
+  border-left: 1px solid #ccc;
+}
+#footer ul {
+  margin-left: 15px;
+}
+#footer .copy_right {
+  text-align: center;
+}

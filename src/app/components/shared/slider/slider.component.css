@@ -1,0 +1,18 @@
+.carousel-inner img {
+  max-height: 400px;
+  opacity: 0.7;
+}
+.carousel-caption {
+  color:#cd1f25;
+  font-size: 1.5em;
+  font-family: arial;
+}
+.carousel-caption .title1 {
+  font-size: 4em;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+.carousel-caption .title2 {
+  font-size: 2em;
+  font-weight: bold;
+}

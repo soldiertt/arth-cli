@@ -1,0 +1,11 @@
+.contact-info {
+  padding: 20px;
+  font-size: 1.2em;
+  font-family: arial;
+}
+.contact-info p {
+  margin-top: 15px;
+}
+.company {
+  font-weight: bold;
+}

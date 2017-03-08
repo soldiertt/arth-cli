@@ -1,0 +1,21 @@
+<div class="main">
+  <div class="content">
+    <div class="content_top">
+      <div class="heading">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item responsive-hidden-small"><a href routerLink="">{{'common.links.home' | trans}}</a></li>
+          <li class="breadcrumb-item">Search for '{{searchTerm}}'</li>
+          <li class="breadcrumb-item breadcrumb-item-right"><span class="option">{{'common.label.sortby' | trans}}</span>
+            <select name="orderBy" [(ngModel)]="orderBy">
+              <option value="name">{{'common.label.name' | trans}}</option>
+              <option value="price">{{'common.label.price' | trans}}</option>
+            </select>
+          </li>
+        </ol>
+      </div>
+    </div>
+    <div>
+      <arth-article-box *ngFor="let article of articles | orderBy : orderBy" [article]="article"></arth-article-box>
+    </div>
+  </div>
+</div>

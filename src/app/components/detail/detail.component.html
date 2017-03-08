@@ -1,0 +1,65 @@
+<div class="main">
+  <div class="content">
+    <div class="content_top">
+      <div class="heading">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item responsive-hidden-small"><a href routerLink="">{{'common.links.home' | trans}}</a></li>
+          <li class="breadcrumb-item" *ngIf="parentCategory"><a href [routerLink]="['/parent-categ', parentCategory.name]" >{{parentCategory | catTitle}}</a></li>
+          <li class="breadcrumb-item" *ngIf="category"><a href [routerLink]="['/categ', category.name]">{{category | catTitle}}</a></li>
+        </ol>
+      </div>
+    </div>
+    <div>
+      <div class="article" *ngIf="article">
+        <div class="article-picture">
+          <div *ngFor="let img of images; let i= index">
+            <div>
+              <img src="{{img.img}}" (click)="openImageModal(img.img, images)" [class.zoomable]="needZoom" (mouseenter)="detectImageSize($event)" alt='Image' />
+            </div>
+          </div>
+          <div *ngIf="openModalWindow">
+            <imageModal [modalImages]="images" [imagePointer] = "imagePointer" (cancelEvent) ="cancelImageModal()"></imageModal>
+          </div>
+        </div>
+        <div class="article-desc">
+          <div class="name">{{article.name}}</div>
+          <p class="strong" [innerHtml]="article.description"></p>
+          <p *ngIf="article.marque">{{'common.label.brand' | trans}} : <span class="strong">{{article.marque}}</span></p>
+          <p *ngIf="article.steel">{{'common.label.steel' | trans}} : <span class="strong">{{article.acier}}</span></p>
+          <p *ngIf="article.size">{{'common.label.size' | trans}} : <span class="strong">{{article.size}}</span></p>
+          <p *ngIf="article.manche">{{'common.label.handle' | trans}} : <span class="strong">{{article.manche}}</span></p>
+          <p *ngIf="article.piece">{{'common.label.unit' | trans}} : <span class="strong">{{article.piece}}</span></p>
+          <div class="price">
+            <p>Price: <span>{{article?.price | currency:'EUR':true}}</span></p>
+          </div>
+          <div class="buttons">
+            <ul>
+              <li><button class="btn-detail" (click)="addToCart(article)">{{'common.links.addtocart' | trans}}</button></li>
+              <li><button class="btn-detail" (click)="wishlistService.addArticle(article)">{{'common.links.addtowishlist' | trans}}</button></li>
+            </ul>
+          </div>
+        </div>
+        <div class="wrap clear"></div>
+
+        <ul class="nav nav-tabs" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#tab-details" role="tab">Product Details</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#tab-review" role="tab">Product Reviews</a>
+          </li>
+        </ul>
+
+        <div class="tab-content">
+          <div class="tab-pane fade show active" id="tab-details" role="tabpanel">
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+          </div>
+          <div class="tab-pane fade" id="tab-review" role="tabpanel">
+            <h4>Lorem ipsum Review by</h4>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

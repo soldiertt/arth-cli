@@ -1,0 +1,56 @@
+<h1>{{'page.profile.title' | trans}}</h1>
+<div class="alert alert-success" *ngIf="profileUpdated">{{'page.profile.updatesuccess' | trans}}</div>
+<div *ngIf="!editMode">
+  <form class="read-details-form" >
+    <div class="form-group row form-read-row">
+      <label class="col-form-label col-2">{{'common.label.name' | trans}}</label>
+      <div class="col-10">{{userProfile?.name}}</div>
+    </div>
+    <div class="form-group row form-read-row">
+      <label class="col-form-label col-2">{{'common.label.email' | trans}}</label>
+      <div class="col-5">{{email}}</div>
+      <div class="col-5"><button type="button" (click)="editEmail()" class="btn btn-warning">{{'page.profile.edit' | trans}}</button></div>
+    </div>
+    <arth-display-address (edit)="editAddress()" [address]="deliveryAddress"></arth-display-address>
+  </form>
+</div>
+
+<arth-profile-email [email]="email" (onUpdateMetaData)="updateMetaData($event)" (onCancelEdit)="cancelEdit($event)" *ngIf="editedItem == 'email'"></arth-profile-email>
+<arth-profile-address [address]="deliveryAddress" (onUpdateMetaData)="updateMetaData($event)" (onCancelEdit)="cancelEdit($event)" *ngIf="editedItem == 'address'"></arth-profile-address>
+
+<div *ngIf="!editMode">
+  <h1>{{'page.profile.myorders' | trans}}</h1>
+  <ul>
+    <li *ngFor="let paypalOrder of paypalOrders">
+      <h2>{{paypalOrder.orderDate | date}} - {{paypalOrder.parsedJson.total | currency:'EUR':true}}</h2>
+      <table class="table table-mycart table-striped">
+        <thead>
+        <tr>
+          <th>{{'common.label.article' | trans}}</th>
+          <th class="price-cell">{{'common.label.price' | trans}}</th>
+          <th>{{'common.label.quantity' | trans}}</th>
+          <th class="amount-cell">{{'common.label.total' | trans}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of paypalOrder.parsedJson.items">
+          <td class="name-cell">
+            <span>{{item.name}}</span>
+          </td>
+          <td class="price-cell">{{item.price | currency:'EUR':true}}</td>
+          <td class="qty-cell">{{item.quantity}}</td>
+          <td class="amount-cell">{{item.price * item.quantity | currency:'EUR':true}}</td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+          <td colspan="3" class="total-cell">{{'common.label.total' | trans}} : </td>
+          <td class="cart-total">
+            {{total | currency:'EUR':true}}
+          </td>
+        </tr>
+        </tfoot>
+      </table>
+    </li>
+  </ul>
+</div>

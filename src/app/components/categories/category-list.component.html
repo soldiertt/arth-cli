@@ -1,0 +1,8 @@
+<div class="categories">
+  <ul class="list-group">
+    <li class="list-group-item list-group-title">{{'common.links.categories' | trans}} <span class="caret"></span></li>
+    <li *ngFor="let category of rootCategories" class="list-group-item">
+      <a href (click)="goToCateg($event, category)">{{category | catTitle}}</a>
+    </li>
+  </ul>
+</div>

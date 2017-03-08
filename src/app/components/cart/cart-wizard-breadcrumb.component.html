@@ -1,0 +1,27 @@
+<ul class="cart-wizard-breadcrumb">
+  <li><a href
+         [class.done]="hasArticles()"
+         (click)="goToStep(1, $event)" >1. {{'page.mycart.breadcrumb.myarticles' | trans}}</a>
+  </li>
+  <li><a href
+         [class.done]="isAuthenticated()"
+         [class.disabled]="isAuthenticated()"
+         (click)="signinAndGoToNext($event)" >2. {{'page.mycart.breadcrumb.signin' | trans}}</a>
+  </li>
+  <li><a href
+         [class.done]="hasArticles() && isAuthenticated() && isAtLeast(4)"
+         [class.disabled]="!isAuthenticated()"
+         [class.active]="isOnStep(3)"
+         (click)="goToStep(3, $event)">3. {{'page.mycart.breadcrumb.mycontactdetails' | trans}}</a>
+  </li>
+  <li><a href
+         [class.done]="hasArticles() && isAuthenticated() && isOnStep(5)"
+         [class.active]="isOnStep(4)"
+         [class.disabled]="lowerThanStep(4)"
+         (click)="goToStep(4, $event)">4. {{'page.mycart.breadcrumb.payment' | trans}}</a>
+  </li>
+  <li><a href
+         [class.active]="isOnStep(5)"
+         [class.disabled]="lowerThanStep(5)">5. {{'page.mycart.breadcrumb.validateorder' | trans}}</a>
+  </li>
+</ul>

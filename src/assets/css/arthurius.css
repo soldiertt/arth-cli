@@ -1,0 +1,195 @@
+/********************************
+********* GLOBAL ****************
+*********************************/
+
+@font-face {
+  font-family: ambleregular;
+  src:  url(../font/amble-regular-webfont.ttf) format('truetype');
+  src:  url(../font/amble-regular-webfont.woff) format('woff'),
+        url(../font/amble-regular-webfont.woff2) format('woff2');
+  font-weight: normal;
+}
+
+body {
+  font-family: arial;
+  font-size: 0.9em;
+}
+
+h1 {
+  margin-top: 10px;
+  font-size: 20px;
+  border:1px solid #ddd;
+  border-radius: 4px;
+  padding: 15px;
+  font-family: ambleregular;
+  text-transform: uppercase;
+  color:#383838;
+  background-color: #eee;
+}
+
+h2 {
+  margin-top: 10px;
+  font-size: 18px;
+  border:1px solid #ddd;
+  border-radius: 4px;
+  padding: 10px;
+  font-family: ambleregular;
+  text-transform: uppercase;
+  color:#383838;
+  background-color: #eee;
+}
+
+ul {
+  padding: 0;
+}
+
+ul li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: #DC4823;
+}
+
+a:visited {
+  color: #DC4823;
+}
+
+a:hover {
+  text-decoration: none;
+  color: #BC2803;
+}
+
+.right {
+  float: right;
+}
+
+.clear {
+  clear:both;
+}
+
+.wrap {
+  width:80%;
+  margin: 0 auto;
+}
+
+.content_bottom {
+  margin-top: 10px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+/********************************
+*********** BOX LINK ************
+*********************************/
+
+.box-link {
+  float: left;
+  width: 200px;
+  padding:3px;
+  font-family: ambleregular;
+  background-color: #eee;
+  text-align: center;
+  border:1px solid #aaa;
+  border-radius: 4px;
+  margin: 5px;
+  cursor: pointer;
+  transition: all 0.5s ease-in-out;
+  color:#DC4823;
+  font-size: 1.1em;
+}
+
+.box-link:hover {
+  background-color: #DC4823;
+  color: white;
+}
+
+
+/********************************
+********* DIVERS ****************
+*********************************/
+
+.right {
+  float: right;
+}
+
+/********************************
+******* RESPONSIVE LAYOUT *******
+*********************************/
+@media only screen and (max-width: 1024px) {
+  .wrap {
+    width: 90%;
+  }
+}
+@media only screen and (max-width: 800px) {
+  .wrap {
+    width: 95%;
+  }
+}
+@media only screen and (max-width: 640px) {
+  .wrap {
+    width: 95%;
+  }
+}
+@media only screen and (max-width: 480px) {
+  .wrap {
+    width: 95%;
+  }
+  .responsive-hidden-small {
+    display: none !important;
+  }
+}
+@media only screen and (max-width: 320px) {
+  .wrap {
+    width: 95%;
+  }
+  .responsive-hidden-small {
+    display: none !important;
+  }
+}
+
+/********************************
+****** BOOTSTRAP OVERRIDES ******
+*********************************/
+
+/* Override bootstrap styles for dropdown */
+.dropdown .dropdown-toggle {
+  cursor:pointer;
+}
+
+.breadcrumb {
+  margin: 0;
+  background-color: white;
+  border: 1px solid #ddd;
+  padding: 5px 10px 5px 10px;
+  font-size: 1.2em;
+  text-transform: uppercase;
+}
+
+.breadcrumb li {
+  line-height: 2em;
+}
+
+.breadcrumb-item-right {
+  float: right;
+}
+
+.breadcrumb-item + .breadcrumb-item-right::before {
+  content: "";
+}
+
+.breadcrumb-item .option {
+  text-transform: none;
+}
+
+.breadcrumb-item select {
+  border-radius: 4px;
+  padding: 4px;
+}
+
+.btn {
+  cursor: pointer;
+}
