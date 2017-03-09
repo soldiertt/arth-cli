@@ -41,7 +41,6 @@ import {ProfileEmailComponent} from "./components/profile/profile-email.componen
 import {ProfileAddressComponent} from "./components/profile/profile-address.component";
 import {CartWizardComponent} from "./components/cart/cart-wizard.component";
 import {environment} from "../environments/environment";
-import {ModalGalleryModule} from "angular-modal-gallery";
 import {SearchComponent} from "./components/search/search.component";
 import {DisplayAddressComponent} from "./components/profile/display-address.component";
 import {ConfirmAddressComponent} from "./components/cart/confirm-address.component";
@@ -85,8 +84,7 @@ import {SortPipe} from "./pipe/sort.pipe";
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-    RouterModule.forRoot(rootRouterConfig),
-    ModalGalleryModule.forRoot()],
+    RouterModule.forRoot(rootRouterConfig)],
   providers   : [
     ArthuriusEventsService,
     ArticleRestService,

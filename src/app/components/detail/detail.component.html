@@ -12,14 +12,10 @@
     <div>
       <div class="article" *ngIf="article">
         <div class="article-picture">
-          <div *ngFor="let img of images; let i= index">
-            <div>
-              <img src="{{img.img}}" (click)="openImageModal(img.img, images)" [class.zoomable]="needZoom" (mouseenter)="detectImageSize($event)" alt='Image' />
-            </div>
-          </div>
-          <div *ngIf="openModalWindow">
-            <imageModal [modalImages]="images" [imagePointer] = "imagePointer" (cancelEvent) ="cancelImageModal()"></imageModal>
-          </div>
+          <a [href]="largePicture()" class="fancyboxImg" rel="gallery" alt="Image" [hidden]="!needZoom">
+            <img class="zoomable" [src]="largePicture()" />
+          </a>
+          <img (mouseenter)="detectImageSize($event)" [src]="largePicture()" [hidden]="needZoom" />
         </div>
         <div class="article-desc">
           <div class="name">{{article.name}}</div>
@@ -28,9 +24,9 @@
           <p *ngIf="article.steel">{{'common.label.steel' | trans}} : <span class="strong">{{article.acier}}</span></p>
           <p *ngIf="article.size">{{'common.label.size' | trans}} : <span class="strong">{{article.size}}</span></p>
           <p *ngIf="article.manche">{{'common.label.handle' | trans}} : <span class="strong">{{article.manche}}</span></p>
-          <p *ngIf="article.piece">{{'common.label.unit' | trans}} : <span class="strong">{{article.piece}}</span></p>
+          <p *ngIf="article.comment"><span class="strong comment" [innerHtml]="article.comment"></span></p>
           <div class="price">
-            <p>Price: <span>{{article?.price | currency:'EUR':true}}</span></p>
+            <p>{{'common.label.price' | trans}} : <span>{{article?.price | currency:'EUR':true}}</span></p>
           </div>
           <div class="buttons">
             <ul>
@@ -52,7 +48,9 @@
 
         <div class="tab-content">
           <div class="tab-pane fade show active" id="tab-details" role="tabpanel">
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+            <div *ngIf="article.youtube_ref">
+              <a class="fancyboxVideo fancybox.iframe" href="http://www.youtube.com/embed/{{article.youtube_ref}}" title="{{article.name}}"><img id="youtube_vid" src="/assets/images/youtube.jpg"></a>
+            </div>
           </div>
           <div class="tab-pane fade" id="tab-review" role="tabpanel">
             <h4>Lorem ipsum Review by</h4>

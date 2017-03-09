@@ -34,6 +34,10 @@
   color: #767676;
 }
 
+.article-desc .comment {
+  font-size: 1.5em;
+}
+
 .article-desc .name {
   font-family: ambleregular;
   color:#DC4823;
@@ -76,4 +80,9 @@
 
 .article .buttons .btn-detail:hover {
   background-color: #525252;
+}
+
+.youtube-iframe {
+  width: 100%;
+  min-height: 500px;
 }

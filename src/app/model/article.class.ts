@@ -9,7 +9,8 @@ export default class Article {
   manche: string;
   acier: string;
   size: string;
-  promo: string;
+  youtube_ref: string;
+  promo: boolean;
   price: number;
-  piece: string;
+  comment: string;
 }
