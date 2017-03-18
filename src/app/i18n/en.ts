@@ -28,25 +28,30 @@ export default {
       removearticle: 'Remove one article',
       removefromcart: 'Remove from cart',
       addarticle: 'Add one article',
-      paymentconfirmation: 'Payment confirmation',
-      confirmpayment: 'Confirm payment',
+      paymentconfirmation: 'Payment validation',
+      confirmpayment: 'Execute payment',
       buyer: 'Buyer',
       paymentsuccess: 'Payment was successfully executed !',
       breadcrumb : {
         myarticles: 'My articles',
         signin: 'Sign in',
-        mycontactdetails: 'Mes contact details',
-        payment: 'Payment',
-        validateorder: 'Validate order'
+        mycontactdetails: 'My contact details',
+        payment: 'Payment details',
+        validateorder: 'Execute payment'
       }
     },
     profile: {
       choosecountry: 'Choose a country',
       cancel: 'Cancel',
+      canceldeleteaccount: 'Cancel request',
       confirm: 'Confirm',
+      confirmdeleteaccount: 'Are you sure to delete your account ? You will lose your contact details and your previous orders.',
+      deleteaccount: 'Delete my account',
       edit: 'Edit',
       missingaddress: 'Missing or incomplete address, please add a delivery address.',
       myorders: 'My orders',
+      options: 'Options',
+      pendingremovalrequest: 'There is a pending request for the removal of your account.',
       pleasefillallrequiredfields: 'Please fill all mandatory fields !',
       save: 'Save',
       title: 'My contact details',
@@ -85,6 +90,8 @@ export default {
       handle: 'Handle',
       housenumber: 'House number',
       name: 'Name',
+      no: 'No',
+      phone: 'Phone',
       postbox: 'Box',
       postcode: 'Postcode',
       price: 'Price',
@@ -94,7 +101,8 @@ export default {
       steel: 'Steel',
       street: 'Street',
       total: 'Total',
-      unit: 'Unit(s)'
+      unit: 'Unit(s)',
+      yes: 'Yes'
     },
     links: {
       addtocart: 'Add to cart',

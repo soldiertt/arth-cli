@@ -46,6 +46,8 @@ import {DisplayAddressComponent} from "./components/profile/display-address.comp
 import {ConfirmAddressComponent} from "./components/cart/confirm-address.component";
 import {ArthuriusEventsService} from "./service/arthurius-events.service";
 import {SortPipe} from "./pipe/sort.pipe";
+import {OrdersComponent} from "./components/profile/orders-component";
+import {MailService} from "./service/mail.service";
 
 @NgModule({
   declarations: [
@@ -69,6 +71,7 @@ import {SortPipe} from "./pipe/sort.pipe";
     HomeComponent,
     I18nPipe,
     MyCartComponent,
+    OrdersComponent,
     ParentCategoryComponent,
     PaymentConfirmComponent,
     ProfileAddressComponent,
@@ -94,6 +97,7 @@ import {SortPipe} from "./pipe/sort.pipe";
     CountryRestService,
     I18nService,
     JQueryService,
+    MailService,
     PaypalOrderRestService,
     PaypalRestService,
     SessionService,

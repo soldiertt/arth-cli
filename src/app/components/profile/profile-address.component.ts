@@ -5,6 +5,7 @@ import Country from "../../model/country.class";
 import {FormComponent} from "../form.component";
 import UserMetaData from "../../model/usermetadata.class";
 import UserAddress from "../../model/user-address";
+import UserAddresses from "../../model/user-addresses.class";
 
 @Component({
   selector: 'arth-profile-address',
@@ -14,6 +15,8 @@ import UserAddress from "../../model/user-address";
 export class ProfileAddressComponent extends FormComponent implements OnInit {
 
   @Input() address: UserAddress;
+  @Input() phone: string;
+
   countries: Country[];
 
   constructor(private fb: FormBuilder, private countryRestService: CountryRestService) {
@@ -23,6 +26,7 @@ export class ProfileAddressComponent extends FormComponent implements OnInit {
   ngOnInit() {
 
     this.form = this.fb.group({
+      phone: this.fb.control("", [Validators.required, Validators.maxLength(100)]),
       street: this.fb.control("", [Validators.required, Validators.maxLength(100)]),
       houseNumber: this.fb.control("", [Validators.required, Validators.maxLength(10)]),
       postbox: this.fb.control("", [Validators.maxLength(10)]),
@@ -44,8 +48,14 @@ export class ProfileAddressComponent extends FormComponent implements OnInit {
   save(): void {
     this.submitAttempt = true;
     if (this.form.valid) {
-      let deliveryAddress: any = {delivery: this.form.value};
-      let userMetadata: UserMetaData = {addresses: deliveryAddress, profileComplete: true};
+      let deliveryAddress: UserAddresses = {delivery: {street: this.form.get("street").value,
+                                                        houseNumber: this.form.get("houseNumber").value,
+                                                        postbox: this.form.get("postbox").value,
+                                                        postcode: this.form.get("postcode").value,
+                                                        city: this.form.get("city").value,
+                                                        country: this.form.get("country").value
+                                                      }};
+      let userMetadata: UserMetaData = {addresses: deliveryAddress, phone: this.form.get("phone").value, profileComplete: true};
       this.onUpdateMetaData.emit(userMetadata);
     }
   }
@@ -57,6 +67,7 @@ export class ProfileAddressComponent extends FormComponent implements OnInit {
 
   private _fillFormWithData() {
     if (this.address) {
+      this.form.get('phone').setValue(this.phone);
       this.form.get('street').setValue(this.address.street);
       this.form.get('houseNumber').setValue(this.address.houseNumber);
       this.form.get('postbox').setValue(this.address.postbox);

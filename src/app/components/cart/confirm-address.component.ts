@@ -13,6 +13,7 @@ export class ConfirmAddressComponent implements OnInit{
   editMode: boolean = false;
   editedItem: string;
   deliveryAddress: UserAddress;
+  phone: string;
   userProfile: UserProfile;
   profileUpdated: boolean;
 
@@ -59,9 +60,12 @@ export class ConfirmAddressComponent implements OnInit{
   }
 
   private _updateLocalData(): void {
-    if (this.userProfile) {
-      if (this.userProfile.user_metadata && this.userProfile.user_metadata.addresses) {
+    if (this.userProfile && this.userProfile.user_metadata) {
+      if (this.userProfile.user_metadata.addresses) {
           this.deliveryAddress = this.userProfile.user_metadata.addresses.delivery;
+      }
+      if (this.userProfile.user_metadata.phone) {
+        this.phone = this.userProfile.user_metadata.phone;
       }
     }
   }

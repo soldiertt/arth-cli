@@ -2,9 +2,10 @@ import {Component, OnInit} from "@angular/core";
 import {UserRestService} from "../../service/user.rest.service";
 import UserProfile from "../../model/user-profile.class";
 import UserAddress from "../../model/user-address";
-import PaypalOrder from "../../model/paypalorder.class";
-import {PaypalOrderRestService} from "../../service/paypalorder.rest.service";
 import {SessionService} from "../../service/session.service";
+import UserMetaData from "../../model/usermetadata.class";
+import {MailService} from "../../service/mail.service";
+import Mail from "../../model/mail.class";
 
 @Component({
   selector: 'arth-profile',
@@ -18,16 +19,17 @@ export class ProfileComponent implements OnInit {
   userProfile: UserProfile;
   deliveryAddress: UserAddress;
   email: string;
-  paypalOrders: PaypalOrder[];
+  pendingRemoval: boolean;
+  phone: string;
 
   constructor(private userRestService: UserRestService,
-              private paypalOrderRestService: PaypalOrderRestService,
-              private sessionService: SessionService) {}
+              private sessionService: SessionService,
+              private mailService: MailService) {}
 
   ngOnInit() {
     this.userProfile = this.sessionService.getProfile();
     this._updateLocalData();
-    this._loadOrders();
+
   }
 
   editAddress(): void {
@@ -54,15 +56,44 @@ export class ProfileComponent implements OnInit {
       this.editedItem = undefined;
       this.editMode = false;
     });
+  }
 
+  askForRemoval() : void {
+    let userMetaData: UserMetaData = {pendingRemoval: true};
+    this.updateMetaData(userMetaData);
+    let mail: Mail = new Mail();
+    mail.recipientEmail = "soldiertt@gmail.com";
+    mail.recipientName = "Jean-Louis Bourlet";
+    mail.template = "ACCOUNT_DELETION";
+    mail.parameters = {"userEmail" : this.email, "userId": this.userProfile.user_id};
+    this.mailService.sendMail(mail).subscribe(resp => {
+      console.log("Mail sent !");
+    });
+  }
+
+  cancelAskForRemoval() : void {
+    let userMetaData: UserMetaData = {pendingRemoval: false};
+    this.updateMetaData(userMetaData);
+    let mail: Mail = new Mail();
+    mail.recipientEmail = "soldiertt@gmail.com";
+    mail.recipientName = "Jean-Louis Bourlet";
+    mail.template = "ACCOUNT_DELETION_CANCEL";
+    mail.parameters = {"userEmail" : this.email, "userId": this.userProfile.user_id};
+    this.mailService.sendMail(mail).subscribe(resp => {
+      console.log("Mail sent !");
+    });
   }
 
   private _updateLocalData(): void {
     if (this.userProfile) {
       if (this.userProfile.user_metadata) {
+        this.pendingRemoval = this.userProfile.user_metadata.pendingRemoval ? this.userProfile.user_metadata.pendingRemoval : false;
         this.email = this.userProfile.user_metadata.email;
         if (this.userProfile.user_metadata.addresses) {
           this.deliveryAddress = this.userProfile.user_metadata.addresses.delivery;
+        }
+        if (this.userProfile.user_metadata.phone) {
+          this.phone = this.userProfile.user_metadata.phone;
         }
       }
       if (!this.email) {
@@ -71,14 +102,5 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  private _loadOrders(): void {
-    if (this.userProfile) {
-      this.paypalOrderRestService.listAllByUser(this.userProfile.user_id).subscribe((orders) => {
-        this.paypalOrders = orders;
-        this.paypalOrders.forEach(paypalOrder => {
-          paypalOrder.parsedJson = JSON.parse(paypalOrder.json);
-        })
-      });
-    }
-  }
+
 }

@@ -28,25 +28,30 @@ export default {
       removearticle: 'Retirer un article',
       removefromcart: 'Enlever du panier',
       addarticle: 'Ajouter un article',
-      paymentconfirmation: 'Confirmation de paiement',
-      confirmpayment: 'Confirmer le paiement',
+      paymentconfirmation: 'Valider le paiement',
+      confirmpayment: 'Exécuter le paiement',
       buyer: 'Acheteur',
       paymentsuccess: 'Votre paiement a été effectué avec succès !',
       breadcrumb : {
         myarticles: 'Mes articles',
         signin: 'S\'identifier',
         mycontactdetails: 'Mes coordonnées',
-        payment: 'Paiement',
-        validateorder: 'Valider la commande'
+        payment: 'Données de paiement',
+        validateorder: 'Exécuter le paiement'
       }
     },
     profile: {
       choosecountry: 'Choisissez un pays',
       cancel: 'Annuler',
+      canceldeleteaccount: 'Annuler la demande',
       confirm: 'Confirmer',
+      confirmdeleteaccount: 'Êtes-vous de vouloir supprimer votre compte ? Vous perdrez vos coordoonées et votre historique de commandes.',
+      deleteaccount: 'Supprimer mon compte',
       edit: 'Modifier',
       missingaddress: 'Adresse manquante ou incomplète, veuillez ajouter une adresse.',
       myorders: 'Mes commandes',
+      options: 'Options',
+      pendingremovalrequest: 'Une demande de suppression de votre compte est en cours.',
       pleasefillallrequiredfields: 'Veuillez remplir tous les champs obligatoires !',
       save: 'Enregistrer',
       title: 'Mes coordonnées',
@@ -85,6 +90,8 @@ export default {
       handle: 'Manche',
       housenumber: 'Numéro',
       name: 'Nom',
+      no: 'Non',
+      phone: 'Téléphone',
       postbox: 'Boîte',
       postcode: 'Code postal',
       price: 'Prix',
@@ -94,7 +101,8 @@ export default {
       sortby: 'Trier par :',
       steel: 'Acier',
       street: 'Rue',
-      unit: 'Pièce(s)'
+      unit: 'Pièce(s)',
+      yes: 'Oui'
     },
     links: {
       addtocart: 'Ajouter au panier',

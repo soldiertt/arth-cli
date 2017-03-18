@@ -4,4 +4,5 @@ export default class UserMetaData {
   addresses?: UserAddresses;
   phone?: string;
   profileComplete?: boolean;
+  pendingRemoval?: boolean;
 }

@@ -29,24 +29,29 @@ export default {
       removefromcart: 'Verwijderen uit mandje',
       addarticle: 'Een artikel toevoegen',
       paymentconfirmation: 'Betalingsbevestiging',
-      confirmpayment: 'Bevestig betaling',
+      confirmpayment: 'Betaling uitvoeren',
       buyer: 'Koper',
       paymentsuccess: 'De betaling werd succesvol uitgevoerd!',
       breadcrumb : {
         myarticles: 'Mijn artikelen',
         signin: 'Aanmelden',
         mycontactdetails: 'Mijn contactgegevens',
-        payment: 'Betaling',
-        validateorder: 'Bestelling bevestigen'
+        payment: 'Betalingsdetails',
+        validateorder: 'Betaling uitvoeren'
       }
     },
     profile: {
       choosecountry: 'Selecteer een land',
       cancel: 'Annuleren',
+      canceldeleteaccount: 'Annuleer verzoek',
       confirm: 'Bevestigen',
+      confirmdeleteaccount: 'Wilt u uw profiel verwijderen? U verliest uw gegevens en uw bestelling historisch.',
+      deleteaccount: 'Mijn profiel verwijderen',
       edit: 'Wijzigen',
       missingaddress: 'Ontbrekende of onvolledige adres, voeg dan een afleveradres.',
       myorders: 'Mijn bestellingen',
+      options: 'Opties',
+      pendingremovalrequest: 'Een verzoek om uw account te verwijderen is actueel.',
       pleasefillallrequiredfields: 'Gelieve alle verplichte velden !',
       save: 'Opslaan',
       title: 'Mijn contactgegevens',
@@ -85,6 +90,8 @@ export default {
       handle: 'Mouw',
       housenumber: 'Nummer',
       name: 'Naam',
+      no: 'Nee',
+      phone: 'Telefoon',
       postbox: 'Postbus',
       postcode: 'Postcode',
       price: 'Prijs',
@@ -94,7 +101,8 @@ export default {
       steel: 'Staal',
       street: 'Straat',
       total: 'Totaal',
-      unit: 'Stuk(ken)'
+      unit: 'Stuk(ken)',
+      yes: 'Ja'
     },
     links: {
       addtocart: 'Toevoegen aan mandje',

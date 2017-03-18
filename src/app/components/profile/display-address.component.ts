@@ -7,6 +7,8 @@ import UserAddress from "../../model/user-address";
 export class DisplayAddressComponent {
 
   @Input() address: UserAddress;
+  @Input() phone: string;
+
   @Output() edit: EventEmitter<string> = new EventEmitter();
 
   editAddress(): void {
