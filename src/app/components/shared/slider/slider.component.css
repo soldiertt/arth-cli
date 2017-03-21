@@ -16,3 +16,23 @@
   font-size: 2em;
   font-weight: bold;
 }
+
+.carousel-control-prev-icon {
+  background-image: url('/assets/images/chevron-left.png');
+}
+
+.carousel-control-next-icon {
+  background-image: url('/assets/images/chevron-right.png');
+}
+
+.carousel-indicators .active {
+  background-color: orange;
+}
+
+.carousel-indicators li {
+  background-color: grey;
+}
+
+.carousel-control-prev:hover, .carousel-control-next:hover {
+  background-color: rgba(255, 153, 0, 0.1);
+}

@@ -30,6 +30,5 @@ export class SearchComponent implements OnInit {
 
   set orderBy(value: string) {
     this._orderBy = value;
-    console.log(value);
   }
 }

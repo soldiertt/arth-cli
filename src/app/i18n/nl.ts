@@ -36,8 +36,7 @@ export default {
         myarticles: 'Mijn artikelen',
         signin: 'Aanmelden',
         mycontactdetails: 'Mijn contactgegevens',
-        payment: 'Betalingsdetails',
-        validateorder: 'Betaling uitvoeren'
+        payment: 'Betaling'
       }
     },
     profile: {
@@ -79,6 +78,7 @@ export default {
   common : {
     label: {
       address: 'Afleveradres',
+      allarticles: 'Alle artikelen',
       article: 'Artikel',
       'article-pp': 'artikel(en)',
       brand: 'Merk',
@@ -100,6 +100,7 @@ export default {
       sortby: 'Sorteren op:',
       steel: 'Staal',
       street: 'Straat',
+      topsales: 'Meest verkocht',
       total: 'Totaal',
       unit: 'Stuk(ken)',
       yes: 'Ja'

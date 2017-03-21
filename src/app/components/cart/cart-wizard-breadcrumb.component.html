@@ -15,13 +15,8 @@
          (click)="goToStep(3, $event)">3. {{'page.mycart.breadcrumb.mycontactdetails' | trans}}</a>
   </li>
   <li><a href
-         [class.done]="hasArticles() && isAuthenticated() && isOnStep(5)"
          [class.active]="isOnStep(4)"
          [class.disabled]="lowerThanStep(4)"
          (click)="goToStep(4, $event)">4. {{'page.mycart.breadcrumb.payment' | trans}}</a>
-  </li>
-  <li><a href
-         [class.active]="isOnStep(5)"
-         [class.disabled]="lowerThanStep(5)">5. {{'page.mycart.breadcrumb.validateorder' | trans}}</a>
   </li>
 </ul>

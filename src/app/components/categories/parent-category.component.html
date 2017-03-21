@@ -8,6 +8,8 @@
         </ol>
       </div>
     </div>
+    <arth-topsales [category]="parentCategory" [categoryLevel]="'root'" *ngIf="parentCategory"></arth-topsales>
+    <h3>{{'common.links.categories' | trans}}</h3>
     <div class="content_bottom">
       <div *ngFor="let subCateg of parentCategory?.subCategories" class="box-link" [routerLink]="['/categ', subCateg.name]">
         {{subCateg | catTitle}}

@@ -17,6 +17,7 @@ export class CategArticlesComponent implements OnInit {
   articles: Article[];
   category: Category;
   parentCategory: Category;
+  _orderBy: string = "name";
 
   constructor(private activeRoute:ActivatedRoute,
               private articleRestService: ArticleRestService,
@@ -40,6 +41,14 @@ export class CategArticlesComponent implements OnInit {
         this.articles = articles;
       });
     });
+  }
+
+  get orderBy() {
+    return this._orderBy;
+  }
+
+  set orderBy(value: string) {
+    this._orderBy = value;
   }
 
 }

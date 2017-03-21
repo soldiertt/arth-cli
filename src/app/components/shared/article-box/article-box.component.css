@@ -24,7 +24,7 @@
   align-self: center;
 }
 
-.article-box .article-box-link h3 {
+.article-box .article-box-link .article-name {
   align-self: center;
   margin-left: 10px;
   font-family: ambleregular;

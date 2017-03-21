@@ -29,7 +29,6 @@ import {ArticleRestService} from "./service/article.rest.service";
 import {JQueryService} from "./service/jQuery.service";
 import {CartDropdownComponent} from "./components/shared/cart-dropdown/cart-dropdown.component";
 import {ArticleBoxComponent} from "./components/shared/article-box/article-box.component";
-import {PaymentConfirmComponent} from "./components/cart/paymentconfirm.component";
 import {PaypalRestService} from "./service/paypal.rest.service";
 import {ErrorComponent} from "./components/shared/error/error.component";
 import {PaypalOrderRestService} from "./service/paypalorder.rest.service";
@@ -48,6 +47,8 @@ import {ArthuriusEventsService} from "./service/arthurius-events.service";
 import {SortPipe} from "./pipe/sort.pipe";
 import {OrdersComponent} from "./components/profile/orders-component";
 import {MailService} from "./service/mail.service";
+import {SliderRestService} from "./service/slider.rest.service";
+import {TopSalesComponent} from "./components/shared/topsales/topsales.component";
 
 @NgModule({
   declarations: [
@@ -73,14 +74,14 @@ import {MailService} from "./service/mail.service";
     MyCartComponent,
     OrdersComponent,
     ParentCategoryComponent,
-    PaymentConfirmComponent,
     ProfileAddressComponent,
     ProfileComponent,
     ProfileEmailComponent,
     SliderComponent,
     SearchComponent,
     SteelsComponent,
-    SortPipe
+    SortPipe,
+    TopSalesComponent
   ],
   imports     : [
     BrowserModule,
@@ -101,6 +102,7 @@ import {MailService} from "./service/mail.service";
     PaypalOrderRestService,
     PaypalRestService,
     SessionService,
+    SliderRestService,
     UserRestService,
     { provide: LOCALE_ID, useValue: "fr-BE" },
     { provide: 'REST_ENDPOINT', useValue: environment.restEndpoint}

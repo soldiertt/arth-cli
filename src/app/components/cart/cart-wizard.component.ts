@@ -7,7 +7,7 @@ import Cart from "../../model/cart.class";
 export class CartWizardComponent implements OnInit {
 
   currentStep: number = 0;
-  paymentData: any;
+  done: boolean = false;
   cart: Cart;
 
   constructor(private cartService: CartService) {}
@@ -24,12 +24,8 @@ export class CartWizardComponent implements OnInit {
     this.currentStep = $event;
   }
 
-  paymentConfirmed($event) {
-    this.paymentData = $event;
-    this.currentStep = 5;
-  }
-
   hasArticles(): boolean {
     return this.cart.totalCount > 0;
   }
+
 }

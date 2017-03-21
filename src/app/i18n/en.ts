@@ -36,8 +36,7 @@ export default {
         myarticles: 'My articles',
         signin: 'Sign in',
         mycontactdetails: 'My contact details',
-        payment: 'Payment details',
-        validateorder: 'Execute payment'
+        payment: 'Payment'
       }
     },
     profile: {
@@ -79,6 +78,7 @@ export default {
   common : {
     label: {
       address: 'Delivery address',
+      allarticles: 'All products',
       article: 'Article',
       'article-pp': 'article(s)',
       brand: 'Brand',
@@ -100,6 +100,7 @@ export default {
       sortby: 'Sort by :',
       steel: 'Steel',
       street: 'Street',
+      topsales: 'Top sales',
       total: 'Total',
       unit: 'Unit(s)',
       yes: 'Yes'

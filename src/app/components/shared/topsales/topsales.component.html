@@ -1,0 +1,4 @@
+<div *ngIf="articles?.length">
+  <h3>{{'common.label.topsales' | trans}}</h3>
+  <arth-article-box [article]="article" *ngFor="let article of articles"></arth-article-box>
+</div>

@@ -30,6 +30,18 @@ export class ArticleRestService {
     return this.http.get(this.BASE_URL + "/product", {search: params}).map(res => res.json());
   }
 
+  findTopSalesByLeafCategory(categoryType): Observable<Array<Article>> {
+    let params: URLSearchParams = new URLSearchParams();
+    params.set('leafCategory', categoryType);
+    return this.http.get(this.BASE_URL + "/product/top", {search: params}).map(res => res.json());
+  }
+
+  findTopSalesByRootCategory(categoryType): Observable<Array<Article>> {
+    let params: URLSearchParams = new URLSearchParams();
+    params.set('rootCategory', categoryType);
+    return this.http.get(this.BASE_URL + "/product/top", {search: params}).map(res => res.json());
+  }
+
   findAllBrands(): Observable<Array<Brand>> {
     return this.http.get(this.BASE_URL + "/product/brands").map(res => res.json());
   }

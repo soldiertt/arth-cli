@@ -1,4 +1,8 @@
 <h1>{{'common.links.mycart' | trans}} - {{cart.totalCount}} {{'common.label.article-pp' | trans}}</h1>
+<div id="mainLoading" *ngIf="loading">
+  <img src="assets/images/ajax-loader.gif" />
+</div>
+<div class="alert alert-success" *ngIf="confirmed">{{'page.mycart.paymentsuccess' | trans}}</div>
 <table class="table table-mycart table-striped" *ngIf="cart.orders.length">
   <thead>
     <tr>

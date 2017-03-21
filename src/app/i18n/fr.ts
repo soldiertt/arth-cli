@@ -36,8 +36,7 @@ export default {
         myarticles: 'Mes articles',
         signin: 'S\'identifier',
         mycontactdetails: 'Mes coordonnées',
-        payment: 'Données de paiement',
-        validateorder: 'Exécuter le paiement'
+        payment: 'Paiement'
       }
     },
     profile: {
@@ -79,6 +78,7 @@ export default {
   common : {
     label: {
       address: 'Adresse de livraison',
+      allarticles: 'Tous les articles',
       article: 'Article',
       'article-pp': 'article(s)',
       brand: 'Marque',
@@ -96,11 +96,12 @@ export default {
       postcode: 'Code postal',
       price: 'Prix',
       quantity: 'Quantité',
-      total: 'Total',
       size: 'Taille',
       sortby: 'Trier par :',
       steel: 'Acier',
       street: 'Rue',
+      topsales: 'Top des ventes',
+      total: 'Total',
       unit: 'Pièce(s)',
       yes: 'Oui'
     },

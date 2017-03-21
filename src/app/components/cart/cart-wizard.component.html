@@ -1,8 +1,7 @@
 <div id="main">
   <div id="content">
     <arth-cart-wizard-breadcrumb [step]="currentStep" (moveStep)="stepChanged($event)" *ngIf="hasArticles()"></arth-cart-wizard-breadcrumb>
-    <arth-mycart [step]="currentStep" (paymentConfirmed)="paymentConfirmed($event)" *ngIf="!isOnStep(3) && !isOnStep(5)"></arth-mycart>
+    <arth-mycart [step]="currentStep" *ngIf="!isOnStep(3)" ></arth-mycart>
     <arth-confirm-address (moveStep)="stepChanged($event)" *ngIf="isOnStep(3)"></arth-confirm-address>
-    <arth-payment-confirm [paymentData]="paymentData" *ngIf="isOnStep(5)"></arth-payment-confirm>
   </div>
 </div>

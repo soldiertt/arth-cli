@@ -8,21 +8,16 @@
 
   <!-- Wrapper for slides -->
   <div class="carousel-inner" role="listbox">
-    <div class="carousel-item active">
-      <img class="d-block img-fluid" src="/assets/images/slider-bushnell.png" alt="Bushnell">
-      <div class="carousel-caption">
-        <div class="title1">SALE !!</div>
-        <div class="title2">A vendre d'urgence, fin de stock.</div>
-        <p>Un putain de texte pour une sacré bonne affaire !!</p>
-      </div>
+    <div class="carousel-item" [class.active]="isFirst" *ngFor="let slide of slides; let isFirst = first">
+      <a href="{{slide.link}}">
+        <img class="d-block img-fluid" src="/assets/images/{{slide.image}}" >
+        <div class="carousel-caption">
+          <div class="title1">{{slide.title1}}</div>
+          <div class="title2">{{slide.title2}}</div>
+          <p>{{slide.description}}</p>
+        </div>
+      </a>
     </div>
-    <div class="carousel-item">
-      <img class="d-block img-fluid" src="/assets/images/slider-ledlenser.jpg" alt="Led Lenser">
-    </div>
-    <div class="carousel-item">
-      <img class="d-block img-fluid" src="/assets/images/slider-duk.jpg" alt="Duk">
-    </div>
-
   </div>
 
   <!-- Left and right controls -->
