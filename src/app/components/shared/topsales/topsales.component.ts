@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from "@angular/core";
+import {Component, OnInit, Input, OnChanges, SimpleChanges} from "@angular/core";
 import Article from "../../../model/article.class";
 import Category from "../../../model/category.class";
 import {ArticleRestService} from "../../../service/article.rest.service";
@@ -7,7 +7,7 @@ import {ArticleRestService} from "../../../service/article.rest.service";
   templateUrl: './topsales.component.html',
   styleUrls: ['./topsales.component.css']
 })
-export class TopSalesComponent implements OnInit {
+export class TopSalesComponent implements OnChanges {
 
   @Input() category: Category;
   @Input() categoryLevel: "leaf" | "root";
@@ -16,7 +16,11 @@ export class TopSalesComponent implements OnInit {
 
   constructor(private articleRestService: ArticleRestService) {}
 
-  ngOnInit() {
+  ngOnChanges(changes: SimpleChanges) {
+    this._updateTopSales();
+  }
+
+  private _updateTopSales() {
     if (this.categoryLevel === "leaf") {
       this.articleRestService.findTopSalesByLeafCategory(this.category.name).subscribe(articles => {
         this.articles = articles;

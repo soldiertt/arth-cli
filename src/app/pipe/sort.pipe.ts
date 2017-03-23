@@ -6,8 +6,6 @@ export class SortPipe {
 
   transform(array: Array<Article>, args: string): Array<Object> {
 
-    console.log("calling pipe");
-
     if (array == null) {
       return null;
     }
