@@ -1,10 +1,10 @@
-import { ArthCliPage } from './app.po';
+import { Ang4Page } from './app.po';
 
-describe('arth-cli App', () => {
-  let page: ArthCliPage;
+describe('ang4 App', () => {
+  let page: Ang4Page;
 
   beforeEach(() => {
-    page = new ArthCliPage();
+    page = new Ang4Page();
   });
 
   it('should display message saying app works', () => {

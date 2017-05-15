@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Output, EventEmitter, AfterViewInit} from "@angular/core";
+import {Component, OnInit, Input, Output, EventEmitter, AfterViewInit, OnChanges} from "@angular/core";
 import Cart from "../../model/cart.class";
 import {CartService} from "../../service/cart.service";
 import Article from "../../model/article.class";
@@ -18,7 +18,7 @@ declare var paypal: any;
   templateUrl: 'mycart.component.html',
   styleUrls: ['mycart.component.css']
 })
-export class MyCartComponent implements OnInit, AfterViewInit {
+export class MyCartComponent implements OnInit, OnChanges, AfterViewInit {
 
   @Input() step: number;
   cart: Cart;
@@ -33,6 +33,19 @@ export class MyCartComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.cart = this.cartService.cart;
+  }
+
+  ngOnChanges() {
+    if (this.step === 4) {
+      let country = this.sessionService.getProfile().user_metadata.addresses.delivery.country;
+      this.cartService.computeShipping(country);
+    } else {
+      this.cartService.computeShipping();
+    }
+  }
+
+  isOnStep(step: number) {
+    return this.step === step;
   }
 
   isNotOnStep(step: number) {

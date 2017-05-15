@@ -69,7 +69,7 @@ export class Auth0Service {
   };
 
   public authenticated() {
-    return tokenNotExpired();
+    return tokenNotExpired('id_token');
   };
 
   public logout(event: any) {

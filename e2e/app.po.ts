@@ -1,6 +1,6 @@
-import { browser, element, by } from 'protractor';
+import { browser, by, element } from 'protractor';
 
-export class ArthCliPage {
+export class Ang4Page {
   navigateTo() {
     return browser.get('/');
   }

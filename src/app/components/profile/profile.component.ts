@@ -59,7 +59,8 @@ export class ProfileComponent implements OnInit {
   }
 
   askForRemoval() : void {
-    let userMetaData: UserMetaData = {pendingRemoval: true};
+    let userMetaData: UserMetaData = new UserMetaData();
+    userMetaData.pendingRemoval = true;
     this.updateMetaData(userMetaData);
     let mail: Mail = new Mail();
     mail.recipientEmail = "soldiertt@gmail.com";
@@ -72,7 +73,8 @@ export class ProfileComponent implements OnInit {
   }
 
   cancelAskForRemoval() : void {
-    let userMetaData: UserMetaData = {pendingRemoval: false};
+    let userMetaData: UserMetaData = new UserMetaData();
+    userMetaData.pendingRemoval = false;
     this.updateMetaData(userMetaData);
     let mail: Mail = new Mail();
     mail.recipientEmail = "soldiertt@gmail.com";

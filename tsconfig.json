@@ -1,6 +1,6 @@
 {
+  "compileOnSave": false,
   "compilerOptions": {
-    "module": "commonjs",
     "target": "es5",
     "outDir": "dist/out-tsc",
     "rootDir": ".",
@@ -9,22 +9,19 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "moduleResolution": "node",
-    "baseUrl": "",
+    "baseUrl": "src",
     "typeRoots": ["./node_modules/@types"],
     "types": [
       "core-js",
       "node",
       "auth0-lock"
+    ],
+    "lib": [
+      "es2016",
+      "dom"
     ]
   },
   "exclude": [
     "node_modules"
-  ],
-  "awesomeTypescriptLoaderOptions": {
-    "useWebpackText": true
-  },
-  "allowSyntheticDefaultImports": true,
-  "compileOnSave": false,
-  "buildOnSave": false,
-  "atom": { "rewriteTsconfig": false }
+  ]
 }

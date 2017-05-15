@@ -55,6 +55,19 @@ export class CartService {
     }
   }
 
+  computeShipping(country?: string) {
+    if (country) {
+      if (country === 'BE') {
+        this.cart.shipping = 9;
+      } else {
+        this.cart.shipping = 15;
+      }
+    } else {
+      this.cart.shipping = 0;
+    }
+    this._updateCart();
+  }
+
   emptyCart() {
     this.cart.orders = [];
     this._updateCart();
@@ -67,6 +80,7 @@ export class CartService {
       this.cart.totalCount += order.count;
       this.cart.totalAmount += (order.count * order.article.price);
     });
+    this.cart.totalAmount+= this.cart.shipping;
     this.sessionService.saveCart(this.cart);
   }
 

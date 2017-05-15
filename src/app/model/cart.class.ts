@@ -13,10 +13,12 @@ export default class Cart {
   totalAmount: number;
   totalCount: number;
   orders: Order[];
+  shipping: number;
 
   constructor() {
     this.totalAmount = 0;
     this.totalCount = 0;
     this.orders = [];
+    this.shipping = 0;
   }
 }

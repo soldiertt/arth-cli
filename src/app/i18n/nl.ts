@@ -1,5 +1,10 @@
 export default {
   comp: {
+    footer: {
+      followus: 'Volg ons',
+      information: 'Informatie',
+      myaccount: 'Mijn profiel'
+    },
     header: {
       contactus: "contact ons",
       questions: 'Vragen?',
