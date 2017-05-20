@@ -7,13 +7,19 @@ import Auth0Lock from 'auth0-lock';
 import {SessionService} from "./session.service";
 import {I18nService} from "../i18n/i18n.service";
 import {ArthuriusEventsService} from "./arthurius-events.service";
+import UserMetaData from "../model/usermetadata.class";
+import {UserRestService} from "./user.rest.service";
 
 @Injectable()
 export class Auth0Service {
 
   lock: any;
 
-  constructor(private router: Router, private sessionService: SessionService, private i18nService: I18nService, private eventsService: ArthuriusEventsService) {
+  constructor(private router: Router,
+              private sessionService: SessionService,
+              private i18nService: I18nService,
+              private userRestService: UserRestService,
+              private eventsService: ArthuriusEventsService) {
     this.eventsService.languageChanged.subscribe(language => {
       this._initLock(language);
     });
@@ -51,6 +57,18 @@ export class Auth0Service {
         if (error) {
           console.log(error);
           return;
+        }
+        // Pref-fill user_metadata
+        if (!profile.user_metadata) {
+          let metaData = new UserMetaData();
+          metaData.email = profile['email'];
+          if (profile['identities'][0]['isSocial'] === true) {
+            metaData.name = profile['name'];
+          }
+          profile.user_metadata = metaData;
+          this.userRestService.updateProfile(profile.user_id, profile.user_metadata).subscribe(result => {
+            console.log("Profile saved in Auth0");
+          });
         }
         this.sessionService.saveProfile(profile);
         if (extraCallbackFn) {

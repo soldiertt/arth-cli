@@ -21,6 +21,7 @@ export class ProfileComponent implements OnInit {
   email: string;
   pendingRemoval: boolean;
   phone: string;
+  incompleteProfile: boolean = true;
 
   constructor(private userRestService: UserRestService,
               private sessionService: SessionService,
@@ -29,12 +30,14 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.userProfile = this.sessionService.getProfile();
     this._updateLocalData();
-
+    if (this.incompleteProfile) {
+      this.editContactInfo();
+    }
   }
 
-  editAddress(): void {
+  editContactInfo(): void {
     this.editMode = true;
-    this.editedItem = "address";
+    this.editedItem = "contactinfo";
   }
 
   editEmail(): void {
@@ -42,7 +45,7 @@ export class ProfileComponent implements OnInit {
     this.editedItem = "email";
   }
 
-  cancelEdit(event): void {
+  cancelEdit(): void {
     this.editedItem = undefined;
     this.editMode = false;
   }
@@ -53,8 +56,8 @@ export class ProfileComponent implements OnInit {
       this.userProfile = userProfile;
       this._updateLocalData();
       this.profileUpdated = true;
-      this.editedItem = undefined;
-      this.editMode = false;
+      this.incompleteProfile = false;
+      this.cancelEdit();
     });
   }
 
@@ -89,17 +92,15 @@ export class ProfileComponent implements OnInit {
   private _updateLocalData(): void {
     if (this.userProfile) {
       if (this.userProfile.user_metadata) {
-        this.pendingRemoval = this.userProfile.user_metadata.pendingRemoval ? this.userProfile.user_metadata.pendingRemoval : false;
         this.email = this.userProfile.user_metadata.email;
+        this.pendingRemoval = this.userProfile.user_metadata.pendingRemoval ? this.userProfile.user_metadata.pendingRemoval : false;
+        this.incompleteProfile = this.userProfile.user_metadata.profileComplete ? !this.userProfile.user_metadata.profileComplete : true;
         if (this.userProfile.user_metadata.addresses) {
           this.deliveryAddress = this.userProfile.user_metadata.addresses.delivery;
         }
         if (this.userProfile.user_metadata.phone) {
           this.phone = this.userProfile.user_metadata.phone;
         }
-      }
-      if (!this.email) {
-        this.email = this.userProfile.email;
       }
     }
   }

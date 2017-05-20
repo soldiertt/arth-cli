@@ -2,6 +2,7 @@ import {Injectable, Inject} from "@angular/core";
 import {Http} from "@angular/http";
 import {Observable} from "rxjs";
 import "rxjs/add/operator/map";
+import UserMetaData from "../model/usermetadata.class";
 
 @Injectable()
 export class UserRestService {
@@ -12,7 +13,7 @@ export class UserRestService {
     return this.http.get(this.BASE_URL + "/user/" + userId).map(res => res.json());
   }
 
-  updateProfile(userId: string, metadata: any): Observable<any> {
+  updateProfile(userId: string, metadata: UserMetaData): Observable<any> {
     let userMetadata = {user_metadata: metadata};
     return this.http.patch(this.BASE_URL + "/user/" + userId, userMetadata).map(res => res.json());
   }

@@ -1,4 +1,11 @@
 <div class="form-group row form-read-row">
+  <label class="col-form-label col-2">{{'common.label.name' | trans}}</label>
+  <div class="col-5">
+    <p>{{name}}</p>
+  </div>
+  <div class="col-5"></div>
+</div>
+<div class="form-group row form-read-row">
   <label class="col-form-label col-2">{{'common.label.phone' | trans}}</label>
   <div class="col-5">
     <p>{{phone}}</p>
@@ -15,5 +22,5 @@
     </p>
     <p *ngIf="!address" class="alert alert-warning">{{'page.profile.missingaddress' | trans}}</p>
   </div>
-  <div class="col-5"><button type="button" (click)="editAddress()" class="btn btn-warning">{{'page.profile.edit' | trans}}</button></div>
+  <div class="col-5"><button type="button" (click)="editContactInfo()" class="btn btn-warning">{{'page.profile.edit' | trans}}</button></div>
 </div>

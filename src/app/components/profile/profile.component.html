@@ -1,22 +1,22 @@
 <h1>{{'page.profile.title' | trans}}</h1>
 <div class="alert alert-success" *ngIf="profileUpdated">{{'page.profile.updatesuccess' | trans}}</div>
-<div *ngIf="!editMode">
+<div class="alert alert-warning" *ngIf="incompleteProfile">{{'page.profile.missingdata' | trans}}</div>
+
+<!-- READ-ONLY MODE -->
+<div *ngIf="!editMode && userProfile.user_metadata">
   <form class="read-details-form" >
     <div class="form-group row form-read-row">
-      <label class="col-form-label col-2">{{'common.label.name' | trans}}</label>
-      <div class="col-10">{{userProfile?.name}}</div>
-    </div>
-    <div class="form-group row form-read-row">
       <label class="col-form-label col-2">{{'common.label.email' | trans}}</label>
-      <div class="col-5">{{email}}</div>
+      <div class="col-5">{{userProfile.user_metadata.email}}</div>
       <div class="col-5"><button type="button" (click)="editEmail()" class="btn btn-warning">{{'page.profile.edit' | trans}}</button></div>
     </div>
-    <arth-display-address (edit)="editAddress()" [address]="deliveryAddress" [phone]="phone"></arth-display-address>
+    <arth-profile-display (edit)="editContactInfo()" [profile]="userProfile"></arth-profile-display>
   </form>
 </div>
 
+<!-- EDIT MODE -->
 <arth-profile-email [email]="email" (onUpdateMetaData)="updateMetaData($event)" (onCancelEdit)="cancelEdit($event)" *ngIf="editedItem == 'email'"></arth-profile-email>
-<arth-profile-address [address]="deliveryAddress" [phone]="phone" (onUpdateMetaData)="updateMetaData($event)" (onCancelEdit)="cancelEdit($event)" *ngIf="editedItem == 'address'"></arth-profile-address>
+<arth-profile-edit [profile]="userProfile" (onUpdateMetaData)="updateMetaData($event)" (onCancelEdit)="cancelEdit($event)" *ngIf="editedItem == 'contactinfo'"></arth-profile-edit>
 
 <arth-orders *ngIf="!editMode"></arth-orders>
 

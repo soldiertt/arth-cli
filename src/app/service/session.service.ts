@@ -1,6 +1,7 @@
 import {Injectable} from "@angular/core";
 import Cart from "../model/cart.class";
 import UserProfile from "../model/user-profile.class";
+import UserMetaData from "../model/usermetadata.class";
 @Injectable()
 export class SessionService {
 

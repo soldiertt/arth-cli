@@ -37,11 +37,11 @@ import {UserRestService} from "./service/user.rest.service";
 import {CartWizardBreadcrumbComponent} from "./components/cart/cart-wizard-breadcrumb.component";
 import {ProfileComponent} from "./components/profile/profile.component";
 import {ProfileEmailComponent} from "./components/profile/profile-email.component";
-import {ProfileAddressComponent} from "./components/profile/profile-address.component";
+import {ProfileEditComponent} from "./components/profile/profile-edit.component";
 import {CartWizardComponent} from "./components/cart/cart-wizard.component";
 import {environment} from "../environments/environment";
 import {SearchComponent} from "./components/search/search.component";
-import {DisplayAddressComponent} from "./components/profile/display-address.component";
+import {ProfileDisplayComponent} from "./components/profile/profile-display.component";
 import {ConfirmAddressComponent} from "./components/cart/confirm-address.component";
 import {ArthuriusEventsService} from "./service/arthurius-events.service";
 import {SortPipe} from "./pipe/sort.pipe";
@@ -65,7 +65,7 @@ import {TopSalesComponent} from "./components/shared/topsales/topsales.component
     CategoryListComponent,
     ConfirmAddressComponent,
     DetailComponent,
-    DisplayAddressComponent,
+    ProfileDisplayComponent,
     ErrorComponent,
     FooterComponent,
     HeaderComponent,
@@ -74,7 +74,7 @@ import {TopSalesComponent} from "./components/shared/topsales/topsales.component
     MyCartComponent,
     OrdersComponent,
     ParentCategoryComponent,
-    ProfileAddressComponent,
+    ProfileEditComponent,
     ProfileComponent,
     ProfileEmailComponent,
     SliderComponent,

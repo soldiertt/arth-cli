@@ -2,9 +2,9 @@
 <div class="alert alert-success" *ngIf="profileUpdated">{{'page.profile.updatesuccess' | trans}}</div>
 <div *ngIf="!editMode">
   <form class="read-details-form" >
-    <arth-display-address (edit)="editAddress()" [address]="deliveryAddress" [phone]="phone"></arth-display-address>
+    <arth-profile-display (edit)="editAddress()" [profile]="userProfile"></arth-profile-display>
     <button type="button" (click)="nextStep()" class="btn btn-danger" *ngIf="completedData()">{{'page.profile.confirm' | trans}}</button>
   </form>
 </div>
 
-<arth-profile-address [address]="deliveryAddress" [phone]="phone" (onUpdateMetaData)="updateMetaData($event)" (onCancelEdit)="cancelEdit($event)" *ngIf="editedItem == 'address'"></arth-profile-address>
+<arth-profile-edit [profile]="profile" (onUpdateMetaData)="updateMetaData($event)" (onCancelEdit)="cancelEdit($event)" *ngIf="editedItem == 'address'"></arth-profile-edit>
