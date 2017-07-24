@@ -26,13 +26,18 @@
           <p *ngIf="article.manche">{{'common.label.handle' | trans}} : <span class="strong">{{article.manche}}</span></p>
           <p *ngIf="article.comment"><span class="strong comment" [innerHtml]="article.comment"></span></p>
           <div class="price">
-            <p>{{'common.label.price' | trans}} : <span>{{article?.price | currency:'EUR':true}}</span></p>
+            <p>{{'common.label.price' | trans}} : <span>{{article?.price | currency:'EUR':true}}</span>
+              <span *ngIf="article.promo" class="strike">{{article.old_price | currency:'EUR':true}}</span>
+            </p>
           </div>
-          <div class="buttons">
+          <div class="buttons" *ngIf="article.instock; else outofstock" >
             <ul>
               <li><button class="btn-detail" (click)="addToCart(article)">{{'common.links.addtocart' | trans}}</button></li>
             </ul>
           </div>
+          <ng-template #outofstock>
+            <p *ngIf="!article.instock"><span class="warn">{{'common.label.outofstock' | trans}}</span></p>
+          </ng-template>
         </div>
         <div class="wrap clear"></div>
 

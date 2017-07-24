@@ -38,6 +38,11 @@
   font-size: 1.5em;
 }
 
+.article-desc .warn {
+  font-size: 1.6em;
+  color: #d32f2f;
+}
+
 .article-desc .name {
   font-family: ambleregular;
   color:#DC4823;
@@ -58,6 +63,14 @@
   font-family: ambleregular;
   font-size: 3em;
   color: #DC4823;
+}
+
+.article-desc .price span.strike {
+  text-decoration: line-through;
+  color: #d32f2f;
+  display: inline-block;
+  margin-left: 10px;
+  font-size: 2em;
 }
 
 .article .buttons li {

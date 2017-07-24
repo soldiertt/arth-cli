@@ -3,7 +3,7 @@
 <div class="alert alert-warning" *ngIf="incompleteProfile">{{'page.profile.missingdata' | trans}}</div>
 
 <!-- READ-ONLY MODE -->
-<div *ngIf="!editMode && userProfile.user_metadata">
+<div *ngIf="!editMode && !!userProfile.user_metadata">
   <form class="read-details-form" >
     <div class="form-group row form-read-row">
       <label class="col-form-label col-2">{{'common.label.email' | trans}}</label>

@@ -11,6 +11,8 @@ export default class Article {
   size: string;
   youtube_ref: string;
   promo: boolean;
+  instock: boolean;
   price: number;
+  old_price: number;
   comment: string;
 }

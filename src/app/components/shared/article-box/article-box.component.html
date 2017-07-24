@@ -5,10 +5,15 @@
   </div>
   <div class="price-details">
     <div class="price-number">
-      {{ article.price}} €
+      {{ article.price | currency:'EUR':true}} <span *ngIf="article.promo" class="strike">{{article.old_price | currency:'EUR':true}}</span>
     </div>
-    <div class="add-cart" (click)="addToCart(article)">
+    <div class="add-cart" (click)="addToCart(article)" *ngIf="article.instock; else outofstock">
       <span>{{'common.links.addtocart' | trans}}</span>
     </div>
+    <ng-template #outofstock>
+      <div class="outofstock">
+        <span>Out of stock</span>
+      </div>
+    </ng-template>
   </div>
 </div>

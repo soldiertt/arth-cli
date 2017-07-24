@@ -1,19 +1,24 @@
-.cart-total {
-  font-weight: bold;
-  font-family: ambleregular;
-  font-size: 1.2em;
-}
-
 .table-mycart thead tr {
   font-size: 1.1em;
 }
 .table-mycart tbody td {
   vertical-align: middle;
 }
-.table-mycart tfoot tr {
+
+.table-mycart tfoot {
   border-bottom: 2px solid #ccc;
-  border-top: 2px solid #ccc;
 }
+
+.table-mycart tfoot tr {
+  border-bottom: 1px solid #ccc;
+  border-top: 1px solid #ccc;
+}
+
+.table-mycart tfoot tr td {
+  border-top: 0;
+  padding: 0.4rem;
+}
+
 .picture-cell {
   line-height: 70px;
 }
@@ -23,13 +28,24 @@
 .price-cell {
   font-size: 1.0em;
 }
-.total-cell {
+.foot-label-cell {
   text-align: right;
   font-size: 1.2em;
   font-family: ambleregular;
 }
 
-.amount-cell, .cart-total {
+.cart-subtotal {
+  font-family: ambleregular;
+  font-size: 1.2em;
+}
+
+.cart-total {
+  font-weight: bold;
+  font-family: ambleregular;
+  font-size: 1.2em;
+}
+
+.amount-cell, .cart-total, .cart-subtotal {
   text-align: center;
 }
 .qty-cell {

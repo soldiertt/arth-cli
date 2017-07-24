@@ -24,7 +24,7 @@ export default {
         title: 'Contact Arthurius'
       },
       mapslink: 'Google Maps toegang',
-      openinghours: 'Open maandag tot vrijdag van 17.00u tot 20.00u en 7 dagen/7 op afspraak'
+      openinghours: 'Open maandag tot vrijdag van 17.30u tot 20.00u en 7 dagen/7 op afspraak'
     },
     home: {
       promotion: 'Promotie'
@@ -98,15 +98,18 @@ export default {
       housenumber: 'Nummer',
       name: 'Naam',
       no: 'Nee',
+      outofstock: 'Niet op voorraad.',
       phone: 'Telefoon',
       postbox: 'Postbus',
       postcode: 'Postcode',
       price: 'Prijs',
+      promotion: 'Promotie',
       quantity: 'Aantal',
       size: 'Grootte',
       sortby: 'Sorteren op:',
       steel: 'Staal',
       street: 'Straat',
+      subtotal: 'Subtotaal',
       topsales: 'Meest verkocht',
       total: 'Totaal',
       unit: 'Stuk(ken)',

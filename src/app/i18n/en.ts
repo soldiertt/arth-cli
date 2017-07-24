@@ -24,7 +24,7 @@ export default {
         title: 'Contact Arthurius'
       },
       mapslink: 'Google Maps link',
-      openinghours: 'Open on Monday to Friday from 5PM to 8PM and 7d/7 with an appointment.'
+      openinghours: 'Open on Monday to Friday from 5:30PM to 8PM and 7d/7 with an appointment.'
     },
     home: {
       promotion: 'Promotion'
@@ -98,15 +98,18 @@ export default {
       housenumber: 'House number',
       name: 'Name',
       no: 'No',
+      outofstock: 'Out of stock.',
       phone: 'Phone',
       postbox: 'Box',
       postcode: 'Postcode',
       price: 'Price',
+      promotion: 'Promotion',
       quantity: 'Quantity',
       size: 'Size',
       sortby: 'Sort by :',
       steel: 'Steel',
       street: 'Street',
+      subtotal: 'Subtotal',
       topsales: 'Top sales',
       total: 'Total',
       unit: 'Unit(s)',

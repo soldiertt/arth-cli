@@ -18,13 +18,14 @@
     <tr *ngFor="let order of cart.orders">
       <td class="picture-cell">
         <a href [routerLink]="['/detail', order.article.id]">
-          <img class="product-image-photo" [src]="miniPicture(order.article)" [attr.alt]="order.article.name">
+          <img [src]="miniPicture(order.article)" [attr.alt]="order.article.name">
+          <img src="/assets/images/promo.png" *ngIf="order.article.promo">
         </a>
        </td>
       <td class="name-cell">
         <a href [routerLink]="['/detail', order.article.id]">{{order.article.name}}</a>
       </td>
-      <td class="price-cell">{{order.article.price | number : '1.2-2'}} €</td>
+      <td class="price-cell">{{order.article.price | currency:'EUR':true}}</td>
       <td class="qty-cell">{{order.count}}
         <span>
           <a href (click)="removeArticle($event, order.article.id)" *ngIf="order.count > 1">
@@ -35,7 +36,7 @@
           </a>
         </span>
       </td>
-      <td class="amount-cell">{{order.article.price * order.count | number : '1.2-2'}} €</td>
+      <td class="amount-cell">{{order.article.price * order.count | currency:'EUR':true}}</td>
       <td>
         <span>
         <a href (click)="removeOrder($event, order.article.id)">
@@ -44,15 +45,25 @@
         </span>
       </td>
     </tr>
-    <tr *ngIf="isOnStep(4)">
-      <td colspan="4" class="total-cell">Frais de port : </td>
-      <td class="cart-total">{{cart.shipping | number : '1.2-2'}} €</td>
-      <td></td>
-    </tr>
   </tbody>
   <tfoot>
     <tr>
-      <td colspan="4" class="total-cell">{{'common.label.total' | trans}} : </td>
+      <td colspan="4" class="foot-label-cell">{{'common.label.subtotal' | trans}} : </td>
+      <td class="cart-subtotal"> {{cart.subtotalAmount | currency:'EUR':true}}</td>
+      <td></td>
+    </tr>
+    <tr *ngIf="cart.promoAmount > 0">
+      <td colspan="4" class="foot-label-cell">{{'common.label.promotion' | trans}} ({{cart.promoPercentage * 100 | number : '1.0-0'}}%) : </td>
+      <td class="cart-subtotal">- {{cart.promoAmount | currency:'EUR':true}}</td>
+      <td></td>
+    </tr>
+    <tr *ngIf="isOnStep(4)">
+      <td colspan="4" class="foot-label-cell">Frais de port : </td>
+      <td class="cart-subtotal">{{cart.shipping | currency:'EUR':true}}</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td colspan="4" class="foot-label-cell">{{'common.label.total' | trans}} : </td>
       <td class="cart-total">{{cart.totalAmount | number : '1.2-2'}} €</td>
       <td>
         <div id="paypal-button" [hidden]="isNotOnStep(4)"></div>

@@ -24,7 +24,7 @@ export default {
         title: 'Contactez Arthurius'
       },
       mapslink: 'Accès Google Maps',
-      openinghours: 'Ouvert du lundi au vendredi de 17h00 à 20h00 et 7j/7 sur rendez-vous.'
+      openinghours: 'Ouvert du lundi au vendredi de 17h30 à 20h00 et 7j/7 sur rendez-vous.'
     },
     home: {
       promotion: 'Promotion'
@@ -98,15 +98,18 @@ export default {
       housenumber: 'Numéro',
       name: 'Nom',
       no: 'Non',
+      outofstock: 'Cet article n\'est actuellement plus disponible.',
       phone: 'Téléphone',
       postbox: 'Boîte',
       postcode: 'Code postal',
       price: 'Prix',
+      promotion: 'Promotion',
       quantity: 'Quantité',
       size: 'Taille',
       sortby: 'Trier par :',
       steel: 'Acier',
       street: 'Rue',
+      subtotal: 'Sous-total',
       topsales: 'Top des ventes',
       total: 'Total',
       unit: 'Pièce(s)',

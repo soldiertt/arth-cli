@@ -75,12 +75,31 @@ export class CartService {
 
   private _updateCart() {
     this.cart.totalAmount = 0;
+    this.cart.subtotalAmount = 0;
+    this.cart.totalPromoAmount = 0;
+    this.cart.promoPercentage = 0;
+    this.cart.promoAmount = 0;
     this.cart.totalCount = 0;
     this.cart.orders.forEach(order => {
       this.cart.totalCount += order.count;
-      this.cart.totalAmount += (order.count * order.article.price);
+      this.cart.subtotalAmount += (order.count * order.article.price);
+      if (!order.article.promo) {
+        this.cart.totalPromoAmount += (order.count * order.article.price);
+      }
     });
-    this.cart.totalAmount+= this.cart.shipping;
+
+    // Compute promotion
+    if (this.cart.totalPromoAmount >= 2000) {
+      this.cart.promoPercentage = 0.4;
+    } else if (this.cart.totalPromoAmount >= 800) {
+      this.cart.promoPercentage = 0.2;
+    } else if (this.cart.totalPromoAmount >= 400) {
+      this.cart.promoPercentage = 0.1;
+    }
+    this.cart.promoAmount = this.cart.totalPromoAmount * this.cart.promoPercentage;
+
+    // Compute total
+    this.cart.totalAmount = this.cart.subtotalAmount - this.cart.promoAmount + this.cart.shipping;
     this.sessionService.saveCart(this.cart);
   }
 

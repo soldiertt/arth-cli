@@ -63,9 +63,28 @@
   cursor: pointer;
 }
 
+.article-box .price-details .outofstock {
+  border-top: 1px solid #DC4823;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #666;
+  padding: 7px 10px 7px 10px;
+  transition: all 0.5s ease-in-out;
+  color: white;
+}
+
 .article-box .price-details .price-number {
   font-family: ambleregular;
   color: #383838;
-  font-size: 1.6em;
+  font-size: 1.4em;
   padding: 5px;
+}
+
+.article-box .price-details .price-number .strike {
+  text-decoration: line-through;
+  color: red;
+  display: inline-block;
+  margin-left: 6px;
+  font-size: 0.8em;
 }
