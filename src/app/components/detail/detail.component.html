@@ -25,6 +25,9 @@
           <p *ngIf="article.size">{{'common.label.size' | trans}} : <span class="strong">{{article.size}}</span></p>
           <p *ngIf="article.manche">{{'common.label.handle' | trans}} : <span class="strong">{{article.manche}}</span></p>
           <p *ngIf="article.comment"><span class="strong comment" [innerHtml]="article.comment"></span></p>
+          <div *ngIf="article.youtube_ref">
+            <a class="fancyboxVideo fancybox.iframe" href="http://www.youtube.com/embed/{{article.youtube_ref}}" title="{{article.name}}"><img id="youtube_vid" src="/assets/images/youtube.jpg"></a>
+          </div>
           <div class="price">
             <p>{{'common.label.price' | trans}} : <span>{{article?.price | currency:'EUR':true}}</span>
               <span *ngIf="article.promo" class="strike">{{article.old_price | currency:'EUR':true}}</span>
@@ -40,26 +43,6 @@
           </ng-template>
         </div>
         <div class="wrap clear"></div>
-
-        <ul class="nav nav-tabs" role="tablist">
-          <li class="nav-item">
-            <a class="nav-link active" data-toggle="tab" href="#tab-details" role="tab">Product Details</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#tab-review" role="tab">Product Reviews</a>
-          </li>
-        </ul>
-
-        <div class="tab-content">
-          <div class="tab-pane fade show active" id="tab-details" role="tabpanel">
-            <div *ngIf="article.youtube_ref">
-              <a class="fancyboxVideo fancybox.iframe" href="http://www.youtube.com/embed/{{article.youtube_ref}}" title="{{article.name}}"><img id="youtube_vid" src="/assets/images/youtube.jpg"></a>
-            </div>
-          </div>
-          <div class="tab-pane fade" id="tab-review" role="tabpanel">
-            <h4>Lorem ipsum Review by</h4>
-          </div>
-        </div>
 
       </div>
     </div>
