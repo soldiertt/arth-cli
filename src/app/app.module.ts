@@ -34,7 +34,7 @@ import {ErrorComponent} from "./components/shared/error/error.component";
 import {PaypalOrderRestService} from "./service/paypalorder.rest.service";
 import {CountryRestService} from "./service/country.rest.service";
 import {UserRestService} from "./service/user.rest.service";
-import {CartWizardBreadcrumbComponent} from "./components/cart/cart-wizard-breadcrumb.component";
+import {CartBreadcrumbComponent} from "./components/cart/cart-breadcrumb.component";
 import {ProfileComponent} from "./components/profile/profile.component";
 import {ProfileEmailComponent} from "./components/profile/profile-email.component";
 import {ProfileEditComponent} from "./components/profile/profile-edit.component";
@@ -49,6 +49,8 @@ import {OrdersComponent} from "./components/profile/orders-component";
 import {MailService} from "./service/mail.service";
 import {SliderRestService} from "./service/slider.rest.service";
 import {TopSalesComponent} from "./components/shared/topsales/topsales.component";
+import {CartNavigationComponent} from "./components/cart/cart-navigation.component";
+import {DataService} from './service/data.service';
 
 @NgModule({
   declarations: [
@@ -59,9 +61,10 @@ import {TopSalesComponent} from "./components/shared/topsales/topsales.component
     BrandsComponent,
     CategArticlesComponent,
     CategoryTitlePipe,
+    CartNavigationComponent,
     CartWizardComponent,
     CartDropdownComponent,
-    CartWizardBreadcrumbComponent,
+    CartBreadcrumbComponent,
     CategoryListComponent,
     ConfirmAddressComponent,
     DetailComponent,
@@ -96,6 +99,7 @@ import {TopSalesComponent} from "./components/shared/topsales/topsales.component
     CategoryRestService,
     CartService,
     CountryRestService,
+    DataService,
     I18nService,
     JQueryService,
     MailService,

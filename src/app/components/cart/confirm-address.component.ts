@@ -1,45 +1,46 @@
-import {Component, OnInit, EventEmitter, Output} from "@angular/core";
+import {Component, OnInit, Input} from "@angular/core";
 import UserProfile from "../../model/user-profile.class";
 import {UserRestService} from "../../service/user.rest.service";
 import {SessionService} from "../../service/session.service";
+import {DataService} from '../../service/data.service';
+import {Actions} from '../../model/actions.class';
+import AppData from '../../model/app-data';
+
 @Component({
   selector: 'arth-confirm-address',
   templateUrl: './confirm-address.component.html'
 })
 export class ConfirmAddressComponent implements OnInit{
 
-  @Output() moveStep: EventEmitter<number> = new EventEmitter();
+  appData: AppData;
   editMode: boolean = false;
   editedItem: string;
-  userProfile: UserProfile;
+  @Input() userProfile: UserProfile;
   profileUpdated: boolean;
 
-  constructor(private userRestService: UserRestService, private sessionService: SessionService) {}
+  constructor(private dataService: DataService, private userRestService: UserRestService, private sessionService: SessionService) {}
 
   ngOnInit() {
-    this.userProfile = this.sessionService.getProfile();
     // Check if address is defined, otherwise edit it immediatly
-    if (!this.userProfile || !this.userProfile.user_metadata || !this.userProfile.user_metadata.addresses || !this.userProfile.user_metadata.addresses.delivery) {
-      this.editAddress();
-    }
+    this.dataService.appData.subscribe(appData => {
+      this.appData = appData;
+      if (!this.appData.cartData.addressCompleted) {
+        this.editMode = true;
+        this.editedItem = "address";
+      }
+    });
   }
 
   editAddress(): void {
-    this.editMode = true;
-    this.editedItem = "address";
-  }
-
-  completedData():boolean {
-    return this.userProfile && this.userProfile.user_metadata && this.userProfile.user_metadata.profileComplete;
-  }
-
-  nextStep(): void {
-    this.moveStep.emit(4);
+    this.dataService.doAction(Actions.ADDRESS_INCOMPLETE);
   }
 
   cancelEdit(): void {
     this.editMode = false;
     this.editedItem = undefined;
+    if (this._completedData()) {
+      this.dataService.doAction(Actions.ADDRESS_COMPLETED);
+    }
   }
 
   updateMetaData(userMetaData): void {
@@ -49,9 +50,13 @@ export class ConfirmAddressComponent implements OnInit{
       this.profileUpdated = true;
       this.editedItem = undefined;
       this.editMode = false;
-      this.nextStep();
+      this.dataService.doAction(Actions.ADDRESS_COMPLETED);
     });
 
+  }
+
+  private _completedData():boolean {
+    return this.userProfile && this.userProfile.user_metadata && this.userProfile.user_metadata.profileComplete;
   }
 
 }

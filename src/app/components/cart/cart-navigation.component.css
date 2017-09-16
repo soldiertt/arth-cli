@@ -1,0 +1,16 @@
+.cart-nav .previous {
+  float: left;
+}
+
+.cart-nav .next {
+  float: right;
+}
+
+.cart-nav button {
+  margin-right: 10px;
+}
+
+#paypal-button {
+  display: inline-block;
+  float:right;
+}

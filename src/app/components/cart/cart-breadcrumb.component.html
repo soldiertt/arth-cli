@@ -1,0 +1,10 @@
+<ul class="cart-wizard-breadcrumb" *ngIf="currentStep">
+  <li><span [class.done]="currentStep >= 1">1. {{'page.mycart.breadcrumb.myarticles' | trans}}</span>
+  </li>
+  <li><span [class.done]="currentStep >= 2">2. {{'page.mycart.breadcrumb.signin' | trans}}</span>
+  </li>
+  <li><span [class.done]="currentStep >= 4" [class.active]="currentStep === 3">3. {{'page.mycart.breadcrumb.mycontactdetails' | trans}}</span>
+  </li>
+  <li><span [class.active]="currentStep === 4">4. {{'page.mycart.breadcrumb.payment' | trans}}</span>
+  </li>
+</ul>

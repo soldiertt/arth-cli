@@ -19,15 +19,15 @@
       "styles": [
         "../node_modules/bootstrap/dist/css/bootstrap.css",
         "../node_modules/font-awesome/css/font-awesome.css",
-        "../node_modules/fancybox/dist/css/jquery.fancybox.css",
+        "../node_modules/@fancyapps/fancybox/dist/jquery.fancybox.css",
         "assets/css/arthurius.css",
         "assets/famfamfam_flags/famfamfam-flags.css"
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.js",
-        "../node_modules/tether/dist/js/tether.js",
+        "../node_modules/popper.js/dist/umd/popper.js",
         "../node_modules/bootstrap/dist/js/bootstrap.js",
-        "../node_modules/fancybox/dist/js/jquery.fancybox.pack.js"
+        "../node_modules/@fancyapps/fancybox/dist/jquery.fancybox.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

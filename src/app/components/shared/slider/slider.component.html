@@ -10,7 +10,7 @@
   <div class="carousel-inner" role="listbox">
     <div class="carousel-item" [class.active]="isFirst" *ngFor="let slide of slides; let isFirst = first">
       <a href="{{slide.link}}">
-        <img class="d-block img-fluid" src="/assets/images/{{slide.image}}" >
+        <img class="d-block img-fluid" src="assets/images/{{slide.image}}" >
         <div class="carousel-caption">
           <div class="title1">{{slide.title1}}</div>
           <div class="title2">{{slide.title2}}</div>

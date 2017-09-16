@@ -1,4 +1,4 @@
-import {Component, OnInit, AfterViewInit} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import Article from "../../model/article.class";
 import Category from "../../model/category.class";
@@ -6,9 +6,8 @@ import {ArticleRestService} from "../../service/article.rest.service";
 import {CategoryRestService} from "../../service/category.rest.service";
 import {CartService} from "../../service/cart.service";
 import {JQueryService} from "../../service/jQuery.service";
-import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
 
-declare var $:any;
+declare var $: any;
 
 @Component({
   selector: 'arth-detail',
@@ -42,7 +41,9 @@ export class DetailComponent implements OnInit {
           } else {
             this.parentCategory = undefined;
           }
-          this.jQueryService.enableFancybox($);
+          setTimeout(() => {
+            this.jQueryService.enableFancybox($);
+          }, 10);
         });
       });
     });

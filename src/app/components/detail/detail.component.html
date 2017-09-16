@@ -26,7 +26,7 @@
           <p *ngIf="article.manche">{{'common.label.handle' | trans}} : <span class="strong">{{article.manche}}</span></p>
           <p *ngIf="article.comment"><span class="strong comment" [innerHtml]="article.comment"></span></p>
           <div *ngIf="article.youtube_ref">
-            <a class="fancyboxVideo fancybox.iframe" href="http://www.youtube.com/embed/{{article.youtube_ref}}" title="{{article.name}}"><img id="youtube_vid" src="/assets/images/youtube.jpg"></a>
+            <a class="fancyboxVideo fancybox.iframe" href="http://www.youtube.com/embed/{{article.youtube_ref}}" title="{{article.name}}"><img id="youtube_vid" src="assets/images/youtube.jpg"></a>
           </div>
           <div class="price">
             <p>{{'common.label.price' | trans}} : <span>{{article?.price | currency:'EUR':true}}</span>

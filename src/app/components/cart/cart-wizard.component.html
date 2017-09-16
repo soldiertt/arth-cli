@@ -1,7 +1,10 @@
 <div id="main">
   <div id="content">
-    <arth-cart-wizard-breadcrumb [step]="currentStep" (moveStep)="stepChanged($event)" *ngIf="hasArticles()"></arth-cart-wizard-breadcrumb>
-    <arth-mycart [step]="currentStep" *ngIf="!isOnStep(3)" ></arth-mycart>
-    <arth-confirm-address (moveStep)="stepChanged($event)" *ngIf="isOnStep(3)"></arth-confirm-address>
+    <div>
+      <arth-cart-breadcrumb *ngIf="isAtLeast(1)"></arth-cart-breadcrumb>
+      <arth-mycart *ngIf="!isOnStep(3)" [cart]="cart"></arth-mycart>
+      <arth-confirm-address *ngIf="isOnStep(3)" [userProfile]="userProfile"></arth-confirm-address>
+    </div>
+    <arth-cart-navigation [cart]="cart"></arth-cart-navigation>
   </div>
 </div>

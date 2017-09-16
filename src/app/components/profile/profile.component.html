@@ -26,7 +26,7 @@
     <p class="alert alert-danger">{{'page.profile.pendingremovalrequest' | trans}}</p>
     <button type="button" class="btn btn-warning" (click)="cancelAskForRemoval()">{{'page.profile.canceldeleteaccount' | trans}}</button>
   </div>
-  <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmDeleteAccountModal" *ngIf="!pendingRemoval">{{'page.profile.deleteaccount' | trans}}</button>
+  <a href data-toggle="modal" data-target="#confirmDeleteAccountModal" *ngIf="!pendingRemoval">{{'page.profile.deleteaccount' | trans}}</a>
 
   <div class="modal fade" id="confirmDeleteAccountModal">
     <div class="modal-dialog" role="document">

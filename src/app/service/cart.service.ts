@@ -80,6 +80,7 @@ export class CartService {
     this.cart.promoPercentage = 0;
     this.cart.promoAmount = 0;
     this.cart.totalCount = 0;
+    this.cart.shipping = 0;
     this.cart.orders.forEach(order => {
       this.cart.totalCount += order.count;
       this.cart.subtotalAmount += (order.count * order.article.price);

@@ -1,8 +1,4 @@
 <h1>{{'common.links.mycart' | trans}} - {{cart.totalCount}} {{'common.label.article-pp' | trans}}</h1>
-<div id="mainLoading" *ngIf="loading">
-  <img src="assets/images/ajax-loader.gif" />
-</div>
-<div class="alert alert-success" *ngIf="confirmed">{{'page.mycart.paymentsuccess' | trans}}</div>
 <table class="table table-mycart table-striped" *ngIf="cart.orders.length">
   <thead>
     <tr>
@@ -19,7 +15,7 @@
       <td class="picture-cell">
         <a href [routerLink]="['/detail', order.article.id]">
           <img [src]="miniPicture(order.article)" [attr.alt]="order.article.name">
-          <img src="/assets/images/promo.png" *ngIf="order.article.promo">
+          <img src="assets/images/promo.png" *ngIf="order.article.promo">
         </a>
        </td>
       <td class="name-cell">
@@ -28,19 +24,19 @@
       <td class="price-cell">{{order.article.price | currency:'EUR':true}}</td>
       <td class="qty-cell">{{order.count}}
         <span>
-          <a href (click)="removeArticle($event, order.article.id)" *ngIf="order.count > 1">
-              <i class="fa fa-minus-circle" aria-hidden="true" title="{{'page.mycart.removearticle' | trans}}"></i>
+          <a href (click)="removeArticle($event, order.article.id)" *ngIf="order.count > 1" class="action-icon">
+              <i class="fa fa-minus-circle" title="{{'page.mycart.removearticle' | trans}}"></i>
           </a>
-          <a href (click)="addArticle($event, order.article)">
-            <i class="fa fa-plus-circle" aria-hidden="true" title="{{'page.mycart.addarticle' | trans}}"></i>
+          <a href (click)="addArticle($event, order.article)" class="action-icon">
+            <i class="fa fa-plus-circle" title="{{'page.mycart.addarticle' | trans}}"></i>
           </a>
         </span>
       </td>
       <td class="amount-cell">{{order.article.price * order.count | currency:'EUR':true}}</td>
       <td>
         <span>
-        <a href (click)="removeOrder($event, order.article.id)">
-          <i class="fa fa-times" aria-hidden="true" title="{{'page.mycart.removefromcart' | trans}}"></i>
+        <a href (click)="removeOrder($event, order.article.id)" class="action-icon">
+          <i class="fa fa-times" title="{{'page.mycart.removefromcart' | trans}}"></i>
         </a>
         </span>
       </td>
@@ -57,7 +53,7 @@
       <td class="cart-subtotal">- {{cart.promoAmount | currency:'EUR':true}}</td>
       <td></td>
     </tr>
-    <tr *ngIf="isOnStep(4)">
+    <tr *ngIf="cart.shipping">
       <td colspan="4" class="foot-label-cell">Frais de port : </td>
       <td class="cart-subtotal">{{cart.shipping | currency:'EUR':true}}</td>
       <td></td>
@@ -65,9 +61,7 @@
     <tr>
       <td colspan="4" class="foot-label-cell">{{'common.label.total' | trans}} : </td>
       <td class="cart-total">{{cart.totalAmount | number : '1.2-2'}} €</td>
-      <td>
-        <div id="paypal-button" [hidden]="isNotOnStep(4)"></div>
-      </td>
+      <td></td>
     </tr>
   </tfoot>
 </table>

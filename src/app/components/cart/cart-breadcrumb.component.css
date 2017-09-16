@@ -9,41 +9,35 @@
 .cart-wizard-breadcrumb li {
   float: left;
 }
-.cart-wizard-breadcrumb li a {
-  text-decoration: underline;
+.cart-wizard-breadcrumb li span {
   padding: 10px 0 10px 65px;
   position: relative;
   display: block;
   float: left;
 }
 
-.cart-wizard-breadcrumb li a.disabled {
-  text-decoration: none;
-  pointer-events: none;
-}
-
-.cart-wizard-breadcrumb li a.done {
+.cart-wizard-breadcrumb li span.done {
   text-decoration: none;
   color: white;
   background: #DC4823;
 }
 
-.cart-wizard-breadcrumb li a.done::after {
+.cart-wizard-breadcrumb li span.done::after {
   border-left: 30px solid #DC4823;
 }
 
-.cart-wizard-breadcrumb li a.active {
+.cart-wizard-breadcrumb li span.active {
   text-decoration: none;
   color: white;
   background: #C9674F;
   pointer-events: none;
 }
 
-.cart-wizard-breadcrumb li a.active::after {
+.cart-wizard-breadcrumb li span.active::after {
   border-left: 30px solid #C9674F;
 }
 
-.cart-wizard-breadcrumb li a::after {
+.cart-wizard-breadcrumb li span::after {
   content: " ";
   display: block;
   width: 0;
@@ -59,7 +53,7 @@
 }
 
 
-.cart-wizard-breadcrumb li a::before {
+.cart-wizard-breadcrumb li span::before {
   content: " ";
   display: block;
   width: 0;
@@ -75,7 +69,7 @@
   z-index: 1;
 }
 
-.cart-wizard-breadcrumb li:first-child a {
+.cart-wizard-breadcrumb li:first-child span {
   padding-left: 10px;
 }
 
