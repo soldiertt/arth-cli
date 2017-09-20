@@ -30,19 +30,21 @@ export default {
       promotion: 'Promotion'
     },
     mycart: {
-      removearticle: 'Retirer un article',
-      removefromcart: 'Enlever du panier',
       addarticle: 'Ajouter un article',
-      paymentconfirmation: 'Valider le paiement',
-      confirmpayment: 'Exécuter le paiement',
-      buyer: 'Acheteur',
-      paymentsuccess: 'Votre paiement a été effectué avec succès !',
       breadcrumb : {
+        payment: 'Paiement',
         myarticles: 'Mes articles',
-        signin: 'S\'identifier',
         mycontactdetails: 'Mes coordonnées',
-        payment: 'Paiement'
-      }
+        signin: 'S\'identifier'
+      },
+      buyer: 'Acheteur',
+      confirmpayment: 'Exécuter le paiement',
+      next: 'Suivant',
+      paymentconfirmation: 'Valider le paiement',
+      paymentsuccess: 'Votre paiement a été effectué avec succès !',
+      previous: 'Précédent',
+      removearticle: 'Retirer un article',
+      removefromcart: 'Enlever du panier'
     },
     profile: {
       choosecountry: 'Choisissez un pays',

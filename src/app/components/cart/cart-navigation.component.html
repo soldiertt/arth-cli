@@ -1,6 +1,6 @@
 <div class="cart-nav">
-  <button class="btn previous" (click)="onPrevious()" *ngIf="displayPrevious">Précedent</button>
-  <button class="btn btn-warning next" (click)="onNext($event)" *ngIf="displayNext">Suivant</button>
+  <button class="btn previous" (click)="onPrevious()" *ngIf="displayPrevious">{{'page.mycart.previous' | trans }}</button>
+  <button class="btn btn-warning next" (click)="onNext($event)" *ngIf="displayNext">{{'page.mycart.next' | trans }}</button>
   <div id="paypal-button" [hidden]="!displayPaypalButton"></div>
 </div>
 <div id="mainLoading" *ngIf="processingPayment">

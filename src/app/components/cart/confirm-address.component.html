@@ -2,8 +2,8 @@
 <div class="alert alert-success" *ngIf="profileUpdated">{{'page.profile.updatesuccess' | trans}}</div>
 <div *ngIf="!editMode">
   <form class="read-details-form" >
-    <arth-profile-display (edit)="editAddress()" [profile]="userProfile"></arth-profile-display>
+    <arth-profile-display (edit)="editAddress()"></arth-profile-display>
   </form>
 </div>
 
-<arth-profile-edit [profile]="userProfile" (onUpdateMetaData)="updateMetaData($event)" (onCancelEdit)="cancelEdit($event)" *ngIf="editedItem == 'address'"></arth-profile-edit>
+<arth-profile-edit (onUpdateMetaData)="updateMetaData($event)" (onCancelEdit)="cancelEdit($event)" *ngIf="editedItem == 'address'"></arth-profile-edit>

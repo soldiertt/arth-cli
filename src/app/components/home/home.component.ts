@@ -8,7 +8,7 @@ import {ArticleRestService} from "../../service/article.rest.service";
   styleUrls: ['home.component.css']
 })
 export class HomeComponent implements OnInit {
-  promoArticles: Article[];
+  promoArticles: Article[] = [];
 
   constructor(private articleRestService: ArticleRestService) {}
 

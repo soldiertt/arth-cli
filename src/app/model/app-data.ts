@@ -1,12 +1,19 @@
-class CartData {
+import Cart from './cart.class';
+import UserProfile from './user-profile.class';
+
+class CartWizard {
   addressCompleted: boolean;
   currentStep: number;
 }
 
 export default class AppData {
-  cartData : CartData;
+  cartWizard : CartWizard;
+  cart: Cart;
+  profile: UserProfile;
 
   constructor() {
-    this.cartData = new CartData();
+    this.cartWizard = new CartWizard();
+    this.cart = new Cart();
+    this.profile = new UserProfile();
   }
 }

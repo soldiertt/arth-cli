@@ -1,10 +1,9 @@
-import {Component, OnInit, Input} from "@angular/core";
-import UserProfile from "../../model/user-profile.class";
+import {Component, OnInit} from "@angular/core";
 import {UserRestService} from "../../service/user.rest.service";
-import {SessionService} from "../../service/session.service";
 import {DataService} from '../../service/data.service';
 import {Actions} from '../../model/actions.class';
 import AppData from '../../model/app-data';
+import {ProfileService} from '../../service/profile.service';
 
 @Component({
   selector: 'arth-confirm-address',
@@ -15,16 +14,15 @@ export class ConfirmAddressComponent implements OnInit{
   appData: AppData;
   editMode: boolean = false;
   editedItem: string;
-  @Input() userProfile: UserProfile;
   profileUpdated: boolean;
 
-  constructor(private dataService: DataService, private userRestService: UserRestService, private sessionService: SessionService) {}
+  constructor(private dataService: DataService, private userRestService: UserRestService, private profileService: ProfileService) {}
 
   ngOnInit() {
     // Check if address is defined, otherwise edit it immediatly
     this.dataService.appData.subscribe(appData => {
       this.appData = appData;
-      if (!this.appData.cartData.addressCompleted) {
+      if (!this.appData.cartWizard.addressCompleted) {
         this.editMode = true;
         this.editedItem = "address";
       }
@@ -44,9 +42,8 @@ export class ConfirmAddressComponent implements OnInit{
   }
 
   updateMetaData(userMetaData): void {
-    this.userRestService.updateProfile(this.userProfile.user_id, userMetaData).subscribe(userProfile => {
-      this.sessionService.saveProfile(userProfile);
-      this.userProfile = userProfile;
+    this.userRestService.updateProfile(this.appData.profile.user_id, userMetaData).subscribe(userProfile => {
+      this.profileService.updateProfile(userProfile);
       this.profileUpdated = true;
       this.editedItem = undefined;
       this.editMode = false;
@@ -56,7 +53,7 @@ export class ConfirmAddressComponent implements OnInit{
   }
 
   private _completedData():boolean {
-    return this.userProfile && this.userProfile.user_metadata && this.userProfile.user_metadata.profileComplete;
+    return this.appData.profile && this.appData.profile.user_metadata && this.appData.profile.user_metadata.profileComplete;
   }
 
 }

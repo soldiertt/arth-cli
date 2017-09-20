@@ -2,9 +2,9 @@
   <div id="content">
     <div>
       <arth-cart-breadcrumb *ngIf="isAtLeast(1)"></arth-cart-breadcrumb>
-      <arth-mycart *ngIf="!isOnStep(3)" [cart]="cart"></arth-mycart>
-      <arth-confirm-address *ngIf="isOnStep(3)" [userProfile]="userProfile"></arth-confirm-address>
+      <arth-mycart *ngIf="!isOnStep(3)"></arth-mycart>
+      <arth-confirm-address *ngIf="isOnStep(3)"></arth-confirm-address>
     </div>
-    <arth-cart-navigation [cart]="cart"></arth-cart-navigation>
+    <arth-cart-navigation></arth-cart-navigation>
   </div>
 </div>

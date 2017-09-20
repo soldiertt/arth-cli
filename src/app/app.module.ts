@@ -51,6 +51,7 @@ import {SliderRestService} from "./service/slider.rest.service";
 import {TopSalesComponent} from "./components/shared/topsales/topsales.component";
 import {CartNavigationComponent} from "./components/cart/cart-navigation.component";
 import {DataService} from './service/data.service';
+import {ProfileService} from './service/profile.service';
 
 @NgModule({
   declarations: [
@@ -105,6 +106,7 @@ import {DataService} from './service/data.service';
     MailService,
     PaypalOrderRestService,
     PaypalRestService,
+    ProfileService,
     SessionService,
     SliderRestService,
     UserRestService,

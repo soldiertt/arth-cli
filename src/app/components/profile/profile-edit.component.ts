@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, OnChanges} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {FormBuilder, Validators} from "@angular/forms";
 import {CountryRestService} from "../../service/country.rest.service";
 import Country from "../../model/country.class";
@@ -7,21 +7,22 @@ import UserMetaData from "../../model/usermetadata.class";
 import UserAddress from "../../model/user-address";
 import UserAddresses from "../../model/user-addresses.class";
 import UserProfile from "../../model/user-profile.class";
+import {DataService} from '../../service/data.service';
 
 @Component({
   selector: 'arth-profile-edit',
   templateUrl: 'profile-edit.component.html',
   styleUrls: ['profile-edit.component.css']
 })
-export class ProfileEditComponent extends FormComponent implements OnInit, OnChanges {
+export class ProfileEditComponent extends FormComponent implements OnInit {
 
-  @Input() profile: UserProfile;
+  profile: UserProfile;
   countries: Country[];
   address: UserAddress;
   phone: string;
   name: string;
 
-  constructor(private fb: FormBuilder, private countryRestService: CountryRestService) {
+  constructor(private fb: FormBuilder, private dataService: DataService, private countryRestService: CountryRestService) {
     super();
 
     this.form = this.fb.group({
@@ -38,17 +39,18 @@ export class ProfileEditComponent extends FormComponent implements OnInit, OnCha
 
   ngOnInit() {
 
+    this.dataService.appData.subscribe(appData => {
+      this.profile = appData.profile;
+      this._updateLocalData();
+      // Fill form
+      this._fillFormWithData();
+    });
+
     // Load countries
     this.countryRestService.listAll().subscribe(countries => {
       this.countries = countries;
     });
 
-  }
-
-  ngOnChanges() {
-    this._updateLocalData();
-    // Fill form
-    this._fillFormWithData();
   }
 
   private _updateLocalData() {

@@ -1,13 +1,11 @@
-import {AfterViewInit, Component, Input, OnInit} from "@angular/core";
+import {AfterViewInit, Component, OnInit} from "@angular/core";
 import {CartService} from "../../service/cart.service";
-import Cart from "../../model/cart.class";
 import {Auth0Service} from "../../service/auth.service";
 import {PaypalRestService} from "../../service/paypal.rest.service";
 import {PaypalOrderRestService} from "../../service/paypalorder.rest.service";
 import {Observable} from 'rxjs';
 import PaypalOrder from "../../model/paypalorder.class";
 import * as moment from "moment";
-import {SessionService} from "../../service/session.service";
 import {Router} from "@angular/router";
 import AppData from '../../model/app-data';
 import {DataService} from '../../service/data.service';
@@ -23,7 +21,6 @@ declare var paypal: any;
 export class CartNavigationComponent implements  OnInit, AfterViewInit {
 
   appData : AppData;
-  @Input() cart: Cart;
 
   displayPrevious: boolean;
   displayNext: boolean;
@@ -36,7 +33,6 @@ export class CartNavigationComponent implements  OnInit, AfterViewInit {
               public authService: Auth0Service,
               private paypalRestService: PaypalRestService,
               private paypalOrderRestService: PaypalOrderRestService,
-              private sessionService: SessionService,
               private router: Router) {}
 
   ngOnInit() {
@@ -47,9 +43,9 @@ export class CartNavigationComponent implements  OnInit, AfterViewInit {
   }
 
   onPrevious(): void {
-    if (this.cart.totalCount > 0) {
+    if (this.appData.cart.totalCount > 0) {
       if (this.authService.authenticated()) {
-        if (this.appData.cartData.currentStep === 4) {
+        if (this.appData.cartWizard.currentStep === 4) {
           this.dataService.doAction(Actions.CART_MOVE_TO_STEP, 3);
         }
       }
@@ -57,14 +53,14 @@ export class CartNavigationComponent implements  OnInit, AfterViewInit {
   }
 
   onNext($event): void {
-    const curStep = this.appData.cartData.currentStep;
+    const curStep = this.appData.cartWizard.currentStep;
     if (curStep !== 0) {
       if (curStep === 1) {
         this.authService.login($event, () => this.dataService.doAction(Actions.CART_MOVE_TO_STEP, 3));
       } else if (curStep === 2) {
         this.dataService.doAction(Actions.CART_MOVE_TO_STEP, 3);
       } else if (curStep === 3) {
-        if (this.appData.cartData.addressCompleted) {
+        if (this.appData.cartWizard.addressCompleted) {
           this.dataService.doAction(Actions.CART_MOVE_TO_STEP, 4);
         }
       }
@@ -72,17 +68,16 @@ export class CartNavigationComponent implements  OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-
     let paypalDefinedInterval = setInterval(() => {
 
-      if (window["paypal"]  && this.cart.orders.length > 0) {
+      if (window["paypal"]  && this.appData.cart.orders.length > 0) {
 
         paypal.Button.render({
           //env: 'sandbox', // Specify 'production' for the prod environment
           env: 'production', // Specify 'production' for the prod environment
           payment: (resolve, reject) => {
 
-            this.paypalRestService.createPayment(this.cart).subscribe(response => {
+            this.paypalRestService.createPayment(this.appData.cart).subscribe(response => {
               resolve(response.paymentID);
             }, err => reject(err));
 
@@ -102,15 +97,15 @@ export class CartNavigationComponent implements  OnInit, AfterViewInit {
   }
 
   private _checkButtonDisplay(): void {
-    if (this.cart.totalCount > 0) {
+    if (this.appData.cart.totalCount > 0) {
       if (this.authService.authenticated()) {
-        if (this.appData.cartData.currentStep === 4) {
+        if (this.appData.cartWizard.currentStep === 4) {
           // Step4. paying
           this.displayPrevious = true;
           this.displayNext = false;
           this.displayPaypalButton = true;
-        } else if (this.appData.cartData.currentStep === 3){
-          if (this.appData.cartData.addressCompleted) {
+        } else if (this.appData.cartWizard.currentStep === 3){
+          if (this.appData.cartWizard.addressCompleted) {
             // Step3. completed profile
             this.displayPrevious = false;
             this.displayNext = true;
@@ -121,7 +116,7 @@ export class CartNavigationComponent implements  OnInit, AfterViewInit {
             this.displayNext = false;
             this.displayPaypalButton = false;
           }
-        } else if (this.appData.cartData.currentStep === 2){
+        } else if (this.appData.cartWizard.currentStep === 2){
           // Step2. just authenticated
           this.displayPrevious = false;
           this.displayNext = true;
@@ -156,7 +151,7 @@ export class CartNavigationComponent implements  OnInit, AfterViewInit {
       let total = firstTx.amount.total;
 
       let paypalOrder = new PaypalOrder();
-      paypalOrder.userId = this.sessionService.getProfile().user_id;
+      paypalOrder.userId = this.appData.profile.user_id;
       let orderDateMoment = moment(new Date());
       paypalOrder.orderDate = orderDateMoment.format('YYYY-MM-DD hh:mm:ss');
       paypalOrder.json = JSON.stringify({items: items, total: total});

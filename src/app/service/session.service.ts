@@ -42,7 +42,4 @@ export class SessionService {
     localStorage.removeItem(this.ID_TOKEN);
   }
 
-  deleteProfile(): void {
-    localStorage.removeItem(this.PROFILE_TOKEN);
-  }
 }

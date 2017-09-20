@@ -2,10 +2,11 @@ import {Component, OnInit} from "@angular/core";
 import {UserRestService} from "../../service/user.rest.service";
 import UserProfile from "../../model/user-profile.class";
 import UserAddress from "../../model/user-address";
-import {SessionService} from "../../service/session.service";
 import UserMetaData from "../../model/usermetadata.class";
 import {MailService} from "../../service/mail.service";
 import Mail from "../../model/mail.class";
+import {ProfileService} from '../../service/profile.service';
+import {DataService} from '../../service/data.service';
 
 @Component({
   selector: 'arth-profile',
@@ -16,20 +17,23 @@ export class ProfileComponent implements OnInit {
   profileUpdated: boolean = false;
   editMode: boolean = false;
   editedItem: string;
-  userProfile: UserProfile;
   deliveryAddress: UserAddress;
   email: string;
   pendingRemoval: boolean;
   phone: string;
   incompleteProfile: boolean = true;
+  userProfile: UserProfile;
 
-  constructor(private userRestService: UserRestService,
-              private sessionService: SessionService,
+  constructor(private dataService: DataService,
+              private userRestService: UserRestService,
+              private profileService: ProfileService,
               private mailService: MailService) {}
 
   ngOnInit() {
-    this.userProfile = this.sessionService.getProfile();
-    this._updateLocalData();
+    this.dataService.appData.subscribe(appData => {
+      this.userProfile = appData.profile;
+    });
+    this._updateLocalData(this.dataService.appData.getValue().profile);
     if (this.incompleteProfile) {
       this.editContactInfo();
     }
@@ -52,9 +56,8 @@ export class ProfileComponent implements OnInit {
 
   updateMetaData(userMetaData): void {
     this.userRestService.updateProfile(this.userProfile.user_id, userMetaData).subscribe(userProfile => {
-      this.sessionService.saveProfile(userProfile);
-      this.userProfile = userProfile;
-      this._updateLocalData();
+      this.profileService.updateProfile(userProfile);
+      this._updateLocalData(userProfile);
       this.profileUpdated = true;
       this.incompleteProfile = false;
       this.cancelEdit();
@@ -89,17 +92,17 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  private _updateLocalData(): void {
-    if (this.userProfile) {
-      if (this.userProfile.user_metadata) {
-        this.email = this.userProfile.user_metadata.email;
-        this.pendingRemoval = this.userProfile.user_metadata.pendingRemoval ? this.userProfile.user_metadata.pendingRemoval : false;
-        this.incompleteProfile = this.userProfile.user_metadata.profileComplete ? !this.userProfile.user_metadata.profileComplete : true;
-        if (this.userProfile.user_metadata.addresses) {
-          this.deliveryAddress = this.userProfile.user_metadata.addresses.delivery;
+  private _updateLocalData(userProfile: UserProfile): void {
+    if (userProfile) {
+      if (userProfile.user_metadata) {
+        this.email = userProfile.user_metadata.email;
+        this.pendingRemoval = userProfile.user_metadata.pendingRemoval ? userProfile.user_metadata.pendingRemoval : false;
+        this.incompleteProfile = userProfile.user_metadata.profileComplete ? !userProfile.user_metadata.profileComplete : true;
+        if (userProfile.user_metadata.addresses) {
+          this.deliveryAddress = userProfile.user_metadata.addresses.delivery;
         }
-        if (this.userProfile.user_metadata.phone) {
-          this.phone = this.userProfile.user_metadata.phone;
+        if (userProfile.user_metadata.phone) {
+          this.phone = userProfile.user_metadata.phone;
         }
       }
     }

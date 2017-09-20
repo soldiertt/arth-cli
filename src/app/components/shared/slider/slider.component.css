@@ -2,6 +2,9 @@
   max-height: 400px;
   opacity: 0.7;
 }
+.carousel-item .link {
+  cursor: pointer;
+}
 .carousel-caption {
   color:#cd1f25;
   font-size: 1.5em;

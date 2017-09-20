@@ -1,6 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import Cart from "../../../model/cart.class";
 import {CartService} from "../../../service/cart.service";
+import {DataService} from '../../../service/data.service';
 
 @Component({
   selector: 'arth-cart-dropdown',
@@ -9,23 +10,11 @@ import {CartService} from "../../../service/cart.service";
 })
 export class CartDropdownComponent implements OnInit {
   cart: Cart;
-  cartIsOpen: boolean;
 
-  constructor(private cartService: CartService) { }
+  constructor(private cartService: CartService, private dataService: DataService) { }
 
   ngOnInit() {
-    this.cart = this.cartService.cart;
-  }
-
-  toggleCartDropdown() {
-    this.cartIsOpen = !this.cartIsOpen;
-  }
-
-  hideCart() {
-    console.log("mouse out");
-    setTimeout(() => {
-      this.cartIsOpen = false;
-    }, 2000);
+    this.dataService.appData.subscribe(appData => this.cart = appData.cart);
   }
 
   removeOrder($event, articleId: number) {

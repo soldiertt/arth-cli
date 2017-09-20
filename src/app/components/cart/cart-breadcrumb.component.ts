@@ -13,7 +13,7 @@ export class CartBreadcrumbComponent implements OnInit {
 
   ngOnInit() {
     this.dataService.appData.subscribe(appData => {
-      this.currentStep = appData.cartData.currentStep;
+      this.currentStep = appData.cartWizard.currentStep;
     });
   }
 }

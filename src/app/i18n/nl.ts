@@ -30,19 +30,21 @@ export default {
       promotion: 'Promotie'
     },
     mycart: {
-      removearticle: 'Een artikel wegnemen',
-      removefromcart: 'Verwijderen uit mandje',
       addarticle: 'Een artikel toevoegen',
-      paymentconfirmation: 'Betalingsbevestiging',
-      confirmpayment: 'Betaling uitvoeren',
-      buyer: 'Koper',
-      paymentsuccess: 'De betaling werd succesvol uitgevoerd!',
       breadcrumb : {
         myarticles: 'Mijn artikelen',
         signin: 'Aanmelden',
         mycontactdetails: 'Mijn contactgegevens',
         payment: 'Betaling'
-      }
+      },
+      buyer: 'Koper',
+      confirmpayment: 'Betaling uitvoeren',
+      next: 'Volgende',
+      paymentconfirmation: 'Betalingsbevestiging',
+      paymentsuccess: 'De betaling werd succesvol uitgevoerd!',
+      previous: 'Vorig',
+      removearticle: 'Een artikel wegnemen',
+      removefromcart: 'Verwijderen uit mandje'
     },
     profile: {
       choosecountry: 'Selecteer een land',
