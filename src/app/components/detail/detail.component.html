@@ -19,7 +19,7 @@
         </div>
         <div class="article-desc">
           <div class="name">{{article.name}}</div>
-          <p class="strong" [innerHtml]="article.description"></p>
+          <p *ngIf="article.description" class="strong" [innerHtml]="article.description"></p>
           <p *ngIf="article.marque">{{'common.label.brand' | trans}} : <span class="strong">{{article.marque}}</span></p>
           <p *ngIf="article.acier">{{'common.label.steel' | trans}} : <span class="strong">{{article.acier}}</span></p>
           <p *ngIf="article.size">{{'common.label.size' | trans}} : <span class="strong">{{article.size}}</span></p>

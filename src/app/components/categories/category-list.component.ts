@@ -15,24 +15,19 @@ export class CategoryListComponent implements OnInit {
 
   ngOnInit(): void {
     this.categoryRestService.listAllRoots().subscribe(categories => {
-      categories.forEach(category => {
-        this.categoryRestService.listSubCategories(category.name).subscribe(subCategories => {
-          if (subCategories.length > 0) {
-            category.hasChildren = true;
-          }
-        });
-      });
       this.rootCategories = categories;
     });
   }
 
   goToCateg($event, category: Category) {
     $event.preventDefault();
-    if (!category.hasChildren) {
-      this.router.navigate(['/categ', category.name]);
-    } else {
-      this.router.navigate(['/parent-categ', category.name]);
-    }
+    this.categoryRestService.listSubCategories(category.name).subscribe(subCategories => {
+      if (subCategories.length > 0) {
+        this.router.navigate(['/parent-categ', category.name]);
+      } else {
+        this.router.navigate(['/categ', category.name]);
+      }
+    });
   }
 
 }
