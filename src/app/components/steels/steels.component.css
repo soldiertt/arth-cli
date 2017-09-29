@@ -1,0 +1,12 @@
+section {
+  border: 1px solid #DC4823;
+  margin-bottom: 20px;
+}
+
+.section-content {
+  padding: 10px;
+}
+
+.steel {
+  font-weight: bold;
+}

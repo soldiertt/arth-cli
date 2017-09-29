@@ -4,7 +4,8 @@ declare var $:any;
 
 @Component({
   selector: 'arth-steels',
-  templateUrl: 'steels.component.html'
+  templateUrl: 'steels.component.html',
+  styleUrls: ['./steels.component.css']
 })
 export class SteelsComponent implements OnInit {
   ngOnInit() {
