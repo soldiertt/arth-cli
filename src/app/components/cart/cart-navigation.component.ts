@@ -10,6 +10,7 @@ import {Router} from "@angular/router";
 import AppData from '../../model/app-data';
 import {DataService} from '../../service/data.service';
 import {Actions} from '../../model/actions.class';
+import {ArticleRestService} from "app/service/article.rest.service";
 
 declare var paypal: any;
 
@@ -33,6 +34,7 @@ export class CartNavigationComponent implements  OnInit, AfterViewInit {
               public authService: Auth0Service,
               private paypalRestService: PaypalRestService,
               private paypalOrderRestService: PaypalOrderRestService,
+              private articleRestService: ArticleRestService,
               private router: Router) {}
 
   ngOnInit() {
@@ -145,6 +147,11 @@ export class CartNavigationComponent implements  OnInit, AfterViewInit {
     parallelJobs.push(paymentDetailsObs);
     parallelJobs.push(executePaymentObs);
 
+    // update top sales
+    const orders = this.appData.cart.orders;
+    this.articleRestService.updateTopSales(orders).subscribe();
+
+    // execute payment
     Observable.forkJoin(parallelJobs).subscribe(responses => {
       let firstTx = responses[0].transactions[0];
       let items = firstTx.item_list.items;

@@ -3,8 +3,7 @@ import {HomeComponent} from "./components/home/home.component";
 import {AboutComponent} from "./components/about/about.component";
 import {BrandsComponent} from "./components/brands/brands.component";
 import {DetailComponent} from "./components/detail/detail.component";
-import {ParentCategoryComponent} from "./components/categories/parent-category.component";
-import {CategArticlesComponent} from "./components/categories/categ-articles.component";
+import {CategoryDetailsComponent} from "./components/categories/category-details.component";
 import {BrandArticlesComponent} from "./components/brands/brand-articles.component";
 import {SteelsComponent} from "./components/steels/steels.component";
 import {ErrorComponent} from "./components/shared/error/error.component";
@@ -17,11 +16,10 @@ export const rootRouterConfig: Routes = [
   {path: 'about', component: AboutComponent},
   {path: 'brands', component: BrandsComponent},
   {path: 'brand/:type', component: BrandArticlesComponent},
-  {path: 'categ/:type', component: CategArticlesComponent},
+  {path: 'categ/:type', component: CategoryDetailsComponent},
   {path: 'detail/:articleId', component: DetailComponent},
   {path: 'error', component: ErrorComponent},
   {path: 'mycart', component: CartWizardComponent},
-  {path: 'parent-categ/:type', component: ParentCategoryComponent},
   {path: 'profile', component: ProfileComponent},
   {path: 'search/:term', component: SearchComponent},
   {path: 'steels', component: SteelsComponent}

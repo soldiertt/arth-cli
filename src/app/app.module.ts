@@ -17,8 +17,7 @@ import {FooterComponent} from "./components/shared/footer/footer.component";
 import {HomeComponent} from "./components/home/home.component";
 import {AboutComponent} from "./components/about/about.component";
 import {SteelsComponent} from "./components/steels/steels.component";
-import {ParentCategoryComponent} from "./components/categories/parent-category.component";
-import {CategArticlesComponent} from "./components/categories/categ-articles.component";
+import {CategoryDetailsComponent} from "./components/categories/category-details.component";
 import {DetailComponent} from "./components/detail/detail.component";
 import {BrandsComponent} from "./components/brands/brands.component";
 import {BrandArticlesComponent} from "./components/brands/brand-articles.component";
@@ -60,7 +59,7 @@ import {ProfileService} from './service/profile.service';
     ArticleBoxComponent,
     BrandArticlesComponent,
     BrandsComponent,
-    CategArticlesComponent,
+    CategoryDetailsComponent,
     CategoryTitlePipe,
     CartNavigationComponent,
     CartWizardComponent,
@@ -77,7 +76,6 @@ import {ProfileService} from './service/profile.service';
     I18nPipe,
     MyCartComponent,
     OrdersComponent,
-    ParentCategoryComponent,
     ProfileEditComponent,
     ProfileComponent,
     ProfileEmailComponent,

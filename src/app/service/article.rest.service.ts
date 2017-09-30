@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import "rxjs/add/operator/map";
 import Article from "../model/article.class";
 import Brand from "../model/brand.class";
+import {Order} from '../model/cart.class';
 
 @Injectable()
 export class ArticleRestService {
@@ -30,15 +31,9 @@ export class ArticleRestService {
     return this.http.get(this.BASE_URL + "/product", {search: params}).map(res => res.json());
   }
 
-  findTopSalesByLeafCategory(categoryType): Observable<Array<Article>> {
+  findTopSalesByCategory(categoryType): Observable<Array<Article>> {
     let params: URLSearchParams = new URLSearchParams();
-    params.set('leafCategory', categoryType);
-    return this.http.get(this.BASE_URL + "/product/top", {search: params}).map(res => res.json());
-  }
-
-  findTopSalesByRootCategory(categoryType): Observable<Array<Article>> {
-    let params: URLSearchParams = new URLSearchParams();
-    params.set('rootCategory', categoryType);
+    params.set('category', categoryType);
     return this.http.get(this.BASE_URL + "/product/top", {search: params}).map(res => res.json());
   }
 
@@ -50,6 +45,10 @@ export class ArticleRestService {
     let params: URLSearchParams = new URLSearchParams();
     params.set('term', term);
     return this.http.get(this.BASE_URL + "/product/search", {search: params}).map(res => res.json());
+  }
+
+  updateTopSales(orders: Order[]): Observable<any> {
+    return this.http.post(this.BASE_URL + "/product/top", orders).map(res => res.json());
   }
 
 }

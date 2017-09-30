@@ -9,11 +9,11 @@ import {CategoryRestService} from "../../service/category.rest.service";
 declare var $:any
 
 @Component({
-  selector:'arth-categ-articles',
-  templateUrl: 'categ-articles.component.html',
-  styleUrls: ['categ-articles.component.css']
+  selector:'arth-category-details',
+  templateUrl: 'category-details.component.html',
+  styleUrls: ['category-details.component.css']
 })
-export class CategArticlesComponent implements OnInit {
+export class CategoryDetailsComponent implements OnInit {
   articles: Article[];
   category: Category;
   parentCategory: Category;
@@ -36,11 +36,17 @@ export class CategArticlesComponent implements OnInit {
         } else {
           this.parentCategory = undefined;
         }
-      });
-      this.articleRestService.findByCategory(categoryType).subscribe(articles => {
-        this.articles = articles;
+        this.categoryRestService.listSubCategories(categoryType).subscribe(subCategories => {
+          this.category.subCategories = subCategories;
+          if (!subCategories.length) {
+            this.articleRestService.findByCategory(categoryType).subscribe(articles => {
+              this.articles = articles;
+            });
+          }
+        });
       });
     });
+
   }
 
   get orderBy() {

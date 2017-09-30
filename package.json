@@ -6,7 +6,7 @@
     "ng": "ng",
     "start": "ng serve --host www.local.dev",
     "build-test": "ng build --env=test -prod -aot",
-    "build-prod": "ng build --env=prod -prod -aot --bh /new/",
+    "build-prod": "ng build --env=prod -prod -aot",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

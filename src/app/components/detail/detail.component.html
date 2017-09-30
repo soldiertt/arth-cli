@@ -4,7 +4,7 @@
       <div class="heading">
         <ol class="breadcrumb">
           <li class="breadcrumb-item responsive-hidden-small"><a href routerLink="">{{'common.links.home' | trans}}</a></li>
-          <li class="breadcrumb-item" *ngIf="parentCategory"><a href [routerLink]="['/parent-categ', parentCategory.name]" >{{parentCategory | catTitle}}</a></li>
+          <li class="breadcrumb-item" *ngIf="parentCategory"><a href [routerLink]="['/categ', parentCategory.name]" >{{parentCategory | catTitle}}</a></li>
           <li class="breadcrumb-item" *ngIf="category"><a href [routerLink]="['/categ', category.name]">{{category | catTitle}}</a></li>
         </ol>
       </div>
