@@ -4,6 +4,7 @@ import Category from "../../../model/category.class";
 import {Auth0Service} from "../../../service/auth.service";
 import {CategoryRestService} from "../../../service/category.rest.service";
 import {I18nService} from "../../../i18n/i18n.service";
+import {DataService} from '../../../service/data.service';
 
 @Component({
   selector: 'arth-header',
@@ -15,13 +16,14 @@ export class HeaderComponent implements OnInit {
   searchTerm: string;
 
   constructor (public authService: Auth0Service,
+               private dataService: DataService,
                private categoryRestService: CategoryRestService,
                private router: Router,
                public i18nService: I18nService) {}
 
   ngOnInit(): void {
-    this.categoryRestService.listAllRoots().subscribe(categories => {
-      this.rootCategories = categories;
+    this.dataService.appData.subscribe(appData => {
+      this.rootCategories = appData.rootCategories;
     });
   }
 

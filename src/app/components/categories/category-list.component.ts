@@ -2,6 +2,7 @@ import {Component, OnInit, Input} from "@angular/core";
 import {Router} from "@angular/router";
 import Category from "../../model/category.class";
 import {CategoryRestService} from "../../service/category.rest.service";
+import {DataService} from '../../service/data.service';
 
 @Component({
   selector: 'arth-category-list',
@@ -11,11 +12,13 @@ import {CategoryRestService} from "../../service/category.rest.service";
 export class CategoryListComponent implements OnInit {
   rootCategories: Category[];
 
-  constructor (private categoryRestService: CategoryRestService, private router: Router) {}
+  constructor (private dataService: DataService,
+               private categoryRestService: CategoryRestService,
+               private router: Router) {}
 
   ngOnInit(): void {
-    this.categoryRestService.listAllRoots().subscribe(categories => {
-      this.rootCategories = categories;
+    this.dataService.appData.subscribe(appData => {
+      this.rootCategories = appData.rootCategories;
     });
   }
 

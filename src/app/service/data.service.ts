@@ -4,6 +4,9 @@ import {Actions} from '../model/actions.class';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import Article from '../model/article.class';
 import {default as Cart, Order} from '../model/cart.class';
+import {CategoryRestService} from './category.rest.service';
+import {ArticleRestService} from './article.rest.service';
+import {SliderRestService} from './slider.rest.service';
 
 @Injectable()
 export class DataService {
@@ -11,27 +14,32 @@ export class DataService {
   private _appData: AppData;
   appData: BehaviorSubject<AppData>;
 
-  constructor() {
+  constructor(private categoryRestService: CategoryRestService,
+              private articleRestService: ArticleRestService,
+              private sliderRestService: SliderRestService) {
     this._appData = new AppData();
     this.appData = new BehaviorSubject(this._appData);
+
+    this.categoryRestService.listAllRoots().subscribe(categories => {
+      this._appData.rootCategories = categories;
+      this.appData.next(this._appData);
+    });
+    this.articleRestService.listAllPromo().subscribe(articles => {
+      this._appData.promoArticles = articles;
+      this.appData.next(this._appData);
+    });
+    this.sliderRestService.listAll().subscribe(slides => {
+      this._appData.slides = slides;
+      this.appData.next(this._appData);
+    })
   }
 
   doAction(action: Actions, value?: any): void {
-    console.log(action, value);
     this._appData = this.reducer(action, value);
-    console.log("new state", this._appData);
     this.appData.next(this._appData);
   }
 
   private reducer(action: Actions, value?: any): AppData {
-    /*
-    const b = Object.assign({}, a, {
-      user: {
-        ...a.user,
-        groups: 'some changed value'
-      }
-    });
-     */
     const newState = Object.assign({}, this._appData );
 
     switch (action) {

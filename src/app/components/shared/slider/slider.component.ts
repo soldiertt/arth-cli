@@ -1,7 +1,7 @@
 import {Component, OnInit} from "@angular/core";
-import {SliderRestService} from "../../../service/slider.rest.service";
 import Slide from "../../../model/slider.class";
 import {Router} from '@angular/router';
+import {DataService} from '../../../service/data.service';
 
 @Component({
   selector: 'arth-slider',
@@ -12,11 +12,11 @@ export class SliderComponent implements OnInit {
 
   slides: Slide[];
 
-  constructor(private sliderRestService: SliderRestService, private router: Router) {}
+  constructor(private dataService: DataService, private router: Router) {}
 
   ngOnInit() {
-    this.sliderRestService.listAll().subscribe(slides => {
-      this.slides = slides;
+    this.dataService.appData.subscribe(appData => {
+      this.slides = appData.slides;
     })
   }
 

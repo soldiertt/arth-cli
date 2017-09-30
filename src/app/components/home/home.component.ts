@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import Article from "../../model/article.class";
-import {ArticleRestService} from "../../service/article.rest.service";
+import {DataService} from '../../service/data.service';
 
 @Component({
   selector: 'home',
@@ -10,11 +10,11 @@ import {ArticleRestService} from "../../service/article.rest.service";
 export class HomeComponent implements OnInit {
   promoArticles: Article[] = [];
 
-  constructor(private articleRestService: ArticleRestService) {}
+  constructor(private dataService: DataService) {}
 
   ngOnInit() {
-    this.articleRestService.listAllPromo().subscribe(articles => {
-      this.promoArticles = articles;
+    this.dataService.appData.subscribe(appData => {
+      this.promoArticles = appData.promoArticles;
     });
   }
 
