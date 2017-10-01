@@ -22,7 +22,7 @@ h1 {
   padding: 15px;
   font-family: ambleregular;
   text-transform: uppercase;
-  color:#383838;
+  color: #343a40;
   background-color: #e9ecef;
   clear: both;
 }
@@ -48,7 +48,7 @@ h3 {
   text-transform: uppercase;
   color: #fff;
   background-color: #DC4823;
-  background-image: linear-gradient(to right, #DC4823, #383838);
+  background-image: linear-gradient(to right, #DC4823, #343a40);
   clear: both;
   margin-bottom: 0;
 }
@@ -87,6 +87,10 @@ a:hover {
 .wrap {
   width:80%;
   margin: 0 auto;
+}
+
+.content_top {
+  margin-top: 10px;
 }
 
 .content_bottom {
@@ -179,7 +183,7 @@ a:hover {
 
 .breadcrumb {
   margin: 0;
-  color: #383838;
+  color: #343a40;
   border: 1px solid #ddd;
   padding: 5px 10px 5px 10px;
   font-family: ambleregular;

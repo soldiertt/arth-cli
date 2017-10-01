@@ -4,14 +4,13 @@
 }
 
 .categories .list-group .list-group-title {
-  font-weight: normal;
   font-size: 1.1em;
   color: white;
   display: block;
   text-transform: uppercase;
   background-color: #DC4823;
   padding: 7px 15px 7px 15px;
-  margin-bottom: 0;
+  border: 1px solid rgba(0, 0, 0, 0.125);
 }
 
 .categories .list-group {
@@ -20,16 +19,18 @@
 }
 
 .categories .list-group .list-group-item {
+  color: #9C9C9C;
   padding: 4px 10px 4px 10px;
   border-bottom: 1px solid #eee;
+  cursor: pointer;
 }
 
-.categories .list-group .list-group-item a {
+.categories .list-group .list-group-item:hover {
+  color: #DC4823;
+}
+
+.categories .list-group .list-group-item span {
   padding: 0 15px;
-  color: #9C9C9C;
   background: url(/assets/images/drop_arrow.png) no-repeat 0;
 }
 
-.categories .list-group .list-group-item a:hover {
-  color: #DC4823;
-}

@@ -1,8 +1,8 @@
 <div class="categories">
   <ul class="list-group">
-    <li class="list-group-item list-group-title">{{'common.links.categories' | trans}} <span class="caret"></span></li>
-    <li *ngFor="let category of rootCategories" class="list-group-item">
-      <a href [routerLink]="['/categ', category.name]">{{category | catTitle}}</a>
+    <li class="list-group-title">{{'common.links.categories' | trans}} <span class="caret"></span></li>
+    <li *ngFor="let category of rootCategories" class="list-group-item" [routerLink]="['/categ', category.name]">
+      <span>{{category | catTitle}}</span>
     </li>
   </ul>
 </div>

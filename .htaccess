@@ -1,0 +1,14 @@
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresDefault "access plus 600 seconds"
+    ExpiresByType image/jpg             "access plus 300 seconds"
+    ExpiresByType image/jpeg            "access plus 300 seconds"
+    ExpiresByType image/png             "access plus 300 seconds"
+    ExpiresByType image/gif             "access plus 300 seconds"
+    ExpiresByType text/css              "access plus 300 seconds"
+    ExpiresByType text/javascript       "access plus 300 seconds"
+    ExpiresByType application/json       "access plus 300 seconds"
+</IfModule>
+<FilesMatch "\\.(jpe?g|png|gif|css|js|json)$">
+Header set Cache-Control "max-age=300, public"
+</FilesMatch>
