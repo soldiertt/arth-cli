@@ -51,6 +51,7 @@ import {TopSalesComponent} from "./components/shared/topsales/topsales.component
 import {CartNavigationComponent} from "./components/cart/cart-navigation.component";
 import {DataService} from './service/data.service';
 import {ProfileService} from './service/profile.service';
+import {TruncatePipe} from './pipe/truncate.pipe';
 
 @NgModule({
   declarations: [
@@ -83,7 +84,8 @@ import {ProfileService} from './service/profile.service';
     SearchComponent,
     SteelsComponent,
     SortPipe,
-    TopSalesComponent
+    TopSalesComponent,
+    TruncatePipe
   ],
   imports     : [
     BrowserModule,

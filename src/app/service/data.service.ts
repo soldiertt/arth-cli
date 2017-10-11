@@ -31,7 +31,11 @@ export class DataService {
     this.sliderRestService.listAll().subscribe(slides => {
       this._appData.slides = slides;
       this.appData.next(this._appData);
-    })
+    });
+    this.articleRestService.listAllSlider().subscribe(articles => {
+      this._appData.sliderArticles = articles;
+      this.appData.next(this._appData);
+    });
   }
 
   doAction(action: Actions, value?: any): void {

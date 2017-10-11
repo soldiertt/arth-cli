@@ -1,5 +1,5 @@
 .carousel-inner img {
-  max-height: 400px;
+  height: 400px;
   opacity: 0.7;
 }
 .carousel-item .link {

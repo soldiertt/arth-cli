@@ -15,6 +15,10 @@ export class ArticleRestService {
     return this.http.get(this.BASE_URL + "/product/promo").map(res => res.json());
   }
 
+  listAllSlider(): Observable<Array<Article>> {
+    return this.http.get(this.BASE_URL + "/product/slider").map(res => res.json());
+  }
+
   findById(articleId): Observable<Article> {
     return this.http.get(this.BASE_URL + "/product/" + articleId).map(res => res.json());
   }

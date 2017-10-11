@@ -15,6 +15,7 @@ export default class AppData {
   profile: UserProfile;
   rootCategories: Category[];
   promoArticles: Article[];
+  sliderArticles: Article[];
   slides: Slide[];
 
   constructor() {
@@ -23,6 +24,7 @@ export default class AppData {
     this.profile = new UserProfile();
     this.rootCategories = [];
     this.promoArticles = [];
+    this.sliderArticles = [];
     this.slides = [];
   }
 }
