@@ -12,3 +12,6 @@
 <FilesMatch "\\.(jpe?g|png|gif|css|js|json)$">
 Header set Cache-Control "max-age=300, public"
 </FilesMatch>
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.html [QSA,L]

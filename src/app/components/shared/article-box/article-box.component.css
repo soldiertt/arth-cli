@@ -74,16 +74,19 @@
   color: white;
 }
 
-.article-box .price-details .price-number {
+.article-box .price-details > div {
   font-family: ambleregular;
   color: #343a40;
   font-size: 1.4em;
   padding: 5px;
 }
 
-.article-box .price-details .price-number .strike {
-  text-decoration: line-through;
+.article-box .price-details .price.promo-price {
   color: red;
+}
+
+.article-box .price-details .price-strike {
+  text-decoration: line-through;
   display: inline-block;
   margin-left: 6px;
   font-size: 0.8em;

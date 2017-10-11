@@ -27,7 +27,7 @@ export default {
       openinghours: 'Open maandag tot vrijdag van 17.30u tot 20.00u en 7 dagen/7 op afspraak'
     },
     home: {
-      promotion: 'Promotie'
+      promotion: 'Promoties'
     },
     mycart: {
       addarticle: 'Een artikel toevoegen',

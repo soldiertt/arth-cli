@@ -27,7 +27,7 @@ export default {
       openinghours: 'Open on Monday to Friday from 5:30PM to 8PM and 7d/7 with an appointment.'
     },
     home: {
-      promotion: 'Promotion'
+      promotion: 'Promotions'
     },
     mycart: {
       addarticle: 'Add one article',

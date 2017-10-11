@@ -27,7 +27,7 @@ export default {
       openinghours: 'Ouvert du lundi au vendredi de 17h30 à 20h00 et 7j/7 sur rendez-vous.'
     },
     home: {
-      promotion: 'Promotion'
+      promotion: 'Promotions'
     },
     mycart: {
       addarticle: 'Ajouter un article',
