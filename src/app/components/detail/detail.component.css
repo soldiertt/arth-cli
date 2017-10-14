@@ -66,8 +66,8 @@
 }
 
 .article-desc .price span.strike {
+  color: #343a40;
   text-decoration: line-through;
-  color: #d32f2f;
   display: inline-block;
   margin-left: 10px;
   font-size: 2em;

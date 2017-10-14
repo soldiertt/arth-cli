@@ -4,7 +4,7 @@
     <div class="card-header" role="tab" id="heading-{{idx}}">
       <h5 class="mb-0">
         <a href="#collapse-{{idx}}" data-toggle="collapse" data-parent="#orders" aria-expanded="false">
-          {{paypalOrder.orderDate | date}} - {{paypalOrder.parsedJson.total | currency:'EUR':true}}
+          {{paypalOrder.orderDate | date}} - {{paypalOrder.parsedJson.amount.total | currency:'EUR':true}}
         </a>
       </h5>
     </div>
@@ -12,12 +12,12 @@
       <div class="card-block">
         <table class="table table-mycart table-striped">
           <thead>
-          <tr>
-            <th>{{'common.label.article' | trans}}</th>
-            <th class="price-cell">{{'common.label.price' | trans}}</th>
-            <th>{{'common.label.quantity' | trans}}</th>
-            <th class="amount-cell">{{'common.label.total' | trans}}</th>
-          </tr>
+            <tr>
+              <th>{{'common.label.article' | trans}}</th>
+              <th class="price-cell">{{'common.label.price' | trans}}</th>
+              <th>{{'common.label.quantity' | trans}}</th>
+              <th class="amount-cell">{{'common.label.total' | trans}}</th>
+            </tr>
           </thead>
           <tbody>
           <tr *ngFor="let item of paypalOrder.parsedJson.items">
@@ -30,12 +30,30 @@
           </tr>
           </tbody>
           <tfoot>
-          <tr>
-            <td colspan="3" class="foot-label-cell">{{'common.label.total' | trans}} : </td>
-            <td class="cart-total">
-              {{paypalOrder.parsedJson.total | currency:'EUR':true}}
-            </td>
-          </tr>
+            <tr>
+              <td colspan="3" class="foot-label-cell">{{'common.label.subtotal' | trans}}</td>
+              <td class="cart-total">
+                {{paypalOrder.parsedJson.amount.details.subtotal | currency:'EUR':true}}
+              </td>
+            </tr>
+            <tr *ngIf="paypalOrder.parsedJson.amount.details.shipping_discount !== '0.00'">
+              <td colspan="3" class="foot-label-cell">{{'common.label.promotion' | trans}}</td>
+              <td class="cart-total">
+                {{paypalOrder.parsedJson.amount.details.shipping_discount | currency:'EUR':true}}
+              </td>
+            </tr>
+            <tr>
+              <td colspan="3" class="foot-label-cell">{{'page.mycart.shipping' | trans}}</td>
+              <td class="cart-total">
+                {{paypalOrder.parsedJson.amount.details.shipping | currency:'EUR':true}}
+              </td>
+            </tr>
+            <tr>
+              <td colspan="3" class="foot-label-cell">{{'common.label.total' | trans}}</td>
+              <td class="cart-total">
+                {{paypalOrder.parsedJson.amount.total | currency:'EUR':true}}
+              </td>
+            </tr>
           </tfoot>
         </table>
       </div>

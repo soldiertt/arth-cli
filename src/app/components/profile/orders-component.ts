@@ -4,7 +4,8 @@ import {PaypalOrderRestService} from "../../service/paypalorder.rest.service";
 import {DataService} from '../../service/data.service';
 @Component({
   selector: 'arth-orders',
-  templateUrl: './orders-component.html'
+  templateUrl: './orders-component.html',
+  styleUrls: ['./orders-component.css']
 })
 export class OrdersComponent implements OnInit {
 
