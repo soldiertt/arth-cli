@@ -44,7 +44,8 @@ export default {
       paymentsuccess: 'Payment was successfully executed !',
       previous: 'Previous',
       removearticle: 'Remove one article',
-      removefromcart: 'Remove from cart'
+      removefromcart: 'Remove from cart',
+      shipping: 'Shipping cost'
     },
     profile: {
       choosecountry: 'Choose a country',

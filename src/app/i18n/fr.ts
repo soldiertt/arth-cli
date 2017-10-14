@@ -44,7 +44,8 @@ export default {
       paymentsuccess: 'Votre paiement a été effectué avec succès !',
       previous: 'Précédent',
       removearticle: 'Retirer un article',
-      removefromcart: 'Enlever du panier'
+      removefromcart: 'Enlever du panier',
+      shipping: 'Frais de port'
     },
     profile: {
       choosecountry: 'Choisissez un pays',

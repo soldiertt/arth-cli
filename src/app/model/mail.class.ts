@@ -1,6 +1,8 @@
 export default class Mail {
-  recipientEmail: string;
-  recipientName: string;
   template: string;
   parameters?: any;
+
+  constructor(template: string) {
+    this.template = template;
+  }
 }

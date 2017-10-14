@@ -5,5 +5,6 @@
 
 export const environment = {
   production: false,
-  restEndpoint: 'http://arthurius.local.dev'
+  restEndpoint: 'http://arthurius.local.dev',
+  paypalEnvironment: 'sandbox'
 };

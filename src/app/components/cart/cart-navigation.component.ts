@@ -11,6 +11,10 @@ import AppData from '../../model/app-data';
 import {DataService} from '../../service/data.service';
 import {Actions} from '../../model/actions.class';
 import {ArticleRestService} from "app/service/article.rest.service";
+import Mail from '../../model/mail.class';
+import {environment} from '../../../environments/environment';
+import {MailService} from '../../service/mail.service';
+import {I18nService} from '../../i18n/i18n.service';
 
 declare var paypal: any;
 
@@ -35,6 +39,8 @@ export class CartNavigationComponent implements  OnInit, AfterViewInit {
               private paypalRestService: PaypalRestService,
               private paypalOrderRestService: PaypalOrderRestService,
               private articleRestService: ArticleRestService,
+              private mailService: MailService,
+              private i18nService: I18nService,
               private router: Router) {}
 
   ngOnInit() {
@@ -75,8 +81,7 @@ export class CartNavigationComponent implements  OnInit, AfterViewInit {
       if (window["paypal"]  && this.appData.cart.orders.length > 0) {
 
         paypal.Button.render({
-          //env: 'sandbox', // Specify 'production' for the prod environment
-          env: 'production', // Specify 'production' for the prod environment
+          env: environment.paypalEnvironment,
           payment: (resolve, reject) => {
 
             this.paypalRestService.createPayment(this.appData.cart).subscribe(response => {
@@ -155,19 +160,31 @@ export class CartNavigationComponent implements  OnInit, AfterViewInit {
     Observable.forkJoin(parallelJobs).subscribe(responses => {
       let firstTx = responses[0].transactions[0];
       let items = firstTx.item_list.items;
-      let total = firstTx.amount.total;
+      let amount = firstTx.amount;
 
       let paypalOrder = new PaypalOrder();
       paypalOrder.userId = this.appData.profile.user_id;
-      let orderDateMoment = moment(new Date());
-      paypalOrder.orderDate = orderDateMoment.format('YYYY-MM-DD hh:mm:ss');
-      paypalOrder.json = JSON.stringify({items: items, total: total});
+      paypalOrder.orderDate = moment().format('YYYY-MM-DD hh:mm:ss');
+      paypalOrder.json = JSON.stringify({items, amount});
       this.paypalOrderRestService.save(paypalOrder).subscribe(_ => {
         this.cartService.emptyCart();
         this._checkButtonDisplay();
       });
       this.paymentConfirmed = true;
       this.processingPayment = false;
+
+      // Send mail to admin
+      let mail: Mail = new Mail("ADMIN_PAYMENT_CONFIRMATION");
+      mail.parameters = {"paypalOrder" : paypalOrder};
+      this.mailService.sendMail(this.appData.profile.user_id, mail).subscribe(resp => {
+        console.log("Mail sent !");
+      });
+      // Send mail to client
+      mail = new Mail("USER_PAYMENT_CONFIRMATION");
+      mail.parameters = {"paypalOrder" : paypalOrder, "language": this.i18nService.currentLanguage};
+      this.mailService.sendMail(this.appData.profile.user_id, mail).subscribe(resp => {
+        console.log("Mail sent !");
+      });
     }, err => this._goToErrorPage(err));
 
   }

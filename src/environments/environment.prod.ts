@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  restEndpoint: '/api'
+  restEndpoint: '/api',
+  paypalEnvironment: 'production'
 };

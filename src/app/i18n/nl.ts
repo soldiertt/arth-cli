@@ -44,7 +44,8 @@ export default {
       paymentsuccess: 'De betaling werd succesvol uitgevoerd!',
       previous: 'Vorig',
       removearticle: 'Een artikel wegnemen',
-      removefromcart: 'Verwijderen uit mandje'
+      removefromcart: 'Verwijderen uit mandje',
+      shipping: 'Bezorgkosten'
     },
     profile: {
       choosecountry: 'Selecteer een land',

@@ -54,7 +54,7 @@
       <td></td>
     </tr>
     <tr *ngIf="cart.shipping">
-      <td colspan="4" class="foot-label-cell">Frais de port : </td>
+      <td colspan="4" class="foot-label-cell">{{'page.mycart.shipping' | trans}} : </td>
       <td class="cart-subtotal">{{cart.shipping | currency:'EUR':true}}</td>
       <td></td>
     </tr>

@@ -68,12 +68,8 @@ export class ProfileComponent implements OnInit {
     let userMetaData: UserMetaData = new UserMetaData();
     userMetaData.pendingRemoval = true;
     this.updateMetaData(userMetaData);
-    let mail: Mail = new Mail();
-    mail.recipientEmail = "soldiertt@gmail.com";
-    mail.recipientName = "Jean-Louis Bourlet";
-    mail.template = "ACCOUNT_DELETION";
-    mail.parameters = {"userEmail" : this.email, "userId": this.userProfile.user_id};
-    this.mailService.sendMail(mail).subscribe(resp => {
+    let mail: Mail = new Mail("ACCOUNT_DELETION");
+    this.mailService.sendMail(this.userProfile.user_id, mail).subscribe(resp => {
       console.log("Mail sent !");
     });
   }
@@ -82,12 +78,8 @@ export class ProfileComponent implements OnInit {
     let userMetaData: UserMetaData = new UserMetaData();
     userMetaData.pendingRemoval = false;
     this.updateMetaData(userMetaData);
-    let mail: Mail = new Mail();
-    mail.recipientEmail = "soldiertt@gmail.com";
-    mail.recipientName = "Jean-Louis Bourlet";
-    mail.template = "ACCOUNT_DELETION_CANCEL";
-    mail.parameters = {"userEmail" : this.email, "userId": this.userProfile.user_id};
-    this.mailService.sendMail(mail).subscribe(resp => {
+    let mail: Mail = new Mail("ACCOUNT_DELETION_CANCEL");
+    this.mailService.sendMail(this.userProfile.user_id, mail).subscribe(resp => {
       console.log("Mail sent !");
     });
   }
