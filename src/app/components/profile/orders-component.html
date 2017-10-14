@@ -36,7 +36,7 @@
                 {{paypalOrder.parsedJson.amount.details.subtotal | currency:'EUR':true}}
               </td>
             </tr>
-            <tr *ngIf="paypalOrder.parsedJson.amount.details.shipping_discount !== '0.00'">
+            <tr *ngIf="paypalOrder.parsedJson.amount.details.shipping_discount && paypalOrder.parsedJson.amount.details.shipping_discount !== '0.00'">
               <td colspan="3" class="foot-label-cell">{{'common.label.promotion' | trans}}</td>
               <td class="cart-total">
                 {{paypalOrder.parsedJson.amount.details.shipping_discount | currency:'EUR':true}}
