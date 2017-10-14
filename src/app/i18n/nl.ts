@@ -102,6 +102,7 @@ export default {
       name: 'Naam',
       no: 'Nee',
       outofstock: 'Niet op voorraad.',
+      outofstock_short: 'Niet op voorraad',
       phone: 'Telefoon',
       postbox: 'Postbus',
       postcode: 'Postcode',

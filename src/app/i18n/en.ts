@@ -102,6 +102,7 @@ export default {
       name: 'Name',
       no: 'No',
       outofstock: 'Out of stock.',
+      outofstock_short: 'Out of stock',
       phone: 'Phone',
       postbox: 'Box',
       postcode: 'Postcode',

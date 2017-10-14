@@ -102,6 +102,7 @@ export default {
       name: 'Nom',
       no: 'Non',
       outofstock: 'Cet article n\'est actuellement plus disponible.',
+      outofstock_short: 'En commande',
       phone: 'Téléphone',
       postbox: 'Boîte',
       postcode: 'Code postal',
