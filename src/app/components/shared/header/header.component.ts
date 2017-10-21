@@ -28,12 +28,15 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    let closeNavBar = function () {
+      if($('.navbar-toggler').css('display') !='none'){
+        $(".navbar-toggler").trigger( "click" );
+      }
+    };
+
     $(function() {
-      $('.nav-item:not(".dropdown") a').on('click', function(){
-        if($('.navbar-toggler').css('display') !='none'){
-          $(".navbar-toggler").trigger( "click" );
-        }
-      });
+      $('.nav-item:not(".dropdown") a').on('click', closeNavBar);
+      $('.navbar-nav').on('click', '.dropdown-item', closeNavBar);
     });
   }
 
