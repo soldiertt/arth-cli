@@ -2,7 +2,7 @@
 <table class="table table-mycart table-striped" *ngIf="cart.orders.length">
   <thead>
     <tr>
-      <th></th>
+      <th class="d-none d-sm-block"></th>
       <th>{{'common.label.article' | trans}}</th>
       <th class="price-cell">{{'common.label.price' | trans}}</th>
       <th>{{'common.label.quantity' | trans}}</th>
@@ -12,7 +12,7 @@
   </thead>
   <tbody>
     <tr *ngFor="let order of cart.orders">
-      <td class="picture-cell">
+      <td class="picture-cell d-none d-sm-block">
         <a href [routerLink]="['/detail', order.article.id]">
           <img [src]="miniPicture(order.article)" [attr.alt]="order.article.name">
           <img src="assets/images/promo.png" *ngIf="order.article.promo">
