@@ -29,7 +29,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     $(function() {
-      $('.nav-item a').on('click', function(){
+      $('.nav-item:not(".dropdown") a').on('click', function(){
         if($('.navbar-toggler').css('display') !='none'){
           $(".navbar-toggler").trigger( "click" );
         }
