@@ -2,14 +2,14 @@
   <fieldset>
     <legend>{{'common.label.contact' | trans}}</legend>
     <div class="form-group row">
-      <label for="name" class="col-2 col-form-label">{{'common.label.fullname' | trans}} *</label>
-      <div class="col-3">
+      <label for="name" class="col-3 col-form-label">{{'common.label.fullname' | trans}} *</label>
+      <div class="col-7">
         <input type="text" name="name" id="name" formControlName="name" maxlength="100" class="form-control">
       </div>
     </div>
     <div class="form-group row">
-      <label for="phone" class="col-2 col-form-label">{{'common.label.phone' | trans}} *</label>
-      <div class="col-3">
+      <label for="phone" class="col-3 col-form-label">{{'common.label.phone' | trans}} *</label>
+      <div class="col-7">
         <input type="text" name="phone" id="phone" formControlName="phone" maxlength="100" class="form-control">
       </div>
     </div>
@@ -19,18 +19,17 @@
     <legend>{{'common.label.address' | trans}}</legend>
 
     <div class="form-group row">
-      <label for="street" class="col-2 col-form-label">{{'common.label.street' | trans}} *</label>
-      <div class="col-8">
+      <label for="street" class="col-3 col-form-label">{{'common.label.street' | trans}} *</label>
+      <div class="col-7">
         <input type="text" name="street" id="street" formControlName="street" maxlength="100" class="form-control">
       </div>
     </div>
 
     <div class="form-group row">
-      <label for="houseNumber" class="col-2 col-form-label">{{'common.label.housenumber' | trans}} *</label>
+      <label for="houseNumber" class="col-3 col-form-label">{{'common.label.housenumber' | trans}} *</label>
       <div class="col-3">
         <input type="text" name="houseNumber" id="houseNumber" formControlName="houseNumber" maxlength="10" class="form-control">
       </div>
-      <div class="col-1"></div>
       <label for="postbox" class="col-1 col-form-label">{{'common.label.postbox' | trans}}</label>
       <div class="col-3">
         <input type="text" name="postbox" id="postbox" formControlName="postbox" maxlength="10" class="form-control">
@@ -38,22 +37,22 @@
     </div>
 
     <div class="form-group row">
-      <label for="postcode" class="col-2 col-form-label">{{'common.label.postcode' | trans}} *</label>
+      <label for="postcode" class="col-3 col-form-label">{{'common.label.postcode' | trans}} *</label>
       <div class="col-3">
         <input type="text" name="postcode" id="postcode" formControlName="postcode" maxlength="10" class="form-control">
       </div>
     </div>
 
     <div class="form-group row">
-      <label for="city" class="col-2 col-form-label">{{'common.label.city' | trans}} *</label>
-      <div class="col-8">
+      <label for="city" class="col-3 col-form-label">{{'common.label.city' | trans}} *</label>
+      <div class="col-7">
         <input type="text" name="city" id="city" formControlName="city" maxlength="100" class="form-control">
       </div>
     </div>
 
     <div class="form-group row">
-      <label for="country" class="col-2 col-form-label">{{'common.label.country' | trans}} *</label>
-      <div class="col-8">
+      <label for="country" class="col-3 col-form-label">{{'common.label.country' | trans}} *</label>
+      <div class="col-7">
         <select id="country" class="form-control" formControlName="country">
           <option value="">[{{'page.profile.choosecountry' | trans}}]</option>
           <option *ngFor="let country of countries" [value]="country.alpha2">{{country.name_fr}}</option>

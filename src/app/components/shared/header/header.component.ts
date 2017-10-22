@@ -29,8 +29,9 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     let closeNavBar = function () {
-      if($('.navbar-toggler').css('display') !='none'){
-        $(".navbar-toggler").trigger( "click" );
+      const navbarToggler$ = $('.navbar-toggler');
+      if(navbarToggler$.css('display') !='none'){
+        navbarToggler$.trigger( "click" );
       }
     };
 

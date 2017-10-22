@@ -3,7 +3,6 @@ import {CartService} from "../../service/cart.service";
 import {Auth0Service} from "../../service/auth.service";
 import {PaypalRestService} from "../../service/paypal.rest.service";
 import {PaypalOrderRestService} from "../../service/paypalorder.rest.service";
-import {Observable} from 'rxjs';
 import PaypalOrder from "../../model/paypalorder.class";
 import * as moment from "moment";
 import {Router} from "@angular/router";
@@ -145,20 +144,17 @@ export class CartNavigationComponent implements  OnInit, AfterViewInit {
 
   private _confirmPayment(paymentID: string, payerID: string) {
     this.processingPayment = true;
-    let paymentDetailsObs = this.paypalRestService.paymentDetails(paymentID);
-    let executePaymentObs = this.paypalRestService.executePayment(paymentID, payerID);
-
-    let parallelJobs: Array<Observable<any>> = [];
-    parallelJobs.push(paymentDetailsObs);
-    parallelJobs.push(executePaymentObs);
 
     // update top sales
     const orders = this.appData.cart.orders;
     this.articleRestService.updateTopSales(orders).subscribe();
 
+    this.cartService.emptyCart();
+    this._checkButtonDisplay();
+
     // execute payment
-    Observable.forkJoin(parallelJobs).subscribe(responses => {
-      let firstTx = responses[0].transactions[0];
+    this.paypalRestService.executePayment(paymentID, payerID).subscribe(response => {
+      let firstTx = response.transactions[0];
       let items = firstTx.item_list.items;
       let amount = firstTx.amount;
 
@@ -167,11 +163,9 @@ export class CartNavigationComponent implements  OnInit, AfterViewInit {
       paypalOrder.orderDate = moment().format('YYYY-MM-DD hh:mm:ss');
       paypalOrder.json = JSON.stringify({items, amount});
       this.paypalOrderRestService.save(paypalOrder).subscribe(_ => {
-        this.cartService.emptyCart();
-        this._checkButtonDisplay();
+        this.paymentConfirmed = true;
+        this.processingPayment = false;
       });
-      this.paymentConfirmed = true;
-      this.processingPayment = false;
 
       // Send mail to admin
       let mail: Mail = new Mail("ADMIN_PAYMENT_CONFIRMATION");
