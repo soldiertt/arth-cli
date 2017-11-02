@@ -1,0 +1,24 @@
+<div class="p-1">
+  <button type="button" routerLink="add" class="btn btn-sm btn-secondary">NEW BRAND</button>
+</div>
+<div class="row">
+  <div [class.col-8]="subRouteActive" [class.col-12]="!subRouteActive">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let brand of brands$ | async">
+        <td>{{brand.marque}}</td>
+        <td><a href (click)="remove($event, brand.id)">Delete</a></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-4" *ngIf="subRouteActive">
+    <router-outlet></router-outlet>
+  </div>
+</div>

@@ -53,6 +53,16 @@ h3 {
   margin-bottom: 0;
 }
 
+.administration h3 {
+  text-transform: none;
+  background-color: #DC4823;
+  background-image: none;
+}
+
+.administration .btn {
+  box-shadow: none;
+}
+
 ul {
   padding: 0;
 }
@@ -129,8 +139,16 @@ a:hover {
 ********* DIVERS ****************
 *********************************/
 
-.right {
-  float: right;
+.product-sorter {
+  background-color: #e9ecef;
+  border: 1px solid #ddd;
+  border-radius: 0.25rem;
+  padding: 5px 10px 5px 10px;
+  font-family: ambleregular;
+  font-size: 20px;
+  text-transform: uppercase;
+  line-height: 2em;
+  margin-left: 3px;
 }
 
 /********************************
@@ -185,8 +203,8 @@ a:hover {
   margin: 0;
   color: #343a40;
   border: 1px solid #ddd;
-  padding: 5px 10px 5px 10px;
-  font-family: ambleregular;
+  padding: 5px 10px;
+  font-family: ambleregular, Verdana, Arial, sans-serif;
   font-size: 20px;
   text-transform: uppercase;
 }

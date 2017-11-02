@@ -1,0 +1,35 @@
+<h3 *ngIf="!this.id; else editItem">Add new category</h3>
+<ng-template #editItem>
+  <h3>Editing category '{{item?.name}}'</h3>
+</ng-template>
+<div *ngIf="item">
+  <form (ngSubmit)="save(f.valid)" #f="ngForm" class="p-2">
+    <div class="form-group">
+      <label for="name">Name *</label>
+      <input type="text" id="name" name="name" [(ngModel)]="item.name"
+             placeholder="category name" required="required" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="title_fr">French title *</label>
+      <input type="text" id="title_fr" name="title_fr" [(ngModel)]="item.titleFr"
+             placeholder="category french title" required="required" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="title_nl" >Dutch title *</label>
+      <input type="text" id="title_nl" name="title_nl" [(ngModel)]="item.titleNl"
+             placeholder="category dutch title" required="required" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="parent">Parent type</label>
+      <input type="text" id="parent" name="parent" [(ngModel)]="item.parent"
+             placeholder="category parent name" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="sortby">Tri</label>
+      <input type="number" id="sortby" name="sortby" [(ngModel)]="item.sortby"
+             placeholder="category numeric ordering" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-sm btn-success">Save</button>
+    <button type="button" class="btn btn-sm btn-link" routerLink="/admin/categories">Cancel</button>
+  </form>
+</div>

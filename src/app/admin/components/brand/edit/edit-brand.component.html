@@ -1,0 +1,12 @@
+<h3>Add new brand</h3>
+<div *ngIf="newItem">
+  <form (ngSubmit)="create(f.valid)" #f="ngForm" class="p-2">
+    <div class="form-group">
+      <label for="name">Name *</label>
+      <input type="text" id="name" name="name" [(ngModel)]="newItem.marque"
+             placeholder="brand name" required="required" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-sm btn-success">Save</button>
+    <button type="button" class="btn btn-sm btn-link" routerLink="/admin/brands">Cancel</button>
+  </form>
+</div>

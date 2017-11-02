@@ -1,0 +1,30 @@
+<h3 *ngIf="!this.id; else editItem">Add new slide</h3>
+<ng-template #editItem>
+  <h3>Editing slide</h3>
+</ng-template>
+<div *ngIf="item">
+  <form (ngSubmit)="save(f.valid)" #f="ngForm" class="p-2">
+    <div class="form-group">
+      <label for="image">Image *</label>
+      <input type="text" id="image" name="image" [(ngModel)]="item.image" required="required" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="title1">Title 1</label>
+      <input type="text" id="title1" name="title1" [(ngModel)]="item.title1" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="title2">Title 2</label>
+      <input type="text" id="title2" name="title2" [(ngModel)]="item.title2" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea id="description" name="description" [(ngModel)]="item.description" class="form-control"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="link">Link</label>
+      <input type="text" id="link" name="link" [(ngModel)]="item.link" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-sm btn-success">Save</button>
+    <button type="button" class="btn btn-sm btn-link" routerLink="/admin/slides">Cancel</button>
+  </form>
+</div>

@@ -1,0 +1,100 @@
+.article {
+  margin-top: 15px;
+}
+
+.article-picture, .article-desc {
+  float: left;
+}
+
+.article-picture {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  min-height: 300px;
+  min-width: 280px;
+  padding: 20px;
+}
+
+.article-picture img {
+  max-width: 100%;
+  max-height: 400px;
+  align-self: center;
+}
+
+.article-picture img.zoomable {
+  cursor: url('/assets/images/search-plus.png'), move;
+}
+
+.article-desc {
+  width: 50%;
+}
+
+.article-desc .strong{
+  font-weight: bold;
+  color: #767676;
+}
+
+.article-desc .comment {
+  font-size: 1.5em;
+}
+
+.article-desc .warn {
+  font-size: 1.6em;
+  color: #d32f2f;
+}
+
+.article-desc .name {
+  font-family: ambleregular, Verdana, Arial, sans-serif;
+  color:#DC4823;
+  font-size: 30px;
+}
+
+.article-desc p {
+  font-family: verdana, arial, sans-serif;
+  color: #969696;
+  font-size: 0.9em;
+}
+
+.article-desc .price {
+  border-bottom: 1px solid #DC4823;
+}
+
+.article-desc .price span {
+  font-family: ambleregular, Verdana, Arial, sans-serif;
+  font-size: 3em;
+  color: #DC4823;
+}
+
+.article-desc .price span.strike {
+  color: #343a40;
+  text-decoration: line-through;
+  display: inline-block;
+  margin-left: 10px;
+  font-size: 2em;
+}
+
+.article .buttons li {
+  float: left;
+}
+
+.article .buttons .btn-detail {
+  background-color: #3f4040;
+  border-radius: 3px;
+  font-weight: bold;
+  border: 1px solid rgba(0,0,0,0.1);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+  color: white;
+  margin: 10px;
+  padding: 12px 17px;
+  font-size: 1.1em;
+  cursor: pointer;
+}
+
+.article .buttons .btn-detail:hover {
+  background-color: #525252;
+}
+
+.youtube-iframe {
+  width: 100%;
+  min-height: 500px;
+}

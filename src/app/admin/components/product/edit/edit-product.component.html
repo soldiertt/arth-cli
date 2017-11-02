@@ -1,0 +1,74 @@
+<h3 *ngIf="!this.id; else editItem">Add new product</h3>
+<ng-template #editItem>
+  <h3>Editing product '{{item?.name}}'</h3>
+</ng-template>
+<div *ngIf="item">
+  <form (ngSubmit)="save(f)" #f="ngForm" class="p-2">
+    <div class="form-group">
+      <label for="category">Category *</label>
+      <select id="category" name="category" [(ngModel)]="item.type" required="required" class="form-control">
+        <option *ngFor="let category of categories$ | async" [value]="category.name">{{category.name}}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="brand">Brand *</label>
+      <select id="brand" name="brand" [(ngModel)]="item.marque" required="required" class="form-control">
+        <option *ngFor="let brand of brands$ | async" [value]="brand.marque">{{brand.marque}}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="name">Name *</label>
+      <input type="text" id="name" name="name" [(ngModel)]="item.name" required="required" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea id="description" name="description" [(ngModel)]="item.description" class="form-control"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="picture">Picture *</label>
+      <input type="text" id="picture" name="picture" [(ngModel)]="item.picture" required="required" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="handle">Handle</label>
+      <input type="text" id="handle" name="handle" [(ngModel)]="item.manche" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="steel">Steel</label>
+      <input type="text" id="steel" name="steel" [(ngModel)]="item.acier" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="size">Size</label>
+      <input type="text" id="size" name="size" [(ngModel)]="item.size" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="youtube_ref">Youtube ID</label>
+      <input type="text" id="youtube_ref" name="youtube_ref" [(ngModel)]="item.youtube_ref" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="price">Price *</label>
+      <input type="number" id="price" name="price" [(ngModel)]="item.price" required="required" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="old_price">Old price</label>
+      <input type="number" id="old_price" name="old_price" [(ngModel)]="item.old_price" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="comment">Comment</label>
+      <textarea id="comment" name="comment" [(ngModel)]="item.comment" class="form-control"></textarea>
+    </div>
+    <div class="form-check">
+      <label for="promo" class="form-check-label">
+        <input type="checkbox" id="promo" name="promo" [(ngModel)]="item.promo" class="form-check-input">
+        Promo
+      </label>
+    </div>
+    <div class="form-check">
+      <label for="instock" class="form-check-label">
+        <input type="checkbox" id="instock" name="instock" [(ngModel)]="item.instock" class="form-check-input">
+        In stock
+      </label>
+    </div>
+    <button type="submit" class="btn btn-sm btn-success">Save</button>
+    <button type="button" class="btn btn-sm btn-link" routerLink="/admin/products">Cancel</button>
+  </form>
+</div>

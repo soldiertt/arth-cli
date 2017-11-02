@@ -1,0 +1,41 @@
+<div class="main" *ngIf="category">
+  <div class="content">
+    <div class="content_top">
+      <div class="row m-0">
+        <ol class="breadcrumb col-10 align-self-start">
+          <li class="breadcrumb-item responsive-hidden-small"><a href routerLink="">{{'common.links.home' | trans}}</a></li>
+          <li class="breadcrumb-item" *ngIf="parentCategory"><a href [routerLink]="['/categ', parentCategory.name]" >{{parentCategory | catTitle}}</a></li>
+          <li class="breadcrumb-item">{{category | catTitle}}</li>
+        </ol>
+        <div class="col align-self-end text-center product-sorter">
+          <ng-container *ngIf="!category.subCategories?.length; else noFilter">
+            <span class="option">{{'common.label.sortby' | trans}}</span>
+            <select name="orderBy" [(ngModel)]="orderBy">
+              <option value="name">{{'common.label.name' | trans}}</option>
+              <option value="price">{{'common.label.price' | trans}}</option>
+            </select>
+          </ng-container>
+          <ng-template #noFilter>
+            &nbsp;
+          </ng-template>
+        </div>
+      </div>
+    </div>
+    <div>
+      <arth-topsales [category]="category"></arth-topsales>
+      <div *ngIf="category.subCategories?.length; else listArticles">
+        <h3>{{'common.links.categories' | trans}}</h3>
+        <div class="content_bottom">
+          <div *ngFor="let subCateg of category.subCategories" class="box-link" [routerLink]="['/categ', subCateg.name]">
+            {{subCateg | catTitle}}
+          </div>
+          <div class="clear"></div>
+        </div>
+      </div>
+      <ng-template #listArticles>
+        <h3>{{'common.label.allarticles' | trans}}</h3>
+        <arth-article-box *ngFor="let article of articles | orderBy : orderBy" [article]="article"></arth-article-box>
+      </ng-template>
+    </div>
+  </div>
+</div>
