@@ -46,7 +46,6 @@ export class ProductComponent implements OnInit {
     this.getAll();
     this.filteredProducts$ = this.products$;
     this.filterForm.valueChanges.subscribe(values => {
-      console.log(values);
       this.filteredProducts$ = this.products$.map((products: Article[]) => {
         return products.filter(product => {
           return (!values.brandFilter || product.marque === values.brandFilter) &&

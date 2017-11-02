@@ -172,13 +172,13 @@ export class CartNavigationComponent implements  OnInit, AfterViewInit {
       // Send mail to admin
       let mail: Mail = new Mail("ADMIN_PAYMENT_CONFIRMATION");
       mail.parameters = {paypalOrder};
-      this.mailService.sendMail(this.appData.profile.user_id, mail).subscribe(resp => {
+      this.mailService.sendMail(mail).subscribe(resp => {
         console.log("Mail sent !");
       });
       // Send mail to client
       mail = new Mail("USER_PAYMENT_CONFIRMATION");
       mail.parameters = {paypalOrder : paypalOrder, language: this.i18nService.currentLanguage};
-      this.mailService.sendMail(this.appData.profile.user_id, mail).subscribe(resp => {
+      this.mailService.sendMail(mail).subscribe(resp => {
         console.log("Mail sent !");
       });
     }, err => this._goToErrorPage(err));

@@ -1,22 +1,22 @@
 import {Injectable, Inject} from "@angular/core";
-import {Http, URLSearchParams} from "@angular/http";
 import {Observable} from "rxjs";
 import "rxjs/add/operator/map";
 import PaypalOrder from "../../model/paypalorder.class";
+import {HttpClient, HttpParams} from '@angular/common/http';
 
 @Injectable()
 export class PaypalOrderRestService {
 
-  constructor(private http: Http, @Inject('REST_ENDPOINT') private BASE_URL: string) {}
+  constructor(private http: HttpClient, @Inject('REST_ENDPOINT') private BASE_URL: string) {}
 
-  listAllByUser(userId: string): Observable<Array<PaypalOrder>> {
-    let params: URLSearchParams = new URLSearchParams();
-    params.set('userId', userId);
-    return this.http.get(this.BASE_URL + "/order", {search: params}).map(res => res.json()).map(dbOrder => this.paypalOrder(dbOrder));
+  listAllByUser(userId: string): Observable<PaypalOrder[]> {
+    let params: HttpParams = new HttpParams();
+    params = params.set('userId', userId);
+    return this.http.get<PaypalOrder[]>(this.BASE_URL + "/order", {params}).map(dbOrder => this.paypalOrder(dbOrder));
   }
 
   save(paypalOrder: PaypalOrder): Observable<any> {
-    return this.http.post(this.BASE_URL + "/order", paypalOrder).map(res => res.json());
+    return this.http.post(this.BASE_URL + "/order", paypalOrder);
   }
 
   private paypalOrder(dbOrderArray): PaypalOrder[] {

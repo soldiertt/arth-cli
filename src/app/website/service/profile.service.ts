@@ -49,25 +49,28 @@ export class ProfileService {
 
   private _authCallback(extraCallbackFn?: Function) {
     this.auth0Service.lock.on("authenticated", (authResult: any) => {
-      console.log("on authenticated");
       this.sessionService.saveIdToken(authResult.idToken);
       this.auth0Service.lock.getUserInfo(authResult.accessToken, (error, profile) => {
         if (error) {
           console.log(error);
           return;
         }
-        // Pref-fill user_metadata
-        if (!profile.user_metadata) {
-          let metaData = new UserMetaData();
-          metaData.email = profile['email'];
-          if (profile['identities'][0]['isSocial'] === true) {
-            metaData.name = profile['name'];
-          }
-          profile.user_metadata = metaData;
-          this.userRestService.updateProfile(profile.user_id, profile.user_metadata).subscribe(result => {
-            console.log("Profile saved in Auth0");
-          });
+
+        let metaData = profile.user_metadata;
+        if (!metaData) {
+          metaData = new UserMetaData();
         }
+        if (!metaData.email) {
+          metaData.email = profile['email'];
+        }
+        if (!metaData.name && profile['identities'][0]['isSocial'] === true) {
+          metaData.name = profile['name'];
+        }
+        profile.user_metadata = metaData;
+        this.userRestService.updateProfile(profile.user_id, profile.user_metadata).subscribe(_ => {
+          console.log("Profile saved");
+        });
+
         this.sessionService.saveProfile(profile);
         this.dataService.doAction(Actions.SET_PROFILE, profile);
         if (extraCallbackFn) {

@@ -69,7 +69,7 @@ export class ProfileComponent implements OnInit {
     userMetaData.pendingRemoval = true;
     this.updateMetaData(userMetaData);
     let mail: Mail = new Mail("ACCOUNT_DELETION");
-    this.mailService.sendMail(this.userProfile.user_id, mail).subscribe(resp => {
+    this.mailService.sendMail(mail).subscribe(resp => {
       console.log("Mail sent !");
     });
   }
@@ -79,7 +79,7 @@ export class ProfileComponent implements OnInit {
     userMetaData.pendingRemoval = false;
     this.updateMetaData(userMetaData);
     let mail: Mail = new Mail("ACCOUNT_DELETION_CANCEL");
-    this.mailService.sendMail(this.userProfile.user_id, mail).subscribe(resp => {
+    this.mailService.sendMail(mail).subscribe(resp => {
       console.log("Mail sent !");
     });
   }

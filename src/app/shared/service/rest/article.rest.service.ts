@@ -1,74 +1,74 @@
 import {Injectable, Inject} from "@angular/core";
-import {Http, URLSearchParams} from "@angular/http";
 import {Observable} from "rxjs";
 import "rxjs/add/operator/map";
 import Article from "../../model/article.class";
 import Brand from "../../model/brand.class";
 import Order from '../../model/order.class';
+import {HttpClient, HttpParams} from '@angular/common/http';
 
 @Injectable()
 export class ArticleRestService {
 
-  constructor(private http: Http, @Inject('REST_ENDPOINT') private BASE_URL: string) {}
+  constructor(private http: HttpClient, @Inject('REST_ENDPOINT') private BASE_URL: string) {}
 
-  listAll(): Observable<Array<Article>> {
-    return this.http.get(this.BASE_URL + "/product").map(res => res.json());
+  listAll(): Observable<Article[]> {
+    return this.http.get<Article[]>(this.BASE_URL + "/product");
   }
 
-  listAllPromo(): Observable<Array<Article>> {
-    return this.http.get(this.BASE_URL + "/product/promo").map(res => res.json());
+  listAllPromo(): Observable<Article[]> {
+    return this.http.get<Article[]>(this.BASE_URL + "/product/promo");
   }
 
-  listAllSlider(): Observable<Array<Article>> {
-    return this.http.get(this.BASE_URL + "/product/slider").map(res => res.json());
+  listAllSlider(): Observable<Article[]> {
+    return this.http.get<Article[]>(this.BASE_URL + "/product/slider");
   }
 
   findById(articleId): Observable<Article> {
-    return this.http.get(this.BASE_URL + "/product/" + articleId).map(res => res.json());
+    return this.http.get<Article>(this.BASE_URL + "/product/" + articleId);
   }
 
-  findByCategory(categoryType): Observable<Array<Article>> {
-    let params: URLSearchParams = new URLSearchParams();
-    params.set('category', categoryType);
-    return this.http.get(this.BASE_URL + "/product", {search: params}).map(res => res.json());
+  findByCategory(categoryType): Observable<Article[]> {
+    let params: HttpParams = new HttpParams();
+    params = params.set('category', categoryType);
+    return this.http.get<Article[]>(this.BASE_URL + "/product", {params});
   }
 
-  findByBrand(brandName): Observable<Array<Article>> {
-    let params: URLSearchParams = new URLSearchParams();
-    params.set('brand', brandName);
-    return this.http.get(this.BASE_URL + "/product", {search: params}).map(res => res.json());
+  findByBrand(brandName): Observable<Article[]> {
+    let params: HttpParams = new HttpParams();
+    params = params.set('brand', brandName);
+    return this.http.get<Article[]>(this.BASE_URL + "/product", {params});
   }
 
-  findTopSalesByCategory(categoryType): Observable<Array<Article>> {
-    let params: URLSearchParams = new URLSearchParams();
-    params.set('category', categoryType);
-    return this.http.get(this.BASE_URL + "/product/top", {search: params}).map(res => res.json());
+  findTopSalesByCategory(categoryType): Observable<Article[]> {
+    let params: HttpParams = new HttpParams();
+    params = params.set('category', categoryType);
+    return this.http.get<Article[]>(this.BASE_URL + "/product/top", {params});
   }
 
-  findAllBrands(): Observable<Array<Brand>> {
-    return this.http.get(this.BASE_URL + "/product/brands").map(res => res.json());
+  findAllBrands(): Observable<Brand[]> {
+    return this.http.get<Brand[]>(this.BASE_URL + "/product/brands");
   }
 
-  search(term: string): Observable<Array<Article>> {
-    let params: URLSearchParams = new URLSearchParams();
-    params.set('term', term);
-    return this.http.get(this.BASE_URL + "/product/search", {search: params}).map(res => res.json());
+  search(term: string): Observable<Article[]> {
+    let params: HttpParams = new HttpParams();
+    params = params.set('term', term);
+    return this.http.get<Article[]>(this.BASE_URL + "/product/search", {params});
   }
 
-  create(product: Article): Observable<any> {
-    return this.http.post(this.BASE_URL + "/product", product).map(res => res.json());
+  create(product: Article): Observable<Article> {
+    return this.http.post<Article>(this.BASE_URL + "/product", product);
   }
 
   update(id: string, product: Article): Observable<any> {
-    return this.http.put(this.BASE_URL + "/product/" + id, product).map(res => res.json());
+    return this.http.put(this.BASE_URL + "/product/" + id, product);
   }
 
   remove(id: string): Observable<any> {
-    return this.http.delete(this.BASE_URL + "/product/" + id).map(res => res.json());
+    return this.http.delete(this.BASE_URL + "/product/" + id);
   }
 
   updateTopSales(orders: Order[]): Observable<any> {
-    return this.http.post(this.BASE_URL + "/product/top", orders).map(res => res.json());
+    return this.http.post(this.BASE_URL + "/product/top", orders);
   }
 
 }

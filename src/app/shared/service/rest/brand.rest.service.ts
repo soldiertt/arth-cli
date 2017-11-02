@@ -1,23 +1,23 @@
 import {Injectable, Inject} from "@angular/core";
-import {Http} from "@angular/http";
 import {Observable} from "rxjs";
 import "rxjs/add/operator/map";
 import Brand from '../../model/brand.class';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable()
 export class BrandRestService {
 
-  constructor(private http: Http, @Inject('REST_ENDPOINT') private BASE_URL: string) {}
+  constructor(private http: HttpClient, @Inject('REST_ENDPOINT') private BASE_URL: string) {}
 
   listAll(): Observable<Brand[]> {
-    return this.http.get(this.BASE_URL + "/brand").map(res => res.json());
+    return this.http.get<Brand[]>(this.BASE_URL + "/brand");
   }
 
-  create(brand: Brand): Observable<any> {
-    return this.http.post(this.BASE_URL + "/brand", brand).map(res => res.json());
+  create(brand: Brand): Observable<Brand> {
+    return this.http.post<Brand>(this.BASE_URL + "/brand", brand);
   }
 
   remove(brandId: string): Observable<any> {
-    return this.http.delete(this.BASE_URL + "/brand/" + brandId).map(res => res.json());
+    return this.http.delete(this.BASE_URL + "/brand/" + brandId);
   }
 }
