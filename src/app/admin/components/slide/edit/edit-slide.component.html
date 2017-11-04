@@ -1,30 +1,57 @@
-<h3 *ngIf="!this.id; else editItem">Add new slide</h3>
-<ng-template #editItem>
-  <h3>Editing slide</h3>
-</ng-template>
-<div *ngIf="item">
-  <form (ngSubmit)="save(f.valid)" #f="ngForm" class="p-2">
-    <div class="form-group">
-      <label for="image">Image *</label>
-      <input type="text" id="image" name="image" [(ngModel)]="item.image" required="required" class="form-control">
+<div class="modal" id="slideModal" tabindex="-1" role="dialog">
+  <form (ngSubmit)="save(f)" #f="ngForm" class="p-2">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 *ngIf="!this.item?.id; else editItem" class="modal-title">Add new slide</h5>
+          <ng-template #editItem>
+            <h5 class="modal-title">Editing slide</h5>
+          </ng-template>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div *ngIf="item">
+            <div class="form-group row">
+              <label for="image" class="col-sm-3 col-form-label">Image *</label>
+              <div class="col-sm-9">
+                <input type="text" id="image" name="image" [(ngModel)]="item.image" required="required"
+                     class="form-control">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="title1" class="col-sm-3 col-form-label">Title 1</label>
+              <div class="col-sm-9">
+                <input type="text" id="title1" name="title1" [(ngModel)]="item.title1" class="form-control">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="title2" class="col-sm-3 col-form-label">Title 2</label>
+              <div class="col-sm-9">
+                <input type="text" id="title2" name="title2" [(ngModel)]="item.title2" class="form-control">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="description" class="col-sm-3 col-form-label">Description</label>
+              <div class="col-sm-9">
+              <textarea id="description" name="description" [(ngModel)]="item.description"
+                        class="form-control"></textarea>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="link" class="col-sm-3 col-form-label">Link</label>
+              <div class="col-sm-9">
+                <input type="text" id="link" name="link" [(ngModel)]="item.link" class="form-control">
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-sm btn-success">Save</button>
+            <button type="button" class="btn btn-sm btn-link" data-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="form-group">
-      <label for="title1">Title 1</label>
-      <input type="text" id="title1" name="title1" [(ngModel)]="item.title1" class="form-control">
-    </div>
-    <div class="form-group">
-      <label for="title2">Title 2</label>
-      <input type="text" id="title2" name="title2" [(ngModel)]="item.title2" class="form-control">
-    </div>
-    <div class="form-group">
-      <label for="description">Description</label>
-      <textarea id="description" name="description" [(ngModel)]="item.description" class="form-control"></textarea>
-    </div>
-    <div class="form-group">
-      <label for="link">Link</label>
-      <input type="text" id="link" name="link" [(ngModel)]="item.link" class="form-control">
-    </div>
-    <button type="submit" class="btn btn-sm btn-success">Save</button>
-    <button type="button" class="btn btn-sm btn-link" routerLink="/admin/slides">Cancel</button>
   </form>
 </div>

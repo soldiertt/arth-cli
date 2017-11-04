@@ -3,6 +3,7 @@ import {Observable} from "rxjs";
 import "rxjs/add/operator/map";
 import Slide from "../../model/slider.class";
 import {HttpClient} from '@angular/common/http';
+import Article from '../../model/article.class';
 
 @Injectable()
 export class SliderRestService {
@@ -13,8 +14,16 @@ export class SliderRestService {
     return this.http.get<Slide[]>(this.BASE_URL + "/slider");
   }
 
+  listAllSlideProducts(): Observable<Article[]> {
+    return this.http.get<Article[]>(this.BASE_URL + "/slideproduct");
+  }
+
   create(slide: Slide): Observable<Slide> {
     return this.http.post<Slide>(this.BASE_URL + "/slider", slide);
+  }
+
+  createSlideProduct(product: Article): Observable<Article> {
+    return this.http.post<Article>(this.BASE_URL + "/slideproduct", product);
   }
 
   update(id: string, slide: Slide): Observable<any> {
@@ -23,6 +32,10 @@ export class SliderRestService {
 
   remove(id: string): Observable<any> {
     return this.http.delete(this.BASE_URL + "/slider/" + id);
+  }
+
+  removeSlideProduct(id: string): Observable<any> {
+    return this.http.delete(this.BASE_URL + "/slideproduct/" + id);
   }
 
 }

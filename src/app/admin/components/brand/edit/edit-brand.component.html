@@ -1,12 +1,29 @@
-<h3>Add new brand</h3>
-<div *ngIf="newItem">
-  <form (ngSubmit)="create(f.valid)" #f="ngForm" class="p-2">
-    <div class="form-group">
-      <label for="name">Name *</label>
-      <input type="text" id="name" name="name" [(ngModel)]="newItem.marque"
-             placeholder="brand name" required="required" class="form-control">
+<div class="modal" id="brandModal" tabindex="-1" role="dialog">
+  <form (ngSubmit)="save(f)" #f="ngForm" class="p-2">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Add new brand</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div *ngIf="item">
+            <div class="form-group row">
+              <label for="name" class="col-sm-3 col-form-label">Name *</label>
+              <div class="col-sm-9">
+                <input type="text" id="name" name="name" [(ngModel)]="item.marque"
+                     placeholder="brand name" required="required" class="form-control">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-sm btn-success">Save</button>
+          <button type="button" class="btn btn-sm btn-link" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
     </div>
-    <button type="submit" class="btn btn-sm btn-success">Save</button>
-    <button type="button" class="btn btn-sm btn-link" routerLink="/admin/brands">Cancel</button>
   </form>
 </div>

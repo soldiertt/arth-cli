@@ -4,13 +4,14 @@ import Article from '../../shared/model/article.class';
 import {createFeatureSelector} from '@ngrx/store';
 
 export const adapter = createEntityAdapter<Article>();
-export interface State extends EntityState<Article> {}
+export interface State extends EntityState<Article> {
+  loading: boolean;
+}
 
 const defaultState  = {
   ids: [],
   entities: {},
-  loading: false,
-  edited: Article
+  loading: false
 };
 
 export const initialState = adapter.getInitialState(defaultState);

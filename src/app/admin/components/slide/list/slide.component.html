@@ -1,32 +1,65 @@
 <div class="p-1">
-  <button type="button" routerLink="add" class="btn btn-sm btn-secondary">NEW SLIDE</button>
+  <button type="button" class="btn btn-sm btn-secondary"
+          (click)="newItem()"
+          data-toggle="modal" data-target="#slideModal">
+    NEW SLIDE
+  </button>
 </div>
-<div class="row">
-  <div [class.col-8]="subRouteActive" [class.col-12]="!subRouteActive">
-    <table class="table table-striped">
-      <thead>
+
+<!-- SLIDES -->
+<h3>Slides</h3>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Image</th>
+      <th>Title 1</th>
+      <th>Title 2</th>
+      <th>Description</th>
+      <th>Link</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let slide of slides$ | async">
+      <td>{{slide.image}}</td>
+      <td>{{slide.title1}}</td>
+      <td>{{slide.title2}}</td>
+      <td>{{slide.description}}</td>
+      <td>{{slide.link}}</td>
+      <td>
+        <a href (click)="editItem(slide)" data-toggle="modal" data-target="#slideModal">
+          <i class="material-icons">mode_edit</i>
+        </a>
+        <a href (click)="remove($event, slide.id)">
+          <i class="material-icons">delete_forever</i>
+        </a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- SLIDE PRODUCTS -->
+<ng-container *ngIf="(slideProductsCount$ | async) > 0">
+  <h3>Product slides</h3>
+  <table class="table table-striped">
+    <thead>
       <tr>
-        <th>Image</th>
-        <th>Title 1</th>
-        <th>Title 2</th>
-        <th>Description</th>
-        <th>Link</th>
+        <th>Category</th>
+        <th>Brand</th>
+        <th>Name</th>
+        <th>Price</th>
         <th>Actions</th>
       </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let slide of slides$ | async">
-        <td>{{slide.image}}</td>
-        <td>{{slide.title1}}</td>
-        <td>{{slide.title2}}</td>
-        <td>{{slide.description}}</td>
-        <td>{{slide.link}}</td>
-        <td><a href [routerLink]="['edit', slide.id]">Edit</a> - <a href (click)="remove($event, slide.id)">Delete</a></td>
+    </thead>
+    <tbody>
+      <tr *ngFor="let slideProduct of slideProducts$ | async">
+        <td>{{slideProduct.type}}</td>
+        <td>{{slideProduct.marque}}</td>
+        <td>{{slideProduct.name}}</td>
+        <td>{{slideProduct.price}}</td>
+        <td><a href (click)="removeSlideProduct($event, slideProduct.id)"><i class="material-icons">delete_forever</i></a></td>
       </tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="col-4" *ngIf="subRouteActive">
-    <router-outlet></router-outlet>
-  </div>
-</div>
+    </tbody>
+  </table>
+</ng-container>
+<arth-admin-slide-modal [item]="edited"></arth-admin-slide-modal>

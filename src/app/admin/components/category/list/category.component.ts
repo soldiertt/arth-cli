@@ -4,7 +4,6 @@ import * as actions from '../../../actions/category.actions';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
 import Category from '../../../../shared/model/category.class';
-import {NavigationEnd, Router} from '@angular/router';
 
 @Component({
   templateUrl: './category.component.html'
@@ -12,12 +11,9 @@ import {NavigationEnd, Router} from '@angular/router';
 export class CategoryComponent implements OnInit {
 
   categories$: Observable<Category[]>;
-  subRouteActive: boolean = false;
+  edited: Category;
 
-  constructor(private store: Store<fromCategory.State>, private router: Router) {
-    this.router.events.filter(event => event instanceof NavigationEnd).subscribe((event: NavigationEnd) => {
-      this.subRouteActive = (event.url.includes('/edit/') || event.url.includes('/add'));
-    });
+  constructor(private store: Store<fromCategory.State>) {
   }
 
   ngOnInit() {
@@ -29,9 +25,17 @@ export class CategoryComponent implements OnInit {
     this.store.dispatch(new actions.GetAll());
   }
 
-  remove($event, id: number) {
+  newItem() {
+    this.edited = new Category();
+  }
+
+  editItem(item: Category) {
+    this.edited = Object.assign({}, item);
+  }
+
+  remove($event, id: string) {
     $event.preventDefault();
-    this.store.dispatch(new actions.Delete(String(id)));
+    this.store.dispatch(new actions.Delete(id));
   }
 
 }

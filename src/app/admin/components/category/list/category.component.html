@@ -1,32 +1,38 @@
 <div class="p-1">
-  <button type="button" routerLink="add" class="btn btn-sm btn-secondary">NEW CATEGORY</button>
+  <button type="button" class="btn btn-sm btn-secondary"
+          (click)="newItem()"
+          data-toggle="modal" data-target="#categoryModal">
+    NEW CATEGORY
+  </button>
 </div>
-<div class="row">
-  <div [class.col-8]="subRouteActive" [class.col-12]="!subRouteActive">
-    <table class="table table-striped">
-      <thead>
-      <tr>
-        <th>Name</th>
-        <th>French title</th>
-        <th>Dutch title</th>
-        <th>Parent</th>
-        <th>Ordering</th>
-        <th>Actions</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let category of categories$ | async">
-        <td>{{category.name}}</td>
-        <td>{{category.titleFr}}</td>
-        <td>{{category.titleNl}}</td>
-        <td>{{category.parent}}</td>
-        <td>{{category.sortby}}</td>
-        <td><a href [routerLink]="['edit', category.id]">Edit</a> - <a href (click)="remove($event, category.id)">Delete</a></td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="col-4" *ngIf="subRouteActive">
-    <router-outlet></router-outlet>
-  </div>
-</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>French title</th>
+      <th>Dutch title</th>
+      <th>Parent</th>
+      <th>Ordering</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let category of categories$ | async">
+      <td>{{category.name}}</td>
+      <td>{{category.titleFr}}</td>
+      <td>{{category.titleNl}}</td>
+      <td>{{category.parent}}</td>
+      <td>{{category.sortby}}</td>
+      <td>
+        <a href (click)="editItem(category)" data-toggle="modal" data-target="#categoryModal">
+          <i class="material-icons">mode_edit</i>
+        </a>
+        <a href (click)="remove($event, category.id)">
+          <i class="material-icons">delete_forever</i>
+        </a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<arth-admin-category-modal [item]="edited"></arth-admin-category-modal>

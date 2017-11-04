@@ -1,0 +1,11 @@
+.thin-column {
+  width: 150px;
+}
+
+.extra-thin-column {
+  width: 100px;
+}
+
+.form-control-xs {
+  padding: 2px;
+}

@@ -6,6 +6,10 @@ import {Pipe} from '@angular/core';
 export class TruncatePipe {
 
   transform(value: string, limit: number = 10, trail: string = '...') : string {
-    return value.length > limit ? value.substring(0, limit) + trail : value;
+    if (value) {
+      return value.length > limit ? value.substring(0, limit) + trail : value;
+    } else {
+      return value;
+    }
   }
 }

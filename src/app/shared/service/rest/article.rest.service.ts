@@ -19,10 +19,6 @@ export class ArticleRestService {
     return this.http.get<Article[]>(this.BASE_URL + "/product/promo");
   }
 
-  listAllSlider(): Observable<Article[]> {
-    return this.http.get<Article[]>(this.BASE_URL + "/product/slider");
-  }
-
   findById(articleId): Observable<Article> {
     return this.http.get<Article>(this.BASE_URL + "/product/" + articleId);
   }

@@ -3,42 +3,48 @@ import {Observable} from 'rxjs/Observable';
 import {Store} from '@ngrx/store';
 import Article from '../../../../shared/model/article.class';
 import * as fromProduct from '../../../reducers/product.reducer';
+import * as fromSlideProduct from '../../../reducers/slide-product.reducer';
 import * as fromCategory from '../../../reducers/category.reducer';
 import * as fromBrand from '../../../reducers/brand.reducer';
 import * as productActions from '../../../actions/product.actions';
+import * as slideProductActions from '../../../actions/slide-product.actions';
 import * as categoryActions from '../../../actions/category.actions';
 import * as brandActions from '../../../actions/brand.actions';
 import Brand from '../../../../shared/model/brand.class';
 import Category from '../../../../shared/model/category.class';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {NavigationEnd, Router} from '@angular/router';
+import {ToastyConfig, ToastyService} from 'ng2-toasty';
+import {AppState} from '../../../model/app-state';
 
 @Component( {
-  templateUrl: './product.component.html'
+  templateUrl: './product.component.html',
+  styleUrls: ['./product.component.css']
 })
 export class ProductComponent implements OnInit {
-
-  subRouteActive: boolean = false;
 
   products$: Observable<Article[]>;
   categories$: Observable<Category[]>;
   brands$: Observable<Brand[]>;
 
   filteredProducts$: Observable<Article[]>;
+  edited: Article;
 
   filterForm: FormGroup;
 
-  constructor(private router: Router,
+  constructor(private store: Store<AppState>,
               private productStore: Store<fromProduct.State>,
               private categoryStore: Store<fromCategory.State>,
               private brandStore: Store<fromBrand.State>,
+              private slideProductStore: Store<fromSlideProduct.State>,
+              private toast: ToastyService,
+              private toastyConfig: ToastyConfig,
               private fb: FormBuilder) {
-    this.router.events.filter(event => event instanceof NavigationEnd).subscribe((event: NavigationEnd) => {
-      this.subRouteActive = (event.url.includes('/edit/') || event.url.includes('/add'));
-    });
+    this.toastyConfig.theme = 'bootstrap';
     this.filterForm = this.fb.group({
       categoryFilter: this.fb.control(''),
-      brandFilter: this.fb.control('')
+      brandFilter: this.fb.control(''),
+      promoFilter: this.fb.control(''),
+      instockFilter: this.fb.control('')
     });
   }
 
@@ -49,7 +55,9 @@ export class ProductComponent implements OnInit {
       this.filteredProducts$ = this.products$.map((products: Article[]) => {
         return products.filter(product => {
           return (!values.brandFilter || product.marque === values.brandFilter) &&
-            (!values.categoryFilter || product.type === values.categoryFilter);
+            (!values.categoryFilter || product.type === values.categoryFilter) &&
+            (!values.promoFilter || product.promo.toString() === values.promoFilter) &&
+            (!values.instockFilter || product.instock.toString() === values.instockFilter);
         });
       });
     });
@@ -62,11 +70,38 @@ export class ProductComponent implements OnInit {
     this.categoryStore.dispatch(new categoryActions.GetAll());
     this.brands$ = this.brandStore.select(fromBrand.selectAll);
     this.brandStore.dispatch(new brandActions.GetAll());
+    this.store.select('admin').subscribe(state => {
+      if (state) {
+        let resetSlideProductStatus = false;
+        if (state.slideProductCreated) {
+          this.toast.success({title:'Success', msg:'Slide successfully added!'});
+          resetSlideProductStatus = true;
+        } else if (state.slideProductError) {
+          this.toast.error({title:'Error', msg:'Error when creating slide!'});
+          resetSlideProductStatus = true;
+        }
+        if (resetSlideProductStatus) {
+          this.store.dispatch({type: 'RESET_SLIDE_PRODUCT_STATUS'})
+        }
+      }
+    });
   }
 
-  remove($event, id: number) {
+  newItem() {
+    this.edited = new Article();
+  }
+
+  editItem(item: Article) {
+    this.edited = Object.assign({}, item);
+  }
+
+  remove($event, id: string) {
     $event.preventDefault();
-    this.productStore.dispatch(new productActions.Delete(String(id)));
+    this.productStore.dispatch(new productActions.Delete(id));
   }
 
+  createSlideProduct($event, product: Article) {
+    $event.preventDefault();
+    this.slideProductStore.dispatch(new slideProductActions.Create(product));
+  }
 }

@@ -1,10 +1,12 @@
-import * as actions from '../actions/slide.actions';
+import * as actions from '../actions/slide-product.actions';
 import {createEntityAdapter, EntityState} from '@ngrx/entity';
+import Article from '../../shared/model/article.class';
 import {createFeatureSelector} from '@ngrx/store';
-import Slide from '../../shared/model/slider.class';
 
-export const adapter = createEntityAdapter<Slide>();
-export interface State extends EntityState<Slide> {}
+export const adapter = createEntityAdapter<Article>();
+export interface State extends EntityState<Article> {
+  loading: boolean;
+}
 
 const defaultState  = {
   ids: [],
@@ -14,7 +16,7 @@ const defaultState  = {
 
 export const initialState = adapter.getInitialState(defaultState);
 
-export function slideReducer(state: State = initialState, action: actions.SlideActions) {
+export function slideProductReducer(state: State = initialState, action: actions.SlideProductActions) {
 
   let newState;
 
@@ -29,11 +31,8 @@ export function slideReducer(state: State = initialState, action: actions.SlideA
     case actions.CREATE_SUCCESS:
       newState = adapter.addOne(action.entity, state);
       return {...newState, loading: false};
-    case actions.UPDATE:
-      return {...state, loading: true};
-    case actions.UPDATE_SUCCESS:
-      newState = adapter.updateOne({id: action.id, changes: action.changes}, state);
-      return {...newState, loading: false};
+    case actions.CREATE_FAIL:
+      return {...state, loading: false};
     case actions.DELETE:
       return {...state, loading: true};
     case actions.DELETE_SUCCESS:
@@ -44,9 +43,9 @@ export function slideReducer(state: State = initialState, action: actions.SlideA
   }
 }
 
-export const getSlideState = createFeatureSelector<State>('slide');
+export const getSlideProductState = createFeatureSelector<State>('slideproduct');
 
 export const {
   selectAll,
   selectTotal
-} = adapter.getSelectors(getSlideState);
+} = adapter.getSelectors(getSlideProductState);

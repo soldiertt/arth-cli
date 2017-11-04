@@ -22,6 +22,7 @@ import {SlideEffects} from './effects/slide.effects';
 import {AdminMenuComponent} from './components/menu/menu.component';
 import {SharedServicesModule} from '../shared/shared-services.module';
 import {AdminGuard} from './service/admin.guard';
+import {SlideProductEffects} from './effects/slide-product.effects';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,7 @@ import {AdminGuard} from './service/admin.guard';
   imports     : [
     SharedModule,
     SharedServicesModule,
-    EffectsModule.forRoot([ProductEffects, BrandEffects, CategoryEffects, SlideEffects]),
+    EffectsModule.forRoot([ProductEffects, BrandEffects, CategoryEffects, SlideEffects, SlideProductEffects]),
     RestModule,
     RouterModule.forChild(adminRouterConfig),
     StoreModule.forRoot(reducers)

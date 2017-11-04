@@ -1,56 +1,86 @@
 <div class="p-1">
-  <button type="button" routerLink="add" class="btn btn-sm btn-secondary">NEW PRODUCT</button>
+  <button type="button" class="btn btn-sm btn-secondary"
+          (click)="newItem()"
+          data-toggle="modal" data-target="#productModal">
+    NEW PRODUCT
+  </button>
 </div>
-<div class="row">
-  <div [class.col-8]="subRouteActive" [class.col-12]="!subRouteActive">
-    <form [formGroup]="filterForm">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Category</th>
-            <th>Brand</th>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Handle</th>
-            <th>Steel</th>
-            <th>Size</th>
-            <th>Promo</th>
-            <th>In stock</th>
-            <th>Actions</th>
-          </tr>
-          <tr>
-            <td>
-              <select name="categoryfilter" id="categoryfilter" class="form-control" formControlName="categoryFilter">
-                <option value="">[Category]</option>
-                <option *ngFor="let category of categories$ | async" [value]="category.name">{{category.name}}</option>
-              </select>
-            </td>
-            <td>
-              <select name="brandfilter" id="brandfilter" class="form-control" formControlName="brandFilter">
-                <option value="">[Brand]</option>
-                <option *ngFor="let brand of brands$ | async" [value]="brand.marque">{{brand.marque}}</option>
-              </select>
-            </td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let product of filteredProducts$ | async">
-            <td>{{product.type}}</td>
-            <td>{{product.marque}}</td>
-            <td>{{product.name}}</td>
-            <td>{{product.price}}</td>
-            <td>{{product.manche}}</td>
-            <td>{{product.acier}}</td>
-            <td>{{product.size}}</td>
-            <td>{{product.promo}}</td>
-            <td>{{product.instock}}</td>
-            <td><a href [routerLink]="['edit', product.id]">Edit</a> - <a href (click)="remove($event, product.id)">Delete</a></td>
-          </tr>
-        </tbody>
-      </table>
-    </form>
-  </div>
-  <div class="col-4" *ngIf="subRouteActive">
-    <router-outlet></router-outlet>
-  </div>
-</div>
+
+<form [formGroup]="filterForm">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Category</th>
+        <th>Brand</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th class="thin-column">Handle</th>
+        <th class="thin-column">Steel</th>
+        <th class="thin-column">Size</th>
+        <th class="extra-thin-column">Promo</th>
+        <th class="extra-thin-column">In stock</th>
+        <th>Actions</th>
+      </tr>
+      <tr>
+        <td>
+          <select name="categoryfilter" id="categoryfilter" class="form-control form-control-sm" formControlName="categoryFilter">
+            <option value="">[Category]</option>
+            <option *ngFor="let category of categories$ | async" [value]="category.name">{{category.name}}</option>
+          </select>
+        </td>
+        <td>
+          <select name="brandfilter" id="brandfilter" class="form-control form-control-sm" formControlName="brandFilter">
+            <option value="">[Brand]</option>
+            <option *ngFor="let brand of brands$ | async" [value]="brand.marque">{{brand.marque}}</option>
+          </select>
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>
+          <select name="promofilter" id="promofilter" class="form-control form-control-sm form-control-xs" formControlName="promoFilter">
+            <option value="">[Promo]</option>
+            <option value="true">true</option>
+            <option value="false">false</option>
+          </select>
+        </td>
+        <td>
+          <select name="instockfilter" id="instockfilter" class="form-control form-control-sm form-control-xs" formControlName="instockFilter">
+            <option value="">[Stock]</option>
+            <option value="true">true</option>
+            <option value="false">false</option>
+          </select>
+        </td>
+        <td></td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of filteredProducts$ | async">
+        <td>{{product.type}}</td>
+        <td>{{product.marque}}</td>
+        <td>{{product.name}}</td>
+        <td>{{product.price}}€</td>
+        <td>{{product.manche}}</td>
+        <td>{{product.acier}}</td>
+        <td>{{product.size}}</td>
+        <td>{{product.promo}}</td>
+        <td>{{product.instock}}</td>
+        <td>
+          <a href (click)="editItem(product)" data-toggle="modal" data-target="#productModal">
+            <i class="material-icons">mode_edit</i>
+          </a>
+          <a href (click)="remove($event, product.id)">
+            <i class="material-icons">delete_forever</i>
+          </a>
+          <a href (click)="createSlideProduct($event, product)">
+            <i class="material-icons">slideshow</i>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</form>
+<ng2-toasty [position]="'top-right'"></ng2-toasty>
+<arth-admin-product-modal [item]="edited"></arth-admin-product-modal>

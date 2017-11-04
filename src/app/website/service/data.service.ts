@@ -33,7 +33,7 @@ export class DataService {
       this._appData.slides = slides;
       this.appData.next(this._appData);
     });
-    this.articleRestService.listAllSlider().subscribe(articles => {
+    this.sliderRestService.listAllSlideProducts().subscribe(articles => {
       this._appData.sliderArticles = articles;
       this.appData.next(this._appData);
     });
