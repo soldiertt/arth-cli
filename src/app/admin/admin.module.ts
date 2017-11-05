@@ -23,6 +23,10 @@ import {AdminMenuComponent} from './components/menu/menu.component';
 import {SharedServicesModule} from '../shared/shared-services.module';
 import {AdminGuard} from './service/admin.guard';
 import {SlideProductEffects} from './effects/slide-product.effects';
+import {OrderEffects} from './effects/order.effects';
+import {OrderComponent} from './components/order/list/order.component';
+import {UserComponent} from './components/user/list/user.component';
+import {UserEffects} from './effects/user.effects';
 
 @NgModule({
   declarations: [
@@ -34,13 +38,23 @@ import {SlideProductEffects} from './effects/slide-product.effects';
     EditCategoryComponent,
     EditProductComponent,
     EditSlideComponent,
+    OrderComponent,
     ProductComponent,
-    SlideComponent
+    SlideComponent,
+    UserComponent
   ],
   imports     : [
     SharedModule,
     SharedServicesModule,
-    EffectsModule.forRoot([ProductEffects, BrandEffects, CategoryEffects, SlideEffects, SlideProductEffects]),
+    EffectsModule.forRoot([
+      BrandEffects,
+      CategoryEffects,
+      OrderEffects,
+      ProductEffects,
+      SlideEffects,
+      SlideProductEffects,
+      UserEffects
+    ]),
     RestModule,
     RouterModule.forChild(adminRouterConfig),
     StoreModule.forRoot(reducers)

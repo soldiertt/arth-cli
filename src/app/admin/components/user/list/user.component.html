@@ -1,0 +1,34 @@
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th>Id</th>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Phone</th>
+    <th>Address</th>
+    <th>Last login</th>
+    <th>Login count</th>
+    <th>Remove ?</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users$ | async">
+      <td>{{user.user_id}}</td>
+      <td>{{user.user_metadata.name}}</td>
+      <td>{{user.user_metadata.email}}</td>
+      <td>{{user.user_metadata.phone}}</td>
+      <td>
+        <ng-container *ngIf="user.user_metadata?.addresses?.delivery">
+          {{user.user_metadata.addresses.delivery.street}} {{user.user_metadata.addresses.delivery.houseNumber}} {{user.user_metadata.addresses.delivery.postbox}}
+          <br/>
+          {{user.user_metadata.addresses.delivery.postcode}} {{user.user_metadata.addresses.delivery.city}}
+          <br/>
+          {{user.user_metadata.addresses.delivery.country}}
+        </ng-container>
+      </td>
+      <td>{{user.last_login | date:'dd-MM-yyyy HH:mm'}}</td>
+      <td>{{user.logins_count}}</td>
+      <td>{{user.user_metadata?.pendingRemoval}}</td>
+    </tr>
+  </tbody>
+</table>

@@ -5,12 +5,16 @@ import {categoryReducer} from './category.reducer';
 import {slideReducer} from './slide.reducer';
 import {slideProductReducer} from './slide-product.reducer';
 import {adminReducer} from './admin.reducer';
+import {orderReducer} from './order.reducer';
+import {userReducer} from './user.reducer';
 
 export const reducers: ActionReducerMap<any> = {
-  product: productReducer,
+  admin: adminReducer,
   brand: brandReducer,
   category: categoryReducer,
+  order: orderReducer,
+  product: productReducer,
   slide: slideReducer,
   slideproduct: slideProductReducer,
-  admin: adminReducer
+  user: userReducer
 };
