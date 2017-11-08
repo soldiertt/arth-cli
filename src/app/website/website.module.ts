@@ -40,6 +40,10 @@ import {CartService} from './service/cart.service';
 import {SharedModule} from '../shared/shared.module';
 import {AuthGuard} from './service/auth.guard';
 import {SharedServicesModule} from '../shared/shared-services.module';
+import {StoreModule} from '@ngrx/store';
+import {reducers} from './reducers';
+import {EffectsModule} from '@ngrx/effects';
+import {CategoryEffects} from './effects/category.effects';
 
 @NgModule({
   declarations: [
@@ -75,10 +79,14 @@ import {SharedServicesModule} from '../shared/shared-services.module';
     WebsiteComponent
   ],
   imports     : [
+    EffectsModule.forFeature([
+      CategoryEffects
+    ]),
+    RestModule,
+    RouterModule.forChild(websiteRouterConfig),
     SharedModule,
     SharedServicesModule,
-    RestModule,
-    RouterModule.forChild(websiteRouterConfig)
+    StoreModule.forFeature('site', reducers)
   ],
   providers   : [
     AuthGuard,

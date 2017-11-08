@@ -1,12 +1,13 @@
 import {Component, OnInit} from "@angular/core";
-import {UserRestService} from "../../../shared/service/rest/user.rest.service";
 import UserProfile from "../../model/user-profile.class";
 import UserAddress from "../../model/user-address";
 import UserMetaData from "../../model/usermetadata.class";
 import {MailService} from "../../service/mail.service";
 import Mail from "../../model/mail.class";
-import {ProfileService} from '../../service/profile.service';
-import {DataService} from '../../service/data.service';
+import {Store} from '@ngrx/store';
+import {SetProfile} from '../../../root/actions/user-profile.actions';
+import * as fromUserProfile from '../../../root/reducers/user-profile.reducer';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'arth-profile',
@@ -22,21 +23,20 @@ export class ProfileComponent implements OnInit {
   pendingRemoval: boolean;
   phone: string;
   incompleteProfile: boolean = true;
-  userProfile: UserProfile;
+  userProfile$: Observable<UserProfile>;
+  userId: string;
 
-  constructor(private dataService: DataService,
-              private userRestService: UserRestService,
-              private profileService: ProfileService,
+  constructor(private store: Store<UserProfile>,
               private mailService: MailService) {}
 
   ngOnInit() {
-    this.dataService.appData.subscribe(appData => {
-      this.userProfile = appData.profile;
+    this.userProfile$ = this.store.select(fromUserProfile.getLocalState);
+    this.userProfile$.subscribe(userProfile => {
+      this._updateLocalData(userProfile);
+      if (this.incompleteProfile) {
+        this.editContactInfo();
+      }
     });
-    this._updateLocalData(this.dataService.appData.getValue().profile);
-    if (this.incompleteProfile) {
-      this.editContactInfo();
-    }
   }
 
   editContactInfo(): void {
@@ -54,20 +54,17 @@ export class ProfileComponent implements OnInit {
     this.editMode = false;
   }
 
-  updateMetaData(userMetaData): void {
-    this.userRestService.updateProfile(this.userProfile.user_id, userMetaData).subscribe(userProfile => {
-      this.profileService.updateProfile(userProfile);
-      this._updateLocalData(userProfile);
-      this.profileUpdated = true;
-      this.incompleteProfile = false;
-      this.cancelEdit();
-    });
+  updateMetaData(): void {
+    this.profileUpdated = true;
+    this.incompleteProfile = false;
+    this.cancelEdit();
   }
 
   askForRemoval() : void {
     let userMetaData: UserMetaData = new UserMetaData();
     userMetaData.pendingRemoval = true;
-    this.updateMetaData(userMetaData);
+    this.store.dispatch(new SetProfile(this.userId, userMetaData));
+    this.updateMetaData();
     let mail: Mail = new Mail("ACCOUNT_DELETION");
     this.mailService.sendMail(mail).subscribe(resp => {
       console.log("Mail sent !");
@@ -77,7 +74,8 @@ export class ProfileComponent implements OnInit {
   cancelAskForRemoval() : void {
     let userMetaData: UserMetaData = new UserMetaData();
     userMetaData.pendingRemoval = false;
-    this.updateMetaData(userMetaData);
+    this.store.dispatch(new SetProfile(this.userId, userMetaData));
+    this.updateMetaData();
     let mail: Mail = new Mail("ACCOUNT_DELETION_CANCEL");
     this.mailService.sendMail(mail).subscribe(resp => {
       console.log("Mail sent !");
@@ -86,6 +84,7 @@ export class ProfileComponent implements OnInit {
 
   private _updateLocalData(userProfile: UserProfile): void {
     if (userProfile) {
+      this.userId = userProfile.user_id;
       if (userProfile.user_metadata) {
         this.email = userProfile.user_metadata.email;
         this.pendingRemoval = userProfile.user_metadata.pendingRemoval ? userProfile.user_metadata.pendingRemoval : false;

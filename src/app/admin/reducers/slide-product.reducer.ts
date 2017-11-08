@@ -1,51 +1,59 @@
 import * as actions from '../actions/slide-product.actions';
 import {createEntityAdapter, EntityState} from '@ngrx/entity';
 import Article from '../../shared/model/article.class';
-import {createFeatureSelector} from '@ngrx/store';
+import {createSelector} from '@ngrx/store';
+import {adminFeatureSelector, AdminState} from '../model/admin-state';
 
 export const adapter = createEntityAdapter<Article>();
 export interface State extends EntityState<Article> {
-  loading: boolean;
+  created: boolean;
+  error?: string;
 }
 
 const defaultState  = {
   ids: [],
   entities: {},
-  loading: false
+  created: false
 };
 
 export const initialState = adapter.getInitialState(defaultState);
 
 export function slideProductReducer(state: State = initialState, action: actions.SlideProductActions) {
 
+  console.log(action.type);
+
   let newState;
 
   switch (action.type) {
     case actions.GET_ALL:
-      return {...state, loading: true};
+      return {...state};
     case actions.GET_ALL_SUCCESS:
       newState = adapter.addAll(action.entities, state);
-      return {...newState, loading: false};
+      return {...newState};
     case actions.CREATE:
-      return {...state, loading: true};
+      return {...state, created: false, error: undefined};
     case actions.CREATE_SUCCESS:
       newState = adapter.addOne(action.entity, state);
-      return {...newState, loading: false};
+      return {...newState, created: true};
     case actions.CREATE_FAIL:
-      return {...state, loading: false};
+      return {...state, error: action.error};
     case actions.DELETE:
-      return {...state, loading: true};
+      return {...state};
     case actions.DELETE_SUCCESS:
       newState = adapter.removeOne(action.id, state);
-      return {...newState, loading: false};
+      return {...newState};
     default:
       return state;
   }
 }
 
-export const getSlideProductState = createFeatureSelector<State>('slideproduct');
+const getLocalState = createSelector(adminFeatureSelector, (state: AdminState) => state.slideproduct);
+
+export const selectCreated = createSelector(getLocalState, (state: State) => state.created);
+export const selectError = createSelector(getLocalState, (state: State) => state.error);
+export const selectState = createSelector(getLocalState, (state: State) => state);
 
 export const {
   selectAll,
   selectTotal
-} = adapter.getSelectors(getSlideProductState);
+} = adapter.getSelectors(getLocalState);

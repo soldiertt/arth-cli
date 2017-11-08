@@ -1,9 +1,11 @@
 import {Component, OnInit} from "@angular/core";
-import {UserRestService} from "../../../shared/service/rest/user.rest.service";
 import {DataService} from '../../service/data.service';
 import {Actions} from '../../model/actions.class';
 import AppData from '../../model/app-data';
-import {ProfileService} from '../../service/profile.service';
+import UserProfile from '../../model/user-profile.class';
+import {Store} from '@ngrx/store';
+import {SetProfile} from '../../../root/actions/user-profile.actions';
+import {AddressCompleted} from '../../actions/cart-data.actions';
 
 @Component({
   selector: 'arth-confirm-address',
@@ -16,7 +18,8 @@ export class ConfirmAddressComponent implements OnInit{
   editedItem: string;
   profileUpdated: boolean;
 
-  constructor(private dataService: DataService, private userRestService: UserRestService, private profileService: ProfileService) {}
+  constructor(private dataService: DataService,
+              private store: Store<UserProfile>) {}
 
   ngOnInit() {
     // Check if address is defined, otherwise edit it immediatly
@@ -42,14 +45,11 @@ export class ConfirmAddressComponent implements OnInit{
   }
 
   updateMetaData(userMetaData): void {
-    this.userRestService.updateProfile(this.appData.profile.user_id, userMetaData).subscribe(userProfile => {
-      this.profileService.updateProfile(userProfile);
-      this.profileUpdated = true;
-      this.editedItem = undefined;
-      this.editMode = false;
-      this.dataService.doAction(Actions.ADDRESS_COMPLETED);
-    });
-
+    this.store.dispatch(new SetProfile(this.appData.profile.user_id, userMetaData));
+    this.store.dispatch(new AddressCompleted());
+    this.profileUpdated = true;
+    this.editedItem = undefined;
+    this.editMode = false;
   }
 
   private _completedData():boolean {

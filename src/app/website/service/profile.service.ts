@@ -1,31 +1,24 @@
 import {Injectable} from "@angular/core";
 import {SessionService} from "../../shared/service/session.service";
-import {DataService} from './data.service';
-import {Actions} from '../model/actions.class';
 import UserProfile from '../model/user-profile.class';
 import {Router} from '@angular/router';
 import {Auth0Service} from '../../shared/service/auth.service';
 import UserMetaData from '../model/usermetadata.class';
-import {UserRestService} from '../../shared/service/rest/user.rest.service';
+import {Store} from '@ngrx/store';
+import {Logout, SetProfile, SetProfileSuccess} from '../../root/actions/user-profile.actions';
 
 @Injectable()
 export class ProfileService {
 
   constructor(private sessionService: SessionService,
               private auth0Service: Auth0Service,
-              private userRestService: UserRestService,
-              private dataService: DataService,
+              private store: Store<UserProfile>,
               private router: Router) {
     let sessionProfile = this.sessionService.getProfile();
     if (sessionProfile) {
-      this.dataService.doAction(Actions.SET_PROFILE, sessionProfile);
+      this.store.dispatch(new SetProfileSuccess(sessionProfile));
     }
     this._authCallback();
-  }
-
-  updateProfile(profile: UserProfile) {
-    this.dataService.doAction(Actions.SET_PROFILE, profile);
-    this.sessionService.saveProfile(profile);
   }
 
   public login(event: any, callbackFn?: Function) {
@@ -39,9 +32,7 @@ export class ProfileService {
 
   logout($event) {
     $event.preventDefault();
-    this.sessionService.deleteIdToken();
-    this.sessionService.deleteProfile();
-    this.dataService.doAction(Actions.SET_PROFILE, undefined);
+    this.store.dispatch(new Logout());
     if (this.router.url.indexOf('/profile') != -1 || this.router.url.indexOf('/mycart') != -1) {
       this.router.navigate(['/']);
     }
@@ -67,12 +58,9 @@ export class ProfileService {
           metaData.name = profile['name'];
         }
         profile.user_metadata = metaData;
-        this.userRestService.updateProfile(profile.user_id, profile.user_metadata).subscribe(_ => {
-          console.log("Profile saved");
-        });
 
-        this.sessionService.saveProfile(profile);
-        this.dataService.doAction(Actions.SET_PROFILE, profile);
+        this.store.dispatch(new SetProfile(profile.user_id, profile.user_metadata));
+
         if (extraCallbackFn) {
           extraCallbackFn();
         }

@@ -1,28 +1,27 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, Input, OnChanges, OnInit} from "@angular/core";
 import {FormBuilder, Validators} from "@angular/forms";
 import {CountryRestService} from "../../../shared/service/rest/country.rest.service";
 import Country from "../../../shared/model/country.class";
 import {FormComponent} from "../form.component";
 import UserMetaData from "../../model/usermetadata.class";
-import UserAddress from "../../model/user-address";
 import UserAddresses from "../../model/user-addresses.class";
-import UserProfile from "../../model/user-profile.class";
-import {DataService} from '../../service/data.service';
+import UserProfile from '../../model/user-profile.class';
+import {Store} from '@ngrx/store';
+import {SetProfile} from '../../../root/actions/user-profile.actions';
 
 @Component({
   selector: 'arth-profile-edit',
   templateUrl: 'profile-edit.component.html',
   styleUrls: ['profile-edit.component.css']
 })
-export class ProfileEditComponent extends FormComponent implements OnInit {
+export class ProfileEditComponent extends FormComponent implements OnInit, OnChanges {
 
-  profile: UserProfile;
+  @Input() userProfile: UserProfile;
   countries: Country[];
-  address: UserAddress;
-  phone: string;
-  name: string;
 
-  constructor(private fb: FormBuilder, private dataService: DataService, private countryRestService: CountryRestService) {
+  constructor(private fb: FormBuilder,
+              private store: Store<UserProfile>,
+              private countryRestService: CountryRestService) {
     super();
 
     this.form = this.fb.group({
@@ -38,29 +37,15 @@ export class ProfileEditComponent extends FormComponent implements OnInit {
   }
 
   ngOnInit() {
-
-    this.dataService.appData.subscribe(appData => {
-      this.profile = appData.profile;
-      this._updateLocalData();
-      // Fill form
-      this._fillFormWithData();
-    });
-
     // Load countries
     this.countryRestService.listAll().subscribe(countries => {
       this.countries = countries;
     });
-
   }
 
-  private _updateLocalData() {
-    if (this.profile && this.profile.user_metadata) {
-      if (this.profile.user_metadata.addresses) {
-        this.address = this.profile.user_metadata.addresses.delivery;
-      }
-      this.name = this.profile.user_metadata.name;
-      this.phone = this.profile.user_metadata.phone;
-    }
+  ngOnChanges() {
+    // Fill form
+    this._fillFormWithData();
   }
 
   save(): void {
@@ -77,7 +62,8 @@ export class ProfileEditComponent extends FormComponent implements OnInit {
         name: this.form.get("name").value,
         phone: this.form.get("phone").value,
         profileComplete: true};
-      this.onUpdateMetaData.emit(userMetadata);
+      this.store.dispatch(new SetProfile(this.userProfile.user_id, userMetadata));
+      this.onUpdateMetaData.emit();
     }
   }
 
@@ -87,16 +73,17 @@ export class ProfileEditComponent extends FormComponent implements OnInit {
   }
 
   private _fillFormWithData() {
-    this.form.get('name').setValue(this.name);
-    this.form.get('phone').setValue(this.phone);
+    this.form.get('name').setValue(this.userProfile.user_metadata.name);
+    this.form.get('phone').setValue(this.userProfile.user_metadata.phone);
 
-    if (this.address) {
-      this.form.get('street').setValue(this.address.street);
-      this.form.get('houseNumber').setValue(this.address.houseNumber);
-      this.form.get('postbox').setValue(this.address.postbox);
-      this.form.get('postcode').setValue(this.address.postcode);
-      this.form.get('city').setValue(this.address.city);
-      this.form.get('country').setValue(this.address.country);
+    if (this.userProfile.user_metadata.addresses.delivery) {
+      const address = this.userProfile.user_metadata.addresses.delivery;
+      this.form.get('street').setValue(address.street);
+      this.form.get('houseNumber').setValue(address.houseNumber);
+      this.form.get('postbox').setValue(address.postbox);
+      this.form.get('postcode').setValue(address.postcode);
+      this.form.get('city').setValue(address.city);
+      this.form.get('country').setValue(address.country);
     }
   }
 

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {Store} from '@ngrx/store';
 import Article from '../../../../shared/model/article.class';
@@ -14,13 +14,16 @@ import Brand from '../../../../shared/model/brand.class';
 import Category from '../../../../shared/model/category.class';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ToastyConfig, ToastyService} from 'ng2-toasty';
-import {AppState} from '../../../model/app-state';
+import {Subject} from 'rxjs/Subject';
+import 'rxjs/add/operator/takeUntil';
 
 @Component( {
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.css']
 })
-export class ProductComponent implements OnInit {
+export class ProductComponent implements OnInit, OnDestroy {
+
+  private ngUnsubscribe: Subject<any> = new Subject();
 
   products$: Observable<Article[]>;
   categories$: Observable<Category[]>;
@@ -31,8 +34,7 @@ export class ProductComponent implements OnInit {
 
   filterForm: FormGroup;
 
-  constructor(private store: Store<AppState>,
-              private productStore: Store<fromProduct.State>,
+  constructor(private productStore: Store<fromProduct.State>,
               private categoryStore: Store<fromCategory.State>,
               private brandStore: Store<fromBrand.State>,
               private slideProductStore: Store<fromSlideProduct.State>,
@@ -63,6 +65,11 @@ export class ProductComponent implements OnInit {
     });
   }
 
+  ngOnDestroy() {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+  }
+
   getAll() {
     this.products$ = this.productStore.select(fromProduct.selectAll);
     this.productStore.dispatch(new productActions.GetAll());
@@ -70,19 +77,18 @@ export class ProductComponent implements OnInit {
     this.categoryStore.dispatch(new categoryActions.GetAll());
     this.brands$ = this.brandStore.select(fromBrand.selectAll);
     this.brandStore.dispatch(new brandActions.GetAll());
-    this.store.select('admin').subscribe(state => {
-      if (state) {
-        let resetSlideProductStatus = false;
-        if (state.slideProductCreated) {
-          this.toast.success({title:'Success', msg:'Slide successfully added!'});
-          resetSlideProductStatus = true;
-        } else if (state.slideProductError) {
-          this.toast.error({title:'Error', msg:'Error when creating slide!'});
-          resetSlideProductStatus = true;
-        }
-        if (resetSlideProductStatus) {
-          this.store.dispatch({type: 'RESET_SLIDE_PRODUCT_STATUS'})
-        }
+    this.slideProductStore.select(fromSlideProduct.selectCreated)
+      .takeUntil(this.ngUnsubscribe)
+      .subscribe(created => {
+      if (created) {
+        this.toast.success({title: 'Success', msg: 'Slide successfully added!'});
+      }
+    });
+    this.slideProductStore.select(fromSlideProduct.selectError)
+      .takeUntil(this.ngUnsubscribe)
+      .subscribe(error => {
+      if (error) {
+        this.toast.error({title:'Error when creating slide', msg: error});
       }
     });
   }

@@ -1,7 +1,8 @@
 import * as actions from '../actions/user.actions';
 import {createEntityAdapter, EntityState} from '@ngrx/entity';
-import {createFeatureSelector} from '@ngrx/store';
+import {createSelector} from '@ngrx/store';
 import UserProfile from '../../website/model/user-profile.class';
+import {adminFeatureSelector, AdminState} from '../model/admin-state';
 
 export const adapter = createEntityAdapter<UserProfile>();
 export interface State extends EntityState<UserProfile> {}
@@ -25,9 +26,9 @@ export function userReducer(state: State = initialState, action: actions.UserAct
   }
 }
 
-export const getUserState = createFeatureSelector<State>('user');
+const getLocalState = createSelector(adminFeatureSelector, (state: AdminState) => state.user);
 
 export const {
   selectAll,
   selectTotal
-} = adapter.getSelectors(getUserState);
+} = adapter.getSelectors(getLocalState);
