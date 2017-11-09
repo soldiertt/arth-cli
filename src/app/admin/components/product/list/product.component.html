@@ -1,4 +1,4 @@
-<div class="p-1">
+<div class="p-1 no-print">
   <button type="button" class="btn btn-sm btn-secondary"
           (click)="newItem()"
           data-toggle="modal" data-target="#productModal">
@@ -10,19 +10,20 @@
   <table class="table table-striped">
     <thead>
       <tr>
-        <th>Category</th>
-        <th>Brand</th>
-        <th>Name</th>
-        <th>Price</th>
+        <th class="thin-column no-print">Picture</th>
+        <th class="no-print">Category</th>
+        <th class="thin-column">Brand</th>
+        <th class="large-column">Name</th>
+        <th class="thin-column">Price</th>
         <th class="thin-column">Handle</th>
         <th class="thin-column">Steel</th>
         <th class="thin-column">Size</th>
-        <th class="thin-column">Picture</th>
-        <th class="extra-thin-column">Promo</th>
-        <th class="extra-thin-column">In stock</th>
-        <th>Actions</th>
+        <th class="extra-thin-column no-print">Promo</th>
+        <th class="extra-thin-column no-print">In stock</th>
+        <th class="no-print">Actions</th>
       </tr>
-      <tr>
+      <tr class="no-print">
+        <td></td>
         <td>
           <select name="categoryfilter" id="categoryfilter" class="form-control form-control-sm" formControlName="categoryFilter">
             <option value="">[Category]</option>
@@ -38,8 +39,12 @@
         <td></td>
         <td></td>
         <td></td>
-        <td></td>
-        <td></td>
+        <td>
+          <select name="steelfilter" id="steelfilter" class="form-control form-control-sm" formControlName="steelFilter">
+            <option value="">[Steel]</option>
+            <option *ngFor="let steel of steels$ | async" [value]="steel.name">{{steel.name}}</option>
+          </select>
+        </td>
         <td></td>
         <td>
           <select name="promofilter" id="promofilter" class="form-control form-control-sm form-control-xs" formControlName="promoFilter">
@@ -60,17 +65,22 @@
     </thead>
     <tbody>
       <tr *ngFor="let product of filteredProducts$ | async">
-        <td>{{product.type}}</td>
+        <td class="no-print"><img [src]="miniPicture(product)"></td>
+        <td class="no-print">{{product.type}}</td>
         <td>{{product.marque}}</td>
         <td>{{product.name}}</td>
-        <td>{{product.price}}€</td>
+        <td>
+          {{product.price}}€
+          <div *ngIf="product.old_price" class="old-price">
+            {{product.old_price}}€
+          </div>
+        </td>
         <td>{{product.manche}}</td>
         <td>{{product.acier}}</td>
         <td>{{product.size}}</td>
-        <td>{{product.picture}}</td>
-        <td>{{product.promo}}</td>
-        <td>{{product.instock}}</td>
-        <td>
+        <td class="no-print">{{product.promo}}</td>
+        <td class="no-print">{{product.instock}}</td>
+        <td class="no-print">
           <a href (click)="editItem(product)" data-toggle="modal" data-target="#productModal">
             <i class="material-icons">mode_edit</i>
           </a>

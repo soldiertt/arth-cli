@@ -10,6 +10,7 @@ import {environment} from '../../environments/environment';
 import {BrandRestService} from './service/rest/brand.rest.service';
 import {RequestInterceptor} from './service/rest/request-interceptor';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {SteelRestService} from './service/rest/steel.rest.service';
 
 @NgModule({
   imports: [
@@ -23,6 +24,7 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
     PaypalOrderRestService,
     PaypalRestService,
     SliderRestService,
+    SteelRestService,
     UserRestService,
     { provide: 'REST_ENDPOINT', useValue: environment.restEndpoint},
     { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true}

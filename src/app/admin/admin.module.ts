@@ -27,6 +27,7 @@ import {OrderEffects} from './effects/order.effects';
 import {OrderComponent} from './components/order/list/order.component';
 import {UserComponent} from './components/user/list/user.component';
 import {UserEffects} from './effects/user.effects';
+import {SteelEffects} from './effects/steel.effects';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import {UserEffects} from './effects/user.effects';
       ProductEffects,
       SlideEffects,
       SlideProductEffects,
+      SteelEffects,
       UserEffects
     ]),
     RestModule,

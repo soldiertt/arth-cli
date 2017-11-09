@@ -7,6 +7,7 @@ import {slideProductReducer} from './slide-product.reducer';
 import {adminReducer} from './admin.reducer';
 import {orderReducer} from './order.reducer';
 import {userReducer} from './user.reducer';
+import {steelReducer} from './steel.reducer';
 
 export const reducers: ActionReducerMap<any> = {
   admin: adminReducer,
@@ -16,5 +17,6 @@ export const reducers: ActionReducerMap<any> = {
   product: productReducer,
   slide: slideReducer,
   slideproduct: slideProductReducer,
+  steel: steelReducer,
   user: userReducer
 };

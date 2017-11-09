@@ -1,3 +1,11 @@
+.table {
+  table-layout: fixed;
+}
+
+.large-column {
+  width: 300px;
+}
+
 .thin-column {
   width: 150px;
 }
@@ -8,4 +16,15 @@
 
 .form-control-xs {
   padding: 2px;
+}
+
+.old-price {
+  text-decoration: line-through;
+}
+
+@media print {
+  .no-print, .no-print *
+  {
+    display: none !important;
+  }
 }
