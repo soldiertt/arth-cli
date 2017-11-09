@@ -10,17 +10,17 @@
   <table class="table table-striped">
     <thead>
       <tr>
-        <th class="thin-column no-print">Picture</th>
+        <th class="no-print">Picture</th>
         <th class="no-print">Category</th>
-        <th class="thin-column">Brand</th>
-        <th class="large-column">Name</th>
-        <th class="thin-column">Price</th>
+        <th>Brand</th>
+        <th>Name</th>
+        <th class="extra-thin-column">Price</th>
         <th class="thin-column">Handle</th>
         <th class="thin-column">Steel</th>
         <th class="thin-column">Size</th>
         <th class="extra-thin-column no-print">Promo</th>
         <th class="extra-thin-column no-print">In stock</th>
-        <th class="no-print">Actions</th>
+        <th class="thin-column no-print">Actions</th>
       </tr>
       <tr class="no-print">
         <td></td>
@@ -37,30 +37,30 @@
           </select>
         </td>
         <td></td>
-        <td></td>
-        <td></td>
-        <td>
+        <td class="extra-thin-column"></td>
+        <td class="thin-column"></td>
+        <td class="thin-column">
           <select name="steelfilter" id="steelfilter" class="form-control form-control-sm" formControlName="steelFilter">
             <option value="">[Steel]</option>
             <option *ngFor="let steel of steels$ | async" [value]="steel.name">{{steel.name}}</option>
           </select>
         </td>
-        <td></td>
-        <td>
+        <td class="thin-column"></td>
+        <td class="extra-thin-column">
           <select name="promofilter" id="promofilter" class="form-control form-control-sm form-control-xs" formControlName="promoFilter">
             <option value="">[Promo]</option>
             <option value="true">true</option>
             <option value="false">false</option>
           </select>
         </td>
-        <td>
+        <td class="extra-thin-column">
           <select name="instockfilter" id="instockfilter" class="form-control form-control-sm form-control-xs" formControlName="instockFilter">
             <option value="">[Stock]</option>
             <option value="true">true</option>
             <option value="false">false</option>
           </select>
         </td>
-        <td></td>
+        <td class="thin-column"></td>
       </tr>
     </thead>
     <tbody>
@@ -69,18 +69,18 @@
         <td class="no-print">{{product.type}}</td>
         <td>{{product.marque}}</td>
         <td>{{product.name}}</td>
-        <td>
+        <td class="extra-thin-column">
           {{product.price}}€
           <div *ngIf="product.old_price" class="old-price">
             {{product.old_price}}€
           </div>
         </td>
-        <td>{{product.manche}}</td>
-        <td>{{product.acier}}</td>
-        <td>{{product.size}}</td>
-        <td class="no-print">{{product.promo}}</td>
-        <td class="no-print">{{product.instock}}</td>
-        <td class="no-print">
+        <td class="thin-column">{{product.manche}}</td>
+        <td class="thin-column">{{product.acier}}</td>
+        <td class="thin-column">{{product.size}}</td>
+        <td class="extra-thin-column no-print">{{product.promo}}</td>
+        <td class="extra-thin-column no-print">{{product.instock}}</td>
+        <td class="thin-column no-print">
           <a href (click)="editItem(product)" data-toggle="modal" data-target="#productModal">
             <i class="material-icons">mode_edit</i>
           </a>

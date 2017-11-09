@@ -1,11 +1,3 @@
-.table {
-  table-layout: fixed;
-}
-
-.large-column {
-  width: 300px;
-}
-
 .thin-column {
   width: 150px;
 }
