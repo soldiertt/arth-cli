@@ -67,4 +67,7 @@ export class ArticleRestService {
     return this.http.post(this.BASE_URL + "/product/top", orders);
   }
 
+  uploadPicture(data: FormData) {
+    return this.http.post(this.BASE_URL + "/upload", data);
+  }
 }

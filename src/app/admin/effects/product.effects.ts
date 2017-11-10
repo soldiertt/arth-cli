@@ -5,7 +5,8 @@ import {Action} from '@ngrx/store';
 import {ArticleRestService} from '../../shared/service/rest/article.rest.service';
 import {
   Create, CREATE, CreateSuccess, Delete, DELETE, DeleteSuccess, GET_ALL,
-  GetAllSuccess, UPDATE, Update, UpdateSuccess
+  GetAllSuccess, UPDATE, Update, UpdateSuccess, UPLOAD_NEW_PICTURE, UploadNewPicture, UploadNewPictureFail,
+  UploadNewPictureSuccess
 } from '../actions/product.actions';
 import Article from '../../shared/model/article.class';
 
@@ -36,4 +37,12 @@ export class ProductEffects {
     .mergeMap(id => this.productRestService.remove(id).map(() => id))
     .map(id => new DeleteSuccess(id));
 
+  @Effect()
+  uploadPicture: Observable<Action> = this.actions.ofType(UPLOAD_NEW_PICTURE)
+    .map((action: UploadNewPicture) => action.formData)
+    .mergeMap(formData => {
+      return this.productRestService.uploadPicture(formData)
+        .map(_ => new UploadNewPictureSuccess())
+        .catch(err => Observable.of(new UploadNewPictureFail(err.message)));
+    });
 }
