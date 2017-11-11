@@ -30,7 +30,7 @@ export class ProfileComponent implements OnInit {
               private mailService: MailService) {}
 
   ngOnInit() {
-    this.userProfile$ = this.store.select(fromUserProfile.getLocalState);
+    this.userProfile$ = this.store.select(fromUserProfile.selectLocalState);
     this.userProfile$.subscribe(userProfile => {
       this._updateLocalData(userProfile);
       if (this.incompleteProfile) {

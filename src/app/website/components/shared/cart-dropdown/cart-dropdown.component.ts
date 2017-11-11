@@ -1,7 +1,11 @@
 import {Component, OnInit} from "@angular/core";
 import Cart from "../../../model/cart.class";
-import {CartService} from "../../../service/cart.service";
-import {DataService} from '../../../service/data.service';
+import CartData from '../../../model/cart-data.class';
+import {Store} from '@ngrx/store';
+import {Observable} from 'rxjs/Observable';
+import * as fromCartData from '../../../reducers/cart-data.reducer';
+import {RemoveOrder} from '../../../actions/cart-data.actions';
+import {PictureService} from '../../../../shared/service/picture.service';
 
 @Component({
   selector: 'arth-cart-dropdown',
@@ -9,24 +13,19 @@ import {DataService} from '../../../service/data.service';
   styleUrls: ['cart-dropdown.component.css']
 })
 export class CartDropdownComponent implements OnInit {
-  cart: Cart;
 
-  constructor(private cartService: CartService, private dataService: DataService) { }
+  cart$: Observable<Cart>;
+
+  constructor(public picUtil: PictureService,
+              private store: Store<CartData>) { }
 
   ngOnInit() {
-    this.dataService.appData.subscribe(appData => this.cart = appData.cart);
+    this.cart$ = this.store.select(fromCartData.selectCartState);
   }
 
   removeOrder($event, articleId: string) {
     $event.stopPropagation();
-    this.cartService.removeOrder(articleId);
-  }
-
-  miniPicture(article): string {
-    let picture = article.picture;
-    let extension = picture.split('.').pop();
-    let miniPicture = picture.substring(0, picture.lastIndexOf('.')) + 'm.' + extension;
-    return 'assets/photos/' + article.type + '/' + miniPicture;
+    this.store.dispatch(new RemoveOrder(articleId));
   }
 
 }

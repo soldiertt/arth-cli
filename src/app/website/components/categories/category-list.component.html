@@ -1,7 +1,7 @@
 <div class="categories">
   <ul class="list-group">
     <li class="list-group-title">{{'common.links.categories' | trans}} <span class="caret"></span></li>
-    <li *ngFor="let category of rootCategories" class="list-group-item" [routerLink]="['./categ', category.name]">
+    <li *ngFor="let category of rootCategories$ | async" class="list-group-item" [routerLink]="['./categ', category.name]">
       <span>{{category | catTitle}}</span>
     </li>
   </ul>

@@ -1,7 +1,10 @@
 import {Component, Input} from "@angular/core";
 import Article from "../../../../shared/model/article.class";
-import {CartService} from "../../../service/cart.service";
 import {JQueryService} from "../../../service/jQuery.service";
+import CartData from '../../../model/cart-data.class';
+import {Store} from '@ngrx/store';
+import {PictureService} from '../../../../shared/service/picture.service';
+import {AddArticle} from '../../../actions/cart-data.actions';
 
 declare var $:any;
 
@@ -12,21 +15,14 @@ declare var $:any;
 })
 export class ArticleBoxComponent {
 
-  constructor(private cartService: CartService, private jQueryService: JQueryService) {};
+  constructor(public picUtil: PictureService, private store: Store<CartData>, private jQueryService: JQueryService) {};
 
   @Input() article: Article;
-
-  miniPicture(article): string {
-    let picture = article.picture;
-    let extension = picture.split('.').pop();
-    let miniPicture = picture.substring(0, picture.lastIndexOf('.')) + 'm.' + extension;
-    return 'assets/photos/' + article.type + '/' + miniPicture;
-  }
 
   addToCart(article) {
     let component = this;
     let callback = function() {
-      component.cartService.addArticle(article);
+      component.store.dispatch(new AddArticle(article));
     };
     this.jQueryService.addToCart($, callback);
   }

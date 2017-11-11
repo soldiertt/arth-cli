@@ -1,9 +1,9 @@
 <div id="main">
   <div id="content">
-    <div>
-      <arth-cart-breadcrumb *ngIf="isAtLeast(1)"></arth-cart-breadcrumb>
-      <arth-mycart *ngIf="!isOnStep(3)"></arth-mycart>
-      <arth-confirm-address *ngIf="isOnStep(3)"></arth-confirm-address>
+    <div *ngIf="cartData$ | async as cartData">
+      <arth-cart-breadcrumb *ngIf="cartData.wizard.currentStep >= 1"></arth-cart-breadcrumb>
+      <arth-mycart *ngIf="cartData.wizard.currentStep !== 3"></arth-mycart>
+      <arth-confirm-address *ngIf="cartData.wizard.currentStep === 3"></arth-confirm-address>
     </div>
     <arth-cart-navigation></arth-cart-navigation>
   </div>

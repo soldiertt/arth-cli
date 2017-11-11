@@ -22,7 +22,7 @@ export function cartDataReducer(state: CartData = defaultState, action: actions.
     case actions.ADDRESS_INCOMPLETE:
       return {...state, wizard: {...state.wizard, addressCompleted: false}};
 
-    case actions.INIT_FROM_SESSION:
+    case actions.INITIALIZE_CART:
       return {...state, cart: action.cart};
 
     case actions.CART_MOVE_TO_STEP: {
@@ -77,7 +77,7 @@ export function cartDataReducer(state: CartData = defaultState, action: actions.
       return state;
     }
 
-    case actions.EMPTY_CART: {
+    case actions.PAY: {
       newState = {...state, cart: {...state.cart, orders: [], shipping: 0}};
       return this._updateCart(newState);
     }
@@ -122,4 +122,7 @@ function _updateCart(newState:CartData) {
   return newState;
 }
 
-export const getLocalState = createSelector(siteFeatureSelector, (state: SiteState) => state.cartData);
+export const selectLocalState = createSelector(siteFeatureSelector, (state: SiteState) => state.cartData);
+
+export const selectCartState = createSelector(selectLocalState, (state: CartData) => state.cart);
+export const selectWizardState = createSelector(selectLocalState, (state: CartData) => state.wizard);

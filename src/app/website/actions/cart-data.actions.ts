@@ -1,17 +1,24 @@
 import {Action} from '@ngrx/store';
 import Cart from '../model/cart.class';
 import Article from '../../shared/model/article.class';
+import Order from '../../shared/model/order.class';
 
 /* Wizard */
 export const ADDRESS_COMPLETED = '[CartWizard] Address completed';
 export const ADDRESS_INCOMPLETE = '[CartWizard] Address incomplete';
 /* Cart */
-export const INIT_FROM_SESSION = '[Cart] Init from session';
+export const GET_CART_FROM_SESSION = '[Cart] Get from session';
+export const INITIALIZE_CART = '[Cart] Initialize cart';
+export const SAVE_CART_IN_SESSION = '[Cart] Save cart in session';
+export const CART_SAVED = '[Cart] Cart saved';
 export const CART_MOVE_TO_STEP = '[Cart] Cart move to step';
 export const ADD_ARTICLE = '[Cart] Add article';
 export const REMOVE_ARTICLE = '[Cart] Remove article';
 export const REMOVE_ORDER = '[Cart] Remove order';
-export const EMPTY_CART = '[Cart] Empty cart';
+export const UPDATE_TOP_SALES = '[Cart] Update top sales';
+export const UPDATE_TOP_SALES_SUCCESS = '[Cart] Update top sales Success';
+export const PAY = '[Cart] PAY';
+export const PAY_SUCCESS = '[Cart] PAY Success';
 
 export class AddressCompleted implements Action {
   readonly type = ADDRESS_COMPLETED;
@@ -21,14 +28,27 @@ export class AddressIncomplete implements Action {
   readonly type = ADDRESS_INCOMPLETE;
 }
 
-export class InitFromSession implements Action {
-  readonly type = INIT_FROM_SESSION;
+export class GetCartFromSession implements Action {
+  readonly type = GET_CART_FROM_SESSION;
+}
+
+export class InitializeCart implements Action {
+  readonly type = INITIALIZE_CART;
   constructor(public cart: Cart) {}
+}
+
+export class SaveCartInSession implements Action {
+  readonly type = SAVE_CART_IN_SESSION;
+  constructor(public cart: Cart) {}
+}
+
+export class CartSaved implements Action {
+  readonly type = CART_SAVED;
 }
 
 export class CartMoveToStep implements Action {
   readonly type = CART_MOVE_TO_STEP;
-  constructor(public step: number, public country: string) {}
+  constructor(public step: number, public country?: string) {}
 }
 
 export class AddArticle implements Action {
@@ -46,16 +66,35 @@ export class RemoveOrder implements Action {
   constructor(public articleId: string) {}
 }
 
-export class EmptyCart implements Action {
-  readonly type = EMPTY_CART;
+export class UpdateTopSales implements Action {
+  readonly type = UPDATE_TOP_SALES;
+}
+
+export class UpdateTopSalesSuccess implements Action {
+  readonly type = UPDATE_TOP_SALES_SUCCESS;
+}
+
+export class Pay implements Action {
+  readonly type = PAY;
+  constructor(public userId: string, public orders: Order[], public paymentID: string, public payerID: string) {}
+}
+
+export class PaySuccess implements Action {
+  readonly type = PAY_SUCCESS;
 }
 
 export type CartDataActions
   = AddressCompleted
   | AddressIncomplete
-  | InitFromSession
+  | GetCartFromSession
+  | InitializeCart
+  | SaveCartInSession
+  | CartSaved
   | CartMoveToStep
   | AddArticle
   | RemoveArticle
   | RemoveOrder
-  | EmptyCart;
+  | UpdateTopSales
+  | UpdateTopSalesSuccess
+  | Pay
+  | PaySuccess;

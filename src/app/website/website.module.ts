@@ -35,8 +35,6 @@ import {FooterComponent} from './components/shared/footer/footer.component';
 import {ProfileService} from './service/profile.service';
 import {MailService} from './service/mail.service';
 import {JQueryService} from './service/jQuery.service';
-import {DataService} from './service/data.service';
-import {CartService} from './service/cart.service';
 import {SharedModule} from '../shared/shared.module';
 import {AuthGuard} from './service/auth.guard';
 import {SharedServicesModule} from '../shared/shared-services.module';
@@ -44,6 +42,10 @@ import {StoreModule} from '@ngrx/store';
 import {reducers} from './reducers';
 import {EffectsModule} from '@ngrx/effects';
 import {CategoryEffects} from './effects/category.effects';
+import {PaypalOrderEffects} from './effects/paypal-order.effects';
+import {ProductEffects} from "app/website/effects/product.effects";
+import {SlideEffects} from './effects/slide.effects';
+import {CartEffects} from './effects/cart.effects';
 
 @NgModule({
   declarations: [
@@ -80,7 +82,11 @@ import {CategoryEffects} from './effects/category.effects';
   ],
   imports     : [
     EffectsModule.forFeature([
-      CategoryEffects
+      CartEffects,
+      CategoryEffects,
+      PaypalOrderEffects,
+      ProductEffects,
+      SlideEffects
     ]),
     RestModule,
     RouterModule.forChild(websiteRouterConfig),
@@ -90,8 +96,6 @@ import {CategoryEffects} from './effects/category.effects';
   ],
   providers   : [
     AuthGuard,
-    CartService,
-    DataService,
     JQueryService,
     MailService,
     ProfileService

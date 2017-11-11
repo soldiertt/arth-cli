@@ -3,8 +3,11 @@ import {Router} from "@angular/router";
 import Category from "../../../../shared/model/category.class";
 import {Auth0Service} from "../../../../shared/service/auth.service";
 import {I18nService} from "../../../../shared/service/i18n.service";
-import {DataService} from '../../../service/data.service';
 import {ProfileService} from '../../../service/profile.service';
+import {Store} from '@ngrx/store';
+import * as fromCategory from '../../../reducers/category.reducer';
+import {Observable} from 'rxjs/Observable';
+import {GetAllRoot} from '../../../actions/category.actions';
 
 declare var $:any;
 
@@ -14,19 +17,19 @@ declare var $:any;
   styleUrls: ['header.component.css']
 })
 export class HeaderComponent implements OnInit, AfterViewInit {
-  rootCategories: Category[];
+
+  rootCategories$: Observable<Category[]>;
   searchTerm: string;
 
   constructor (public authService: Auth0Service,
                public profileService: ProfileService,
-               private dataService: DataService,
+               private store: Store<fromCategory.State>,
                private router: Router,
                public i18nService: I18nService) {}
 
   ngOnInit(): void {
-    this.dataService.appData.subscribe(appData => {
-      this.rootCategories = appData.rootCategories;
-    });
+    this.rootCategories$ = this.store.select(fromCategory.selectAll);
+    this.store.dispatch(new GetAllRoot());
   }
 
   ngAfterViewInit() {
@@ -37,10 +40,10 @@ export class HeaderComponent implements OnInit, AfterViewInit {
       }
     };
 
-    $(function() {
+    setTimeout(() => {
       $('.nav-item:not(".dropdown") a').on('click', closeNavBar);
       $('.navbar-nav').on('click', '.dropdown-item', closeNavBar);
-    });
+    }, 50);
   }
 
   isHome(): boolean {

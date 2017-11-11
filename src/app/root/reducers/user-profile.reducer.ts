@@ -15,4 +15,4 @@ export function userProfileReducer(state: UserProfile = defaultState, action: ac
   }
 }
 
-export const getLocalState = createFeatureSelector<UserProfile>('profile');
+export const selectLocalState = createFeatureSelector<UserProfile>('profile');

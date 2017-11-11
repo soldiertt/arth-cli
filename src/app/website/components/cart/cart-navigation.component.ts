@@ -1,20 +1,14 @@
 import {AfterViewInit, Component, OnInit} from "@angular/core";
-import {CartService} from "../../service/cart.service";
 import {Auth0Service} from "../../../shared/service/auth.service";
 import {PaypalRestService} from "../../../shared/service/rest/paypal.rest.service";
-import {PaypalOrderRestService} from "../../../shared/service/rest/paypalorder.rest.service";
-import PaypalOrder from "../../../shared/model/paypalorder.class";
-import * as moment from "moment";
-import {Router} from "@angular/router";
-import AppData from '../../model/app-data';
-import {DataService} from '../../service/data.service';
-import {Actions} from '../../model/actions.class';
-import {ArticleRestService} from "app/shared/service/rest/article.rest.service";
-import Mail from '../../model/mail.class';
 import {environment} from '../../../../environments/environment';
-import {MailService} from '../../service/mail.service';
-import {I18nService} from '../../../shared/service/i18n.service';
 import {ProfileService} from '../../service/profile.service';
+import CartData from '../../model/cart-data.class';
+import {Store} from '@ngrx/store';
+import * as fromCartData from '../../reducers/cart-data.reducer';
+import * as fromProfile from '../../../root/reducers/user-profile.reducer';
+import {CartMoveToStep, Pay, UpdateTopSales} from '../../actions/cart-data.actions';
+import UserProfile from '../../model/user-profile.class';
 
 declare var paypal: any;
 
@@ -25,7 +19,9 @@ declare var paypal: any;
 })
 export class CartNavigationComponent implements  OnInit, AfterViewInit {
 
-  appData : AppData;
+  cartData : CartData;
+  country: string;
+  userId: string;
 
   displayPrevious: boolean;
   displayNext: boolean;
@@ -33,44 +29,45 @@ export class CartNavigationComponent implements  OnInit, AfterViewInit {
   processingPayment: boolean = false;
   paymentConfirmed: boolean = false;
 
-  constructor(private dataService: DataService,
-              private cartService: CartService,
+  constructor(private store: Store<CartData>,
+              private profileStore: Store<UserProfile>,
               public authService: Auth0Service,
               private profileService: ProfileService,
-              private paypalRestService: PaypalRestService,
-              private paypalOrderRestService: PaypalOrderRestService,
-              private articleRestService: ArticleRestService,
-              private mailService: MailService,
-              private i18nService: I18nService,
-              private router: Router) {}
+              private paypalRestService: PaypalRestService) {}
 
   ngOnInit() {
-    this.dataService.appData.subscribe(data => {
-      this.appData = data;
+    this.store.select(fromCartData.selectLocalState).subscribe(cartData => {
+      this.cartData = cartData;
       this._checkButtonDisplay();
+    });
+    this.profileStore.select(fromProfile.selectLocalState).subscribe(profile => {
+      this.country = profile.user_metadata.addresses.delivery.country;
+      this.userId = profile.user_id;
     });
   }
 
   onPrevious(): void {
-    if (this.appData.cart.totalCount > 0) {
+    if (this.cartData.cart.totalCount > 0) {
       if (this.authService.authenticated()) {
-        if (this.appData.cartWizard.currentStep === 4) {
-          this.dataService.doAction(Actions.CART_MOVE_TO_STEP, 3);
+        if (this.cartData.wizard.currentStep === 4) {
+          this.store.dispatch(new CartMoveToStep(3));
         }
       }
     }
   }
 
   onNext($event): void {
-    const curStep = this.appData.cartWizard.currentStep;
+    const curStep = this.cartData.wizard.currentStep;
     if (curStep !== 0) {
       if (curStep === 1) {
-        this.profileService.login($event, () => this.dataService.doAction(Actions.CART_MOVE_TO_STEP, 3));
+        this.profileService.login($event, () => {
+          this.store.dispatch(new CartMoveToStep(3));
+        });
       } else if (curStep === 2) {
-        this.dataService.doAction(Actions.CART_MOVE_TO_STEP, 3);
+        this.store.dispatch(new CartMoveToStep(3));
       } else if (curStep === 3) {
-        if (this.appData.cartWizard.addressCompleted) {
-          this.dataService.doAction(Actions.CART_MOVE_TO_STEP, 4);
+        if (this.cartData.wizard.addressCompleted) {
+          this.store.dispatch(new CartMoveToStep(4, this.country));
         }
       }
     }
@@ -79,13 +76,13 @@ export class CartNavigationComponent implements  OnInit, AfterViewInit {
   ngAfterViewInit() {
     let paypalDefinedInterval = setInterval(() => {
 
-      if (window["paypal"]  && this.appData.cart.orders.length > 0) {
+      if (window["paypal"]  && this.cartData.cart.orders.length > 0) {
 
         paypal.Button.render({
           env: environment.paypalEnvironment,
           payment: (resolve, reject) => {
 
-            this.paypalRestService.createPayment(this.appData.cart).subscribe(response => {
+            this.paypalRestService.createPayment(this.cartData.cart).subscribe(response => {
               resolve(response.paymentID);
             }, err => reject(err));
 
@@ -105,15 +102,15 @@ export class CartNavigationComponent implements  OnInit, AfterViewInit {
   }
 
   private _checkButtonDisplay(): void {
-    if (this.appData.cart.totalCount > 0) {
+    if (this.cartData.cart.totalCount > 0) {
       if (this.authService.authenticated()) {
-        if (this.appData.cartWizard.currentStep === 4) {
+        if (this.cartData.wizard.currentStep === 4) {
           // Step4. paying
           this.displayPrevious = true;
           this.displayNext = false;
           this.displayPaypalButton = true;
-        } else if (this.appData.cartWizard.currentStep === 3){
-          if (this.appData.cartWizard.addressCompleted) {
+        } else if (this.cartData.wizard.currentStep === 3){
+          if (this.cartData.wizard.addressCompleted) {
             // Step3. completed profile
             this.displayPrevious = false;
             this.displayNext = true;
@@ -124,7 +121,7 @@ export class CartNavigationComponent implements  OnInit, AfterViewInit {
             this.displayNext = false;
             this.displayPaypalButton = false;
           }
-        } else if (this.appData.cartWizard.currentStep === 2){
+        } else if (this.cartData.wizard.currentStep === 2){
           // Step2. just authenticated
           this.displayPrevious = false;
           this.displayNext = true;
@@ -148,46 +145,16 @@ export class CartNavigationComponent implements  OnInit, AfterViewInit {
     this.processingPayment = true;
 
     // update top sales
-    const orders = this.appData.cart.orders;
-    this.articleRestService.updateTopSales(orders).subscribe();
+    const orders = this.cartData.cart.orders;
 
-    this.cartService.emptyCart();
+    this.store.dispatch(new UpdateTopSales());
+    this.store.dispatch(new Pay(this.userId, orders, paymentID, payerID));
+
+    this.paymentConfirmed = true;
+    this.processingPayment = false;
+
     this._checkButtonDisplay();
 
-    // execute payment
-    this.paypalRestService.executePayment(paymentID, payerID).subscribe(response => {
-      let firstTx = response.transactions[0];
-      let items = firstTx.item_list.items;
-      let amount = firstTx.amount;
-
-      let paypalOrder = new PaypalOrder();
-      paypalOrder.userId = this.appData.profile.user_id;
-      paypalOrder.orderDate = moment().format('YYYY-MM-DD hh:mm:ss');
-      paypalOrder.json = JSON.stringify({items, amount});
-      this.paypalOrderRestService.save(paypalOrder).subscribe(_ => {
-        this.paymentConfirmed = true;
-        this.processingPayment = false;
-      });
-
-      // Send mail to admin
-      let mail: Mail = new Mail("ADMIN_PAYMENT_CONFIRMATION");
-      mail.parameters = {paypalOrder};
-      this.mailService.sendMail(mail).subscribe(resp => {
-        console.log("Mail sent !");
-      });
-      // Send mail to client
-      mail = new Mail("USER_PAYMENT_CONFIRMATION");
-      mail.parameters = {paypalOrder : paypalOrder, language: this.i18nService.currentLanguage};
-      this.mailService.sendMail(mail).subscribe(resp => {
-        console.log("Mail sent !");
-      });
-    }, err => this._goToErrorPage(err));
-
-  }
-
-  private _goToErrorPage(err: string) {
-    console.log("Go to error page");
-    this.router.navigate(['/error']);
   }
 
 }
