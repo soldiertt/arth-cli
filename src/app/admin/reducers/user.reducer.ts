@@ -25,9 +25,9 @@ export function userReducer(state: State = initialState, action: actions.UserAct
   }
 }
 
-export const getUserState = createFeatureSelector<State>('user');
+export const getLocalState = createFeatureSelector<State>('user');
 
 export const {
   selectAll,
   selectTotal
-} = adapter.getSelectors(getUserState);
+} = adapter.getSelectors(getLocalState);

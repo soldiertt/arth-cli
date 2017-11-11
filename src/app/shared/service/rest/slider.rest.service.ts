@@ -38,4 +38,7 @@ export class SliderRestService {
     return this.http.delete(this.BASE_URL + "/slideproduct/" + id);
   }
 
+  uploadPicture(data: FormData) {
+    return this.http.post(this.BASE_URL + "/slider/upload", data);
+  }
 }

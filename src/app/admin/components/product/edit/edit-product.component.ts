@@ -46,7 +46,6 @@ export class EditProductComponent implements OnInit {
     if(event.target.files.length > 0) {
       let file = event.target.files[0];
       this.item.picture = this.uploadService.generateFilename(15, event.target.value);
-      console.log(this.item.picture);
       this.picture.setValue(file);
     }
   }

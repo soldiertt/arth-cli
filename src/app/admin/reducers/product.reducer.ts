@@ -32,9 +32,9 @@ export function productReducer(state: State = initialState, action: actions.Prod
   }
 }
 
-export const getProductState = createFeatureSelector<State>('product');
+export const getLocalState = createFeatureSelector<State>('product');
 
 export const {
   selectAll,
   selectTotal
-} = adapter.getSelectors(getProductState);
+} = adapter.getSelectors(getLocalState);

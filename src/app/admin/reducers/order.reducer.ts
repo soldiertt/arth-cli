@@ -25,9 +25,9 @@ export function orderReducer(state: State = initialState, action: actions.OrderA
   }
 }
 
-export const getOrderState = createFeatureSelector<State>('order');
+export const getLocalState = createFeatureSelector<State>('order');
 
 export const {
   selectAll,
   selectTotal
-} = adapter.getSelectors(getOrderState);
+} = adapter.getSelectors(getLocalState);

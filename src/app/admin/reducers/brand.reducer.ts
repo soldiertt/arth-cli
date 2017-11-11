@@ -8,40 +8,28 @@ export interface State extends EntityState<Brand> {}
 
 const defaultState  = {
   ids: [],
-  entities: {},
-  loading: false
+  entities: {}
 };
 
 export const initialState: State = adapter.getInitialState(defaultState);
 
 export function brandReducer(state: State = initialState, action: actions.BrandActions) {
 
-  let newState;
-
   switch (action.type) {
-    case actions.GET_ALL:
-      return {...state, loading: true};
     case actions.GET_ALL_SUCCESS:
-      newState = adapter.addAll(action.entities, state);
-      return {...newState, loading: false};
-    case actions.CREATE:
-      return { ...state, loading: true};
+      return adapter.addAll(action.entities, state);
     case actions.CREATE_SUCCESS:
-      newState = adapter.addOne(action.entity, state);
-      return {...newState, loading: false};
-    case actions.DELETE:
-      return {...state, loading: true};
+      return adapter.addOne(action.entity, state);
     case actions.DELETE_SUCCESS:
-      newState = adapter.removeOne(action.id, state);
-      return {...newState, loading: false};
+      return adapter.removeOne(action.id, state);
     default:
       return state;
   }
 }
 
-export const getBrandState = createFeatureSelector<State>('brand');
+export const getLocalState = createFeatureSelector<State>('brand');
 
 export const {
   selectAll,
   selectTotal
-} = adapter.getSelectors(getBrandState);
+} = adapter.getSelectors(getLocalState);

@@ -9,6 +9,9 @@ export const UPDATE = '[Slide] Update';
 export const UPDATE_SUCCESS = '[Slide] Update Success';
 export const DELETE = '[Slide] Delete';
 export const DELETE_SUCCESS = '[Slide] Delete Success';
+export const UPLOAD_NEW_PICTURE = '[Slide] Upload new picture';
+export const UPLOAD_NEW_PICTURE_SUCCESS = '[Slide] Upload new picture Success';
+export const UPLOAD_NEW_PICTURE_FAIL = '[Slide] Upload new picture Fail';
 
 export class GetAll implements Action {
   readonly type = GET_ALL;
@@ -49,6 +52,20 @@ export class DeleteSuccess implements Action {
   constructor(public id: string) {}
 }
 
+export class UploadNewPicture implements Action {
+  readonly type = UPLOAD_NEW_PICTURE;
+  constructor(public formData: FormData) {}
+}
+
+export class UploadNewPictureSuccess implements Action {
+  readonly type = UPLOAD_NEW_PICTURE_SUCCESS;
+}
+
+export class UploadNewPictureFail implements Action {
+  readonly type = UPLOAD_NEW_PICTURE_FAIL;
+  constructor(public error: string) {}
+}
+
 export type SlideActions
   = GetAll
   | GetAllSuccess
@@ -57,4 +74,7 @@ export type SlideActions
   | Update
   | UpdateSuccess
   | Delete
-  | DeleteSuccess;
+  | DeleteSuccess
+  | UploadNewPicture
+  | UploadNewPictureSuccess
+  | UploadNewPictureFail;

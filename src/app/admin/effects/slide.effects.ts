@@ -4,7 +4,8 @@ import {Observable} from 'rxjs/Observable';
 import {Action} from '@ngrx/store';
 import {
   Create, CREATE, CreateSuccess, Delete, DELETE, DeleteSuccess, GET_ALL,
-  GetAllSuccess, UPDATE, Update, UpdateSuccess
+  GetAllSuccess, UPDATE, Update, UpdateSuccess, UPLOAD_NEW_PICTURE, UploadNewPicture, UploadNewPictureFail,
+  UploadNewPictureSuccess
 } from '../actions/slide.actions';
 import Slide from '../../shared/model/slider.class';
 import {SliderRestService} from '../../shared/service/rest/slider.rest.service';
@@ -36,4 +37,12 @@ export class SlideEffects {
     .mergeMap(id => this.slideRestService.remove(id).map(() => id))
     .map(id => new DeleteSuccess(id));
 
+  @Effect()
+  uploadPicture: Observable<Action> = this.actions.ofType(UPLOAD_NEW_PICTURE)
+    .map((action: UploadNewPicture) => action.formData)
+    .mergeMap(formData => {
+      return this.slideRestService.uploadPicture(formData)
+        .map(_ => new UploadNewPictureSuccess())
+        .catch(err => Observable.of(new UploadNewPictureFail(err.message)));
+    });
 }
