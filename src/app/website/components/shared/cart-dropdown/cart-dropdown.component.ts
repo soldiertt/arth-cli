@@ -3,9 +3,9 @@ import Cart from "../../../model/cart.class";
 import CartData from '../../../model/cart-data.class';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
-import * as fromCartData from '../../../reducers/cart-data.reducer';
-import {RemoveOrder} from '../../../actions/cart-data.actions';
 import {PictureService} from '../../../../shared/service/picture.service';
+import {CartDataActions} from '../../../actions/cart-data.actions';
+import {FromCartData} from '../../../reducers/cart-data.reducer';
 
 @Component({
   selector: 'arth-cart-dropdown',
@@ -20,12 +20,12 @@ export class CartDropdownComponent implements OnInit {
               private store: Store<CartData>) { }
 
   ngOnInit() {
-    this.cart$ = this.store.select(fromCartData.selectCartState);
+    this.cart$ = this.store.select(FromCartData.selectCartState);
   }
 
   removeOrder($event, articleId: string) {
     $event.stopPropagation();
-    this.store.dispatch(new RemoveOrder(articleId));
+    this.store.dispatch(new CartDataActions.RemoveOrder(articleId));
   }
 
 }

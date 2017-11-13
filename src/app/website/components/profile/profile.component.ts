@@ -1,19 +1,21 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnDestroy, OnInit} from "@angular/core";
 import UserProfile from "../../model/user-profile.class";
 import UserAddress from "../../model/user-address";
-import UserMetaData from "../../model/usermetadata.class";
 import {MailService} from "../../service/mail.service";
 import Mail from "../../model/mail.class";
 import {Store} from '@ngrx/store';
-import {SetProfile} from '../../../root/actions/user-profile.actions';
 import * as fromUserProfile from '../../../root/reducers/user-profile.reducer';
 import {Observable} from 'rxjs/Observable';
+import {Subject} from 'rxjs/Subject';
+import {ProfileActions} from '../../../root/actions/user-profile.actions';
 
 @Component({
   selector: 'arth-profile',
   templateUrl: 'profile.component.html'
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
+
+  private ngUnsubscribe: Subject<any> = new Subject();
 
   profileUpdated: boolean = false;
   editMode: boolean = false;
@@ -31,12 +33,19 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     this.userProfile$ = this.store.select(fromUserProfile.selectLocalState);
-    this.userProfile$.subscribe(userProfile => {
+    this.userProfile$
+      .takeUntil(this.ngUnsubscribe)
+      .subscribe(userProfile => {
       this._updateLocalData(userProfile);
       if (this.incompleteProfile) {
         this.editContactInfo();
       }
     });
+  }
+
+  ngOnDestroy() {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   editContactInfo(): void {
@@ -61,23 +70,17 @@ export class ProfileComponent implements OnInit {
   }
 
   askForRemoval() : void {
-    let userMetaData: UserMetaData = new UserMetaData();
-    userMetaData.pendingRemoval = true;
-    this.store.dispatch(new SetProfile(this.userId, userMetaData));
+    this.store.dispatch(new ProfileActions.UpdateMetadata(this.userId, {pendingRemoval: true}));
     this.updateMetaData();
-    let mail: Mail = new Mail("ACCOUNT_DELETION");
-    this.mailService.sendMail(mail).subscribe(resp => {
+    this.mailService.sendMail(new Mail("ACCOUNT_DELETION")).subscribe(resp => {
       console.log("Mail sent !");
     });
   }
 
   cancelAskForRemoval() : void {
-    let userMetaData: UserMetaData = new UserMetaData();
-    userMetaData.pendingRemoval = false;
-    this.store.dispatch(new SetProfile(this.userId, userMetaData));
+    this.store.dispatch(new ProfileActions.UpdateMetadata(this.userId, {pendingRemoval: false}));
     this.updateMetaData();
-    let mail: Mail = new Mail("ACCOUNT_DELETION_CANCEL");
-    this.mailService.sendMail(mail).subscribe(resp => {
+    this.mailService.sendMail(new Mail("ACCOUNT_DELETION_CANCEL")).subscribe(resp => {
       console.log("Mail sent !");
     });
   }

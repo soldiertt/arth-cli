@@ -1,18 +1,17 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import Article from "../../../shared/model/article.class";
-import Category from "../../../shared/model/category.class";
-import {ArticleRestService} from "../../../shared/service/rest/article.rest.service";
-import {CategoryRestService} from "../../../shared/service/rest/category.rest.service";
 import {JQueryService} from "../../service/jQuery.service";
 import CartData from '../../model/cart-data.class';
 import {Store} from '@ngrx/store';
-import {AddArticle} from '../../actions/cart-data.actions';
 import ProductData from '../../model/product-data.class';
-import {LoadOne} from '../../actions/product.actions';
-import * as fromProduct from '../../reducers/product.reducer';
 import ProductItemData from '../../model/product-item-data.class';
 import {PictureService} from '../../../shared/service/picture.service';
+import {Subject} from 'rxjs/Subject';
+import 'rxjs/add/operator/takeUntil';
+import {CartDataActions} from '../../actions/cart-data.actions';
+import {ProductActions} from '../../actions/product.actions';
+import {FromProduct} from '../../reducers/product.reducer';
 
 declare var $: any;
 
@@ -21,7 +20,9 @@ declare var $: any;
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.css']
 })
-export class DetailComponent implements OnInit {
+export class DetailComponent implements OnInit, OnDestroy {
+
+  private ngUnsubscribe: Subject<any> = new Subject();
 
   selected: ProductItemData;
   needZoom: boolean = false;
@@ -37,20 +38,27 @@ export class DetailComponent implements OnInit {
       $('html,body').animate({ scrollTop: 0 }, 0);
       let articleId = params['articleId'];
 
-      this.store.dispatch(new LoadOne(articleId));
-      this.store.select(fromProduct.selectSelectedState).subscribe(selected => {
-        this.selected = selected;
-        setTimeout(() => {
-          this.jQueryService.enableFancybox($);
-        }, 10);
+      this.store.dispatch(new ProductActions.LoadOne(articleId));
+      this.store.select(FromProduct.selectSelectedState)
+        .takeUntil(this.ngUnsubscribe)
+        .subscribe(selected => {
+          this.selected = selected;
+          setTimeout(() => {
+            this.jQueryService.enableFancybox($);
+          }, 10);
       });
     });
+  }
+
+  ngOnDestroy() {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   addToCart(article: Article) {
     let component = this;
     let callback = function() {
-      component.cartDataStore.dispatch(new AddArticle(article));
+      component.cartDataStore.dispatch(new CartDataActions.AddArticle(article));
     };
     this.jQueryService.addToCart($, callback);
   }

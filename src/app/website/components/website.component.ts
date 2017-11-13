@@ -1,19 +1,40 @@
-import {Component} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import CartData from '../model/cart-data.class';
 import {Store} from '@ngrx/store';
-import {GetCartFromSession, SaveCartInSession} from '../actions/cart-data.actions';
-import * as fromCartData from '../reducers/cart-data.reducer';
+import {CartDataActions} from '../actions/cart-data.actions';
+import {Subject} from 'rxjs/Subject';
+import 'rxjs/add/operator/takeUntil';
+import {ProfileActions} from '../../root/actions/user-profile.actions';
+import {FromCartData} from '../reducers/cart-data.reducer';
 
 @Component({
   templateUrl: './website.component.html',
 })
-export class WebsiteComponent {
+export class WebsiteComponent implements OnInit, OnDestroy {
+
+  private ngUnsubscribe: Subject<any> = new Subject();
 
   constructor(private store: Store<CartData>) {
-    this.store.dispatch(new GetCartFromSession())
-
-    this.store.select(fromCartData.selectCartState).subscribe(cart => {
-      this.store.dispatch(new SaveCartInSession(cart));
-    });
   }
+
+  ngOnInit() {
+    // Initialize Cart from local storage
+    this.store.dispatch(new CartDataActions.GetCartFromSession())
+
+    // Save cart to local storage as soon as it is updated
+    this.store.select(FromCartData.selectCartState)
+      .takeUntil(this.ngUnsubscribe)
+      .subscribe(cart => {
+        this.store.dispatch(new CartDataActions.SaveCartInSession(cart));
+    });
+
+    // Initialize Profile from local storage (if any)
+    this.store.dispatch(new ProfileActions.InitFromSession());
+  }
+
+  ngOnDestroy() {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+  }
+
 }

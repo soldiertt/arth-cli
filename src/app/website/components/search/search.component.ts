@@ -1,26 +1,30 @@
 import {Component, OnInit} from "@angular/core";
-import {ArticleRestService} from "../../../shared/service/rest/article.rest.service";
 import {ActivatedRoute} from "@angular/router";
 import Article from "../../../shared/model/article.class";
+import ProductData from '../../model/product-data.class';
+import {Store} from '@ngrx/store';
+import {Observable} from 'rxjs/Observable';
+import {ProductActions} from '../../actions/product.actions';
+import {FromProduct} from '../../reducers/product.reducer';
+
 @Component({
   templateUrl: './search.component.html'
 })
 export class SearchComponent implements OnInit {
 
+  articles$: Observable<Article[]>;
   searchTerm: string;
-  articles: Article[];
   _orderBy: string = "name";
 
-  constructor(private articleRestService: ArticleRestService,
-    private route: ActivatedRoute) {}
+  constructor(private store: Store<ProductData>,
+              private route: ActivatedRoute) {}
 
   ngOnInit() {
+    this.articles$ = this.store.select(FromProduct.selectCurrentProductsState);
 
     this.route.params.subscribe(params => {
       this.searchTerm = params['term'];
-      this.articleRestService.search(this.searchTerm).subscribe(articles => {
-        this.articles = articles;
-      });
+      this.store.dispatch(new ProductActions.Search(this.searchTerm));
     });
   }
 

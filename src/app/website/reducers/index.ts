@@ -1,19 +1,21 @@
 import {ActionReducerMap} from '@ngrx/store';
-import {categoryReducer} from './category.reducer';
+import {FromCategory} from './category.reducer';
 import {SiteState} from '../model/site-state';
-import {promoProductReducer} from './promo-product.reducer';
-import {slideProductReducer} from './slide-product.reducer';
-import {slideReducer} from './slide.reducer';
-import {cartDataReducer} from './cart-data.reducer';
-import {paypalOrderReducer} from './paypal-order.reducer';
-import {productReducer} from './product.reducer';
+import {FromBrand} from './brand.reducer';
+import {FromCartData} from './cart-data.reducer';
+import {FromPaypalOrder} from './paypal-order.reducer';
+import {FromProduct} from './product.reducer';
+import {FromPromoProduct} from './promo-product.reducer';
+import {FromSlide} from './slide.reducer';
+import {FromSlideProduct} from './slide-product.reducer';
 
 export const reducers: ActionReducerMap<SiteState> = {
-  cartData: cartDataReducer,
-  rootCategories: categoryReducer,
-  promoArticles: promoProductReducer,
-  sliderArticles: slideProductReducer,
-  slides: slideReducer,
-  paypalOrders: paypalOrderReducer,
-  productData: productReducer
+  cartData: FromCartData.reducer,
+  rootCategories: FromCategory.reducer,
+  promoArticles: FromPromoProduct.reducer,
+  sliderArticles: FromSlideProduct.reducer,
+  slides: FromSlide.reducer,
+  paypalOrders: FromPaypalOrder.reducer,
+  productData: FromProduct.reducer,
+  brands: FromBrand.reducer
 };

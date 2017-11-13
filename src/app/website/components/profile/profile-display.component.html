@@ -1,28 +1,30 @@
-<div class="form-group row form-read-row">
-  <label class="col-form-label col-2">{{'common.label.name' | trans}}</label>
-  <div class="col-5">
-    <p>{{userProfile.user_metadata?.name}}</p>
+<ng-container *ngIf="userProfile$ | async as userProfile">
+  <div class="form-group row form-read-row">
+    <label class="col-form-label col-2">{{'common.label.name' | trans}}</label>
+    <div class="col-5">
+      <p>{{userProfile.user_metadata?.name}}</p>
+    </div>
+    <div class="col-5"></div>
   </div>
-  <div class="col-5"></div>
-</div>
-<div class="form-group row form-read-row">
-  <label class="col-form-label col-2">{{'common.label.phone' | trans}}</label>
-  <div class="col-5">
-    <p>{{userProfile.user_metadata?.phone}}</p>
+  <div class="form-group row form-read-row">
+    <label class="col-form-label col-2">{{'common.label.phone' | trans}}</label>
+    <div class="col-5">
+      <p>{{userProfile.user_metadata?.phone}}</p>
+    </div>
+    <div class="col-5"></div>
   </div>
-  <div class="col-5"></div>
-</div>
-<div class="form-group row form-read-row">
-  <label class="col-form-label col-2">{{'common.label.address' | trans}}</label>
-  <div class="col-5">
-    <p *ngIf="userProfile.user_metadata?.addresses.delivery as address; else noAddress">
-      {{address.street}}, {{address.houseNumber}} <span *ngIf="address.postbox"> / {{address.postbox}}</span><br/>
-      {{address.postcode}} {{address.city}}<br/>
-      {{address.country}}
-    </p>
-    <ng-template #noAddress>
-      <p class="alert alert-warning">{{'page.profile.missingaddress' | trans}}</p>
-    </ng-template>
+  <div class="form-group row form-read-row">
+    <label class="col-form-label col-2">{{'common.label.address' | trans}}</label>
+    <div class="col-5">
+      <p *ngIf="userProfile.user_metadata?.addresses?.delivery as address; else noAddress">
+        {{address.street}}, {{address.houseNumber}} <span *ngIf="address.postbox"> / {{address.postbox}}</span><br/>
+        {{address.postcode}} {{address.city}}<br/>
+        {{address.country}}
+      </p>
+      <ng-template #noAddress>
+        <p class="alert alert-warning">{{'page.profile.missingdata' | trans}}</p>
+      </ng-template>
+    </div>
+    <div class="col-5"><button type="button" (click)="editContactInfo()" class="btn btn-arth">{{'page.profile.edit' | trans}}</button></div>
   </div>
-  <div class="col-5"><button type="button" (click)="editContactInfo()" class="btn btn-arth">{{'page.profile.edit' | trans}}</button></div>
-</div>
+</ng-container>

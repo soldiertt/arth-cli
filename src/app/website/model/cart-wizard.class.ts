@@ -1,4 +1,4 @@
 export default class CartWizard {
-  addressCompleted: boolean;
+  editMode: boolean;
   currentStep: number;
 }

@@ -16,7 +16,7 @@
       </div>
     </div>
     <div>
-      <arth-article-box *ngFor="let article of articles | orderBy : orderBy" [article]="article"></arth-article-box>
+      <arth-article-box *ngFor="let article of (articles$ | async) | orderBy : orderBy" [article]="article"></arth-article-box>
     </div>
   </div>
 </div>

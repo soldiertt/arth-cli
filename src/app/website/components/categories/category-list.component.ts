@@ -1,8 +1,8 @@
 import {Component, OnInit} from "@angular/core";
 import Category from "../../../shared/model/category.class";
 import {Store} from '@ngrx/store';
-import * as fromCategory from '../../reducers/category.reducer';
 import {Observable} from 'rxjs/Observable';
+import {FromCategory} from '../../reducers/category.reducer';
 
 @Component({
   selector: 'arth-category-list',
@@ -13,11 +13,11 @@ export class CategoryListComponent implements OnInit {
 
   rootCategories$: Observable<Category[]>;
 
-  constructor (private store: Store<fromCategory.State>) {}
+  constructor (private store: Store<FromCategory.State>) {}
 
   ngOnInit(): void {
 
-    this.rootCategories$ = this.store.select(fromCategory.selectAll);
+    this.rootCategories$ = this.store.select(FromCategory.selectAll);
   }
 
 }

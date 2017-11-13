@@ -1,13 +1,13 @@
-import * as actions from '../actions/user-profile.actions';
-import {createFeatureSelector} from '@ngrx/store';
+import {createFeatureSelector, createSelector} from '@ngrx/store';
 import UserProfile from '../../website/model/user-profile.class';
+import {ProfileActions} from '../actions/user-profile.actions';
 
 const defaultState: UserProfile = new UserProfile();
 
-export function userProfileReducer(state: UserProfile = defaultState, action: actions.UserProfileActions) {
+export function userProfileReducer(state: UserProfile = defaultState, action: ProfileActions.Actions) {
 
   switch (action.type) {
-    case actions.SET_PROFILE_SUCCES:
+    case ProfileActions.SET:
       return action.profile;
 
     default:
@@ -16,3 +16,9 @@ export function userProfileReducer(state: UserProfile = defaultState, action: ac
 }
 
 export const selectLocalState = createFeatureSelector<UserProfile>('profile');
+export const selectUserId = createSelector(selectLocalState, (state: UserProfile) => {
+  if (state) {
+    return state.user_id;
+  }
+  return undefined;
+});

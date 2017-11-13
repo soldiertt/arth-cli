@@ -46,6 +46,7 @@ import {PaypalOrderEffects} from './effects/paypal-order.effects';
 import {ProductEffects} from "app/website/effects/product.effects";
 import {SlideEffects} from './effects/slide.effects';
 import {CartEffects} from './effects/cart.effects';
+import {BrandEffects} from './effects/brand.effects';
 
 @NgModule({
   declarations: [
@@ -82,6 +83,7 @@ import {CartEffects} from './effects/cart.effects';
   ],
   imports     : [
     EffectsModule.forFeature([
+      BrandEffects,
       CartEffects,
       CategoryEffects,
       PaypalOrderEffects,

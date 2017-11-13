@@ -1,33 +1,45 @@
 import {Injectable} from '@angular/core';
 import {Actions, Effect} from '@ngrx/effects';
 import {Observable} from 'rxjs/Observable';
-import {Action} from '@ngrx/store';
-import {
-  LOGOUT,
-  SET_PROFILE, SetProfile, SetProfileSuccess
-} from '../actions/user-profile.actions';
+import {Action, Store} from '@ngrx/store';
 import {UserRestService} from '../../shared/service/rest/user.rest.service';
 import {SessionService} from '../../shared/service/session.service';
 import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/withLatestFrom';
+import {ProfileActions} from '../actions/user-profile.actions';
+import UserProfile from '../../website/model/user-profile.class';
 
 @Injectable()
 export class UserProfileEffects {
 
   constructor(private actions: Actions,
               private userRestService: UserRestService,
-              private sessionService: SessionService) {}
+              private sessionService: SessionService,
+              private store: Store<UserProfile>) {}
 
   @Effect()
-  setProfile: Observable<Action> = this.actions.ofType(SET_PROFILE)
-    .mergeMap((action: SetProfile) => this.userRestService.updateProfile(action.userId, action.metadata))
+  initProfileFromSession: Observable<Action> = this.actions.ofType(ProfileActions.INIT_FROM_SESSION)
+    .map(action => this.sessionService.getProfile())
+    .map(profile => new ProfileActions.Set(profile));
+
+  @Effect()
+  updateProfile: Observable<Action> = this.actions.ofType(ProfileActions.UPDATE_METADATA)
+    .mergeMap((action: ProfileActions.UpdateMetadata) => this.userRestService.updateProfile(action.userId, action.metadata))
     .do(profile => this.sessionService.saveProfile(profile))
-    .map(profile => new SetProfileSuccess(profile));
+    .map(profile => new ProfileActions.Set(profile));
 
   @Effect()
-  logout: Observable<Action> = this.actions.ofType(LOGOUT)
+  logout: Observable<Action> = this.actions.ofType(ProfileActions.LOGOUT)
     .do(() => {
       this.sessionService.deleteIdToken();
       this.sessionService.deleteProfile();
     })
-    .map(profile => new SetProfileSuccess(undefined));
+    .map(profile => new ProfileActions.Set(undefined));
+
+  @Effect()
+  saveProfileInSession: Observable<Action> = this.actions.ofType(ProfileActions.SAVE_TO_SESSION)
+    .withLatestFrom(this.store)
+    .map(([action, state]) => this.sessionService.saveProfile(state))
+    .map(cart => new ProfileActions.SaveToSessionSuccess());
+
 }

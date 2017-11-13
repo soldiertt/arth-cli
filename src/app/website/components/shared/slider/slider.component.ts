@@ -3,11 +3,11 @@ import Slide from "../../../../shared/model/slider.class";
 import {Router} from '@angular/router';
 import Article from '../../../../shared/model/article.class';
 import {Store} from '@ngrx/store';
-import * as fromSlide from '../../../reducers/slide.reducer';
-import * as fromSlideProduct from '../../../reducers/slide-product.reducer';
 import {Observable} from 'rxjs/Observable';
-import * as slideActions from '../../../actions/slide.actions';
-import * as slideProductActions from '../../../actions/slide-product.actions';
+import {SlideActions} from '../../../actions/slide.actions';
+import {SlideProductActions} from '../../../actions/slide-product.actions';
+import {FromSlide} from '../../../reducers/slide.reducer';
+import {FromSlideProduct} from '../../../reducers/slide-product.reducer';
 
 @Component({
   selector: 'arth-slider',
@@ -19,15 +19,15 @@ export class SliderComponent implements OnInit {
   slides$: Observable<Slide[]>;
   sliderArticles$: Observable<Article[]>;
 
-  constructor(private slideStore: Store<fromSlide.State>,
-              private slideProductStore: Store<fromSlideProduct.State>,
+  constructor(private slideStore: Store<FromSlide.State>,
+              private slideProductStore: Store<FromSlideProduct.State>,
               private router: Router) {}
 
   ngOnInit() {
-    this.slides$ = this.slideStore.select(fromSlide.selectAll);
-    this.sliderArticles$ = this.slideProductStore.select(fromSlideProduct.selectAll);
-    this.slideStore.dispatch(new slideActions.GetAll());
-    this.slideProductStore.dispatch(new slideProductActions.GetAll());
+    this.slides$ = this.slideStore.select(FromSlide.selectAll);
+    this.sliderArticles$ = this.slideProductStore.select(FromSlideProduct.selectAll);
+    this.slideStore.dispatch(new SlideActions.GetAll());
+    this.slideProductStore.dispatch(new SlideProductActions.GetAll());
   }
 
   goToProductFromSlide(slide: Slide): void {

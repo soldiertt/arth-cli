@@ -5,7 +5,7 @@ import {Router} from '@angular/router';
 import {Auth0Service} from '../../shared/service/auth.service';
 import UserMetaData from '../model/usermetadata.class';
 import {Store} from '@ngrx/store';
-import {Logout, SetProfile, SetProfileSuccess} from '../../root/actions/user-profile.actions';
+import {ProfileActions} from '../../root/actions/user-profile.actions';
 
 @Injectable()
 export class ProfileService {
@@ -14,10 +14,7 @@ export class ProfileService {
               private auth0Service: Auth0Service,
               private store: Store<UserProfile>,
               private router: Router) {
-    let sessionProfile = this.sessionService.getProfile();
-    if (sessionProfile) {
-      this.store.dispatch(new SetProfileSuccess(sessionProfile));
-    }
+
     this._authCallback();
   }
 
@@ -32,7 +29,7 @@ export class ProfileService {
 
   logout($event) {
     $event.preventDefault();
-    this.store.dispatch(new Logout());
+    this.store.dispatch(new ProfileActions.Logout());
     if (this.router.url.indexOf('/profile') != -1 || this.router.url.indexOf('/mycart') != -1) {
       this.router.navigate(['/']);
     }
@@ -48,18 +45,27 @@ export class ProfileService {
         }
 
         let metaData = profile.user_metadata;
+        let needUpdate: boolean = false;
+
         if (!metaData) {
           metaData = new UserMetaData();
+          needUpdate = true;
         }
         if (!metaData.email) {
           metaData.email = profile['email'];
+          needUpdate = true;
         }
         if (!metaData.name && profile['identities'][0]['isSocial'] === true) {
           metaData.name = profile['name'];
+          needUpdate = true;
         }
-        profile.user_metadata = metaData;
 
-        this.store.dispatch(new SetProfile(profile.user_id, profile.user_metadata));
+        if (needUpdate) {
+          this.store.dispatch(new ProfileActions.UpdateMetadata(profile.user_id, metaData));
+        } else {
+          this.store.dispatch(new ProfileActions.Set(profile));
+          this.store.dispatch(new ProfileActions.SaveToSession());
+        }
 
         if (extraCallbackFn) {
           extraCallbackFn();

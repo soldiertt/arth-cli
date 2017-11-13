@@ -10,13 +10,13 @@
       <div class="col-5">{{userProfile?.user_metadata.email}}</div>
       <div class="col-5"><button type="button" (click)="editEmail()" class="btn btn-arth">{{'page.profile.edit' | trans}}</button></div>
     </div>
-    <arth-profile-display (edit)="editContactInfo()" [userProfile]="userProfile$ | async"></arth-profile-display>
+    <arth-profile-display (edit)="editContactInfo()"></arth-profile-display>
   </form>
 </div>
 
 <!-- EDIT MODE -->
-<arth-profile-email [email]="email" (onUpdateMetaData)="updateMetaData($event)" (onCancelEdit)="cancelEdit($event)" *ngIf="editedItem == 'email'"></arth-profile-email>
-<arth-profile-edit (onUpdateMetaData)="updateMetaData()" (onCancelEdit)="cancelEdit($event)" [userProfile]="userProfile$ | async" *ngIf="editedItem == 'contactinfo'"></arth-profile-edit>
+<arth-profile-email (onUpdateMetaData)="updateMetaData()" (onCancelEdit)="cancelEdit($event)" *ngIf="editedItem == 'email'"></arth-profile-email>
+<arth-profile-edit (onUpdateMetaData)="updateMetaData()" (onCancelEdit)="cancelEdit($event)" *ngIf="editedItem == 'contactinfo'"></arth-profile-edit>
 
 <arth-orders *ngIf="!editMode"></arth-orders>
 

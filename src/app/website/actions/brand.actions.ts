@@ -1,9 +1,9 @@
 import {Action} from '@ngrx/store';
-import Article from '../../shared/model/article.class';
+import Brand from '../../shared/model/brand.class';
 
-export namespace PromoProductActions {
-  export const GET_ALL = '[Promo product] GET ALL';
-  export const GET_ALL_SUCCESS = '[Promo product] GET ALL Success';
+export namespace BrandActions {
+  export const GET_ALL = '[Brand] GET ALL';
+  export const GET_ALL_SUCCESS = '[Brand] GET ALL Success';
 
   export class GetAll implements Action {
     readonly type = GET_ALL;
@@ -12,11 +12,13 @@ export namespace PromoProductActions {
   export class GetAllSuccess implements Action {
     readonly type = GET_ALL_SUCCESS;
 
-    constructor(public entities: Article[]) {
+    constructor(public entities: Brand[]) {
     }
   }
 
   export type Actions
     = GetAll
     | GetAllSuccess;
+
 }
+

@@ -1,14 +1,16 @@
-import {AfterViewInit, Component, OnInit} from "@angular/core";
+import {AfterViewInit, Component, OnDestroy, OnInit} from "@angular/core";
 import {Auth0Service} from "../../../shared/service/auth.service";
 import {PaypalRestService} from "../../../shared/service/rest/paypal.rest.service";
 import {environment} from '../../../../environments/environment';
 import {ProfileService} from '../../service/profile.service';
 import CartData from '../../model/cart-data.class';
 import {Store} from '@ngrx/store';
-import * as fromCartData from '../../reducers/cart-data.reducer';
 import * as fromProfile from '../../../root/reducers/user-profile.reducer';
-import {CartMoveToStep, Pay, UpdateTopSales} from '../../actions/cart-data.actions';
 import UserProfile from '../../model/user-profile.class';
+import {Subject} from 'rxjs/Subject';
+import 'rxjs/add/operator/takeUntil';
+import {CartDataActions} from '../../actions/cart-data.actions';
+import {FromCartData} from '../../reducers/cart-data.reducer';
 
 declare var paypal: any;
 
@@ -17,11 +19,14 @@ declare var paypal: any;
   templateUrl: './cart-navigation.component.html',
   styleUrls: ['./cart-navigation.component.css']
 })
-export class CartNavigationComponent implements  OnInit, AfterViewInit {
+export class CartNavigationComponent implements  OnInit, AfterViewInit, OnDestroy {
+
+  private ngUnsubscribe: Subject<any> = new Subject();
 
   cartData : CartData;
   country: string;
   userId: string;
+  profileComplete: boolean;
 
   displayPrevious: boolean;
   displayNext: boolean;
@@ -36,21 +41,45 @@ export class CartNavigationComponent implements  OnInit, AfterViewInit {
               private paypalRestService: PaypalRestService) {}
 
   ngOnInit() {
-    this.store.select(fromCartData.selectLocalState).subscribe(cartData => {
-      this.cartData = cartData;
-      this._checkButtonDisplay();
+    this.store.select(FromCartData.selectLocalState)
+      .takeUntil(this.ngUnsubscribe)
+      .subscribe(cartData => {
+        this.cartData = cartData;
+        this._checkButtonDisplay();
     });
-    this.profileStore.select(fromProfile.selectLocalState).subscribe(profile => {
-      this.country = profile.user_metadata.addresses.delivery.country;
-      this.userId = profile.user_id;
+    this.profileStore.select(fromProfile.selectLocalState)
+      .takeUntil(this.ngUnsubscribe)
+      .subscribe(profile => {
+        if (profile) {
+          if (profile.user_metadata) {
+            this.profileComplete = profile.user_metadata.profileComplete;
+            if (profile.user_metadata.addresses) {
+              this.country = profile.user_metadata.addresses.delivery.country;
+            } else {
+              this.country = undefined;
+            }
+          } else {
+            this.profileComplete = false;
+          }
+          this.userId = profile.user_id;
+        } else {
+          this.userId = undefined;
+          this.country = undefined;
+          this.profileComplete = false;
+        }
     });
+  }
+
+  ngOnDestroy() {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   onPrevious(): void {
     if (this.cartData.cart.totalCount > 0) {
       if (this.authService.authenticated()) {
         if (this.cartData.wizard.currentStep === 4) {
-          this.store.dispatch(new CartMoveToStep(3));
+          this.store.dispatch(new CartDataActions.CartMoveToStep(3));
         }
       }
     }
@@ -60,15 +89,19 @@ export class CartNavigationComponent implements  OnInit, AfterViewInit {
     const curStep = this.cartData.wizard.currentStep;
     if (curStep !== 0) {
       if (curStep === 1) {
-        this.profileService.login($event, () => {
-          this.store.dispatch(new CartMoveToStep(3));
-        });
-      } else if (curStep === 2) {
-        this.store.dispatch(new CartMoveToStep(3));
-      } else if (curStep === 3) {
-        if (this.cartData.wizard.addressCompleted) {
-          this.store.dispatch(new CartMoveToStep(4, this.country));
+        if (this.authService.authenticated()) {
+          this.store.dispatch(new CartDataActions.CartMoveToStep(3));
+        } else {
+          this.profileService.login($event, () => {
+            this.store.dispatch(new CartDataActions.CartMoveToStep(3));
+          });
         }
+      } else if (curStep === 2) {
+        this.store.dispatch(new CartDataActions.CartMoveToStep(3));
+      } else if (curStep === 3) {
+        //if (this.cartData.wizard.addressCompleted) {
+          this.store.dispatch(new CartDataActions.CartMoveToStep(4, this.country));
+        //}
       }
     }
   }
@@ -110,7 +143,7 @@ export class CartNavigationComponent implements  OnInit, AfterViewInit {
           this.displayNext = false;
           this.displayPaypalButton = true;
         } else if (this.cartData.wizard.currentStep === 3){
-          if (this.cartData.wizard.addressCompleted) {
+          if (!this.cartData.wizard.editMode && this.profileComplete) {
             // Step3. completed profile
             this.displayPrevious = false;
             this.displayNext = true;
@@ -147,8 +180,8 @@ export class CartNavigationComponent implements  OnInit, AfterViewInit {
     // update top sales
     const orders = this.cartData.cart.orders;
 
-    this.store.dispatch(new UpdateTopSales());
-    this.store.dispatch(new Pay(this.userId, orders, paymentID, payerID));
+    this.store.dispatch(new CartDataActions.UpdateTopSales());
+    this.store.dispatch(new CartDataActions.Pay(this.userId, orders, paymentID, payerID));
 
     this.paymentConfirmed = true;
     this.processingPayment = false;

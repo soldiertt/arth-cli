@@ -1,22 +1,38 @@
-import {Component, OnInit, Input} from "@angular/core";
+import {Component, OnDestroy, OnInit} from "@angular/core";
 import {FormBuilder, Validators, FormGroup} from "@angular/forms";
 import {FormComponent} from "../form.component";
 import UserMetaData from "../../model/usermetadata.class";
+import UserProfile from '../../model/user-profile.class';
+import {Store} from '@ngrx/store';
+import * as fromProfile from '../../../root/reducers/user-profile.reducer';
+import {Subject} from 'rxjs/Subject';
+import 'rxjs/add/operator/takeUntil';
+import {ProfileActions} from '../../../root/actions/user-profile.actions';
 
 @Component({
   selector: 'arth-profile-email',
   templateUrl: 'profile-email.component.html',
   styleUrls: ['profile-email.component.css']
 })
-export class ProfileEmailComponent extends FormComponent implements OnInit {
+export class ProfileEmailComponent extends FormComponent implements OnInit, OnDestroy {
 
-  @Input() email: string;
+  private ngUnsubscribe: Subject<any> = new Subject();
 
-  constructor(private fb: FormBuilder) {
+  profile: UserProfile;
+
+  constructor(private fb: FormBuilder,
+              private store: Store<UserProfile>) {
     super();
   }
 
   ngOnInit() {
+
+    this.store.select(fromProfile.selectLocalState)
+      .takeUntil(this.ngUnsubscribe)
+      .subscribe(profile => {
+      this.profile = profile;
+    });
+
     let emailRegex = '^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$';
     this.form = this.fb.group({
       emails: this.fb.group({
@@ -30,11 +46,17 @@ export class ProfileEmailComponent extends FormComponent implements OnInit {
 
   }
 
+  ngOnDestroy() {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+  }
+
   save(): void {
     this.submitAttempt = true;
     if (this.form.valid) {
-      let userMetaData: UserMetaData = {email: this.form.get('emails').get('email').value};
-      this.onUpdateMetaData.emit(userMetaData);
+      let userMetadata: UserMetaData = {email: this.form.get('emails').get('email').value};
+      this.store.dispatch(new ProfileActions.UpdateMetadata(this.profile.user_id, userMetadata));
+      this.onUpdateMetaData.emit();
     }
   }
 
@@ -44,8 +66,8 @@ export class ProfileEmailComponent extends FormComponent implements OnInit {
   }
 
   private _fillFormWithData(): void {
-    if (this.email) {
-      this.form.get('emails').get('email').setValue(this.email);
+    if (this.profile.user_metadata.email) {
+      this.form.get('emails').get('email').setValue(this.profile.user_metadata.email);
       this.form.get('emails').get('emailConfirm').setValue('');
     }
   }

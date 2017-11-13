@@ -1,10 +1,11 @@
 import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute, Params} from "@angular/router";
 import 'rxjs/add/operator/switchMap';
-import Article from "../../../shared/model/article.class";
-import Category from "../../../shared/model/category.class";
-import {ArticleRestService} from "../../../shared/service/rest/article.rest.service";
-import {CategoryRestService} from "../../../shared/service/rest/category.rest.service";
+import ProductData from '../../model/product-data.class';
+import {Observable} from 'rxjs/Observable';
+import {Store} from '@ngrx/store';
+import {ProductActions} from '../../actions/product.actions';
+import {FromProduct} from '../../reducers/product.reducer';
 
 declare var $:any
 
@@ -14,37 +15,23 @@ declare var $:any
   styleUrls: ['category-details.component.css']
 })
 export class CategoryDetailsComponent implements OnInit {
-  articles: Article[];
-  category: Category;
-  parentCategory: Category;
+
+  productData$: Observable<ProductData>;
+
   _orderBy: string = "name";
 
-  constructor(private activeRoute:ActivatedRoute,
-              private articleRestService: ArticleRestService,
-              private categoryRestService: CategoryRestService) {}
+  constructor(private store: Store<ProductData>,
+              private activeRoute:ActivatedRoute) {}
 
   ngOnInit() {
+    this.productData$ = this.store.select(FromProduct.selectLocalState);
+
     this.activeRoute.params.subscribe((params: Params) => {
       $('html,body').animate({ scrollTop: 0 }, 0);
       let categoryType = params['type'];
-      this.categoryRestService.findCategory(categoryType).subscribe(category => {
-        this.category = category;
-        if (category.parent) {
-          this.categoryRestService.findCategory(category.parent).subscribe(parentCategory => {
-            this.parentCategory = parentCategory;
-          });
-        } else {
-          this.parentCategory = undefined;
-        }
-        this.categoryRestService.listSubCategories(categoryType).subscribe(subCategories => {
-          this.category.subCategories = subCategories;
-          if (!subCategories.length) {
-            this.articleRestService.findByCategory(categoryType).subscribe(articles => {
-              this.articles = articles;
-            });
-          }
-        });
-      });
+
+      this.store.dispatch(new ProductActions.LoadAllByCategory(categoryType));
+
     });
 
   }

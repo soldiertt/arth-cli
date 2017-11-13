@@ -1,23 +1,23 @@
-<div class="cart-wizard-breadcrumb" *ngIf="currentStep">
-  <div [class.done]="currentStep >= 1">
+<div class="cart-wizard-breadcrumb" *ngIf="wizard$ | async as wizard">
+  <div [class.done]="wizard.currentStep >= 1">
     <span>
       1. {{'page.mycart.breadcrumb.myarticles' | trans}}
       <i class="fa fa-chevron-right" aria-hidden="true"></i>
     </span>
   </div><!-- prevent whitespace
---><div [class.done]="currentStep >= 2">
+--><div [class.done]="wizard.currentStep >= 2">
     <span>
       2. {{'page.mycart.breadcrumb.signin' | trans}}
       <i class="fa fa-chevron-right" aria-hidden="true"></i>
     </span>
   </div><!-- prevent whitespace
---><div [class.done]="currentStep >= 4" [class.active]="currentStep === 3">
+--><div [class.done]="wizard.currentStep >= 4" [class.active]="wizard.currentStep === 3">
     <span>
       3. {{'page.mycart.breadcrumb.mycontactdetails' | trans}}
       <i class="fa fa-chevron-right" aria-hidden="true"></i>
     </span>
   </div><!-- prevent whitespace
---><div [class.active]="currentStep === 4">
+--><div [class.active]="wizard.currentStep === 4">
     <span>
       4. {{'page.mycart.breadcrumb.payment' | trans}}
     </span>

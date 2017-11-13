@@ -1,7 +1,9 @@
 import {Component, OnInit} from "@angular/core";
 import CartData from '../../model/cart-data.class';
 import {Store} from '@ngrx/store';
-import * as fromCartData from '../../reducers/cart-data.reducer';
+import CartWizard from '../../model/cart-wizard.class';
+import {Observable} from 'rxjs/Observable';
+import {FromCartData} from '../../reducers/cart-data.reducer';
 
 @Component({
   selector: 'arth-cart-breadcrumb',
@@ -10,13 +12,11 @@ import * as fromCartData from '../../reducers/cart-data.reducer';
 })
 export class CartBreadcrumbComponent implements OnInit {
 
-  currentStep: number;
+  wizard$: Observable<CartWizard>;
 
   constructor(private store: Store<CartData>) {}
 
   ngOnInit() {
-    this.store.select(fromCartData.selectWizardState).subscribe(wizard => {
-      this.currentStep = wizard.currentStep;
-    });
+    this.wizard$ = this.store.select(FromCartData.selectWizardState);
   }
 }

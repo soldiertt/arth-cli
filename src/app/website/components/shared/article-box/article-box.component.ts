@@ -4,7 +4,7 @@ import {JQueryService} from "../../../service/jQuery.service";
 import CartData from '../../../model/cart-data.class';
 import {Store} from '@ngrx/store';
 import {PictureService} from '../../../../shared/service/picture.service';
-import {AddArticle} from '../../../actions/cart-data.actions';
+import {CartDataActions} from '../../../actions/cart-data.actions';
 
 declare var $:any;
 
@@ -22,7 +22,7 @@ export class ArticleBoxComponent {
   addToCart(article) {
     let component = this;
     let callback = function() {
-      component.store.dispatch(new AddArticle(article));
+      component.store.dispatch(new CartDataActions.AddArticle(article));
     };
     this.jQueryService.addToCart($, callback);
   }

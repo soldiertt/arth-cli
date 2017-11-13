@@ -1,34 +1,38 @@
-import * as actions from '../actions/slide-product.actions';
 import {createEntityAdapter, EntityState} from '@ngrx/entity';
 import {createSelector} from '@ngrx/store';
 import {siteFeatureSelector, SiteState} from '../model/site-state';
 import Article from '../../shared/model/article.class';
+import {SlideProductActions} from '../actions/slide-product.actions';
 
-export const adapter = createEntityAdapter<Article>();
-export interface State extends EntityState<Article> {}
-
+const adapter = createEntityAdapter<Article>();
 const defaultState  = {
   ids: [],
   entities: {}
 };
 
-export const initialState = adapter.getInitialState(defaultState);
+const initialState = adapter.getInitialState(defaultState);
 
-export function slideProductReducer(state: State = initialState, action: actions.SlideProductActions) {
+export namespace FromSlideProduct {
 
-  switch (action.type) {
-    case actions.GET_ALL:
-      return state;
-    case actions.GET_ALL_SUCCESS:
-      return adapter.addAll(action.entities, state);
-    default:
-      return state;
+  export interface State extends EntityState<Article> {}
+
+  export function reducer(state: State = initialState, action: SlideProductActions.Actions) {
+
+    switch (action.type) {
+      case SlideProductActions.GET_ALL:
+        return state;
+      case SlideProductActions.GET_ALL_SUCCESS:
+        return adapter.addAll(action.entities, state);
+      default:
+        return state;
+    }
   }
+
+  const getLocalState = createSelector(siteFeatureSelector, (state: SiteState) => state.sliderArticles);
+
+  export const {
+    selectAll,
+    selectTotal
+  } = adapter.getSelectors(getLocalState);
+
 }
-
-const getLocalState = createSelector(siteFeatureSelector, (state: SiteState) => state.sliderArticles);
-
-export const {
-  selectAll,
-  selectTotal
-} = adapter.getSelectors(getLocalState);

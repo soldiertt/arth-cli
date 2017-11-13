@@ -3,14 +3,14 @@ import {Actions, Effect} from '@ngrx/effects';
 import {Observable} from 'rxjs/Observable';
 import {Action} from '@ngrx/store';
 import {PaypalOrderRestService} from '../../shared/service/rest/paypalorder.rest.service';
-import {GET_ALL_FOR_USER, GetAllForUser, GetAllForUserSuccess} from '../actions/paypal-order.actions';
-import {PAY, Pay, PaySuccess} from '../actions/cart-data.actions';
 import {PaypalRestService} from '../../shared/service/rest/paypal.rest.service';
 import Mail from '../model/mail.class';
 import PaypalOrder from '../../shared/model/paypalorder.class';
 import * as moment from 'moment';
 import {MailService} from '../service/mail.service';
 import {I18nService} from '../../shared/service/i18n.service';
+import {CartDataActions} from '../actions/cart-data.actions';
+import {PaypalOrderActions} from '../actions/paypal-order.actions';
 
 @Injectable()
 export class PaypalOrderEffects {
@@ -22,13 +22,13 @@ export class PaypalOrderEffects {
               private paypalRestService: PaypalRestService) {}
 
   @Effect()
-  getAll: Observable<Action> = this.actions.ofType(GET_ALL_FOR_USER)
-    .mergeMap((action: GetAllForUser) => this.paypalOrderRestService.listAllByUser(action.userId))
-    .map(entities => new GetAllForUserSuccess(entities));
+  getAll: Observable<Action> = this.actions.ofType(PaypalOrderActions.GET_ALL_FOR_USER)
+    .mergeMap((action: PaypalOrderActions.GetAllForUser) => this.paypalOrderRestService.listAllByUser(action.userId))
+    .map(entities => new PaypalOrderActions.GetAllForUserSuccess(entities));
 
   @Effect()
-  payment: Observable<Action> = this.actions.ofType(PAY)
-    .mergeMap((action: Pay) => {
+  payment: Observable<Action> = this.actions.ofType(CartDataActions.PAY)
+    .mergeMap((action: CartDataActions.Pay) => {
 
       return this.paypalRestService.executePayment(action.paymentID, action.payerID).map(response => {
         let firstTx = response.transactions[0];
@@ -57,5 +57,5 @@ export class PaypalOrderEffects {
           console.log("Mail sent !");
         });
       })
-    .map(_ => new PaySuccess());
+    .map(_ => new CartDataActions.PaySuccess());
 }

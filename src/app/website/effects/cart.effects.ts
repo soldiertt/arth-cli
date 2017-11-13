@@ -3,10 +3,7 @@ import {Actions, Effect} from '@ngrx/effects';
 import {Observable} from 'rxjs/Observable';
 import {Action} from '@ngrx/store';
 import {SessionService} from '../../shared/service/session.service';
-import {
-  CartSaved, GET_CART_FROM_SESSION, InitializeCart, SAVE_CART_IN_SESSION,
-  SaveCartInSession
-} from '../actions/cart-data.actions';
+import {CartDataActions} from '../actions/cart-data.actions';
 
 @Injectable()
 export class CartEffects {
@@ -14,12 +11,12 @@ export class CartEffects {
   constructor(private actions: Actions, private sessionService: SessionService) {}
 
   @Effect()
-  getCartFromSession: Observable<Action> = this.actions.ofType(GET_CART_FROM_SESSION)
+  getCartFromSession: Observable<Action> = this.actions.ofType(CartDataActions.GET_CART_FROM_SESSION)
     .map(action => this.sessionService.getCart())
-    .map(cart => new InitializeCart(cart));
+    .map(cart => new CartDataActions.InitializeCart(cart));
 
   @Effect()
-  saveCart: Observable<Action> = this.actions.ofType(SAVE_CART_IN_SESSION)
-    .map((action: SaveCartInSession) => this.sessionService.saveCart(action.cart))
-    .map(cart => new CartSaved());
+  saveCart: Observable<Action> = this.actions.ofType(CartDataActions.SAVE_CART_IN_SESSION)
+    .map((action: CartDataActions.SaveCartInSession) => this.sessionService.saveCart(action.cart))
+    .map(cart => new CartDataActions.CartSaved());
 }

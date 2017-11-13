@@ -7,3 +7,11 @@
   padding: 5px 0 5px 0;
   background-color: #f5f5f5;
 }
+
+.wasvalidated input.ng-invalid, .wasvalidated select.ng-invalid {
+  border-color: #BC2803;
+}
+
+.invalid-form-control {
+  color: #BC2803;
+}

@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import Article from '../../../shared/model/article.class';
-import * as fromProduct from '../../reducers/promo-product.reducer';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
-import {GetAll} from '../../actions/promo-product.actions';
+import {PromoProductActions} from '../../actions/promo-product.actions';
+import {FromPromoProduct} from '../../reducers/promo-product.reducer';
 
 @Component({
   selector: 'home',
@@ -14,11 +14,11 @@ export class HomeComponent implements OnInit {
 
   promoArticles$: Observable<Article[]>;
 
-  constructor(private store: Store<fromProduct.State>) {}
+  constructor(private store: Store<FromPromoProduct.State>) {}
 
   ngOnInit() {
-    this.promoArticles$ = this.store.select(fromProduct.selectAll);
-    this.store.dispatch(new GetAll());
+    this.promoArticles$ = this.store.select(FromPromoProduct.selectAll);
+    this.store.dispatch(new PromoProductActions.GetAll());
   }
 
 }

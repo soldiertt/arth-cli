@@ -4,9 +4,9 @@ import Article from "../../../shared/model/article.class";
 import CartData from '../../model/cart-data.class';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
-import * as fromCartData from '../../reducers/cart-data.reducer';
-import {AddArticle, RemoveArticle, RemoveOrder} from '../../actions/cart-data.actions';
 import {PictureService} from '../../../shared/service/picture.service';
+import {CartDataActions} from '../../actions/cart-data.actions';
+import {FromCartData} from '../../reducers/cart-data.reducer';
 
 @Component({
   selector: 'arth-mycart',
@@ -21,22 +21,22 @@ export class MyCartComponent implements OnInit {
               private store: Store<CartData>) { }
 
   ngOnInit() {
-    this.cart$ = this.store.select(fromCartData.selectCartState);
+    this.cart$ = this.store.select(FromCartData.selectCartState);
   }
 
   addArticle($event, article: Article ) {
     $event.preventDefault();
-    this.store.dispatch(new AddArticle(article));
+    this.store.dispatch(new CartDataActions.AddArticle(article));
   }
 
   removeArticle($event, articleId: string) {
     $event.preventDefault();
-    this.store.dispatch(new RemoveArticle(articleId));
+    this.store.dispatch(new CartDataActions.RemoveArticle(articleId));
   }
 
   removeOrder($event, articleId: string) {
     $event.preventDefault();
-    this.store.dispatch(new RemoveOrder(articleId));
+    this.store.dispatch(new CartDataActions.RemoveOrder(articleId));
   }
 
 }
