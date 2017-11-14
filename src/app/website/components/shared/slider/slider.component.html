@@ -1,13 +1,13 @@
 <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="10000" data-pause="hover">
   <!-- Indicators -->
   <ol class="carousel-indicators">
-    <li data-target="#myCarousel" [attr.data-slide-to]="idx" [class.active]="isFirst" *ngFor="let slide of slides; let idx = index; let isFirst = first"></li>
-    <li data-target="#myCarousel" [attr.data-slide-to]="slides.length + idx2" *ngFor="let sliderArticle of sliderArticles; let idx2 = index"></li>
+    <li data-target="#myCarousel" [attr.data-slide-to]="idx" [class.active]="isFirst" *ngFor="let slide of slides$ | async; let idx = index; let isFirst = first"></li>
+    <li data-target="#myCarousel" [attr.data-slide-to]="slides.length + idx2" *ngFor="let sliderArticle of sliderArticles$ | async; let idx2 = index"></li>
   </ol>
 
   <!-- Wrapper for slides -->
   <div class="carousel-inner" role="listbox">
-    <div class="carousel-item" [class.active]="isFirst" *ngFor="let slide of slides; let isFirst = first">
+    <div class="carousel-item" [class.active]="isFirst" *ngFor="let slide of slides$ | async; let isFirst = first">
       <div (click)="goToProductFromSlide(slide)" [class.link]="slide.link">
         <img class="d-block img-fluid" src="assets/images/{{slide.image}}" >
         <div class="carousel-caption">
@@ -17,7 +17,7 @@
         </div>
       </div>
     </div>
-    <div class="carousel-item" *ngFor="let sliderArticle of sliderArticles">
+    <div class="carousel-item" *ngFor="let sliderArticle of sliderArticles$ | async">
       <div [routerLink]="['/detail', sliderArticle.id]" class="link">
         <img class="d-block img-fluid" src="assets/photos/{{sliderArticle.type}}/{{sliderArticle.picture}}" >
         <div class="carousel-caption">

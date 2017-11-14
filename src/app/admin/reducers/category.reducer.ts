@@ -1,7 +1,8 @@
 import * as actions from '../actions/category.actions';
 import {createEntityAdapter, EntityState} from '@ngrx/entity';
-import {createFeatureSelector} from '@ngrx/store';
+import {createSelector} from '@ngrx/store';
 import Category from '../../shared/model/category.class';
+import {adminFeatureSelector, AdminState} from '../model/admin-state';
 
 export const adapter = createEntityAdapter<Category>();
 export interface State extends EntityState<Category> {}
@@ -29,7 +30,7 @@ export function categoryReducer(state: State = initialState, action: actions.Cat
   }
 }
 
-export const getLocalState = createFeatureSelector<State>('category');
+const getLocalState = createSelector(adminFeatureSelector, (state: AdminState) => state.category);
 
 export const {
   selectAll,

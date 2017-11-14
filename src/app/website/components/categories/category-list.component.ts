@@ -1,6 +1,8 @@
 import {Component, OnInit} from "@angular/core";
 import Category from "../../../shared/model/category.class";
-import {DataService} from '../../service/data.service';
+import {Store} from '@ngrx/store';
+import {Observable} from 'rxjs/Observable';
+import {FromCategory} from '../../reducers/category.reducer';
 
 @Component({
   selector: 'arth-category-list',
@@ -8,14 +10,14 @@ import {DataService} from '../../service/data.service';
   styleUrls: ['./category-list.component.css']
 })
 export class CategoryListComponent implements OnInit {
-  rootCategories: Category[];
 
-  constructor (private dataService: DataService) {}
+  rootCategories$: Observable<Category[]>;
+
+  constructor (private store: Store<FromCategory.State>) {}
 
   ngOnInit(): void {
-    this.dataService.appData.subscribe(appData => {
-      this.rootCategories = appData.rootCategories;
-    });
+
+    this.rootCategories$ = this.store.select(FromCategory.selectAll);
   }
 
 }

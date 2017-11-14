@@ -1,34 +1,23 @@
 import {Component, EventEmitter, Output, OnInit} from "@angular/core";
-import UserProfile from "../../model/user-profile.class";
-import UserAddress from "../../model/user-address";
-import {DataService} from '../../service/data.service';
+import UserProfile from '../../model/user-profile.class';
+import {Store} from '@ngrx/store';
+import {Observable} from 'rxjs/Observable';
+import {FromProfile} from '../../../root/reducers/user-profile.reducer';
+
 @Component({
   selector: 'arth-profile-display',
   templateUrl: 'profile-display.component.html'
 })
 export class ProfileDisplayComponent implements OnInit {
 
+  userProfile$: Observable<UserProfile>;
+
   @Output() edit: EventEmitter<string> = new EventEmitter();
 
-  profile: UserProfile;
-  address: UserAddress;
-  phone: string;
-  name: string;
-
-  constructor(private dataService: DataService) {}
+  constructor(private store: Store<UserProfile>) {}
 
   ngOnInit() {
-    this.dataService.appData.subscribe(appData => {
-      this.profile = appData.profile;
-      if (this.profile && this.profile.user_metadata) {
-        if (this.profile.user_metadata.addresses) {
-          this.address = this.profile.user_metadata.addresses.delivery;
-        }
-        this.phone = this.profile.user_metadata.phone;
-        this.name = this.profile.user_metadata.name;
-      }
-    });
-
+    this.userProfile$ = this.store.select(FromProfile.selectLocalState);
   }
 
   editContactInfo(): void {

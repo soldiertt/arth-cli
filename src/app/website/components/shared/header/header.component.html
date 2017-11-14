@@ -35,7 +35,7 @@
           <li class="nav-item dropdown" *ngIf="!isHome()">
             <a href="#" class="nav-link dropdown-toggle" id="categoriesDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{'common.links.categories' | trans}}</a>
             <div class="dropdown-menu" aria-labelledby="categoriesDropdown">
-              <a href class="dropdown-item" *ngFor="let category of rootCategories" [routerLink]="['/categ', category.name]">{{category | catTitle}}</a>
+              <a href class="dropdown-item" *ngFor="let category of (rootCategories$ | async)" [routerLink]="['/categ', category.name]">{{category | catTitle}}</a>
             </div>
           </li>
           <li class="nav-item" [routerLinkActive]="['active']"><a href class="nav-link" routerLink="/brands">{{'common.links.ourbrands' | trans}}</a></li>

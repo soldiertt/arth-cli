@@ -1,45 +1,44 @@
-import {Component, OnInit} from "@angular/core";
-import {Actions} from '../../model/actions.class';
-import {DataService} from '../../service/data.service';
-import AppData from '../../model/app-data';
+import {Component, OnDestroy, OnInit} from "@angular/core";
 import {Auth0Service} from '../../../shared/service/auth.service';
+import CartData from '../../model/cart-data.class';
+import {Store} from '@ngrx/store';
+import {Observable} from 'rxjs/Observable';
+import {Subject} from 'rxjs/Subject';
+import 'rxjs/add/operator/take';
+import 'rxjs/add/operator/takeUntil';
+import {CartDataActions} from '../../actions/cart-data.actions';
+import {FromCartData} from '../../reducers/cart-data.reducer';
 
 @Component({
   templateUrl: 'cart-wizard.component.html'
 })
-export class CartWizardComponent implements OnInit {
+export class CartWizardComponent implements OnInit, OnDestroy {
 
-  appData: AppData;
+  private ngUnsubscribe: Subject<any> = new Subject();
 
-  constructor(private dataService: DataService, public authService: Auth0Service) {}
+  cartData$: Observable<CartData>;
+
+  constructor(private store: Store<CartData>,
+              public authService: Auth0Service) {}
 
   ngOnInit() {
-    const appDataSnapshot = this.dataService.appData.getValue();
-
-    if (appDataSnapshot.profile && appDataSnapshot.profile.user_metadata && appDataSnapshot.profile.user_metadata.addresses
-      && appDataSnapshot.profile.user_metadata.addresses.delivery && appDataSnapshot.profile.user_metadata.profileComplete) {
-      this.dataService.doAction(Actions.ADDRESS_COMPLETED);
-    } else {
-      this.dataService.doAction(Actions.ADDRESS_INCOMPLETE);
-    }
-    if (appDataSnapshot.cart.totalCount > 0) {
-      if (this.authService.authenticated()) {
-        this.dataService.doAction(Actions.CART_MOVE_TO_STEP, 2);
+    this.cartData$ = this.store.select(FromCartData.selectLocalState);
+    this.cartData$.take(1).subscribe(cartData => {
+      if (cartData.cart.totalCount > 0) {
+        if (this.authService.authenticated()) {
+          this.store.dispatch(new CartDataActions.CartMoveToStep(2));
+        } else {
+          this.store.dispatch(new CartDataActions.CartMoveToStep(1));
+        }
       } else {
-        this.dataService.doAction(Actions.CART_MOVE_TO_STEP, 1);
+        this.store.dispatch(new CartDataActions.CartMoveToStep(0));
       }
-    } else {
-      this.dataService.doAction(Actions.CART_MOVE_TO_STEP, 0);
-    }
-    this.dataService.appData.subscribe(appData => this.appData = appData);
+    });
   }
 
-  isOnStep(step: number): boolean {
-    return this.appData.cartWizard.currentStep === step;
-  }
-
-  isAtLeast(step: number): boolean {
-    return this.appData.cartWizard.currentStep >= step;
+  ngOnDestroy() {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
 }

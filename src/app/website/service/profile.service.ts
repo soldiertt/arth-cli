@@ -1,31 +1,21 @@
 import {Injectable} from "@angular/core";
 import {SessionService} from "../../shared/service/session.service";
-import {DataService} from './data.service';
-import {Actions} from '../model/actions.class';
 import UserProfile from '../model/user-profile.class';
 import {Router} from '@angular/router';
 import {Auth0Service} from '../../shared/service/auth.service';
 import UserMetaData from '../model/usermetadata.class';
-import {UserRestService} from '../../shared/service/rest/user.rest.service';
+import {Store} from '@ngrx/store';
+import {ProfileActions} from '../../root/actions/user-profile.actions';
 
 @Injectable()
 export class ProfileService {
 
   constructor(private sessionService: SessionService,
               private auth0Service: Auth0Service,
-              private userRestService: UserRestService,
-              private dataService: DataService,
+              private store: Store<UserProfile>,
               private router: Router) {
-    let sessionProfile = this.sessionService.getProfile();
-    if (sessionProfile) {
-      this.dataService.doAction(Actions.SET_PROFILE, sessionProfile);
-    }
-    this._authCallback();
-  }
 
-  updateProfile(profile: UserProfile) {
-    this.dataService.doAction(Actions.SET_PROFILE, profile);
-    this.sessionService.saveProfile(profile);
+    this._authCallback();
   }
 
   public login(event: any, callbackFn?: Function) {
@@ -39,9 +29,7 @@ export class ProfileService {
 
   logout($event) {
     $event.preventDefault();
-    this.sessionService.deleteIdToken();
-    this.sessionService.deleteProfile();
-    this.dataService.doAction(Actions.SET_PROFILE, undefined);
+    this.store.dispatch(new ProfileActions.Logout());
     if (this.router.url.indexOf('/profile') != -1 || this.router.url.indexOf('/mycart') != -1) {
       this.router.navigate(['/']);
     }
@@ -57,22 +45,28 @@ export class ProfileService {
         }
 
         let metaData = profile.user_metadata;
+        let needUpdate: boolean = false;
+
         if (!metaData) {
           metaData = new UserMetaData();
+          needUpdate = true;
         }
         if (!metaData.email) {
           metaData.email = profile['email'];
+          needUpdate = true;
         }
         if (!metaData.name && profile['identities'][0]['isSocial'] === true) {
           metaData.name = profile['name'];
+          needUpdate = true;
         }
-        profile.user_metadata = metaData;
-        this.userRestService.updateProfile(profile.user_id, profile.user_metadata).subscribe(_ => {
-          console.log("Profile saved");
-        });
 
-        this.sessionService.saveProfile(profile);
-        this.dataService.doAction(Actions.SET_PROFILE, profile);
+        if (needUpdate) {
+          this.store.dispatch(new ProfileActions.UpdateMetadata(profile.user_id, metaData));
+        } else {
+          this.store.dispatch(new ProfileActions.Set(profile));
+          this.store.dispatch(new ProfileActions.SaveToSession());
+        }
+
         if (extraCallbackFn) {
           extraCallbackFn();
         }

@@ -4,6 +4,7 @@ import {ArthuriusEventsService} from './service/arthurius-events.service';
 import {I18nService} from './service/i18n.service';
 import {Auth0Service} from './service/auth.service';
 import {I18nPipe} from './i18n/i18n.pipe';
+import {PictureService} from './service/picture.service';
 import {UploadService} from './service/upload.service';
 
 @NgModule({
@@ -17,6 +18,7 @@ import {UploadService} from './service/upload.service';
     ArthuriusEventsService,
     Auth0Service,
     I18nService,
+    PictureService,
     SessionService,
     UploadService
   ]

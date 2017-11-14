@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import Article from "../../../shared/model/article.class";
-import {DataService} from '../../service/data.service';
+import Article from '../../../shared/model/article.class';
+import {Store} from '@ngrx/store';
+import {Observable} from 'rxjs/Observable';
+import {PromoProductActions} from '../../actions/promo-product.actions';
+import {FromPromoProduct} from '../../reducers/promo-product.reducer';
 
 @Component({
   selector: 'home',
@@ -8,14 +11,14 @@ import {DataService} from '../../service/data.service';
   styleUrls: ['home.component.css']
 })
 export class HomeComponent implements OnInit {
-  promoArticles: Article[] = [];
 
-  constructor(private dataService: DataService) {}
+  promoArticles$: Observable<Article[]>;
+
+  constructor(private store: Store<FromPromoProduct.State>) {}
 
   ngOnInit() {
-    this.dataService.appData.subscribe(appData => {
-      this.promoArticles = appData.promoArticles;
-    });
+    this.promoArticles$ = this.store.select(FromPromoProduct.selectAll);
+    this.store.dispatch(new PromoProductActions.GetAll());
   }
 
 }

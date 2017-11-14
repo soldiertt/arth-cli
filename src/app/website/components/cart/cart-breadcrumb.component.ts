@@ -1,5 +1,10 @@
 import {Component, OnInit} from "@angular/core";
-import {DataService} from '../../service/data.service';
+import CartData from '../../model/cart-data.class';
+import {Store} from '@ngrx/store';
+import CartWizard from '../../model/cart-wizard.class';
+import {Observable} from 'rxjs/Observable';
+import {FromCartData} from '../../reducers/cart-data.reducer';
+
 @Component({
   selector: 'arth-cart-breadcrumb',
   templateUrl: 'cart-breadcrumb.component.html',
@@ -7,13 +12,11 @@ import {DataService} from '../../service/data.service';
 })
 export class CartBreadcrumbComponent implements OnInit {
 
-  currentStep: number;
+  wizard$: Observable<CartWizard>;
 
-  constructor(private dataService: DataService) {}
+  constructor(private store: Store<CartData>) {}
 
   ngOnInit() {
-    this.dataService.appData.subscribe(appData => {
-      this.currentStep = appData.cartWizard.currentStep;
-    });
+    this.wizard$ = this.store.select(FromCartData.selectWizardState);
   }
 }

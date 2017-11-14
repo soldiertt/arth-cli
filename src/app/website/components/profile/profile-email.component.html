@@ -1,4 +1,4 @@
-<form [formGroup]="form" (ngSubmit)="save()">
+<form [formGroup]="form" (ngSubmit)="save()" [class.wasvalidated]="submitAttempt">
   <fieldset formGroupName="emails">
     <legend>{{'common.label.email' | trans}}</legend>
     <div class="form-group">
@@ -7,6 +7,14 @@
       </label>
       <div>
         <input type="email" name="email" id="email" formControlName="email" maxlength="100" class="form-control">
+        <div *ngIf="form.get('emails').get('email').invalid && submitAttempt" class="invalid-form-control">
+          <span *ngIf="form.get('emails').get('email').errors.required">
+            {{'page.profile.requiredfield' | trans}}
+          </span>
+          <span *ngIf="form.get('emails').get('email').errors.pattern">
+            {{'page.profile.invalidemail' | trans}}
+          </span>
+        </div>
       </div>
     </div>
     <div class="form-group">
@@ -15,11 +23,23 @@
       </label>
       <div>
         <input type="email" name="emailConfirm" id="emailConfirm" formControlName="emailConfirm" maxlength="100" class="form-control">
+        <div *ngIf="form.get('emails').get('emailConfirm').invalid && submitAttempt" class="invalid-form-control">
+          <span *ngIf="form.get('emails').get('emailConfirm').errors.required">
+            {{'page.profile.requiredfield' | trans}}
+          </span>
+          <span *ngIf="form.get('emails').get('emailConfirm').errors.pattern">
+            {{'page.profile.invalidemail' | trans}}
+          </span>
+        </div>
       </div>
+    </div>
+    <div *ngIf="form.get('emails').invalid && submitAttempt" class="alert alert-danger">
+      <span *ngIf="form.get('emails').errors.areEqual">
+        {{'page.profile.emailsdonotmatch' | trans}}
+      </span>
     </div>
   </fieldset>
   <fieldset>
-    <div class="alert alert-danger" *ngIf="form.invalid && submitAttempt">{{'page.profile.pleasefillallrequiredfields' | trans}}</div>
     <button type="submit" class="btn btn-arth">{{'page.profile.save' | trans}}</button>
     <button type="button" class="btn btn-secondary" (click)="cancelEdit()">{{'page.profile.cancel' | trans}}</button>
   </fieldset>

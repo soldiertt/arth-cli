@@ -1,59 +1,65 @@
-import {Component, OnInit} from "@angular/core";
-import {UserRestService} from "../../../shared/service/rest/user.rest.service";
-import {DataService} from '../../service/data.service';
-import {Actions} from '../../model/actions.class';
-import AppData from '../../model/app-data';
-import {ProfileService} from '../../service/profile.service';
+import {Component, OnDestroy, OnInit} from "@angular/core";
+import UserProfile from '../../model/user-profile.class';
+import {Store} from '@ngrx/store';
+import CartData from '../../model/cart-data.class';
+import {Subject} from 'rxjs/Subject';
+import 'rxjs/add/operator/takeUntil';
+import {CartDataActions} from '../../actions/cart-data.actions';
+import {FromCartData} from '../../reducers/cart-data.reducer';
+import {FromProfile} from '../../../root/reducers/user-profile.reducer';
 
 @Component({
   selector: 'arth-confirm-address',
   templateUrl: './confirm-address.component.html'
 })
-export class ConfirmAddressComponent implements OnInit{
+export class ConfirmAddressComponent implements OnInit, OnDestroy {
 
-  appData: AppData;
+  private ngUnsubscribe: Subject<any> = new Subject();
+
   editMode: boolean = false;
   editedItem: string;
   profileUpdated: boolean;
 
-  constructor(private dataService: DataService, private userRestService: UserRestService, private profileService: ProfileService) {}
+  constructor(private store: Store<UserProfile>,
+              private cartDataStore: Store<CartData>) {}
 
   ngOnInit() {
     // Check if address is defined, otherwise edit it immediatly
-    this.dataService.appData.subscribe(appData => {
-      this.appData = appData;
-      if (!this.appData.cartWizard.addressCompleted) {
-        this.editMode = true;
-        this.editedItem = "address";
-      }
+    this.cartDataStore.select(FromCartData.selectWizardState)
+      .takeUntil(this.ngUnsubscribe)
+      .subscribe(wizard => {
+        this.editMode = wizard.editMode;
+        if (this.editMode) {
+          this.editedItem = "address";
+        } else {
+          this.editedItem = undefined;
+        }
     });
+    this.store.select(FromProfile.selectLocalState)
+      .takeUntil(this.ngUnsubscribe)
+      .subscribe(profile => {
+        if (!profile || !profile.user_metadata || !profile.user_metadata.profileComplete) {
+          this.cartDataStore.dispatch(new CartDataActions.SetEditMode(true));
+        }
+    });
+  }
+
+  ngOnDestroy() {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   editAddress(): void {
-    this.dataService.doAction(Actions.ADDRESS_INCOMPLETE);
+    this.cartDataStore.dispatch(new CartDataActions.SetEditMode(true));
   }
 
   cancelEdit(): void {
-    this.editMode = false;
-    this.editedItem = undefined;
-    if (this._completedData()) {
-      this.dataService.doAction(Actions.ADDRESS_COMPLETED);
-    }
+    this.cartDataStore.dispatch(new CartDataActions.SetEditMode(false));
   }
 
-  updateMetaData(userMetaData): void {
-    this.userRestService.updateProfile(this.appData.profile.user_id, userMetaData).subscribe(userProfile => {
-      this.profileService.updateProfile(userProfile);
-      this.profileUpdated = true;
-      this.editedItem = undefined;
-      this.editMode = false;
-      this.dataService.doAction(Actions.ADDRESS_COMPLETED);
-    });
-
-  }
-
-  private _completedData():boolean {
-    return this.appData.profile && this.appData.profile.user_metadata && this.appData.profile.user_metadata.profileComplete;
+  updateMetaData(): void {
+    this.cartDataStore.dispatch(new CartDataActions.SetEditMode(false));
+    this.profileUpdated = true;
   }
 
 }

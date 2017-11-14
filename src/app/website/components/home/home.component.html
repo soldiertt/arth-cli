@@ -7,7 +7,7 @@
       <arth-slider></arth-slider>
     </div>
   </div>
-  <div class="content" *ngIf="promoArticles.length">
+  <div class="content" *ngIf="(promoArticles$ | async) as promoArticles">
     <div class="content_top">
       <div class="heading">
         <h2>{{'page.home.promotion' | trans}}</h2>

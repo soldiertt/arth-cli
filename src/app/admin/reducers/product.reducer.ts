@@ -1,7 +1,8 @@
 import * as actions from '../actions/product.actions';
 import {createEntityAdapter, EntityState} from '@ngrx/entity';
 import Article from '../../shared/model/article.class';
-import {createFeatureSelector} from '@ngrx/store';
+import {createSelector} from '@ngrx/store';
+import {adminFeatureSelector, AdminState} from '../model/admin-state';
 
 export const adapter = createEntityAdapter<Article>();
 export interface State extends EntityState<Article> {}
@@ -32,7 +33,7 @@ export function productReducer(state: State = initialState, action: actions.Prod
   }
 }
 
-export const getLocalState = createFeatureSelector<State>('product');
+const getLocalState = createSelector(adminFeatureSelector, (state: AdminState) => state.product);
 
 export const {
   selectAll,

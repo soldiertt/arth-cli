@@ -1,19 +1,23 @@
-<div class="main">
+<div class="main" *ngIf="selected">
   <div class="content">
     <div class="content_top">
       <ol class="breadcrumb">
         <li class="breadcrumb-item responsive-hidden-small"><a href routerLink="">{{'common.links.home' | trans}}</a></li>
-        <li class="breadcrumb-item" *ngIf="parentCategory"><a href [routerLink]="['/categ', parentCategory.name]" >{{parentCategory | catTitle}}</a></li>
-        <li class="breadcrumb-item" *ngIf="category"><a href [routerLink]="['/categ', category.name]">{{category | catTitle}}</a></li>
+        <li class="breadcrumb-item" *ngIf="selected.parentCategory">
+          <a href [routerLink]="['/categ', selected.parentCategory.name]" >{{selected.parentCategory | catTitle}}</a>
+        </li>
+        <li class="breadcrumb-item" *ngIf="selected.category">
+          <a href [routerLink]="['/categ', selected.category.name]">{{selected.category | catTitle}}</a>
+        </li>
       </ol>
     </div>
     <div>
-      <div class="article" *ngIf="article">
+      <div class="article" *ngIf="selected.product as article">
         <div class="article-picture">
-          <a [href]="largePicture()" class="fancyboxImg" rel="gallery" alt="Image" [hidden]="!needZoom">
-            <img class="zoomable" [src]="largePicture()" />
+          <a [href]="picUtil.largePicture(article)" class="fancyboxImg" rel="gallery" alt="Image" [hidden]="!needZoom">
+            <img class="zoomable" [src]="picUtil.largePicture(article)" />
           </a>
-          <img (mouseenter)="detectImageSize($event)" [src]="largePicture()" [hidden]="needZoom" />
+          <img (mouseenter)="detectImageSize($event)" [src]="picUtil.largePicture(article)" [hidden]="needZoom" />
         </div>
         <div class="article-desc">
           <div class="name">{{article.name}}</div>

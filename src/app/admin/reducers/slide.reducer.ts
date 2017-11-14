@@ -1,7 +1,8 @@
 import * as actions from '../actions/slide.actions';
 import {createEntityAdapter, EntityState} from '@ngrx/entity';
-import {createFeatureSelector} from '@ngrx/store';
+import {createSelector} from '@ngrx/store';
 import Slide from '../../shared/model/slider.class';
+import {adminFeatureSelector, AdminState} from '../model/admin-state';
 
 export const adapter = createEntityAdapter<Slide>();
 export interface State extends EntityState<Slide> {}
@@ -32,7 +33,7 @@ export function slideReducer(state: State = initialState, action: actions.SlideA
   }
 }
 
-export const getLocalState = createFeatureSelector<State>('slide');
+const getLocalState = createSelector(adminFeatureSelector, (state: AdminState) => state.slide);
 
 export const {
   selectAll,

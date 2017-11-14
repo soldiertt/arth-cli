@@ -1,16 +1,32 @@
-<form [formGroup]="form" (ngSubmit)="save()">
+<form [formGroup]="form" (ngSubmit)="save()" [class.wasvalidated]="submitAttempt">
   <fieldset>
     <legend>{{'common.label.contact' | trans}}</legend>
     <div class="form-group row">
       <label for="name" class="col-3 col-form-label">{{'common.label.fullname' | trans}} *</label>
       <div class="col-7">
         <input type="text" name="name" id="name" formControlName="name" maxlength="100" class="form-control">
+        <div *ngIf="form.get('name').invalid && submitAttempt" class="invalid-form-control">
+          <span *ngIf="form.get('name').errors.required">
+            {{'page.profile.requiredfield' | trans}}
+          </span>
+          <span *ngIf="form.get('name').errors.minlength">
+            {{'page.profile.minlength3chars' | trans}}
+          </span>
+        </div>
       </div>
     </div>
     <div class="form-group row">
       <label for="phone" class="col-3 col-form-label">{{'common.label.phone' | trans}} *</label>
       <div class="col-7">
         <input type="text" name="phone" id="phone" formControlName="phone" maxlength="100" class="form-control">
+        <div *ngIf="form.get('phone').invalid && submitAttempt" class="invalid-form-control">
+          <span *ngIf="form.get('phone').errors.required">
+            {{'page.profile.requiredfield' | trans}}
+          </span>
+          <span *ngIf="form.get('phone').errors.minlength">
+            {{'page.profile.minlength9chars' | trans}}
+          </span>
+        </div>
       </div>
     </div>
   </fieldset>
@@ -22,6 +38,14 @@
       <label for="street" class="col-3 col-form-label">{{'common.label.street' | trans}} *</label>
       <div class="col-7">
         <input type="text" name="street" id="street" formControlName="street" maxlength="100" class="form-control">
+        <div *ngIf="form.get('street').invalid && submitAttempt" class="invalid-form-control">
+          <span *ngIf="form.get('street').errors.required">
+            {{'page.profile.requiredfield' | trans}}
+          </span>
+          <span *ngIf="form.get('street').errors.minlength">
+            {{'page.profile.minlength3chars' | trans}}
+          </span>
+        </div>
       </div>
     </div>
 
@@ -29,6 +53,11 @@
       <label for="houseNumber" class="col-3 col-form-label">{{'common.label.housenumber' | trans}} *</label>
       <div class="col-3">
         <input type="text" name="houseNumber" id="houseNumber" formControlName="houseNumber" maxlength="10" class="form-control">
+        <div *ngIf="form.get('houseNumber').invalid && submitAttempt" class="invalid-form-control">
+          <span *ngIf="form.get('houseNumber').errors.required">
+            {{'page.profile.requiredfield' | trans}}
+          </span>
+        </div>
       </div>
       <label for="postbox" class="col-1 col-form-label">{{'common.label.postbox' | trans}}</label>
       <div class="col-3">
@@ -40,6 +69,14 @@
       <label for="postcode" class="col-3 col-form-label">{{'common.label.postcode' | trans}} *</label>
       <div class="col-3">
         <input type="text" name="postcode" id="postcode" formControlName="postcode" maxlength="10" class="form-control">
+        <div *ngIf="form.get('postcode').invalid && submitAttempt" class="invalid-form-control">
+          <span *ngIf="form.get('postcode').errors.required">
+            {{'page.profile.requiredfield' | trans}}
+          </span>
+          <span *ngIf="form.get('postcode').errors.minlength">
+            {{'page.profile.minlength3chars' | trans}}
+          </span>
+        </div>
       </div>
     </div>
 
@@ -47,6 +84,11 @@
       <label for="city" class="col-3 col-form-label">{{'common.label.city' | trans}} *</label>
       <div class="col-7">
         <input type="text" name="city" id="city" formControlName="city" maxlength="100" class="form-control">
+        <div *ngIf="form.get('city').invalid && submitAttempt" class="invalid-form-control">
+          <span *ngIf="form.get('city').errors.required">
+            {{'page.profile.requiredfield' | trans}}
+          </span>
+        </div>
       </div>
     </div>
 
@@ -57,14 +99,16 @@
           <option value="">[{{'page.profile.choosecountry' | trans}}]</option>
           <option *ngFor="let country of countries" [value]="country.alpha2">{{country.name_fr}}</option>
         </select>
+        <div *ngIf="form.get('country').invalid && submitAttempt" class="invalid-form-control">
+          <span *ngIf="form.get('country').errors.required">
+            {{'page.profile.requiredfield' | trans}}
+          </span>
+        </div>
       </div>
     </div>
 
   </fieldset>
   <fieldset>
-    <div class="form-group row">
-      <div class="col-10 alert alert-danger" *ngIf="form.invalid && submitAttempt">{{'page.profile.pleasefillallrequiredfields' | trans}}</div>
-    </div>
     <div class="form-group row">
       <div class="col-10">
         <button type="submit" class="btn btn-arth">{{'page.profile.save' | trans}}</button>

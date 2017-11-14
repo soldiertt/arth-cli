@@ -45,9 +45,7 @@ import {SteelEffects} from './effects/steel.effects';
     UserComponent
   ],
   imports     : [
-    SharedModule,
-    SharedServicesModule,
-    EffectsModule.forRoot([
+    EffectsModule.forFeature([
       BrandEffects,
       CategoryEffects,
       OrderEffects,
@@ -59,7 +57,9 @@ import {SteelEffects} from './effects/steel.effects';
     ]),
     RestModule,
     RouterModule.forChild(adminRouterConfig),
-    StoreModule.forRoot(reducers)
+    SharedModule,
+    SharedServicesModule,
+    StoreModule.forFeature('admin', reducers)
   ],
   providers   : [
     AdminGuard

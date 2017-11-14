@@ -1,7 +1,8 @@
 import * as actions from '../actions/brand.actions';
 import {createEntityAdapter, EntityState} from '@ngrx/entity';
 import Brand from '../../shared/model/brand.class';
-import {createFeatureSelector} from '@ngrx/store';
+import {createSelector} from '@ngrx/store';
+import {adminFeatureSelector, AdminState} from '../model/admin-state';
 
 export const adapter = createEntityAdapter<Brand>();
 export interface State extends EntityState<Brand> {}
@@ -27,7 +28,7 @@ export function brandReducer(state: State = initialState, action: actions.BrandA
   }
 }
 
-export const getLocalState = createFeatureSelector<State>('brand');
+const getLocalState = createSelector(adminFeatureSelector, (state: AdminState) => state.brand);
 
 export const {
   selectAll,

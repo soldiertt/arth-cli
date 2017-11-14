@@ -4,13 +4,12 @@ import {brandReducer} from './brand.reducer';
 import {categoryReducer} from './category.reducer';
 import {slideReducer} from './slide.reducer';
 import {slideProductReducer} from './slide-product.reducer';
-import {adminReducer} from './admin.reducer';
 import {orderReducer} from './order.reducer';
 import {userReducer} from './user.reducer';
 import {steelReducer} from './steel.reducer';
+import {AdminState} from '../model/admin-state';
 
-export const reducers: ActionReducerMap<any> = {
-  admin: adminReducer,
+export const reducers: ActionReducerMap<AdminState> = {
   brand: brandReducer,
   category: categoryReducer,
   order: orderReducer,

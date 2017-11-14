@@ -1,7 +1,8 @@
 import * as actions from '../actions/order.actions';
 import {createEntityAdapter, EntityState} from '@ngrx/entity';
-import {createFeatureSelector} from '@ngrx/store';
+import {createSelector} from '@ngrx/store';
 import PaypalOrder from '../../shared/model/paypalorder.class';
+import {adminFeatureSelector, AdminState} from '../model/admin-state';
 
 export const adapter = createEntityAdapter<PaypalOrder>();
 export interface State extends EntityState<PaypalOrder> {}
@@ -25,7 +26,7 @@ export function orderReducer(state: State = initialState, action: actions.OrderA
   }
 }
 
-export const getLocalState = createFeatureSelector<State>('order');
+const getLocalState = createSelector(adminFeatureSelector, (state: AdminState) => state.order);
 
 export const {
   selectAll,

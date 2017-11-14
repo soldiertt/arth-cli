@@ -1,11 +1,17 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import Article from "../../../shared/model/article.class";
-import Category from "../../../shared/model/category.class";
-import {ArticleRestService} from "../../../shared/service/rest/article.rest.service";
-import {CategoryRestService} from "../../../shared/service/rest/category.rest.service";
-import {CartService} from "../../service/cart.service";
 import {JQueryService} from "../../service/jQuery.service";
+import CartData from '../../model/cart-data.class';
+import {Store} from '@ngrx/store';
+import ProductData from '../../model/product-data.class';
+import ProductItemData from '../../model/product-item-data.class';
+import {PictureService} from '../../../shared/service/picture.service';
+import {Subject} from 'rxjs/Subject';
+import 'rxjs/add/operator/takeUntil';
+import {CartDataActions} from '../../actions/cart-data.actions';
+import {ProductActions} from '../../actions/product.actions';
+import {FromProduct} from '../../reducers/product.reducer';
 
 declare var $: any;
 
@@ -14,51 +20,45 @@ declare var $: any;
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.css']
 })
-export class DetailComponent implements OnInit {
-  article: Article;
-  category: Category;
-  parentCategory: Category;
+export class DetailComponent implements OnInit, OnDestroy {
+
+  private ngUnsubscribe: Subject<any> = new Subject();
+
+  selected: ProductItemData;
   needZoom: boolean = false;
 
-  constructor(private route:ActivatedRoute,
-              private articleRestService: ArticleRestService,
-              private categoryRestService: CategoryRestService,
-              private cartService: CartService,
+  constructor(public picUtil: PictureService,
+              private route:ActivatedRoute,
+              private store: Store<ProductData>,
+              private cartDataStore: Store<CartData>,
               private jQueryService: JQueryService) {}
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       $('html,body').animate({ scrollTop: 0 }, 0);
       let articleId = params['articleId'];
-      this.articleRestService.findById(articleId).subscribe(article => {
-        this.article = article;
-        this.categoryRestService.findCategory(article.type).subscribe(category => {
-          this.category = category;
-          if (category.parent) {
-            this.categoryRestService.findCategory(category.parent).subscribe(parentCategory => {
-              this.parentCategory = parentCategory;
-            });
-          } else {
-            this.parentCategory = undefined;
-          }
+
+      this.store.dispatch(new ProductActions.LoadOne(articleId));
+      this.store.select(FromProduct.selectSelectedState)
+        .takeUntil(this.ngUnsubscribe)
+        .subscribe(selected => {
+          this.selected = selected;
           setTimeout(() => {
             this.jQueryService.enableFancybox($);
           }, 10);
-        });
       });
     });
   }
 
-  largePicture(): string {
-    if (this.article) {
-      return 'assets/photos/' + this.article.type + '/' + this.article.picture;
-    }
+  ngOnDestroy() {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   addToCart(article: Article) {
     let component = this;
     let callback = function() {
-      component.cartService.addArticle(article);
+      component.cartDataStore.dispatch(new CartDataActions.AddArticle(article));
     };
     this.jQueryService.addToCart($, callback);
   }

@@ -1,18 +1,21 @@
-import {Component, OnInit} from "@angular/core";
-import {UserRestService} from "../../../shared/service/rest/user.rest.service";
+import {Component, OnDestroy, OnInit} from "@angular/core";
 import UserProfile from "../../model/user-profile.class";
 import UserAddress from "../../model/user-address";
-import UserMetaData from "../../model/usermetadata.class";
 import {MailService} from "../../service/mail.service";
 import Mail from "../../model/mail.class";
-import {ProfileService} from '../../service/profile.service';
-import {DataService} from '../../service/data.service';
+import {Store} from '@ngrx/store';
+import {Observable} from 'rxjs/Observable';
+import {Subject} from 'rxjs/Subject';
+import {ProfileActions} from '../../../root/actions/user-profile.actions';
+import {FromProfile} from '../../../root/reducers/user-profile.reducer';
 
 @Component({
   selector: 'arth-profile',
   templateUrl: 'profile.component.html'
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
+
+  private ngUnsubscribe: Subject<any> = new Subject();
 
   profileUpdated: boolean = false;
   editMode: boolean = false;
@@ -22,21 +25,27 @@ export class ProfileComponent implements OnInit {
   pendingRemoval: boolean;
   phone: string;
   incompleteProfile: boolean = true;
-  userProfile: UserProfile;
+  userProfile$: Observable<UserProfile>;
+  userId: string;
 
-  constructor(private dataService: DataService,
-              private userRestService: UserRestService,
-              private profileService: ProfileService,
+  constructor(private store: Store<UserProfile>,
               private mailService: MailService) {}
 
   ngOnInit() {
-    this.dataService.appData.subscribe(appData => {
-      this.userProfile = appData.profile;
+    this.userProfile$ = this.store.select(FromProfile.selectLocalState);
+    this.userProfile$
+      .takeUntil(this.ngUnsubscribe)
+      .subscribe(userProfile => {
+      this._updateLocalData(userProfile);
+      if (this.incompleteProfile) {
+        this.editContactInfo();
+      }
     });
-    this._updateLocalData(this.dataService.appData.getValue().profile);
-    if (this.incompleteProfile) {
-      this.editContactInfo();
-    }
+  }
+
+  ngOnDestroy() {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   editContactInfo(): void {
@@ -54,38 +63,31 @@ export class ProfileComponent implements OnInit {
     this.editMode = false;
   }
 
-  updateMetaData(userMetaData): void {
-    this.userRestService.updateProfile(this.userProfile.user_id, userMetaData).subscribe(userProfile => {
-      this.profileService.updateProfile(userProfile);
-      this._updateLocalData(userProfile);
-      this.profileUpdated = true;
-      this.incompleteProfile = false;
-      this.cancelEdit();
-    });
+  updateMetaData(): void {
+    this.profileUpdated = true;
+    this.incompleteProfile = false;
+    this.cancelEdit();
   }
 
   askForRemoval() : void {
-    let userMetaData: UserMetaData = new UserMetaData();
-    userMetaData.pendingRemoval = true;
-    this.updateMetaData(userMetaData);
-    let mail: Mail = new Mail("ACCOUNT_DELETION");
-    this.mailService.sendMail(mail).subscribe(resp => {
+    this.store.dispatch(new ProfileActions.UpdateMetadata(this.userId, {pendingRemoval: true}));
+    this.updateMetaData();
+    this.mailService.sendMail(new Mail("ACCOUNT_DELETION")).subscribe(resp => {
       console.log("Mail sent !");
     });
   }
 
   cancelAskForRemoval() : void {
-    let userMetaData: UserMetaData = new UserMetaData();
-    userMetaData.pendingRemoval = false;
-    this.updateMetaData(userMetaData);
-    let mail: Mail = new Mail("ACCOUNT_DELETION_CANCEL");
-    this.mailService.sendMail(mail).subscribe(resp => {
+    this.store.dispatch(new ProfileActions.UpdateMetadata(this.userId, {pendingRemoval: false}));
+    this.updateMetaData();
+    this.mailService.sendMail(new Mail("ACCOUNT_DELETION_CANCEL")).subscribe(resp => {
       console.log("Mail sent !");
     });
   }
 
   private _updateLocalData(userProfile: UserProfile): void {
     if (userProfile) {
+      this.userId = userProfile.user_id;
       if (userProfile.user_metadata) {
         this.email = userProfile.user_metadata.email;
         this.pendingRemoval = userProfile.user_metadata.pendingRemoval ? userProfile.user_metadata.pendingRemoval : false;
