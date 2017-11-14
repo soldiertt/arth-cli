@@ -8,6 +8,7 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/withLatestFrom';
 import {ProfileActions} from '../actions/user-profile.actions';
 import UserProfile from '../../website/model/user-profile.class';
+import AppState from '../model/app-state';
 
 @Injectable()
 export class UserProfileEffects {
@@ -15,7 +16,7 @@ export class UserProfileEffects {
   constructor(private actions: Actions,
               private userRestService: UserRestService,
               private sessionService: SessionService,
-              private store: Store<UserProfile>) {}
+              private store: Store<AppState>) {}
 
   @Effect()
   initProfileFromSession: Observable<Action> = this.actions.ofType(ProfileActions.INIT_FROM_SESSION)
@@ -39,7 +40,10 @@ export class UserProfileEffects {
   @Effect()
   saveProfileInSession: Observable<Action> = this.actions.ofType(ProfileActions.SAVE_TO_SESSION)
     .withLatestFrom(this.store)
-    .map(([action, state]) => this.sessionService.saveProfile(state))
+    .map(([action, state]) => {
+    console.log(action, state);
+    this.sessionService.saveProfile(state.profile);
+    })
     .map(cart => new ProfileActions.SaveToSessionSuccess());
 
 }

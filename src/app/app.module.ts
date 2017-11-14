@@ -4,9 +4,14 @@ import {AppComponent} from "./app.component";
 import {AdminModule} from './admin/admin.module';
 import {WebsiteModule} from './website/website.module';
 import {EffectsModule} from '@ngrx/effects';
-import {StoreModule} from '@ngrx/store';
-import {userProfileReducer} from './root/reducers/user-profile.reducer';
+import {ActionReducerMap, StoreModule} from '@ngrx/store';
 import {UserProfileEffects} from './root/effects/user-profile.effects';
+import {FromProfile} from './root/reducers/user-profile.reducer';
+import AppState from './root/model/app-state';
+
+export const rootReducers: ActionReducerMap<AppState> = {
+  profile: FromProfile.reducer
+};
 
 @NgModule({
   imports     : [
@@ -15,7 +20,7 @@ import {UserProfileEffects} from './root/effects/user-profile.effects';
       UserProfileEffects
     ]),
     RouterModule.forRoot([]),
-    StoreModule.forRoot({profile: userProfileReducer}),
+    StoreModule.forRoot(rootReducers),
     WebsiteModule
   ],
   declarations: [

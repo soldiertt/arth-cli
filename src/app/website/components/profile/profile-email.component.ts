@@ -4,10 +4,10 @@ import {FormComponent} from "../form.component";
 import UserMetaData from "../../model/usermetadata.class";
 import UserProfile from '../../model/user-profile.class';
 import {Store} from '@ngrx/store';
-import * as fromProfile from '../../../root/reducers/user-profile.reducer';
 import {Subject} from 'rxjs/Subject';
 import 'rxjs/add/operator/takeUntil';
 import {ProfileActions} from '../../../root/actions/user-profile.actions';
+import {FromProfile} from '../../../root/reducers/user-profile.reducer';
 
 @Component({
   selector: 'arth-profile-email',
@@ -27,7 +27,7 @@ export class ProfileEmailComponent extends FormComponent implements OnInit, OnDe
 
   ngOnInit() {
 
-    this.store.select(fromProfile.selectLocalState)
+    this.store.select(FromProfile.selectLocalState)
       .takeUntil(this.ngUnsubscribe)
       .subscribe(profile => {
       this.profile = profile;

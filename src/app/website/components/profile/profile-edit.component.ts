@@ -7,10 +7,10 @@ import UserMetaData from "../../model/usermetadata.class";
 import UserAddresses from "../../model/user-addresses.class";
 import UserProfile from '../../model/user-profile.class';
 import {Store} from '@ngrx/store';
-import * as fromProfile from '../../../root/reducers/user-profile.reducer';
 import {Subject} from 'rxjs/Subject';
 import 'rxjs/add/operator/takeUntil';
 import {ProfileActions} from '../../../root/actions/user-profile.actions';
+import {FromProfile} from '../../../root/reducers/user-profile.reducer';
 
 @Component({
   selector: 'arth-profile-edit',
@@ -48,7 +48,7 @@ export class ProfileEditComponent extends FormComponent implements OnInit, OnDes
       .subscribe(countries => {
         this.countries = countries;
     });
-    this.store.select(fromProfile.selectLocalState)
+    this.store.select(FromProfile.selectLocalState)
       .takeUntil(this.ngUnsubscribe)
       .subscribe(profile => {
         this.userProfile = profile;

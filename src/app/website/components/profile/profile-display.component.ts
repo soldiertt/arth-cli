@@ -2,7 +2,7 @@ import {Component, EventEmitter, Output, OnInit} from "@angular/core";
 import UserProfile from '../../model/user-profile.class';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
-import * as fromProfile from '../../../root/reducers/user-profile.reducer';
+import {FromProfile} from '../../../root/reducers/user-profile.reducer';
 
 @Component({
   selector: 'arth-profile-display',
@@ -17,7 +17,7 @@ export class ProfileDisplayComponent implements OnInit {
   constructor(private store: Store<UserProfile>) {}
 
   ngOnInit() {
-    this.userProfile$ = this.store.select(fromProfile.selectLocalState);
+    this.userProfile$ = this.store.select(FromProfile.selectLocalState);
   }
 
   editContactInfo(): void {

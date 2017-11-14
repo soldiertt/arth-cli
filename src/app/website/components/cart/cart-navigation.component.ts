@@ -5,12 +5,12 @@ import {environment} from '../../../../environments/environment';
 import {ProfileService} from '../../service/profile.service';
 import CartData from '../../model/cart-data.class';
 import {Store} from '@ngrx/store';
-import * as fromProfile from '../../../root/reducers/user-profile.reducer';
 import UserProfile from '../../model/user-profile.class';
 import {Subject} from 'rxjs/Subject';
 import 'rxjs/add/operator/takeUntil';
 import {CartDataActions} from '../../actions/cart-data.actions';
 import {FromCartData} from '../../reducers/cart-data.reducer';
+import {FromProfile} from '../../../root/reducers/user-profile.reducer';
 
 declare var paypal: any;
 
@@ -47,7 +47,7 @@ export class CartNavigationComponent implements  OnInit, AfterViewInit, OnDestro
         this.cartData = cartData;
         this._checkButtonDisplay();
     });
-    this.profileStore.select(fromProfile.selectLocalState)
+    this.profileStore.select(FromProfile.selectLocalState)
       .takeUntil(this.ngUnsubscribe)
       .subscribe(profile => {
         if (profile) {

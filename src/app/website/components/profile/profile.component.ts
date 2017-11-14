@@ -4,10 +4,10 @@ import UserAddress from "../../model/user-address";
 import {MailService} from "../../service/mail.service";
 import Mail from "../../model/mail.class";
 import {Store} from '@ngrx/store';
-import * as fromUserProfile from '../../../root/reducers/user-profile.reducer';
 import {Observable} from 'rxjs/Observable';
 import {Subject} from 'rxjs/Subject';
 import {ProfileActions} from '../../../root/actions/user-profile.actions';
+import {FromProfile} from '../../../root/reducers/user-profile.reducer';
 
 @Component({
   selector: 'arth-profile',
@@ -32,7 +32,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
               private mailService: MailService) {}
 
   ngOnInit() {
-    this.userProfile$ = this.store.select(fromUserProfile.selectLocalState);
+    this.userProfile$ = this.store.select(FromProfile.selectLocalState);
     this.userProfile$
       .takeUntil(this.ngUnsubscribe)
       .subscribe(userProfile => {

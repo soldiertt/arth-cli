@@ -1,12 +1,12 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import PaypalOrder from "../../../shared/model/paypalorder.class";
 import {Store} from '@ngrx/store';
-import * as fromProfile from '../../../root/reducers/user-profile.reducer';
 import UserProfile from '../../model/user-profile.class';
 import 'rxjs/add/operator/takeUntil';
 import {Subject} from 'rxjs/Subject';
 import {PaypalOrderActions} from '../../actions/paypal-order.actions';
 import {FromPaypalOrder} from '../../reducers/paypal-order.reducer';
+import {FromProfile} from '../../../root/reducers/user-profile.reducer';
 
 @Component({
   selector: 'arth-orders',
@@ -31,7 +31,7 @@ export class OrdersComponent implements OnInit, OnDestroy {
           paypalOrder.parsedJson = JSON.parse(paypalOrder.json);
         });
     });
-    this.profileStore.select(fromProfile.selectUserId)
+    this.profileStore.select(FromProfile.selectUserId)
       .takeUntil(this.ngUnsubscribe)
       .subscribe(userId => {
         this.store.dispatch(new PaypalOrderActions.GetAllForUser(userId));

@@ -2,11 +2,11 @@ import {Component, OnDestroy, OnInit} from "@angular/core";
 import UserProfile from '../../model/user-profile.class';
 import {Store} from '@ngrx/store';
 import CartData from '../../model/cart-data.class';
-import * as fromProfile from '../../../root/reducers/user-profile.reducer';
 import {Subject} from 'rxjs/Subject';
 import 'rxjs/add/operator/takeUntil';
 import {CartDataActions} from '../../actions/cart-data.actions';
 import {FromCartData} from '../../reducers/cart-data.reducer';
+import {FromProfile} from '../../../root/reducers/user-profile.reducer';
 
 @Component({
   selector: 'arth-confirm-address',
@@ -35,7 +35,7 @@ export class ConfirmAddressComponent implements OnInit, OnDestroy {
           this.editedItem = undefined;
         }
     });
-    this.store.select(fromProfile.selectLocalState)
+    this.store.select(FromProfile.selectLocalState)
       .takeUntil(this.ngUnsubscribe)
       .subscribe(profile => {
         if (!profile || !profile.user_metadata || !profile.user_metadata.profileComplete) {
