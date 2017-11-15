@@ -1,4 +1,5 @@
-import UserAddress from "./user-address";
+import UserAddress from './user-address';
+
 export default class UserAddresses {
   delivery: UserAddress;
 }

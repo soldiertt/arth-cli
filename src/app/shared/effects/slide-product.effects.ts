@@ -26,7 +26,7 @@ export class SlideProductEffects {
       mergeMap(entity => {
         return this.sliderRestService.createSlideProduct(entity)
           .pipe(
-            map(entity => new SlideProductActions.CreateSuccess(entity)),
+            map(spEntity => new SlideProductActions.CreateSuccess(spEntity)),
             catchError(err => of(new SlideProductActions.CreateFail(err.message)))
           );
       })

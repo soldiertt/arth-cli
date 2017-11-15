@@ -6,7 +6,7 @@ import {UploadService} from '../../../../shared/service/upload.service';
 import {SlideActions} from '../../../../shared/actions/slide.actions';
 import {FromAdminSlide} from '../../../reducers/slide.reducer';
 
-declare var $:any;
+declare const $: any;
 
 @Component({
   selector: 'arth-admin-slide-modal',
@@ -28,15 +28,15 @@ export class EditSlideComponent {
   }
 
   onFileChange(event) {
-    if(event.target.files.length > 0) {
-      let file = event.target.files[0];
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
       this.item.image = this.uploadService.generateFilename(15, event.target.value);
       this.picture.setValue(file);
     }
   }
 
   private prepareSave(): any {
-    let input = new FormData();
+    const input = new FormData();
     input.append('picture', this.picture.value);
     input.append('filename', this.item.image);
     return input;

@@ -1,15 +1,15 @@
-import {AfterViewInit, Component, OnInit} from "@angular/core";
-import {Router} from "@angular/router";
-import Category from "../../../../shared/model/category.class";
-import {Auth0Service} from "../../../../shared/service/auth.service";
-import {I18nService} from "../../../../shared/service/i18n.service";
+import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import Category from '../../../../shared/model/category.class';
+import {Auth0Service} from '../../../../shared/service/auth.service';
+import {I18nService} from '../../../../shared/service/i18n.service';
 import {ProfileService} from '../../../service/profile.service';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
 import {CategoryActions} from '../../../../shared/actions/category.actions';
 import {FromCategory} from '../../../reducers/category.reducer';
 
-declare var $:any;
+declare const $: any;
 
 @Component({
   selector: 'arth-header',
@@ -21,11 +21,12 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   rootCategories$: Observable<Category[]>;
   searchTerm: string;
 
-  constructor (public authService: Auth0Service,
-               public profileService: ProfileService,
-               private store: Store<FromCategory.State>,
-               private router: Router,
-               public i18nService: I18nService) {}
+  constructor(public authService: Auth0Service,
+              public profileService: ProfileService,
+              private store: Store<FromCategory.State>,
+              private router: Router,
+              public i18nService: I18nService) {
+  }
 
   ngOnInit(): void {
     this.rootCategories$ = this.store.select(FromCategory.selectAll);
@@ -33,10 +34,10 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    let closeNavBar = function () {
+    const closeNavBar = function () {
       const navbarToggler$ = $('.navbar-toggler');
-      if(navbarToggler$.css('display') !='none'){
-        navbarToggler$.trigger( "click" );
+      if (navbarToggler$.css('display') !== 'none') {
+        navbarToggler$.trigger('click');
       }
     };
 

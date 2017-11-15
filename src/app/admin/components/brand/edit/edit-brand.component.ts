@@ -4,7 +4,7 @@ import Brand from '../../../../shared/model/brand.class';
 import {BrandActions} from '../../../../shared/actions/brand.actions';
 import {FromAdminBrand} from '../../../reducers/brand.reducer';
 
-declare var $:any;
+declare const $: any;
 
 @Component({
   selector: 'arth-admin-brand-modal',

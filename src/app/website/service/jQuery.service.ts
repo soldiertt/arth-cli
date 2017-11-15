@@ -1,4 +1,4 @@
-import {Injectable} from "@angular/core";
+import {Injectable} from '@angular/core';
 
 @Injectable()
 export class JQueryService {
@@ -13,8 +13,8 @@ export class JQueryService {
   }
 
   enableFancybox($) {
-    let $fancyboxVideo = $(".fancyboxVideo");
-    if($fancyboxVideo.length) {
+    const $fancyboxVideo = $('.fancyboxVideo');
+    if ($fancyboxVideo.length) {
       $fancyboxVideo.fancybox({
         'padding': 10,
         'autoScale': true,
@@ -23,7 +23,7 @@ export class JQueryService {
         'href': $fancyboxVideo.attr('href') + '?rel=0&autoplay=1'
       });
     }
-    let $fancyBoxImg = $(".fancyboxImg");
+    const $fancyBoxImg = $('.fancyboxImg');
     $fancyBoxImg.fancybox({
       'padding'      	: 10,
       'autoScale'   	: true,

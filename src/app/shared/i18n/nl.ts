@@ -6,7 +6,7 @@ export default {
       myaccount: 'Mijn profiel'
     },
     header: {
-      contactus: "contact ons",
+      contactus: 'contact ons',
       questions: 'Vragen?',
       welcome: 'Welkom bij onze online winkel !'
     },

@@ -6,7 +6,7 @@ export default {
       myaccount: 'My account'
     },
     header: {
-      contactus: "contact us",
+      contactus: 'contact us',
       questions: 'Questions ?',
       welcome: 'Welcome to our online shop !'
     },

@@ -12,7 +12,7 @@ import {FromAdminBrand} from '../../../reducers/brand.reducer';
 import {FromAdminCategory} from '../../../reducers/category.reducer';
 import {FromAdminProduct} from '../../../reducers/product.reducer';
 
-declare var $:any;
+declare const $: any;
 
 @Component({
   selector: 'arth-admin-product-modal',
@@ -43,15 +43,15 @@ export class EditProductComponent implements OnInit {
   }
 
   onFileChange(event) {
-    if(event.target.files.length > 0) {
-      let file = event.target.files[0];
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
       this.item.picture = this.uploadService.generateFilename(15, event.target.value);
       this.picture.setValue(file);
     }
   }
 
   private prepareSave(): any {
-    let input = new FormData();
+    const input = new FormData();
     input.append('picture', this.picture.value);
     input.append('filename', this.item.picture);
     input.append('category', this.item.type);

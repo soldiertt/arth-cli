@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core'
+import {NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
 import {RestModule} from '../shared/rest.module';
 import {websiteRouterConfig} from './website.routes';
@@ -42,12 +42,12 @@ import {StoreModule} from '@ngrx/store';
 import {reducers} from './reducers';
 import {EffectsModule} from '@ngrx/effects';
 import {PaypalOrderEffects} from './effects/paypal-order.effects';
-import {ProductEffects} from "app/website/effects/product.effects";
 import {CartEffects} from './effects/cart.effects';
 import {BrandEffects} from '../shared/effects/brand.effects';
 import {CategoryEffects} from '../shared/effects/category.effects';
 import {SlideEffects} from '../shared/effects/slide.effects';
 import {SlideProductEffects} from '../shared/effects/slide-product.effects';
+import {ProductEffects} from './effects/product.effects';
 
 @NgModule({
   declarations: [

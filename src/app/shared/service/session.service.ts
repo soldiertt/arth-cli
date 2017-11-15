@@ -1,14 +1,14 @@
-import {Injectable} from "@angular/core";
-import Cart from "../../website/model/cart.class";
-import UserProfile from "../../website/model/user-profile.class";
+import {Injectable} from '@angular/core';
+import Cart from '../../website/model/cart.class';
+import UserProfile from '../../website/model/user-profile.class';
 
 @Injectable()
 export class SessionService {
 
-  readonly CART_TOKEN: string = "cart";
-  readonly LANG_TOKEN: string = "lang";
-  readonly PROFILE_TOKEN: string = "arthUserProfile";
-  readonly ID_TOKEN: string = "id_token";
+  readonly CART_TOKEN: string = 'cart';
+  readonly LANG_TOKEN: string = 'lang';
+  readonly PROFILE_TOKEN: string = 'arthUserProfile';
+  readonly ID_TOKEN: string = 'id_token';
 
   saveCart(cart: Cart): void {
     localStorage.setItem(this.CART_TOKEN, JSON.stringify(cart));

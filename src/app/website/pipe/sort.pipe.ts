@@ -1,8 +1,8 @@
-import {Pipe} from '@angular/core';
-import Article from "../../shared/model/article.class";
+import {Pipe, PipeTransform} from '@angular/core';
+import Article from '../../shared/model/article.class';
 
 @Pipe({name: 'orderBy'})
-export class SortPipe {
+export class SortPipe implements PipeTransform {
 
   transform(array: Array<Article>, args: string): Array<Object> {
 
@@ -10,7 +10,7 @@ export class SortPipe {
       return null;
     }
 
-    if (args == 'price') {
+    if (args === 'price') {
       array.sort((a: Article, b: Article) => {
         if (parseFloat(<any>a.price) < parseFloat(<any>b.price)) {
           return -1;

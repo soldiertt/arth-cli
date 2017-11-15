@@ -1,5 +1,5 @@
-import {Component, OnInit} from "@angular/core";
-import Slide from "../../../../shared/model/slider.class";
+import {Component, OnInit} from '@angular/core';
+import Slide from '../../../../shared/model/slider.class';
 import {Router} from '@angular/router';
 import Article from '../../../../shared/model/article.class';
 import {Store} from '@ngrx/store';

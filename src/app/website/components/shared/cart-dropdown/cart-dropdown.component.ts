@@ -1,5 +1,5 @@
-import {Component, OnInit} from "@angular/core";
-import Cart from "../../../model/cart.class";
+import {Component, OnInit} from '@angular/core';
+import Cart from '../../../model/cart.class';
 import CartData from '../../../model/cart-data.class';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
@@ -17,7 +17,8 @@ export class CartDropdownComponent implements OnInit {
   cart$: Observable<Cart>;
 
   constructor(public picUtil: PictureService,
-              private store: Store<CartData>) { }
+              private store: Store<CartData>) {
+  }
 
   ngOnInit() {
     this.cart$ = this.store.select(FromCartData.selectCartState);

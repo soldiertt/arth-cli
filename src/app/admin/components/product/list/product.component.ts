@@ -10,17 +10,18 @@ import {ToastyConfig, ToastyService} from 'ng2-toasty';
 import {Subject} from 'rxjs/Subject';
 import 'rxjs/add/operator/takeUntil';
 import Steel from '../../../../shared/model/steel.class';
-import {BrandActions} from "../../../../shared/actions/brand.actions";
+import {BrandActions} from '../../../../shared/actions/brand.actions';
 import {CategoryActions} from '../../../../shared/actions/category.actions';
 import {SlideProductActions} from '../../../../shared/actions/slide-product.actions';
-import {ProductActions} from "../../../actions/product.actions";
+import {ProductActions} from '../../../actions/product.actions';
 import {FromAdminBrand} from '../../../reducers/brand.reducer';
 import {FromAdminCategory} from '../../../reducers/category.reducer';
 import {FromAdminProduct} from '../../../reducers/product.reducer';
 import {FromAdminSlideProduct} from '../../../reducers/slide-product.reducer';
 import {FromAdminSteel} from '../../../reducers/steel.reducer';
+import {PictureService} from '../../../../shared/service/picture.service';
 
-@Component( {
+@Component({
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.css']
 })
@@ -45,6 +46,7 @@ export class ProductComponent implements OnInit, OnDestroy {
               private slideProductStore: Store<FromAdminSlideProduct.State>,
               private toast: ToastyService,
               private toastyConfig: ToastyConfig,
+              public picUtil: PictureService,
               private fb: FormBuilder) {
     this.toastyConfig.theme = 'bootstrap';
     this.filterForm = this.fb.group({
@@ -93,17 +95,17 @@ export class ProductComponent implements OnInit, OnDestroy {
     this.slideProductStore.select(FromAdminSlideProduct.selectCreated)
       .takeUntil(this.ngUnsubscribe)
       .subscribe(created => {
-      if (created) {
-        this.toast.success({title: 'Success', msg: 'Slide successfully added!'});
-      }
-    });
+        if (created) {
+          this.toast.success({title: 'Success', msg: 'Slide successfully added!'});
+        }
+      });
     this.slideProductStore.select(FromAdminSlideProduct.selectError)
       .takeUntil(this.ngUnsubscribe)
       .subscribe(error => {
-      if (error) {
-        this.toast.error({title:'Error when creating slide', msg: error});
-      }
-    });
+        if (error) {
+          this.toast.error({title: 'Error when creating slide', msg: error});
+        }
+      });
   }
 
   newItem() {
@@ -122,13 +124,6 @@ export class ProductComponent implements OnInit, OnDestroy {
   createSlideProduct($event, product: Article) {
     $event.preventDefault();
     this.slideProductStore.dispatch(new SlideProductActions.Create(product));
-  }
-
-  miniPicture(article): string {
-    let picture = article.picture;
-    let extension = picture.split('.').pop();
-    let miniPicture = picture.substring(0, picture.lastIndexOf('.')) + 'm.' + extension;
-    return 'assets/photos/' + article.type + '/' + miniPicture;
   }
 
 }

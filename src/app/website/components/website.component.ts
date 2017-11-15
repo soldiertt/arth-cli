@@ -19,7 +19,7 @@ export class WebsiteComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     // Initialize Cart from local storage
-    this.store.dispatch(new CartDataActions.GetCartFromSession())
+    this.store.dispatch(new CartDataActions.GetCartFromSession());
 
     // Save cart to local storage as soon as it is updated
     this.store.select(FromCartData.selectCartState)

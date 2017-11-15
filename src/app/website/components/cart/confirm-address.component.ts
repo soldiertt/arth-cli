@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import UserProfile from '../../model/user-profile.class';
 import {Store} from '@ngrx/store';
 import CartData from '../../model/cart-data.class';
@@ -30,7 +30,7 @@ export class ConfirmAddressComponent implements OnInit, OnDestroy {
       .subscribe(wizard => {
         this.editMode = wizard.editMode;
         if (this.editMode) {
-          this.editedItem = "address";
+          this.editedItem = 'address';
         } else {
           this.editedItem = undefined;
         }
@@ -50,6 +50,7 @@ export class ConfirmAddressComponent implements OnInit, OnDestroy {
   }
 
   editAddress(): void {
+    this.profileUpdated = false;
     this.cartDataStore.dispatch(new CartDataActions.SetEditMode(true));
   }
 

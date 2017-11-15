@@ -1,4 +1,5 @@
-import UserMetaData from "./usermetadata.class";
+import UserMetaData from './usermetadata.class';
+
 export default class UserProfile {
   id: string;
   user_id: string;

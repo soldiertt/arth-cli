@@ -5,7 +5,7 @@ import {AdminState} from '../model/admin-state';
 import {FromAdminPaypalOrder} from './paypal-order.reducer';
 import {FromAdminProduct} from './product.reducer';
 import {FromAdminSlide} from './slide.reducer';
-import {FromAdminSlideProduct} from "./slide-product.reducer";
+import {FromAdminSlideProduct} from './slide-product.reducer';
 import {FromAdminSteel} from './steel.reducer';
 import {FromAdminUser} from './user.reducer';
 

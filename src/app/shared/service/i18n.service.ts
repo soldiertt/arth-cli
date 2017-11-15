@@ -1,15 +1,15 @@
-import {Injectable} from "@angular/core";
-import frenchLanguage from "../i18n/fr";
-import dutchLanguage from "../i18n/nl";
-import englishLanguage from "../i18n/en";
-import {SessionService} from "./session.service";
-import {ArthuriusEventsService} from "./arthurius-events.service";
+import {Injectable} from '@angular/core';
+import frenchLanguage from '../i18n/fr';
+import dutchLanguage from '../i18n/nl';
+import englishLanguage from '../i18n/en';
+import {SessionService} from './session.service';
+import {ArthuriusEventsService} from './arthurius-events.service';
 
 @Injectable()
 export class I18nService {
 
   private fr: any;
-  private nl:any;
+  private nl: any;
   private en: any;
 
   currentLanguage: string;
@@ -18,11 +18,11 @@ export class I18nService {
     this.fr = frenchLanguage;
     this.nl = dutchLanguage;
     this.en = englishLanguage;
-    let lang = this.sessionService.getLang();
+    const lang = this.sessionService.getLang();
     if (lang) {
       this.currentLanguage = lang;
     } else {
-      this.currentLanguage = "fr";
+      this.currentLanguage = 'fr';
     }
   }
 
@@ -45,13 +45,13 @@ export class I18nService {
   }
 
   translate(key: string): string {
-    var keys = key.split('.');
+    const keys = key.split('.');
     let translation = this[this.currentLanguage];
     for (let i = 0; i < keys.length; i++) {
       if (translation) {
         translation = translation[keys[i]];
       } else {
-        return "[" + key + "]";
+        return '[' + key + ']';
       }
     }
     return translation;

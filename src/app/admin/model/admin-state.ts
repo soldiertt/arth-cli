@@ -9,14 +9,14 @@ import {FromAdminSteel} from '../reducers/steel.reducer';
 import {FromAdminUser} from '../reducers/user.reducer';
 
 export interface AdminState {
-  brand: FromAdminBrand.State,
-  category: FromAdminCategory.State,
-  order: FromAdminPaypalOrder.State,
-  product: FromAdminProduct.State,
-  slide: FromAdminSlide.State,
-  slideproduct: FromAdminSlideProduct.State,
-  steel: FromAdminSteel.State,
-  user: FromAdminUser.State
+  brand: FromAdminBrand.State;
+  category: FromAdminCategory.State;
+  order: FromAdminPaypalOrder.State;
+  product: FromAdminProduct.State;
+  slide: FromAdminSlide.State;
+  slideproduct: FromAdminSlideProduct.State;
+  steel: FromAdminSteel.State;
+  user: FromAdminUser.State;
 }
 
 export const adminFeatureSelector = createFeatureSelector<AdminState>('admin');

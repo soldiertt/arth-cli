@@ -1,5 +1,5 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import PaypalOrder from "../../../shared/model/paypalorder.class";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import PaypalOrder from '../../../shared/model/paypalorder.class';
 import {Store} from '@ngrx/store';
 import UserProfile from '../../model/user-profile.class';
 import 'rxjs/add/operator/takeUntil';
@@ -20,7 +20,8 @@ export class OrdersComponent implements OnInit, OnDestroy {
   paypalOrders: PaypalOrder[];
 
   constructor(private profileStore: Store<UserProfile>,
-              private store: Store<FromPaypalOrder.State>) {}
+              private store: Store<FromPaypalOrder.State>) {
+  }
 
   ngOnInit() {
     this.store.select(FromPaypalOrder.selectAll)
@@ -30,12 +31,12 @@ export class OrdersComponent implements OnInit, OnDestroy {
         this.paypalOrders.forEach(paypalOrder => {
           paypalOrder.parsedJson = JSON.parse(paypalOrder.json);
         });
-    });
+      });
     this.profileStore.select(FromProfile.selectUserId)
       .takeUntil(this.ngUnsubscribe)
       .subscribe(userId => {
         this.store.dispatch(new PaypalOrderActions.GetAllForUser(userId));
-    });
+      });
   }
 
   ngOnDestroy() {

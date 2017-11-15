@@ -35,11 +35,11 @@ export class PaypalOrderEffects {
       mergeMap((action: CartDataActions.Pay) => {
 
         return this.paypalRestService.executePayment(action.paymentID, action.payerID).map(response => {
-          let firstTx = response.transactions[0];
-          let items = firstTx.item_list.items;
-          let amount = firstTx.amount;
+          const firstTx = response.transactions[0];
+          const items = firstTx.item_list.items;
+          const amount = firstTx.amount;
 
-          let paypalOrder = new PaypalOrder();
+          const paypalOrder = new PaypalOrder();
           paypalOrder.userId = action.userId;
           paypalOrder.orderDate = moment().format('YYYY-MM-DD hh:mm:ss');
           paypalOrder.json = JSON.stringify({items, amount});
@@ -49,16 +49,16 @@ export class PaypalOrderEffects {
       mergeMap(paypalOrder => this.paypalOrderRestService.save(paypalOrder).map(() => paypalOrder)),
       tap(paypalOrder => {
         // Send mail to admin
-        let mail: Mail = new Mail("ADMIN_PAYMENT_CONFIRMATION");
+        let mail: Mail = new Mail('ADMIN_PAYMENT_CONFIRMATION');
         mail.parameters = {paypalOrder};
-        this.mailService.sendMail(mail).subscribe(resp => {
-          console.log("Mail sent !");
+        this.mailService.sendMail(mail).subscribe(() => {
+          console.log('Mail sent !');
         });
         // Send mail to client
-        mail = new Mail("USER_PAYMENT_CONFIRMATION");
+        mail = new Mail('USER_PAYMENT_CONFIRMATION');
         mail.parameters = {paypalOrder : paypalOrder, language: this.i18nService.currentLanguage};
-        this.mailService.sendMail(mail).subscribe(resp => {
-          console.log("Mail sent !");
+        this.mailService.sendMail(mail).subscribe(() => {
+          console.log('Mail sent !');
         });
       }),
       map(_ => new CartDataActions.PaySuccess())

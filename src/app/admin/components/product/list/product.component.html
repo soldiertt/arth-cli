@@ -65,7 +65,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let product of filteredProducts$ | async">
-        <td class="no-print"><img [src]="miniPicture(product)"></td>
+        <td class="no-print"><img [src]="picUtil.miniPicture(product)"></td>
         <td class="no-print">{{product.type}}</td>
         <td>{{product.marque}}</td>
         <td>{{product.name}}</td>

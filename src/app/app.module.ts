@@ -1,6 +1,6 @@
-import {NgModule, LOCALE_ID} from '@angular/core'
-import {RouterModule} from "@angular/router";
-import {AppComponent} from "./app.component";
+import {NgModule, LOCALE_ID} from '@angular/core';
+import {RouterModule} from '@angular/router';
+import {AppComponent} from './app.component';
 import {AdminModule} from './admin/admin.module';
 import {WebsiteModule} from './website/website.module';
 import {EffectsModule} from '@ngrx/effects';
@@ -31,7 +31,7 @@ export const rootReducers: ActionReducerMap<AppState> = {
     AppComponent
   ],
   providers   : [
-    { provide: LOCALE_ID, useValue: "fr-BE" }
+    { provide: LOCALE_ID, useValue: 'fr-BE' }
   ],
   bootstrap   : [AppComponent]
 })

@@ -1,8 +1,8 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import UserProfile from "../../model/user-profile.class";
-import UserAddress from "../../model/user-address";
-import {MailService} from "../../service/mail.service";
-import Mail from "../../model/mail.class";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import UserProfile from '../../model/user-profile.class';
+import UserAddress from '../../model/user-address';
+import {MailService} from '../../service/mail.service';
+import Mail from '../../model/mail.class';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
 import {Subject} from 'rxjs/Subject';
@@ -29,18 +29,19 @@ export class ProfileComponent implements OnInit, OnDestroy {
   userId: string;
 
   constructor(private store: Store<UserProfile>,
-              private mailService: MailService) {}
+              private mailService: MailService) {
+  }
 
   ngOnInit() {
     this.userProfile$ = this.store.select(FromProfile.selectLocalState);
     this.userProfile$
       .takeUntil(this.ngUnsubscribe)
       .subscribe(userProfile => {
-      this._updateLocalData(userProfile);
-      if (this.incompleteProfile) {
-        this.editContactInfo();
-      }
-    });
+        this._updateLocalData(userProfile);
+        if (this.incompleteProfile) {
+          this.editContactInfo();
+        }
+      });
   }
 
   ngOnDestroy() {
@@ -50,12 +51,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   editContactInfo(): void {
     this.editMode = true;
-    this.editedItem = "contactinfo";
+    this.editedItem = 'contactinfo';
   }
 
   editEmail(): void {
     this.editMode = true;
-    this.editedItem = "email";
+    this.editedItem = 'email';
   }
 
   cancelEdit(): void {
@@ -69,19 +70,19 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.cancelEdit();
   }
 
-  askForRemoval() : void {
+  askForRemoval(): void {
     this.store.dispatch(new ProfileActions.UpdateMetadata(this.userId, {pendingRemoval: true}));
     this.updateMetaData();
-    this.mailService.sendMail(new Mail("ACCOUNT_DELETION")).subscribe(resp => {
-      console.log("Mail sent !");
+    this.mailService.sendMail(new Mail('ACCOUNT_DELETION')).subscribe(() => {
+      console.log('Mail sent !');
     });
   }
 
-  cancelAskForRemoval() : void {
+  cancelAskForRemoval(): void {
     this.store.dispatch(new ProfileActions.UpdateMetadata(this.userId, {pendingRemoval: false}));
     this.updateMetaData();
-    this.mailService.sendMail(new Mail("ACCOUNT_DELETION_CANCEL")).subscribe(resp => {
-      console.log("Mail sent !");
+    this.mailService.sendMail(new Mail('ACCOUNT_DELETION_CANCEL')).subscribe(() => {
+      console.log('Mail sent !');
     });
   }
 

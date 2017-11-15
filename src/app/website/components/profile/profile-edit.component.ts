@@ -1,10 +1,10 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {FormBuilder, Validators} from "@angular/forms";
-import {CountryRestService} from "../../../shared/service/rest/country.rest.service";
-import Country from "../../../shared/model/country.class";
-import {FormComponent} from "../form.component";
-import UserMetaData from "../../model/usermetadata.class";
-import UserAddresses from "../../model/user-addresses.class";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {FormBuilder, Validators} from '@angular/forms';
+import {CountryRestService} from '../../../shared/service/rest/country.rest.service';
+import Country from '../../../shared/model/country.class';
+import {FormComponent} from '../form.component';
+import UserMetaData from '../../model/usermetadata.class';
+import UserAddresses from '../../model/user-addresses.class';
 import UserProfile from '../../model/user-profile.class';
 import {Store} from '@ngrx/store';
 import {Subject} from 'rxjs/Subject';
@@ -30,14 +30,14 @@ export class ProfileEditComponent extends FormComponent implements OnInit, OnDes
     super();
 
     this.form = this.fb.group({
-      name: this.fb.control("", [Validators.required, Validators.minLength(3), Validators.maxLength(100)]),
-      phone: this.fb.control("", [Validators.required, Validators.minLength(9), Validators.maxLength(100)]),
-      street: this.fb.control("", [Validators.required, Validators.minLength(3), Validators.maxLength(100)]),
-      houseNumber: this.fb.control("", [Validators.required, Validators.maxLength(10)]),
-      postbox: this.fb.control("", [Validators.maxLength(10)]),
-      postcode: this.fb.control("", [Validators.required, Validators.minLength(3), Validators.maxLength(10)]),
-      city: this.fb.control("", [Validators.required, Validators.maxLength(100)]),
-      country: this.fb.control("", Validators.required)
+      name: this.fb.control('', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]),
+      phone: this.fb.control('', [Validators.required, Validators.minLength(9), Validators.maxLength(100)]),
+      street: this.fb.control('', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]),
+      houseNumber: this.fb.control('', [Validators.required, Validators.maxLength(10)]),
+      postbox: this.fb.control('', [Validators.maxLength(10)]),
+      postcode: this.fb.control('', [Validators.required, Validators.minLength(3), Validators.maxLength(10)]),
+      city: this.fb.control('', [Validators.required, Validators.maxLength(100)]),
+      country: this.fb.control('', Validators.required)
     });
   }
 
@@ -47,13 +47,13 @@ export class ProfileEditComponent extends FormComponent implements OnInit, OnDes
       .takeUntil(this.ngUnsubscribe)
       .subscribe(countries => {
         this.countries = countries;
-    });
+      });
     this.store.select(FromProfile.selectLocalState)
       .takeUntil(this.ngUnsubscribe)
       .subscribe(profile => {
         this.userProfile = profile;
         this._fillFormWithData();
-    })
+      });
   }
 
   ngOnDestroy() {
@@ -64,25 +64,23 @@ export class ProfileEditComponent extends FormComponent implements OnInit, OnDes
   save(): void {
     this.submitAttempt = true;
     if (this.form.valid) {
-      let deliveryAddress: UserAddresses =
-        {
-          delivery:
+      const deliveryAddress: UserAddresses = {
+        delivery:
           {
-            street: this.form.get("street").value,
-            houseNumber: this.form.get("houseNumber").value,
-            postbox: this.form.get("postbox").value,
-            postcode: this.form.get("postcode").value,
-            city: this.form.get("city").value,
-            country: this.form.get("country").value
+            street: this.form.get('street').value,
+            houseNumber: this.form.get('houseNumber').value,
+            postbox: this.form.get('postbox').value,
+            postcode: this.form.get('postcode').value,
+            city: this.form.get('city').value,
+            country: this.form.get('country').value
           }
-        };
-      let userMetadata: UserMetaData =
-        {
-          addresses: deliveryAddress,
-          name: this.form.get("name").value,
-          phone: this.form.get("phone").value,
-          profileComplete: true
-        };
+      };
+      const userMetadata: UserMetaData = {
+        addresses: deliveryAddress,
+        name: this.form.get('name').value,
+        phone: this.form.get('phone').value,
+        profileComplete: true
+      };
       this.store.dispatch(new ProfileActions.UpdateMetadata(this.userProfile.user_id, userMetadata));
       this.onUpdateMetaData.emit();
     }
@@ -90,7 +88,7 @@ export class ProfileEditComponent extends FormComponent implements OnInit, OnDes
 
   cancelEdit() {
     this._fillFormWithData();
-    this.onCancelEdit.emit("address");
+    this.onCancelEdit.emit('address');
   }
 
   private _fillFormWithData() {

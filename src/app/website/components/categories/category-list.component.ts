@@ -1,5 +1,5 @@
-import {Component, OnInit} from "@angular/core";
-import Category from "../../../shared/model/category.class";
+import {Component, OnInit} from '@angular/core';
+import Category from '../../../shared/model/category.class';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
 import {FromCategory} from '../../reducers/category.reducer';
@@ -13,7 +13,8 @@ export class CategoryListComponent implements OnInit {
 
   rootCategories$: Observable<Category[]>;
 
-  constructor (private store: Store<FromCategory.State>) {}
+  constructor(private store: Store<FromCategory.State>) {
+  }
 
   ngOnInit(): void {
 

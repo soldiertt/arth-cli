@@ -4,7 +4,7 @@ import Category from '../../../../shared/model/category.class';
 import {CategoryActions} from '../../../../shared/actions/category.actions';
 import {FromAdminCategory} from '../../../reducers/category.reducer';
 
-declare var $:any;
+declare const $: any;
 
 @Component({
   selector: 'arth-admin-category-modal',

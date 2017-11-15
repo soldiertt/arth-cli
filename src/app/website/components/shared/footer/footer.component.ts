@@ -1,6 +1,7 @@
-import {Component} from "@angular/core";
-import {Auth0Service} from "../../../../shared/service/auth.service";
+import {Component} from '@angular/core';
+import {Auth0Service} from '../../../../shared/service/auth.service';
 import {ProfileService} from '../../../service/profile.service';
+
 @Component({
   selector: 'arth-footer',
   templateUrl: 'footer.component.html',
@@ -8,6 +9,7 @@ import {ProfileService} from '../../../service/profile.service';
 })
 export class FooterComponent {
 
-  constructor(public authService: Auth0Service, public profileService: ProfileService) {}
+  constructor(public authService: Auth0Service, public profileService: ProfileService) {
+  }
 
 }

@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Auth0Service} from '../../../shared/service/auth.service';
 import CartData from '../../model/cart-data.class';
 import {Store} from '@ngrx/store';

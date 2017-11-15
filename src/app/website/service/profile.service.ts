@@ -1,5 +1,5 @@
-import {Injectable} from "@angular/core";
-import {SessionService} from "../../shared/service/session.service";
+import {Injectable} from '@angular/core';
+import {SessionService} from '../../shared/service/session.service';
 import UserProfile from '../model/user-profile.class';
 import {Router} from '@angular/router';
 import {Auth0Service} from '../../shared/service/auth.service';
@@ -25,18 +25,18 @@ export class ProfileService {
       this._authCallback(callbackFn);
     }
     this.auth0Service.login();
-  };
+  }
 
   logout($event) {
     $event.preventDefault();
     this.store.dispatch(new ProfileActions.Logout());
-    if (this.router.url.indexOf('/profile') != -1 || this.router.url.indexOf('/mycart') != -1) {
+    if (this.router.url.indexOf('/profile') !== -1 || this.router.url.indexOf('/mycart') !== -1) {
       this.router.navigate(['/']);
     }
   }
 
   private _authCallback(extraCallbackFn?: Function) {
-    this.auth0Service.lock.on("authenticated", (authResult: any) => {
+    this.auth0Service.lock.on('authenticated', (authResult: any) => {
       this.sessionService.saveIdToken(authResult.idToken);
       this.auth0Service.lock.getUserInfo(authResult.accessToken, (error, profile) => {
         if (error) {

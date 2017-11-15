@@ -1,6 +1,6 @@
-import {AfterViewInit, Component, OnDestroy, OnInit} from "@angular/core";
-import {Auth0Service} from "../../../shared/service/auth.service";
-import {PaypalRestService} from "../../../shared/service/rest/paypal.rest.service";
+import {AfterViewInit, Component, OnDestroy, OnInit} from '@angular/core';
+import {Auth0Service} from '../../../shared/service/auth.service';
+import {PaypalRestService} from '../../../shared/service/rest/paypal.rest.service';
 import {environment} from '../../../../environments/environment';
 import {ProfileService} from '../../service/profile.service';
 import CartData from '../../model/cart-data.class';
@@ -12,18 +12,18 @@ import {CartDataActions} from '../../actions/cart-data.actions';
 import {FromCartData} from '../../reducers/cart-data.reducer';
 import {FromProfile} from '../../../root/reducers/user-profile.reducer';
 
-declare var paypal: any;
+declare const paypal: any;
 
 @Component({
   selector: 'arth-cart-navigation',
   templateUrl: './cart-navigation.component.html',
   styleUrls: ['./cart-navigation.component.css']
 })
-export class CartNavigationComponent implements  OnInit, AfterViewInit, OnDestroy {
+export class CartNavigationComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private ngUnsubscribe: Subject<any> = new Subject();
 
-  cartData : CartData;
+  cartData: CartData;
   country: string;
   userId: string;
   profileComplete: boolean;
@@ -38,7 +38,8 @@ export class CartNavigationComponent implements  OnInit, AfterViewInit, OnDestro
               private profileStore: Store<UserProfile>,
               public authService: Auth0Service,
               private profileService: ProfileService,
-              private paypalRestService: PaypalRestService) {}
+              private paypalRestService: PaypalRestService) {
+  }
 
   ngOnInit() {
     this.store.select(FromCartData.selectLocalState)
@@ -46,7 +47,7 @@ export class CartNavigationComponent implements  OnInit, AfterViewInit, OnDestro
       .subscribe(cartData => {
         this.cartData = cartData;
         this._checkButtonDisplay();
-    });
+      });
     this.profileStore.select(FromProfile.selectLocalState)
       .takeUntil(this.ngUnsubscribe)
       .subscribe(profile => {
@@ -67,7 +68,7 @@ export class CartNavigationComponent implements  OnInit, AfterViewInit, OnDestro
           this.country = undefined;
           this.profileComplete = false;
         }
-    });
+      });
   }
 
   ngOnDestroy() {
@@ -99,17 +100,15 @@ export class CartNavigationComponent implements  OnInit, AfterViewInit, OnDestro
       } else if (curStep === 2) {
         this.store.dispatch(new CartDataActions.CartMoveToStep(3));
       } else if (curStep === 3) {
-        //if (this.cartData.wizard.addressCompleted) {
-          this.store.dispatch(new CartDataActions.CartMoveToStep(4, this.country));
-        //}
+        this.store.dispatch(new CartDataActions.CartMoveToStep(4, this.country));
       }
     }
   }
 
   ngAfterViewInit() {
-    let paypalDefinedInterval = setInterval(() => {
+    const paypalDefinedInterval = setInterval(() => {
 
-      if (window["paypal"]  && this.cartData.cart.orders.length > 0) {
+      if (window['paypal'] && this.cartData.cart.orders.length > 0) {
 
         paypal.Button.render({
           env: environment.paypalEnvironment,
@@ -142,7 +141,7 @@ export class CartNavigationComponent implements  OnInit, AfterViewInit, OnDestro
           this.displayPrevious = true;
           this.displayNext = false;
           this.displayPaypalButton = true;
-        } else if (this.cartData.wizard.currentStep === 3){
+        } else if (this.cartData.wizard.currentStep === 3) {
           if (!this.cartData.wizard.editMode && this.profileComplete) {
             // Step3. completed profile
             this.displayPrevious = false;
@@ -154,7 +153,7 @@ export class CartNavigationComponent implements  OnInit, AfterViewInit, OnDestro
             this.displayNext = false;
             this.displayPaypalButton = false;
           }
-        } else if (this.cartData.wizard.currentStep === 2){
+        } else if (this.cartData.wizard.currentStep === 2) {
           // Step2. just authenticated
           this.displayPrevious = false;
           this.displayNext = true;

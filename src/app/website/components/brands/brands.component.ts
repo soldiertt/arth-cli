@@ -1,5 +1,5 @@
-import {Component, OnInit} from "@angular/core";
-import Brand from "../../../shared/model/brand.class";
+import {Component, OnInit} from '@angular/core';
+import Brand from '../../../shared/model/brand.class';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
 import {FromBrand} from '../../reducers/brand.reducer';
@@ -13,7 +13,8 @@ export class BrandsComponent implements OnInit {
 
   brands$: Observable<Brand[]>;
 
-  constructor(private store: Store<FromBrand.State>) {}
+  constructor(private store: Store<FromBrand.State>) {
+  }
 
   ngOnInit() {
     this.brands$ = this.store.select(FromBrand.selectAll);

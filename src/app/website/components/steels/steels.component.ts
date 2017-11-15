@@ -1,6 +1,6 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit} from '@angular/core';
 
-declare var $:any;
+declare const $: any;
 
 @Component({
   selector: 'arth-steels',

@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core'
+import {NgModule} from '@angular/core';
 import {SessionService} from './service/session.service';
 import {ArthuriusEventsService} from './service/arthurius-events.service';
 import {I18nService} from './service/i18n.service';

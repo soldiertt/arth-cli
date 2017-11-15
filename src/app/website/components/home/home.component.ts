@@ -6,7 +6,6 @@ import {PromoProductActions} from '../../actions/promo-product.actions';
 import {FromPromoProduct} from '../../reducers/promo-product.reducer';
 
 @Component({
-  selector: 'home',
   templateUrl: 'home.component.html',
   styleUrls: ['home.component.css']
 })

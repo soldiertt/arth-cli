@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core'
+import {NgModule} from '@angular/core';
 import {ArticleRestService} from './service/rest/article.rest.service';
 import {CountryRestService} from './service/rest/country.rest.service';
 import {CategoryRestService} from './service/rest/category.rest.service';

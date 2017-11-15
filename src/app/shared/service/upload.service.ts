@@ -10,7 +10,7 @@ export class UploadService {
   private generateId(len: number) {
     const arr = new Uint8Array((len || 40) / 2);
     window.crypto.getRandomValues(arr);
-    return Array.from(arr, this.dec2hex).join('')
+    return Array.from(arr, this.dec2hex).join('');
   }
 
   generateFilename(len: number, originalFilename: string) {

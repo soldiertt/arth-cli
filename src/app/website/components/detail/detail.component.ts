@@ -1,7 +1,7 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
-import Article from "../../../shared/model/article.class";
-import {JQueryService} from "../../service/jQuery.service";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import Article from '../../../shared/model/article.class';
+import {JQueryService} from '../../service/jQuery.service';
 import CartData from '../../model/cart-data.class';
 import {Store} from '@ngrx/store';
 import ProductData from '../../model/product-data.class';
@@ -13,7 +13,7 @@ import {CartDataActions} from '../../actions/cart-data.actions';
 import {ProductActions} from '../../actions/product.actions';
 import {FromProduct} from '../../reducers/product.reducer';
 
-declare var $: any;
+declare const $: any;
 
 @Component({
   selector: 'arth-detail',
@@ -28,15 +28,16 @@ export class DetailComponent implements OnInit, OnDestroy {
   needZoom: boolean = false;
 
   constructor(public picUtil: PictureService,
-              private route:ActivatedRoute,
+              private route: ActivatedRoute,
               private store: Store<ProductData>,
               private cartDataStore: Store<CartData>,
-              private jQueryService: JQueryService) {}
+              private jQueryService: JQueryService) {
+  }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      $('html,body').animate({ scrollTop: 0 }, 0);
-      let articleId = params['articleId'];
+      $('html,body').animate({scrollTop: 0}, 0);
+      const articleId = params['articleId'];
 
       this.store.dispatch(new ProductActions.LoadOne(articleId));
       this.store.select(FromProduct.selectSelectedState)
@@ -46,7 +47,7 @@ export class DetailComponent implements OnInit, OnDestroy {
           setTimeout(() => {
             this.jQueryService.enableFancybox($);
           }, 10);
-      });
+        });
     });
   }
 
@@ -56,8 +57,8 @@ export class DetailComponent implements OnInit, OnDestroy {
   }
 
   addToCart(article: Article) {
-    let component = this;
-    let callback = function() {
+    const component = this;
+    const callback = function () {
       component.cartDataStore.dispatch(new CartDataActions.AddArticle(article));
     };
     this.jQueryService.addToCart($, callback);

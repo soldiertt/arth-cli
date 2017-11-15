@@ -1,6 +1,6 @@
-import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router} from "@angular/router";
-import {Auth0Service} from "../../shared/service/auth.service";
-import {Injectable} from "@angular/core";
+import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router} from '@angular/router';
+import {Auth0Service} from '../../shared/service/auth.service';
+import {Injectable} from '@angular/core';
 import {UserRestService} from '../../shared/service/rest/user.rest.service';
 import {SessionService} from '../../shared/service/session.service';
 

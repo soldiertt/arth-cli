@@ -38,14 +38,13 @@ export class ProductEffects {
     .pipe(
       mergeMap((action: ProductActions.LoadOne) => this.productRestService.findById(action.productId)),
       mergeMap(product => this.categoryRestService.findCategory(product.type).map(category => {
-        const productItemData: ProductItemData = {product, category};
-        return productItemData;
+        return {product, category};
       })),
       mergeMap(productItemData => {
         if (productItemData.category.parent) {
           return this.categoryRestService.findCategory(productItemData.category.parent).map(parentCategory => {
             return {...productItemData, parentCategory};
-          })
+          });
         } else {
           return of(productItemData);
         }
@@ -81,7 +80,7 @@ export class ProductEffects {
           return this.categoryRestService.findCategory(productData.selected.category.parent).map(parentCategory => {
             productData.selected.parentCategory = parentCategory;
             return productData;
-          })
+          });
         } else {
           return of(productData);
         }

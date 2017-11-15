@@ -4,7 +4,7 @@ export default class Order {
   article: Article;
   count: number;
 
-  constructor(article : Article) {
+  constructor(article: Article) {
     this.article = article;
     this.count = 1;
   }

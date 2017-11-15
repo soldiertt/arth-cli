@@ -1,8 +1,8 @@
-import { Injectable }      from '@angular/core';
-import { tokenNotExpired } from 'angular2-jwt';
+import {Injectable} from '@angular/core';
+import {tokenNotExpired} from 'angular2-jwt';
 import Auth0Lock from 'auth0-lock';
-import {I18nService} from "./i18n.service";
-import {ArthuriusEventsService} from "./arthurius-events.service";
+import {I18nService} from './i18n.service';
+import {ArthuriusEventsService} from './arthurius-events.service';
 
 @Injectable()
 export class Auth0Service {
@@ -12,10 +12,10 @@ export class Auth0Service {
 
   constructor(private i18nService: I18nService,
               private eventsService: ArthuriusEventsService) {
-    this.eventsService.languageChanged.subscribe(language => {
-      this._initLock(language);
+    this.eventsService.languageChanged.subscribe(lang => {
+      this._initLock(lang);
     });
-    let language = this.i18nService.currentLanguage;
+    const language = this.i18nService.currentLanguage;
     this._initLock(language);
   }
 
@@ -30,7 +30,7 @@ export class Auth0Service {
       autoclose: true,
       language: language,
       languageDictionary: {
-        title: "Arthurius"
+        title: 'Arthurius'
       },
       theme: {
         logo: 'assets/images/arth-logo.png'
@@ -46,10 +46,10 @@ export class Auth0Service {
 
   login() {
     this.lock.show();
-  };
+  }
 
   authenticated() {
     return tokenNotExpired('id_token');
-  };
+  }
 
 }

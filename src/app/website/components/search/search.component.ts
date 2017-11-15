@@ -1,6 +1,6 @@
-import {Component, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
-import Article from "../../../shared/model/article.class";
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import Article from '../../../shared/model/article.class';
 import ProductData from '../../model/product-data.class';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
@@ -14,10 +14,11 @@ export class SearchComponent implements OnInit {
 
   articles$: Observable<Article[]>;
   searchTerm: string;
-  _orderBy: string = "name";
+  _orderBy: string = 'name';
 
   constructor(private store: Store<ProductData>,
-              private route: ActivatedRoute) {}
+              private route: ActivatedRoute) {
+  }
 
   ngOnInit() {
     this.articles$ = this.store.select(FromProduct.selectCurrentProductsState);
