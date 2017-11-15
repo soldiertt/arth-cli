@@ -1,8 +1,8 @@
 import {Component, Input} from '@angular/core';
 import {Store} from '@ngrx/store';
 import Brand from '../../../../shared/model/brand.class';
-import * as fromBrand from '../../../reducers/brand.reducer';
-import * as actions from '../../../actions/brand.actions';
+import {BrandActions} from '../../../../shared/actions/brand.actions';
+import {FromAdminBrand} from '../../../reducers/brand.reducer';
 
 declare var $:any;
 
@@ -14,11 +14,11 @@ export class EditBrandComponent {
 
   @Input() item: Brand;
 
-  constructor(private store: Store<fromBrand.State>) { }
+  constructor(private store: Store<FromAdminBrand.State>) { }
 
   save(valid: boolean) {
     if (valid) {
-      this.store.dispatch(new actions.Create(this.item));
+      this.store.dispatch(new BrandActions.Create(this.item));
       $('#brandModal').modal('hide');
     }
   }

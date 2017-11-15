@@ -2,7 +2,7 @@ import {createEntityAdapter, EntityState} from '@ngrx/entity';
 import {createSelector} from '@ngrx/store';
 import Category from '../../shared/model/category.class';
 import {siteFeatureSelector, SiteState} from '../model/site-state';
-import {CategoryActions} from '../actions/category.actions';
+import {CategoryActions} from '../../shared/actions/category.actions';
 
 const adapter = createEntityAdapter<Category>();
 const defaultState  = {

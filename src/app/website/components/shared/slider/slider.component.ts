@@ -4,8 +4,8 @@ import {Router} from '@angular/router';
 import Article from '../../../../shared/model/article.class';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
-import {SlideActions} from '../../../actions/slide.actions';
-import {SlideProductActions} from '../../../actions/slide-product.actions';
+import {SlideActions} from '../../../../shared/actions/slide.actions';
+import {SlideProductActions} from '../../../../shared/actions/slide-product.actions';
 import {FromSlide} from '../../../reducers/slide.reducer';
 import {FromSlideProduct} from '../../../reducers/slide-product.reducer';
 
@@ -17,6 +17,8 @@ import {FromSlideProduct} from '../../../reducers/slide-product.reducer';
 export class SliderComponent implements OnInit {
 
   slides$: Observable<Slide[]>;
+  slidesCount$: Observable<number>;
+
   sliderArticles$: Observable<Article[]>;
 
   constructor(private slideStore: Store<FromSlide.State>,
@@ -25,6 +27,8 @@ export class SliderComponent implements OnInit {
 
   ngOnInit() {
     this.slides$ = this.slideStore.select(FromSlide.selectAll);
+    this.slidesCount$ = this.slideStore.select(FromSlide.selectTotal);
+
     this.sliderArticles$ = this.slideProductStore.select(FromSlideProduct.selectAll);
     this.slideStore.dispatch(new SlideActions.GetAll());
     this.slideProductStore.dispatch(new SlideProductActions.GetAll());

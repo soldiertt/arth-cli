@@ -1,10 +1,10 @@
 import {Component, Input, ViewChild} from '@angular/core';
 import {Store} from '@ngrx/store';
-import * as fromSlide from '../../../reducers/slide.reducer';
 import Slide from '../../../../shared/model/slider.class';
-import * as actions from '../../../actions/slide.actions';
 import {FormControl} from '@angular/forms';
 import {UploadService} from '../../../../shared/service/upload.service';
+import {SlideActions} from '../../../../shared/actions/slide.actions';
+import {FromAdminSlide} from '../../../reducers/slide.reducer';
 
 declare var $:any;
 
@@ -21,7 +21,7 @@ export class EditSlideComponent {
   @ViewChild('fileUpload') fileUploadInput: any;
 
   constructor(private uploadService: UploadService,
-              private store: Store<fromSlide.State>) { }
+              private store: Store<FromAdminSlide.State>) { }
 
   resetForm() {
     this.fileUploadInput.nativeElement.value = '';
@@ -45,12 +45,12 @@ export class EditSlideComponent {
   save(valid: boolean) {
     if (valid && (this.item.image || this.item.id)) {
       if (this.item.id) {
-        this.store.dispatch(new actions.Update(this.item.id, this.item));
+        this.store.dispatch(new SlideActions.Update(this.item.id, this.item));
       } else {
-        this.store.dispatch(new actions.Create(this.item));
+        this.store.dispatch(new SlideActions.Create(this.item));
       }
-      if (this.item.image) {
-        this.store.dispatch(new actions.UploadNewPicture(this.prepareSave()));
+      if (this.fileUploadInput.nativeElement.value) {
+        this.store.dispatch(new SlideActions.UploadNewPicture(this.prepareSave()));
       }
       $('#slideModal').modal('hide');
       this.resetForm();

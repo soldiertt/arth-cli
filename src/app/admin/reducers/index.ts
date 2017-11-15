@@ -1,21 +1,21 @@
 import {ActionReducerMap} from '@ngrx/store';
-import {productReducer} from './product.reducer';
-import {brandReducer} from './brand.reducer';
-import {categoryReducer} from './category.reducer';
-import {slideReducer} from './slide.reducer';
-import {slideProductReducer} from './slide-product.reducer';
-import {orderReducer} from './order.reducer';
-import {userReducer} from './user.reducer';
-import {steelReducer} from './steel.reducer';
+import {FromAdminBrand} from './brand.reducer';
+import {FromAdminCategory} from './category.reducer';
 import {AdminState} from '../model/admin-state';
+import {FromAdminPaypalOrder} from './paypal-order.reducer';
+import {FromAdminProduct} from './product.reducer';
+import {FromAdminSlide} from './slide.reducer';
+import {FromAdminSlideProduct} from "./slide-product.reducer";
+import {FromAdminSteel} from './steel.reducer';
+import {FromAdminUser} from './user.reducer';
 
 export const reducers: ActionReducerMap<AdminState> = {
-  brand: brandReducer,
-  category: categoryReducer,
-  order: orderReducer,
-  product: productReducer,
-  slide: slideReducer,
-  slideproduct: slideProductReducer,
-  steel: steelReducer,
-  user: userReducer
+  brand: FromAdminBrand.reducer,
+  category: FromAdminCategory.reducer,
+  order: FromAdminPaypalOrder.reducer,
+  product: FromAdminProduct.reducer,
+  slide: FromAdminSlide.reducer,
+  slideproduct: FromAdminSlideProduct.reducer,
+  steel: FromAdminSteel.reducer,
+  user: FromAdminUser.reducer
 };

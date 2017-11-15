@@ -6,7 +6,7 @@ import {I18nService} from "../../../../shared/service/i18n.service";
 import {ProfileService} from '../../../service/profile.service';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
-import {CategoryActions} from '../../../actions/category.actions';
+import {CategoryActions} from '../../../../shared/actions/category.actions';
 import {FromCategory} from '../../../reducers/category.reducer';
 
 declare var $:any;

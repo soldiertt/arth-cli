@@ -4,7 +4,7 @@ import {Store} from '@ngrx/store';
 import UserProfile from '../../model/user-profile.class';
 import 'rxjs/add/operator/takeUntil';
 import {Subject} from 'rxjs/Subject';
-import {PaypalOrderActions} from '../../actions/paypal-order.actions';
+import {PaypalOrderActions} from '../../../shared/actions/paypal-order.actions';
 import {FromPaypalOrder} from '../../reducers/paypal-order.reducer';
 import {FromProfile} from '../../../root/reducers/user-profile.reducer';
 

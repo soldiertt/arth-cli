@@ -1,12 +1,10 @@
-import * as actions from '../actions/category.actions';
 import {createEntityAdapter, EntityState} from '@ngrx/entity';
 import {createSelector} from '@ngrx/store';
 import Category from '../../shared/model/category.class';
 import {adminFeatureSelector, AdminState} from '../model/admin-state';
+import {CategoryActions} from '../../shared/actions/category.actions';
 
-export const adapter = createEntityAdapter<Category>();
-export interface State extends EntityState<Category> {}
-
+const adapter = createEntityAdapter<Category>();
 const defaultState  = {
   ids: [],
   entities: {}
@@ -14,25 +12,32 @@ const defaultState  = {
 
 export const initialState = adapter.getInitialState(defaultState);
 
-export function categoryReducer(state: State = initialState, action: actions.CategoryActions) {
+export namespace FromAdminCategory {
 
-  switch (action.type) {
-    case actions.GET_ALL_SUCCESS:
-      return adapter.addAll(action.entities, state);
-    case actions.CREATE_SUCCESS:
-      return adapter.addOne(action.entity, state);
-    case actions.UPDATE_SUCCESS:
-      return adapter.updateOne({id: action.id, changes: action.changes}, state);
-    case actions.DELETE_SUCCESS:
-      return adapter.removeOne(action.id, state);
-    default:
-      return state;
+  export interface State extends EntityState<Category> {
   }
+
+  export function reducer(state: State = initialState, action: CategoryActions.Actions) {
+
+    switch (action.type) {
+      case CategoryActions.GET_ALL_SUCCESS:
+        return adapter.addAll(action.entities, state);
+      case CategoryActions.CREATE_SUCCESS:
+        return adapter.addOne(action.entity, state);
+      case CategoryActions.UPDATE_SUCCESS:
+        return adapter.updateOne({id: action.id, changes: action.changes}, state);
+      case CategoryActions.DELETE_SUCCESS:
+        return adapter.removeOne(action.id, state);
+      default:
+        return state;
+    }
+  }
+
+  const getLocalState = createSelector(adminFeatureSelector, (state: AdminState) => state.category);
+
+  export const {
+    selectAll,
+    selectTotal
+  } = adapter.getSelectors(getLocalState);
+
 }
-
-const getLocalState = createSelector(adminFeatureSelector, (state: AdminState) => state.category);
-
-export const {
-  selectAll,
-  selectTotal
-} = adapter.getSelectors(getLocalState);

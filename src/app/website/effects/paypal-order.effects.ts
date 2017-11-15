@@ -10,7 +10,7 @@ import * as moment from 'moment';
 import {MailService} from '../service/mail.service';
 import {I18nService} from '../../shared/service/i18n.service';
 import {CartDataActions} from '../actions/cart-data.actions';
-import {PaypalOrderActions} from '../actions/paypal-order.actions';
+import {PaypalOrderActions} from '../../shared/actions/paypal-order.actions';
 
 @Injectable()
 export class PaypalOrderEffects {

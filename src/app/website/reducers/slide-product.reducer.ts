@@ -2,7 +2,7 @@ import {createEntityAdapter, EntityState} from '@ngrx/entity';
 import {createSelector} from '@ngrx/store';
 import {siteFeatureSelector, SiteState} from '../model/site-state';
 import Article from '../../shared/model/article.class';
-import {SlideProductActions} from '../actions/slide-product.actions';
+import {SlideProductActions} from '../../shared/actions/slide-product.actions';
 
 const adapter = createEntityAdapter<Article>();
 const defaultState  = {

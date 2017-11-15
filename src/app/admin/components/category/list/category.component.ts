@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import * as fromCategory from '../../../reducers/category.reducer';
-import * as actions from '../../../actions/category.actions';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
 import Category from '../../../../shared/model/category.class';
+import {CategoryActions} from '../../../../shared/actions/category.actions';
+import {FromAdminCategory} from '../../../reducers/category.reducer';
 
 @Component({
   templateUrl: './category.component.html'
@@ -13,7 +13,7 @@ export class CategoryComponent implements OnInit {
   categories$: Observable<Category[]>;
   edited: Category;
 
-  constructor(private store: Store<fromCategory.State>) {
+  constructor(private store: Store<FromAdminCategory.State>) {
   }
 
   ngOnInit() {
@@ -21,8 +21,8 @@ export class CategoryComponent implements OnInit {
   }
 
   getAll() {
-    this.categories$ = this.store.select(fromCategory.selectAll);
-    this.store.dispatch(new actions.GetAll());
+    this.categories$ = this.store.select(FromAdminCategory.selectAll);
+    this.store.dispatch(new CategoryActions.GetAll());
   }
 
   newItem() {
@@ -35,7 +35,7 @@ export class CategoryComponent implements OnInit {
 
   remove($event, id: string) {
     $event.preventDefault();
-    this.store.dispatch(new actions.Delete(id));
+    this.store.dispatch(new CategoryActions.Delete(id));
   }
 
 }

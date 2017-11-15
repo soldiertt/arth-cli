@@ -2,7 +2,7 @@ import {createEntityAdapter, EntityState} from '@ngrx/entity';
 import {createSelector} from '@ngrx/store';
 import {siteFeatureSelector, SiteState} from '../model/site-state';
 import Brand from '../../shared/model/brand.class';
-import {BrandActions} from '../actions/brand.actions';
+import {BrandActions} from '../../shared/actions/brand.actions';
 
 const adapter = createEntityAdapter<Brand>();
 const defaultState  = {

@@ -1,10 +1,9 @@
 import {Component, OnInit} from "@angular/core";
 import Brand from "../../../shared/model/brand.class";
 import {Store} from '@ngrx/store';
-import * as fromBrand from '../../reducers/brand.reducer';
 import {Observable} from 'rxjs/Observable';
-import {BrandActions} from '../../actions/brand.actions';
 import {FromBrand} from '../../reducers/brand.reducer';
+import {BrandActions} from '../../../shared/actions/brand.actions';
 
 @Component({
   selector: 'arth-brands',
@@ -18,7 +17,7 @@ export class BrandsComponent implements OnInit {
 
   ngOnInit() {
     this.brands$ = this.store.select(FromBrand.selectAll);
-    this.store.dispatch(new BrandActions.GetAll());
+    this.store.dispatch(new BrandActions.GetAllFromProduct());
   }
 
 }

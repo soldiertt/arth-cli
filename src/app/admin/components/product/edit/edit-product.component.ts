@@ -4,13 +4,13 @@ import Article from '../../../../shared/model/article.class';
 import Category from '../../../../shared/model/category.class';
 import {Observable} from 'rxjs/Observable';
 import {Store} from '@ngrx/store';
-import * as fromProduct from '../../../reducers/product.reducer';
-import * as fromCategory from '../../../reducers/category.reducer';
-import * as fromBrand from '../../../reducers/brand.reducer';
-import * as actions from '../../../actions/product.actions';
 import Brand from '../../../../shared/model/brand.class';
 import 'rxjs/add/operator/combineLatest';
 import {UploadService} from '../../../../shared/service/upload.service';
+import {ProductActions} from '../../../actions/product.actions';
+import {FromAdminBrand} from '../../../reducers/brand.reducer';
+import {FromAdminCategory} from '../../../reducers/category.reducer';
+import {FromAdminProduct} from '../../../reducers/product.reducer';
 
 declare var $:any;
 
@@ -29,13 +29,13 @@ export class EditProductComponent implements OnInit {
   @ViewChild('fileUpload') fileUploadInput: any;
 
   constructor(private uploadService: UploadService,
-              private productStore: Store<fromProduct.State>,
-              private categoryStore: Store<fromCategory.State>,
-              private brandStore: Store<fromBrand.State>) { }
+              private productStore: Store<FromAdminProduct.State>,
+              private categoryStore: Store<FromAdminCategory.State>,
+              private brandStore: Store<FromAdminBrand.State>) { }
 
   ngOnInit() {
-    this.categories$ = this.categoryStore.select(fromCategory.selectAll);
-    this.brands$ = this.brandStore.select(fromBrand.selectAll);
+    this.categories$ = this.categoryStore.select(FromAdminCategory.selectAll);
+    this.brands$ = this.brandStore.select(FromAdminBrand.selectAll);
   }
 
   resetForm() {
@@ -61,12 +61,12 @@ export class EditProductComponent implements OnInit {
   save(ngForm: NgForm) {
     if (ngForm.valid && (this.item.picture || this.item.id)) {
       if (this.item.id) {
-        this.productStore.dispatch(new actions.Update(this.item.id, this.item));
+        this.productStore.dispatch(new ProductActions.Update(this.item.id, this.item));
       } else {
-        this.productStore.dispatch(new actions.Create(this.item));
+        this.productStore.dispatch(new ProductActions.Create(this.item));
       }
-      if (this.item.picture) {
-        this.productStore.dispatch(new actions.UploadNewPicture(this.prepareSave()));
+      if (this.fileUploadInput.nativeElement.value) {
+        this.productStore.dispatch(new ProductActions.UploadNewPicture(this.prepareSave()));
       }
       $('#productModal').modal('hide');
       this.resetForm();

@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import * as fromSlide from '../../../reducers/slide.reducer';
-import * as fromSlideProduct from '../../../reducers/slide-product.reducer';
-import * as slideActions from '../../../actions/slide.actions';
-import * as slideProductActions from '../../../actions/slide-product.actions';
 import Slide from '../../../../shared/model/slider.class';
 import {Observable} from 'rxjs/Observable';
 import {Store} from '@ngrx/store';
 import Article from '../../../../shared/model/article.class';
+import {SlideActions} from '../../../../shared/actions/slide.actions';
+import {SlideProductActions} from '../../../../shared/actions/slide-product.actions';
+import {FromAdminSlide} from '../../../reducers/slide.reducer';
+import {FromAdminSlideProduct} from '../../../reducers/slide-product.reducer';
 
 @Component({
   templateUrl: './slide.component.html'
@@ -18,19 +18,19 @@ export class SlideComponent implements OnInit {
   slideProductsCount$: Observable<number>;
   edited: Slide;
 
-  constructor(private slideStore: Store<fromSlide.State>,
-              private slideProductStore: Store<fromSlideProduct.State>) { }
+  constructor(private slideStore: Store<FromAdminSlide.State>,
+              private slideProductStore: Store<FromAdminSlideProduct.State>) { }
 
   ngOnInit() {
     this.getAll();
   }
 
   getAll() {
-    this.slides$ = this.slideStore.select(fromSlide.selectAll);
-    this.slideProducts$ = this.slideProductStore.select(fromSlideProduct.selectAll);
-    this.slideStore.dispatch(new slideActions.GetAll());
-    this.slideProductStore.dispatch(new slideProductActions.GetAll());
-    this.slideProductsCount$ = this.slideProductStore.select(fromSlideProduct.selectTotal);
+    this.slides$ = this.slideStore.select(FromAdminSlide.selectAll);
+    this.slideProducts$ = this.slideProductStore.select(FromAdminSlideProduct.selectAll);
+    this.slideStore.dispatch(new SlideActions.GetAll());
+    this.slideProductStore.dispatch(new SlideProductActions.GetAll());
+    this.slideProductsCount$ = this.slideProductStore.select(FromAdminSlideProduct.selectTotal);
   }
 
   newItem() {
@@ -43,11 +43,11 @@ export class SlideComponent implements OnInit {
 
   remove($event, id: string) {
     $event.preventDefault();
-    this.slideStore.dispatch(new slideActions.Delete(id));
+    this.slideStore.dispatch(new SlideActions.Delete(id));
   }
 
   removeSlideProduct($event, id: string) {
     $event.preventDefault();
-    this.slideProductStore.dispatch(new slideProductActions.Delete(id));
+    this.slideProductStore.dispatch(new SlideProductActions.Delete(id));
   }
 }

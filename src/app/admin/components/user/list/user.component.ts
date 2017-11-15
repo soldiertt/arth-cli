@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {Store} from '@ngrx/store';
-import * as fromUser from '../../../reducers/user.reducer';
-import * as actions from '../../../actions/user.actions';
 import UserProfile from '../../../../website/model/user-profile.class';
+import {UserActions} from '../../../actions/user.actions';
+import {FromAdminUser} from '../../../reducers/user.reducer';
 
 @Component({
   templateUrl: './user.component.html'
@@ -12,7 +12,7 @@ export class UserComponent implements OnInit {
 
   users$: Observable<UserProfile[]>;
 
-  constructor(private store: Store<fromUser.State>) {
+  constructor(private store: Store<FromAdminUser.State>) {
   }
 
   ngOnInit() {
@@ -20,8 +20,8 @@ export class UserComponent implements OnInit {
   }
 
   getAll() {
-    this.users$ = this.store.select(fromUser.selectAll);
-    this.store.dispatch(new actions.GetAll());
+    this.users$ = this.store.select(FromAdminUser.selectAll);
+    this.store.dispatch(new UserActions.GetAll());
   }
 
 }

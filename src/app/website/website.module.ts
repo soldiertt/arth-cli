@@ -41,12 +41,13 @@ import {SharedServicesModule} from '../shared/shared-services.module';
 import {StoreModule} from '@ngrx/store';
 import {reducers} from './reducers';
 import {EffectsModule} from '@ngrx/effects';
-import {CategoryEffects} from './effects/category.effects';
 import {PaypalOrderEffects} from './effects/paypal-order.effects';
 import {ProductEffects} from "app/website/effects/product.effects";
-import {SlideEffects} from './effects/slide.effects';
 import {CartEffects} from './effects/cart.effects';
-import {BrandEffects} from './effects/brand.effects';
+import {BrandEffects} from '../shared/effects/brand.effects';
+import {CategoryEffects} from '../shared/effects/category.effects';
+import {SlideEffects} from '../shared/effects/slide.effects';
+import {SlideProductEffects} from '../shared/effects/slide-product.effects';
 
 @NgModule({
   declarations: [
@@ -88,7 +89,8 @@ import {BrandEffects} from './effects/brand.effects';
       CategoryEffects,
       PaypalOrderEffects,
       ProductEffects,
-      SlideEffects
+      SlideEffects,
+      SlideProductEffects
     ]),
     RestModule,
     RouterModule.forChild(websiteRouterConfig),

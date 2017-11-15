@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {Store} from '@ngrx/store';
 import Brand from '../../../../shared/model/brand.class';
-import * as fromBrand from '../../../reducers/brand.reducer';
-import * as actions from '../../../actions/brand.actions';
+import {BrandActions} from '../../../../shared/actions/brand.actions';
+import {FromAdminBrand} from '../../../reducers/brand.reducer';
 
 @Component({
   templateUrl: './brand.component.html'
@@ -13,7 +13,7 @@ export class BrandComponent implements OnInit {
   brands$: Observable<Brand[]>;
   edited: Brand;
 
-  constructor(private store: Store<fromBrand.State>) {
+  constructor(private store: Store<FromAdminBrand.State>) {
   }
 
   ngOnInit() {
@@ -21,8 +21,8 @@ export class BrandComponent implements OnInit {
   }
 
   getAll() {
-    this.brands$ = this.store.select(fromBrand.selectAll);
-    this.store.dispatch(new actions.GetAll());
+    this.brands$ = this.store.select(FromAdminBrand.selectAll);
+    this.store.dispatch(new BrandActions.GetAll());
   }
 
   newItem() {
@@ -31,7 +31,7 @@ export class BrandComponent implements OnInit {
 
   remove($event, id: string) {
     $event.preventDefault();
-    this.store.dispatch(new actions.Delete(id));
+    this.store.dispatch(new BrandActions.Delete(id));
   }
 
 

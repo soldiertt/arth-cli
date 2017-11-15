@@ -41,7 +41,6 @@ export class UserProfileEffects {
   saveProfileInSession: Observable<Action> = this.actions.ofType(ProfileActions.SAVE_TO_SESSION)
     .withLatestFrom(this.store)
     .map(([action, state]) => {
-    console.log(action, state);
     this.sessionService.saveProfile(state.profile);
     })
     .map(cart => new ProfileActions.SaveToSessionSuccess());

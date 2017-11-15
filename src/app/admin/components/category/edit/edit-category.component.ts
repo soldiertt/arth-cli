@@ -1,8 +1,8 @@
 import {Component, Input} from '@angular/core';
-import * as fromCategory from '../../../reducers/category.reducer';
-import * as actions from '../../../actions/category.actions';
 import {Store} from '@ngrx/store';
 import Category from '../../../../shared/model/category.class';
+import {CategoryActions} from '../../../../shared/actions/category.actions';
+import {FromAdminCategory} from '../../../reducers/category.reducer';
 
 declare var $:any;
 
@@ -14,14 +14,14 @@ export class EditCategoryComponent {
 
   @Input() item: Category;
 
-  constructor(private store: Store<fromCategory.State>) { }
+  constructor(private store: Store<FromAdminCategory.State>) { }
 
   save(valid: boolean) {
     if (valid) {
       if (this.item.id) {
-        this.store.dispatch(new actions.Update(this.item.id, this.item));
+        this.store.dispatch(new CategoryActions.Update(this.item.id, this.item));
       } else {
-        this.store.dispatch(new actions.Create(this.item));
+        this.store.dispatch(new CategoryActions.Create(this.item));
       }
       $('#categoryModal').modal('hide');
     }
