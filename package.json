@@ -5,8 +5,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --host www.local.dev",
-    "build-test": "ng build --env=test -prod -aot",
-    "build-prod": "ng build --env=prod -prod -aot",
+    "build-test": "ng build --env=test --prod",
+    "build-prod": "ng build --env=prod --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

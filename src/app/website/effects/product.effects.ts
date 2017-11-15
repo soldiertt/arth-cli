@@ -10,6 +10,7 @@ import {CartDataActions} from '../actions/cart-data.actions';
 import {ProductActions} from '../actions/product.actions';
 import {PromoProductActions} from '../actions/promo-product.actions';
 import {map, mergeMap} from 'rxjs/operators';
+import {of} from 'rxjs/observable/of';
 
 @Injectable()
 export class ProductEffects {
@@ -46,7 +47,7 @@ export class ProductEffects {
             return {...productItemData, parentCategory};
           })
         } else {
-          return Observable.of(productItemData);
+          return of(productItemData);
         }
       }),
       map(productItemData => new ProductActions.LoadOneSuccess(productItemData))
@@ -82,7 +83,7 @@ export class ProductEffects {
             return productData;
           })
         } else {
-          return Observable.of(productData);
+          return of(productData);
         }
       }),
       mergeMap(productData => this.categoryRestService.listSubCategories(productData.selected.category.name).map(subCategories => {
@@ -96,7 +97,7 @@ export class ProductEffects {
             return productData;
           });
         } else {
-          return Observable.of(productData);
+          return of(productData);
         }
       }),
       mergeMap(productData => {

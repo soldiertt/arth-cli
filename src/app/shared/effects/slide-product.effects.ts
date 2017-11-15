@@ -3,9 +3,9 @@ import {Actions, Effect} from '@ngrx/effects';
 import {Observable} from 'rxjs/Observable';
 import {Action} from '@ngrx/store';
 import {SliderRestService} from '../service/rest/slider.rest.service';
-import 'rxjs/add/operator/catch';
 import {SlideProductActions} from '../actions/slide-product.actions';
 import {of} from 'rxjs/observable/of';
+import {catchError, map, mergeMap} from 'rxjs/operators';
 
 @Injectable()
 export class SlideProductEffects {
@@ -14,22 +14,30 @@ export class SlideProductEffects {
 
   @Effect()
   getAll: Observable<Action> = this.actions.ofType(SlideProductActions.GET_ALL)
-    .mergeMap(action => this.sliderRestService.listAllSlideProducts())
-    .map(entities => new SlideProductActions.GetAllSuccess(entities));
+    .pipe(
+      mergeMap(action => this.sliderRestService.listAllSlideProducts()),
+      map(entities => new SlideProductActions.GetAllSuccess(entities))
+    );
 
   @Effect()
   create: Observable<Action> = this.actions.ofType(SlideProductActions.CREATE)
-    .map((action: SlideProductActions.Create) => action.entity)
-    .mergeMap(entity => {
-      return this.sliderRestService.createSlideProduct(entity)
-        .map(entity => new SlideProductActions.CreateSuccess(entity))
-        .catch(err => of(new SlideProductActions.CreateFail(err.message)));
-    });
+    .pipe(
+      map((action: SlideProductActions.Create) => action.entity),
+      mergeMap(entity => {
+        return this.sliderRestService.createSlideProduct(entity)
+          .pipe(
+            map(entity => new SlideProductActions.CreateSuccess(entity)),
+            catchError(err => of(new SlideProductActions.CreateFail(err.message)))
+          );
+      })
+    );
 
   @Effect()
   remove: Observable<Action> = this.actions.ofType(SlideProductActions.DELETE)
-    .map((action: SlideProductActions.Delete) => action.id)
-    .mergeMap(id => this.sliderRestService.removeSlideProduct(id).map(() => id))
-    .map(id => new SlideProductActions.DeleteSuccess(id));
+    .pipe(
+      map((action: SlideProductActions.Delete) => action.id),
+      mergeMap(id => this.sliderRestService.removeSlideProduct(id).map(() => id)),
+      map(id => new SlideProductActions.DeleteSuccess(id))
+    );
 
 }
