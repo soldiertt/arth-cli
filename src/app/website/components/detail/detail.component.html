@@ -31,8 +31,8 @@
             <a class="fancyboxVideo fancybox.iframe" href="http://www.youtube.com/embed/{{article.youtube_ref}}" title="{{article.name}}"><img id="youtube_vid" src="assets/images/youtube.jpg"></a>
           </div>
           <div class="price">
-            <p>{{'common.label.price' | trans}} : <span>{{article?.price | currency:'EUR':true}}</span>
-              <span *ngIf="article.promo" class="strike">{{article.old_price | currency:'EUR':true}}</span>
+            <p>{{'common.label.price' | trans}} : <span>{{article?.price | currency:'EUR'}}</span>
+              <span *ngIf="article.promo" class="strike">{{article.old_price | currency:'EUR'}}</span>
             </p>
           </div>
           <div class="buttons" *ngIf="article.instock; else outofstock" >

@@ -11,6 +11,7 @@ import {MailService} from '../service/mail.service';
 import {I18nService} from '../../shared/service/i18n.service';
 import {CartDataActions} from '../actions/cart-data.actions';
 import {PaypalOrderActions} from '../../shared/actions/paypal-order.actions';
+import {map, mergeMap, tap} from 'rxjs/operators';
 
 @Injectable()
 export class PaypalOrderEffects {
@@ -23,27 +24,30 @@ export class PaypalOrderEffects {
 
   @Effect()
   getAll: Observable<Action> = this.actions.ofType(PaypalOrderActions.GET_ALL_FOR_USER)
-    .mergeMap((action: PaypalOrderActions.GetAllForUser) => this.paypalOrderRestService.listAllByUser(action.userId))
-    .map(entities => new PaypalOrderActions.GetAllForUserSuccess(entities));
+    .pipe(
+      mergeMap((action: PaypalOrderActions.GetAllForUser) => this.paypalOrderRestService.listAllByUser(action.userId)),
+      map(entities => new PaypalOrderActions.GetAllForUserSuccess(entities))
+    );
 
   @Effect()
   payment: Observable<Action> = this.actions.ofType(CartDataActions.PAY)
-    .mergeMap((action: CartDataActions.Pay) => {
+    .pipe(
+      mergeMap((action: CartDataActions.Pay) => {
 
-      return this.paypalRestService.executePayment(action.paymentID, action.payerID).map(response => {
-        let firstTx = response.transactions[0];
-        let items = firstTx.item_list.items;
-        let amount = firstTx.amount;
+        return this.paypalRestService.executePayment(action.paymentID, action.payerID).map(response => {
+          let firstTx = response.transactions[0];
+          let items = firstTx.item_list.items;
+          let amount = firstTx.amount;
 
-        let paypalOrder = new PaypalOrder();
-        paypalOrder.userId = action.userId;
-        paypalOrder.orderDate = moment().format('YYYY-MM-DD hh:mm:ss');
-        paypalOrder.json = JSON.stringify({items, amount});
-        return paypalOrder;
-      });
-    })
-    .mergeMap(paypalOrder => this.paypalOrderRestService.save(paypalOrder).map(() => paypalOrder))
-    .do(paypalOrder => {
+          let paypalOrder = new PaypalOrder();
+          paypalOrder.userId = action.userId;
+          paypalOrder.orderDate = moment().format('YYYY-MM-DD hh:mm:ss');
+          paypalOrder.json = JSON.stringify({items, amount});
+          return paypalOrder;
+        });
+      }),
+      mergeMap(paypalOrder => this.paypalOrderRestService.save(paypalOrder).map(() => paypalOrder)),
+      tap(paypalOrder => {
         // Send mail to admin
         let mail: Mail = new Mail("ADMIN_PAYMENT_CONFIRMATION");
         mail.parameters = {paypalOrder};
@@ -56,6 +60,7 @@ export class PaypalOrderEffects {
         this.mailService.sendMail(mail).subscribe(resp => {
           console.log("Mail sent !");
         });
-      })
-    .map(_ => new CartDataActions.PaySuccess());
+      }),
+      map(_ => new CartDataActions.PaySuccess())
+    );
 }

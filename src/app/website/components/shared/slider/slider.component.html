@@ -21,7 +21,7 @@
       <div [routerLink]="['/detail', sliderArticle.id]" class="link">
         <img class="d-block img-fluid" src="assets/photos/{{sliderArticle.type}}/{{sliderArticle.picture}}" >
         <div class="carousel-caption">
-          <div class="title1">{{sliderArticle.price | currency:'EUR':true}}</div>
+          <div class="title1">{{sliderArticle.price | currency:'EUR'}}</div>
           <div class="title2">{{sliderArticle.name}}</div>
           <p>{{sliderArticle.description | truncate : 250}}</p>
         </div>

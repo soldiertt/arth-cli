@@ -6,6 +6,7 @@
     "rootDir": ".",
     "sourceRoot": "",
     "sourceMap": true,
+    "declaration": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "moduleResolution": "node",
@@ -17,7 +18,7 @@
       "auth0-lock"
     ],
     "lib": [
-      "es2016",
+      "es2017",
       "dom"
     ]
   },

@@ -22,7 +22,7 @@
         <td class="name-cell">
           <a href [routerLink]="['/detail', order.article.id]">{{order.article.name}}</a>
         </td>
-        <td class="price-cell">{{order.article.price | currency:'EUR':true}}</td>
+        <td class="price-cell">{{order.article.price | currency:'EUR'}}</td>
         <td class="qty-cell">{{order.count}}
           <span>
             <a href (click)="removeArticle($event, order.article.id)" *ngIf="order.count > 1" class="action-icon">
@@ -33,7 +33,7 @@
             </a>
           </span>
         </td>
-        <td class="amount-cell">{{order.article.price * order.count | currency:'EUR':true}}</td>
+        <td class="amount-cell">{{order.article.price * order.count | currency:'EUR'}}</td>
         <td>
           <span>
           <a href (click)="removeOrder($event, order.article.id)" class="action-icon">
@@ -46,17 +46,17 @@
     <tfoot>
       <tr>
         <td colspan="4" class="foot-label-cell">{{'common.label.subtotal' | trans}} : </td>
-        <td class="cart-subtotal"> {{cart.subtotalAmount | currency:'EUR':true}}</td>
+        <td class="cart-subtotal"> {{cart.subtotalAmount | currency:'EUR'}}</td>
         <td></td>
       </tr>
       <tr *ngIf="cart.promoAmount > 0">
         <td colspan="4" class="foot-label-cell">{{'common.label.promotion' | trans}} ({{cart.promoPercentage * 100 | number : '1.0-0'}}%) : </td>
-        <td class="cart-subtotal">- {{cart.promoAmount | currency:'EUR':true}}</td>
+        <td class="cart-subtotal">- {{cart.promoAmount | currency:'EUR'}}</td>
         <td></td>
       </tr>
       <tr *ngIf="cart.shipping">
         <td colspan="4" class="foot-label-cell">{{'page.mycart.shipping' | trans}} : </td>
-        <td class="cart-subtotal">{{cart.shipping | currency:'EUR':true}}</td>
+        <td class="cart-subtotal">{{cart.shipping | currency:'EUR'}}</td>
         <td></td>
       </tr>
       <tr>

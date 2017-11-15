@@ -4,8 +4,8 @@ import {Observable} from 'rxjs/Observable';
 import {Action} from '@ngrx/store';
 import {SliderRestService} from '../service/rest/slider.rest.service';
 import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/of';
 import {SlideProductActions} from '../actions/slide-product.actions';
+import {of} from 'rxjs/observable/of';
 
 @Injectable()
 export class SlideProductEffects {
@@ -23,7 +23,7 @@ export class SlideProductEffects {
     .mergeMap(entity => {
       return this.sliderRestService.createSlideProduct(entity)
         .map(entity => new SlideProductActions.CreateSuccess(entity))
-        .catch(err => Observable.of(new SlideProductActions.CreateFail(err.message)));
+        .catch(err => of(new SlideProductActions.CreateFail(err.message)));
     });
 
   @Effect()

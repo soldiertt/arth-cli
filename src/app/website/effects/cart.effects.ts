@@ -4,6 +4,7 @@ import {Observable} from 'rxjs/Observable';
 import {Action} from '@ngrx/store';
 import {SessionService} from '../../shared/service/session.service';
 import {CartDataActions} from '../actions/cart-data.actions';
+import {map} from 'rxjs/operators';
 
 @Injectable()
 export class CartEffects {
@@ -12,11 +13,15 @@ export class CartEffects {
 
   @Effect()
   getCartFromSession: Observable<Action> = this.actions.ofType(CartDataActions.GET_CART_FROM_SESSION)
-    .map(action => this.sessionService.getCart())
-    .map(cart => new CartDataActions.InitializeCart(cart));
+    .pipe(
+      map(action => this.sessionService.getCart()),
+      map(cart => new CartDataActions.InitializeCart(cart))
+    );
 
   @Effect()
   saveCart: Observable<Action> = this.actions.ofType(CartDataActions.SAVE_CART_IN_SESSION)
-    .map((action: CartDataActions.SaveCartInSession) => this.sessionService.saveCart(action.cart))
-    .map(cart => new CartDataActions.CartSaved());
+    .pipe(
+      map((action: CartDataActions.SaveCartInSession) => this.sessionService.saveCart(action.cart)),
+      map(cart => new CartDataActions.CartSaved())
+    );
 }
