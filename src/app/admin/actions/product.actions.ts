@@ -1,5 +1,6 @@
 import {Action} from '@ngrx/store';
 import Article from '../../shared/model/article.class';
+import {HttpResponse} from '@angular/common/http';
 
 export namespace ProductActions {
 
@@ -14,6 +15,9 @@ export namespace ProductActions {
   export const UPLOAD_NEW_PICTURE = '[Product] Upload new picture';
   export const UPLOAD_NEW_PICTURE_SUCCESS = '[Product] Upload new picture Success';
   export const UPLOAD_NEW_PICTURE_FAIL = '[Product] Upload new picture Fail';
+  export const EXPORT_TO_CSV = '[Product] Export to CSV';
+  export const DOWNLOAD_CSV = '[Product] Download CSV';
+  export const REQUEST_FAIL = '[Product] Request fail';
 
   export class GetAll implements Action {
     readonly type = GET_ALL;
@@ -86,6 +90,27 @@ export namespace ProductActions {
     }
   }
 
+  export class ExportToCsv implements Action {
+    readonly type = EXPORT_TO_CSV;
+
+    constructor(public category: string, public  brand: string, public steel: string, public promo: string, public instock: string) {
+    }
+  }
+
+  export class DownloadCsv implements Action {
+    readonly type = DOWNLOAD_CSV;
+
+    constructor(public csvResponse: HttpResponse<Blob>) {
+    }
+  }
+
+  export class RequestFail implements Action {
+    readonly type = REQUEST_FAIL;
+
+    constructor(public error: string) {
+    }
+  }
+
   export type Actions
     = GetAll
     | GetAllSuccess
@@ -97,5 +122,8 @@ export namespace ProductActions {
     | DeleteSuccess
     | UploadNewPicture
     | UploadNewPictureSuccess
-    | UploadNewPictureFail;
+    | UploadNewPictureFail
+    | ExportToCsv
+    | DownloadCsv
+    | RequestFail;
 }

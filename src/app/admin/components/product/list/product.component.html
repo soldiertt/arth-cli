@@ -4,6 +4,10 @@
           data-toggle="modal" data-target="#productModal">
     NEW PRODUCT
   </button>
+  <button type="button" class="btn btn-sm btn-secondary"
+          (click)="export()">
+    EXPORT TO EXCEL
+  </button>
 </div>
 
 <form [formGroup]="filterForm">

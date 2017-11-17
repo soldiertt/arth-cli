@@ -4,7 +4,7 @@ import 'rxjs/add/operator/map';
 import Article from '../../model/article.class';
 import Brand from '../../model/brand.class';
 import Order from '../../model/order.class';
-import {HttpClient, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpParams, HttpResponse} from '@angular/common/http';
 
 @Injectable()
 export class ArticleRestService {
@@ -70,5 +70,25 @@ export class ArticleRestService {
 
   uploadPicture(data: FormData) {
     return this.http.post(this.BASE_URL + '/product/upload', data);
+  }
+
+  exportToCsv(category: string, brand: string, steel: string, promo: string, instock: string): Observable<HttpResponse<Blob>> {
+    let params: HttpParams = new HttpParams();
+    if (category) {
+      params = params.set('category', category);
+    }
+    if (brand) {
+      params = params.set('brand', brand);
+    }
+    if (steel) {
+      params = params.set('steel', steel);
+    }
+    if (promo) {
+      params = params.set('promo', promo);
+    }
+    if (instock) {
+      params = params.set('instock', instock);
+    }
+    return this.http.get(this.BASE_URL + '/product/export', {params, responseType: 'blob', observe: 'response'});
   }
 }

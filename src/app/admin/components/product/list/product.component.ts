@@ -20,6 +20,7 @@ import {FromAdminProduct} from '../../../reducers/product.reducer';
 import {FromAdminSlideProduct} from '../../../reducers/slide-product.reducer';
 import {FromAdminSteel} from '../../../reducers/steel.reducer';
 import {PictureService} from '../../../../shared/service/picture.service';
+import { saveAs } from 'file-saver/FileSaver';
 
 @Component({
   templateUrl: './product.component.html',
@@ -72,6 +73,15 @@ export class ProductComponent implements OnInit, OnDestroy {
         });
       });
     });
+
+    this.productStore.select(FromAdminProduct.selectCsvResponse).subscribe(csvResponse => {
+      if (csvResponse) {
+        const contentDispositionHeader: string = csvResponse.headers.get('Content-Disposition');
+        const parts: string[] = contentDispositionHeader.split(';');
+        const filename = parts[1].split('=')[1];
+        saveAs(csvResponse.body, filename);
+      }
+    });
   }
 
   ngOnDestroy() {
@@ -112,6 +122,16 @@ export class ProductComponent implements OnInit, OnDestroy {
     this.edited = new Article();
   }
 
+  export() {
+    this.productStore.dispatch(
+      new ProductActions.ExportToCsv(this.filterVal('categoryFilter'),
+                                     this.filterVal('brandFilter'),
+                                     this.filterVal('steelFilter'),
+                                     this.filterVal('promoFilter'),
+                                     this.filterVal('instockFilter'))
+    );
+  }
+
   editItem(item: Article) {
     this.edited = Object.assign({}, item);
   }
@@ -124,6 +144,15 @@ export class ProductComponent implements OnInit, OnDestroy {
   createSlideProduct($event, product: Article) {
     $event.preventDefault();
     this.slideProductStore.dispatch(new SlideProductActions.Create(product));
+  }
+
+  private filterVal(filterField: string): string {
+    const value = this.filterForm.get(filterField).value;
+    if (value) {
+      return value;
+    } else {
+      return undefined;
+    }
   }
 
 }

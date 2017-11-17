@@ -55,4 +55,16 @@ export class ProductEffects {
           );
       })
     );
+
+  @Effect()
+  exportToCsv: Observable<Action> = this.actions.ofType(ProductActions.EXPORT_TO_CSV)
+    .pipe(
+      mergeMap((action: ProductActions.ExportToCsv) => {
+        return this.productRestService.exportToCsv(action.category, action.brand, action.steel, action.promo, action.instock)
+          .pipe(
+            map(csvResponse => new ProductActions.DownloadCsv(csvResponse)),
+            catchError(err => of(new ProductActions.RequestFail(err.message)))
+          );
+      })
+    );
 }
