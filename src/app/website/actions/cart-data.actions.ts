@@ -77,6 +77,7 @@ export namespace CartDataActions {
 
   export class UpdateTopSales implements Action {
     readonly type = UPDATE_TOP_SALES;
+    constructor(public orders: Order[]) {}
   }
 
   export class UpdateTopSalesSuccess implements Action {

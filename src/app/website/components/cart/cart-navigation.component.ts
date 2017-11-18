@@ -179,7 +179,7 @@ export class CartNavigationComponent implements OnInit, AfterViewInit, OnDestroy
     // update top sales
     const orders = this.cartData.cart.orders;
 
-    this.store.dispatch(new CartDataActions.UpdateTopSales());
+    this.store.dispatch(new CartDataActions.UpdateTopSales(orders));
     this.store.dispatch(new CartDataActions.Pay(this.userId, orders, paymentID, payerID));
 
     this.paymentConfirmed = true;

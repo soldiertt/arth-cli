@@ -29,7 +29,7 @@ export class ProductEffects {
   @Effect()
   updateTopSales: Observable<Action> = this.actions.ofType(CartDataActions.UPDATE_TOP_SALES)
     .pipe(
-      mergeMap((action: CartDataActions.Pay) => this.productRestService.updateTopSales(action.orders)),
+      mergeMap((action: CartDataActions.UpdateTopSales) => this.productRestService.updateTopSales(action.orders)),
       map(_ => new CartDataActions.UpdateTopSalesSuccess())
     );
 
