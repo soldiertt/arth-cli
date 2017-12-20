@@ -14,13 +14,13 @@
   <table class="table table-striped">
     <thead>
       <tr>
-        <th class="no-print">Picture</th>
+        <th>Picture</th>
         <th class="no-print">Category</th>
         <th>Brand</th>
         <th>Name</th>
         <th class="extra-thin-column">Price</th>
-        <th class="thin-column">Handle</th>
-        <th class="thin-column">Steel</th>
+        <th class="thin-column no-print">Handle</th>
+        <th class="thin-column no-print">Steel</th>
         <th class="thin-column">Size</th>
         <th class="extra-thin-column no-print">Promo</th>
         <th class="extra-thin-column no-print">In stock</th>
@@ -69,7 +69,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let product of filteredProducts$ | async">
-        <td class="no-print"><img [src]="picUtil.miniPicture(product)"></td>
+        <td><img [src]="picUtil.miniPicture(product)"></td>
         <td class="no-print">{{product.type}}</td>
         <td>{{product.marque}}</td>
         <td>{{product.name}}</td>
@@ -79,8 +79,8 @@
             {{product.old_price}}€
           </div>
         </td>
-        <td class="thin-column">{{product.manche}}</td>
-        <td class="thin-column">{{product.acier}}</td>
+        <td class="thin-column no-print">{{product.manche}}</td>
+        <td class="thin-column no-print">{{product.acier}}</td>
         <td class="thin-column">{{product.size}}</td>
         <td class="extra-thin-column no-print">{{product.promo}}</td>
         <td class="extra-thin-column no-print">{{product.instock}}</td>
