@@ -2,7 +2,13 @@ import {createFeatureSelector, createSelector} from '@ngrx/store';
 import UserProfile from '../../website/model/user-profile.class';
 import {ProfileActions} from '../actions/user-profile.actions';
 
-const defaultState: UserProfile = new UserProfile();
+const defaultState: UserProfile = {
+  id: '',
+  user_id: '',
+  user_metadata: {},
+  app_metadata: '',
+  created_at: ''
+};
 
 export namespace FromProfile {
 

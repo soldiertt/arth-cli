@@ -14,8 +14,7 @@
     "typeRoots": ["./node_modules/@types"],
     "types": [
       "core-js",
-      "node",
-      "auth0-lock"
+      "node"
     ],
     "lib": [
       "es2017",

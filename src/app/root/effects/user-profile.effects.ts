@@ -35,7 +35,7 @@ export class UserProfileEffects {
   logout: Observable<Action> = this.actions.ofType(ProfileActions.LOGOUT)
     .pipe(
       tap(() => {
-        this.sessionService.deleteIdToken();
+        this.sessionService.deleteAuth();
         this.sessionService.deleteProfile();
       }),
       map(profile => new ProfileActions.Set(undefined))

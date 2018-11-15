@@ -2,7 +2,6 @@ import {AfterViewInit, Component, OnDestroy, OnInit} from '@angular/core';
 import {Auth0Service} from '../../../shared/service/auth.service';
 import {PaypalRestService} from '../../../shared/service/rest/paypal.rest.service';
 import {environment} from '../../../../environments/environment';
-import {ProfileService} from '../../service/profile.service';
 import CartData from '../../model/cart-data.class';
 import {Store} from '@ngrx/store';
 import UserProfile from '../../model/user-profile.class';
@@ -37,7 +36,6 @@ export class CartNavigationComponent implements OnInit, AfterViewInit, OnDestroy
   constructor(private store: Store<CartData>,
               private profileStore: Store<UserProfile>,
               public authService: Auth0Service,
-              private profileService: ProfileService,
               private paypalRestService: PaypalRestService) {
   }
 
@@ -93,9 +91,7 @@ export class CartNavigationComponent implements OnInit, AfterViewInit, OnDestroy
         if (this.authService.authenticated()) {
           this.store.dispatch(new CartDataActions.CartMoveToStep(3));
         } else {
-          this.profileService.login($event, () => {
-            this.store.dispatch(new CartDataActions.CartMoveToStep(3));
-          });
+          this.authService.login();
         }
       } else if (curStep === 2) {
         this.store.dispatch(new CartDataActions.CartMoveToStep(3));

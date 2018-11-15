@@ -8,10 +8,10 @@
         <li class="language" [class.active]="i18nService.isFr()"><i class="famfamfam-flag-fr" (click)="i18nService.saveLang('fr')" title="Français"></i></li>
         <li class="language" [class.active]="i18nService.isNl()"><i class="famfamfam-flag-nl" (click)="i18nService.saveLang('nl')" title="Nederlands"></i></li>
         <li class="language" [class.active]="i18nService.isEn()"><i class="famfamfam-flag-gb" (click)="i18nService.saveLang('en')" title="English"></i></li>
-        <li *ngIf="!authService.authenticated()"><a href (click)="profileService.login($event)">{{'common.links.login' | trans}}</a></li>
+        <li *ngIf="!authService.authenticated()"><a href (click)="authService.login($event)">{{'common.links.login' | trans}}</a></li>
         <li><a href routerLink="/mycart">{{'common.links.mycart' | trans}}</a></li>
         <li *ngIf="authService.authenticated()"><a href routerLink="/profile">{{'common.links.profile' | trans}}</a></li>
-        <li *ngIf="authService.authenticated()"><a href (click)="profileService.logout($event)">{{'common.links.logout' | trans}}</a></li>
+        <li *ngIf="authService.authenticated()"><a href (click)="authService.logout($event)">{{'common.links.logout' | trans}}</a></li>
       </ul>
     </div>
   </div>

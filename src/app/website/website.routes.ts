@@ -1,4 +1,5 @@
 import {Routes} from '@angular/router';
+import {AuthCallbackComponent} from './components/authcallback/auth-callback.component';
 import {HomeComponent} from './components/home/home.component';
 import {AboutComponent} from './components/about/about.component';
 import {BrandsComponent} from './components/brands/brands.component';
@@ -27,7 +28,8 @@ export const websiteRouterConfig: Routes = [
       {path: 'mycart', component: CartWizardComponent},
       {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
       {path: 'search/:term', component: SearchComponent},
-      {path: 'steels', component: SteelsComponent}
+      {path: 'steels', component: SteelsComponent},
+      {path: 'authcallback', component: AuthCallbackComponent}
     ]
   }
 ];

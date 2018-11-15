@@ -9,6 +9,8 @@ export class SessionService {
   readonly LANG_TOKEN: string = 'lang';
   readonly PROFILE_TOKEN: string = 'arthUserProfile';
   readonly ID_TOKEN: string = 'id_token';
+  readonly ACCESS_TOKEN: string = 'access_token';
+  readonly EXPIRES_AT: string = 'expires_at';
 
   saveCart(cart: Cart): void {
     localStorage.setItem(this.CART_TOKEN, JSON.stringify(cart));
@@ -30,6 +32,14 @@ export class SessionService {
     localStorage.setItem(this.PROFILE_TOKEN, JSON.stringify(profile));
   }
 
+  saveAuth(authResult: any): void {
+    // Set the time that the Access Token will expire at
+    const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
+    localStorage.setItem(this.ACCESS_TOKEN, authResult.accessToken);
+    localStorage.setItem(this.ID_TOKEN, authResult.idToken);
+    localStorage.setItem(this.EXPIRES_AT, expiresAt);
+  }
+
   getProfile(): UserProfile {
     return JSON.parse(localStorage.getItem(this.PROFILE_TOKEN));
   }
@@ -38,12 +48,10 @@ export class SessionService {
     localStorage.removeItem(this.PROFILE_TOKEN);
   }
 
-  saveIdToken(id: string): void {
-    localStorage.setItem(this.ID_TOKEN, id);
-  }
-
-  deleteIdToken(): void {
+  deleteAuth(): void {
     localStorage.removeItem(this.ID_TOKEN);
+    localStorage.removeItem(this.ACCESS_TOKEN);
+    localStorage.removeItem(this.EXPIRES_AT);
   }
 
 }

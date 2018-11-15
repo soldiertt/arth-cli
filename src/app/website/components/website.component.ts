@@ -14,8 +14,7 @@ export class WebsiteComponent implements OnInit, OnDestroy {
 
   private ngUnsubscribe: Subject<any> = new Subject();
 
-  constructor(private store: Store<CartData>) {
-  }
+  constructor(private store: Store<CartData>) { }
 
   ngOnInit() {
     // Initialize Cart from local storage

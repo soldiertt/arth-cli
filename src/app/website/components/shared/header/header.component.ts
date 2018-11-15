@@ -3,7 +3,6 @@ import {Router} from '@angular/router';
 import Category from '../../../../shared/model/category.class';
 import {Auth0Service} from '../../../../shared/service/auth.service';
 import {I18nService} from '../../../../shared/service/i18n.service';
-import {ProfileService} from '../../../service/profile.service';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
 import {CategoryActions} from '../../../../shared/actions/category.actions';
@@ -22,7 +21,6 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   searchTerm: string;
 
   constructor(public authService: Auth0Service,
-              public profileService: ProfileService,
               private store: Store<FromCategory.State>,
               private router: Router,
               public i18nService: I18nService) {

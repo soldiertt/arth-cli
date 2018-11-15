@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
 import {RestModule} from '../shared/rest.module';
+import {AuthCallbackComponent} from './components/authcallback/auth-callback.component';
 import {websiteRouterConfig} from './website.routes';
 import {TruncatePipe} from './pipe/truncate.pipe';
 import {TopSalesComponent} from './components/shared/topsales/topsales.component';
@@ -32,7 +33,6 @@ import {DetailComponent} from './components/detail/detail.component';
 import {ProfileDisplayComponent} from './components/profile/profile-display.component';
 import {ErrorComponent} from './components/shared/error/error.component';
 import {FooterComponent} from './components/shared/footer/footer.component';
-import {ProfileService} from './service/profile.service';
 import {MailService} from './service/mail.service';
 import {JQueryService} from './service/jQuery.service';
 import {SharedModule} from '../shared/shared.module';
@@ -53,6 +53,7 @@ import {ProductEffects} from './effects/product.effects';
   declarations: [
     AboutComponent,
     ArticleBoxComponent,
+    AuthCallbackComponent,
     BrandArticlesComponent,
     BrandsComponent,
     CategoryDetailsComponent,
@@ -101,8 +102,7 @@ import {ProductEffects} from './effects/product.effects';
   providers   : [
     AuthGuard,
     JQueryService,
-    MailService,
-    ProfileService
+    MailService
   ],
 })
 export class WebsiteModule {
