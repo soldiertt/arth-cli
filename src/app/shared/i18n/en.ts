@@ -27,7 +27,10 @@ export default {
       openinghours: 'Open on Monday to Friday from 5:30PM to 8PM and 7d/7 with an appointment.'
     },
     home: {
-      promotion: 'Promotions'
+      presentation: '<p>Created in 2005, Arthurius knives, in reference to the legend of King Arthur and his famous Excalibur sword, is specialized in pocket knives, kitchen knives, hunting knives, bushcraft and military.</br>I advise you, maintain and sharpen your knives.</p><p>This site is a selection among a wider choice that you can discover at the store. Open Monday, Tuesday, Wednesday, Friday from 5:30 p.m. to 8:00 p.m. Thursday and weekends from 9 a.m. to 6.30 p.m. by appointment.</p><p>Ph. Bourlet</p>',
+      promotion: 'Promotions',
+      title: 'Presentation',
+      videos: 'Our videos'
     },
     mycart: {
       addarticle: 'Add one article',

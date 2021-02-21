@@ -110,6 +110,10 @@ a:hover {
   border-radius: 4px;
 }
 
+.amble {
+  font-family: ambleregular;
+}
+
 /********************************
 *********** BOX LINK ************
 *********************************/

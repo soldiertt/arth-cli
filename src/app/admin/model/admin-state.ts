@@ -7,6 +7,7 @@ import {FromAdminSlide} from '../reducers/slide.reducer';
 import {FromAdminSlideProduct} from '../reducers/slide-product.reducer';
 import {FromAdminSteel} from '../reducers/steel.reducer';
 import {FromAdminUser} from '../reducers/user.reducer';
+import {FromAdminVideo} from '../reducers/video.reducer';
 
 export interface AdminState {
   brand: FromAdminBrand.State;
@@ -15,6 +16,7 @@ export interface AdminState {
   product: FromAdminProduct.State;
   slide: FromAdminSlide.State;
   slideproduct: FromAdminSlideProduct.State;
+  video: FromAdminVideo.State;
   steel: FromAdminSteel.State;
   user: FromAdminUser.State;
 }

@@ -45,9 +45,9 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     }, 50);
   }
 
-  isHome(): boolean {
-    return this.router.isActive('', true);
-  }
+  // isHome(): boolean {
+  //   return this.router.isActive('', true);
+  // }
 
   search(): void {
     this.router.navigate(['search', this.searchTerm]);

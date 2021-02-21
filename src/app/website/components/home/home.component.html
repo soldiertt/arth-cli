@@ -1,10 +1,27 @@
 <div id="main">
   <div class="row">
     <div class="col-md-3">
-      <arth-category-list></arth-category-list>
+      <h1>{{'page.home.title' | trans}}</h1>
+      <section>
+        <div class="section-content amble" [innerHTML]="'page.home.presentation' | trans"></div>
+      </section>
     </div>
     <div class="col-md-9">
       <arth-slider></arth-slider>
+    </div>
+  </div>
+  <div class="content" *ngIf="(videos$ | async) as videos">
+    <div class="content_top">
+      <div class="heading">
+        <h2>{{'page.home.videos' | trans}}</h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12" *ngFor="let video of videos">
+        <a data-fancybox="gallery" class="fancybox.iframe" href="http://www.youtube.com/embed/{{video.ref}}" [title]="video.title">
+          <img class="video-thumbnail" src="http://i3.ytimg.com/vi/{{video.ref}}/hqdefault.jpg">
+        </a>
+      </div>
     </div>
   </div>
   <div class="content" *ngIf="(promoArticles$ | async) as promoArticles">

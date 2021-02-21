@@ -11,6 +11,7 @@ import {BrandRestService} from './service/rest/brand.rest.service';
 import {RequestInterceptor} from './service/rest/request-interceptor';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {SteelRestService} from './service/rest/steel.rest.service';
+import {VideoRestService} from './service/rest/video.rest.service';
 
 @NgModule({
   imports: [
@@ -26,6 +27,7 @@ import {SteelRestService} from './service/rest/steel.rest.service';
     SliderRestService,
     SteelRestService,
     UserRestService,
+    VideoRestService,
     { provide: 'REST_ENDPOINT', useValue: environment.restEndpoint},
     { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true}
   ],

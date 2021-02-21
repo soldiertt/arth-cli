@@ -1,10 +1,13 @@
 import {NgModule} from '@angular/core'
 import {EffectsModule} from '@ngrx/effects';
 import {StoreModule} from '@ngrx/store';
+import {VideoEffects} from '../shared/effects/video.effects';
 import {AdminComponent} from './components/admin.component';
 import {adminRouterConfig} from './admin.routes';
 import {RouterModule} from '@angular/router';
 import {RestModule} from '../shared/rest.module';
+import {EditVideoComponent} from './components/video/edit/edit-video.component';
+import {VideoComponent} from './components/video/list/video.component';
 import {ProductEffects} from './effects/product.effects';
 import {SharedModule} from '../shared/shared.module';
 import {BrandEffects} from '../shared/effects/brand.effects';
@@ -42,7 +45,9 @@ import {SteelEffects} from './effects/steel.effects';
     OrderComponent,
     ProductComponent,
     SlideComponent,
-    UserComponent
+    UserComponent,
+    VideoComponent,
+    EditVideoComponent
   ],
   imports     : [
     EffectsModule.forFeature([
@@ -53,7 +58,8 @@ import {SteelEffects} from './effects/steel.effects';
       SlideEffects,
       SlideProductEffects,
       SteelEffects,
-      UserEffects
+      UserEffects,
+      VideoEffects
     ]),
     RestModule,
     RouterModule.forChild(adminRouterConfig),

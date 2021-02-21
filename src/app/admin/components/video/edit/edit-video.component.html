@@ -1,0 +1,37 @@
+<div class="modal" id="videoModal" tabindex="-1" role="dialog">
+  <form (ngSubmit)="save(f)" #f="ngForm" class="p-2">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 *ngIf="!this.item?.id; else editItem" class="modal-title">Add new video</h5>
+          <ng-template #editItem>
+            <h5 class="modal-title">Editing video</h5>
+          </ng-template>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div *ngIf="item">
+            <div class="form-group row">
+              <label for="ref" class="col-sm-3 col-form-label">Youtube ref *</label>
+              <div class="col-sm-9">
+                <input type="text" id="ref" name="ref" [(ngModel)]="item.ref" class="form-control">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="title" class="col-sm-3 col-form-label">Title *</label>
+              <div class="col-sm-9">
+                <input type="text" id="title" name="title" [(ngModel)]="item.title" class="form-control">
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-sm btn-success">Save</button>
+            <button type="button" class="btn btn-sm btn-link" data-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

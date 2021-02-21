@@ -8,6 +8,7 @@ import {FromAdminSlide} from './slide.reducer';
 import {FromAdminSlideProduct} from './slide-product.reducer';
 import {FromAdminSteel} from './steel.reducer';
 import {FromAdminUser} from './user.reducer';
+import {FromAdminVideo} from './video.reducer';
 
 export const reducers: ActionReducerMap<AdminState> = {
   brand: FromAdminBrand.reducer,
@@ -17,5 +18,6 @@ export const reducers: ActionReducerMap<AdminState> = {
   slide: FromAdminSlide.reducer,
   slideproduct: FromAdminSlideProduct.reducer,
   steel: FromAdminSteel.reducer,
-  user: FromAdminUser.reducer
+  user: FromAdminUser.reducer,
+  video: FromAdminVideo.reducer
 };

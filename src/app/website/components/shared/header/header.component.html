@@ -32,7 +32,7 @@
       <div class="collapse navbar-collapse" id="main-navbar">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }"><a href class="nav-link" routerLink="">{{'common.links.home' | trans}}</a></li>
-          <li class="nav-item dropdown" *ngIf="!isHome()">
+          <li class="nav-item dropdown">
             <a href="#" class="nav-link dropdown-toggle" id="categoriesDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{'common.links.categories' | trans}}</a>
             <div class="dropdown-menu" aria-labelledby="categoriesDropdown">
               <a href class="dropdown-item" *ngFor="let category of (rootCategories$ | async)" [routerLink]="['/categ', category.name]">{{category | catTitle}}</a>
