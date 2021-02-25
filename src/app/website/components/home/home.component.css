@@ -2,3 +2,8 @@
   max-width: 350px;
   margin: 10px;
 }
+
+.video-separator {
+  background-color: #343a40;
+  border-width: 5px;
+}
