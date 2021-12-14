@@ -24,10 +24,10 @@ export default {
         title: 'Contact Arthurius'
       },
       mapslink: 'Google Maps toegang',
-      openinghours: 'Open maandag tot vrijdag van 17.30u tot 20.00u en 7 dagen/7 op afspraak'
+      openinghours: 'Open maandag tot zondag van 10.00u tot 19.00u op afspraak'
     },
     home: {
-      presentation: '<p>Arthurius messen, opgericht in 2005, verwijst naar de legende van koning Arthur en zijn beroemde Excalibur-zwaard , is gespecialiseerd in zakmessen, keukenmessen, jachtmessen, bushcraft en het leger.</br>Ik adviseer, onderhoud en slijp uw messen.</p><p>Deze website is een selectie uit een ruimere keuze die u in de winkel kunt ontdekken. Open maandag, dinsdag, woensdag, vrijdag van 17.30 uur tot 20.00 uur. Donderdag en weekends van 9.00 uur tot 18.30 uur op afspraak.</p><p>Ph. Bourlet</p>',
+      presentation: '<p>Arthurius messen, opgericht in 2005, verwijst naar de legende van koning Arthur en zijn beroemde Excalibur-zwaard , is gespecialiseerd in zakmessen, keukenmessen, jachtmessen, bushcraft en het leger.</br>Ik adviseer, onderhoud en slijp uw messen.</p><p>Deze website is een selectie uit een ruimere keuze die u in de winkel kunt ontdekken. Open 7 dagen op 7 van 10.00 uur tot 19.00 uur op afspraak.</p><p>Ph. Bourlet</p>',
       promotion: 'Promoties',
       title: 'Presentatie',
       videos: 'Onze videos'

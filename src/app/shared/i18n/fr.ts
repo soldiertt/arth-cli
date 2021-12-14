@@ -24,10 +24,10 @@ export default {
         title: 'Contactez Arthurius'
       },
       mapslink: 'Accès Google Maps',
-      openinghours: 'Ouvert du lundi au vendredi de 17h30 à 20h00 et 7j/7 sur rendez-vous.'
+      openinghours: 'Ouvert du lundi au dimanche de 10h00 à 19h00 sur rendez-vous.'
     },
     home: {
-      presentation: '<p>Créée en 2005, la coutellerie Arthurius, en référence à la légende du Roi Arthur et de sa fameuse épée Excalibur, est spécialisée dans les canifs, couteaux de cuisine, couteaux de chasse, bushcraft et militaire.<br/>Je vous conseille, entretien et aiguise vos couteaux.</p><p>Ce site est une sélection parmis un plus vaste choix que vous pouvez découvrir au magasin. Ouvert lundi, mardi, mercredi, vendredi de 17h30 à 20h00. Jeudi et le week-end de 9h00 à 18h30 sur rendez-vous.</p><p>Ph. Bourlet</p>',
+      presentation: '<p>Créée en 2005, la coutellerie Arthurius, en référence à la légende du Roi Arthur et de sa fameuse épée Excalibur, est spécialisée dans les canifs, couteaux de cuisine, couteaux de chasse, bushcraft et militaire.<br/>Je vous conseille, entretien et aiguise vos couteaux.</p><p>Ce site est une sélection parmi un plus vaste choix que vous pouvez découvrir au magasin. Ouvert 7 jours sur 7 de 10h00 à 19h00 sur rendez-vous.</p><p>Ph. Bourlet</p>',
       promotion: 'Promotions',
       title: 'Présentation',
       videos: 'Nos vidéos'
