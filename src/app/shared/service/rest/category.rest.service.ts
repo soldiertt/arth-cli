@@ -1,6 +1,8 @@
+
+import {map} from 'rxjs/operators';
 import {Injectable, Inject} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
+import {Observable} from 'rxjs';
+
 import Category from '../../model/category.class';
 import {HttpClient} from '@angular/common/http';
 
@@ -19,23 +21,23 @@ export class CategoryRestService {
   }
 
   findCategory(categoryName: string): Observable<Category> {
-    return this.http.get<Category>(this.BASE_URL + '/category/name/' + categoryName).map(CategoryRestService._mapJsonToCategory);
+    return this.http.get<Category>(this.BASE_URL + '/category/name/' + categoryName).pipe(map(CategoryRestService._mapJsonToCategory));
   }
 
   listAll(): Observable<Category[]> {
-    return this.http.get<Category[]>(this.BASE_URL + '/category/all').map(CategoryRestService._mapJsonArrayToCategoryArray);
+    return this.http.get<Category[]>(this.BASE_URL + '/category/all').pipe(map(CategoryRestService._mapJsonArrayToCategoryArray));
   }
 
   listAllRoots(): Observable<Category[]> {
-    return this.http.get<Category[]>(this.BASE_URL + '/category').map(CategoryRestService._mapJsonArrayToCategoryArray);
+    return this.http.get<Category[]>(this.BASE_URL + '/category').pipe(map(CategoryRestService._mapJsonArrayToCategoryArray));
   }
 
   listSubCategories(categoryName: string): Observable<Category[]> {
-    return this.http.get<Category[]>(this.BASE_URL + '/category/' + categoryName).map(CategoryRestService._mapJsonArrayToCategoryArray);
+    return this.http.get<Category[]>(this.BASE_URL + '/category/' + categoryName).pipe(map(CategoryRestService._mapJsonArrayToCategoryArray));
   }
 
   create(category: Category): Observable<Category> {
-    return this.http.post<Category>(this.BASE_URL + '/category', Category.toDbObject(category)).map(CategoryRestService._mapJsonToCategory);
+    return this.http.post<Category>(this.BASE_URL + '/category', Category.toDbObject(category)).pipe(map(CategoryRestService._mapJsonToCategory));
   }
 
   update(id: string, category: Category): Observable<any> {

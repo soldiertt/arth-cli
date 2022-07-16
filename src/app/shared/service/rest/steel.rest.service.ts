@@ -1,5 +1,5 @@
 import {Injectable, Inject} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import Steel from '../../model/steel.class';
 

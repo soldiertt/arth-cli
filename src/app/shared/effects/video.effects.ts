@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Actions, Effect} from '@ngrx/effects';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {Action} from '@ngrx/store';
 import {VideoActions} from '../actions/video.actions';
 import {map, mergeMap} from 'rxjs/operators';
@@ -30,7 +30,7 @@ export class VideoEffects {
   remove: Observable<Action> = this.actions.ofType(VideoActions.DELETE)
     .pipe(
       map((action: VideoActions.Delete) => action.id),
-      mergeMap(id => this.videoRestService.remove(id).map(() => id)),
+      mergeMap(id => this.videoRestService.remove(id).pipe(map(() => id))),
       map(id => new VideoActions.DeleteSuccess(id))
     );
 

@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import CartData from '../../model/cart-data.class';
 import {Store} from '@ngrx/store';
 import CartWizard from '../../model/cart-wizard.class';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {FromCartData} from '../../reducers/cart-data.reducer';
 
 @Component({

@@ -1,9 +1,11 @@
+
+import {takeUntil} from 'rxjs/operators';
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import UserProfile from '../../model/user-profile.class';
 import {Store} from '@ngrx/store';
 import CartData from '../../model/cart-data.class';
-import {Subject} from 'rxjs/Subject';
-import 'rxjs/add/operator/takeUntil';
+import {Subject} from 'rxjs';
+
 import {CartDataActions} from '../../actions/cart-data.actions';
 import {FromCartData} from '../../reducers/cart-data.reducer';
 import {FromProfile} from '../../../root/reducers/user-profile.reducer';
@@ -25,8 +27,8 @@ export class ConfirmAddressComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     // Check if address is defined, otherwise edit it immediatly
-    this.cartDataStore.select(FromCartData.selectWizardState)
-      .takeUntil(this.ngUnsubscribe)
+    this.cartDataStore.select(FromCartData.selectWizardState).pipe(
+      takeUntil(this.ngUnsubscribe))
       .subscribe(wizard => {
         this.editMode = wizard.editMode;
         if (this.editMode) {
@@ -35,8 +37,8 @@ export class ConfirmAddressComponent implements OnInit, OnDestroy {
           this.editedItem = undefined;
         }
     });
-    this.store.select(FromProfile.selectLocalState)
-      .takeUntil(this.ngUnsubscribe)
+    this.store.select(FromProfile.selectLocalState).pipe(
+      takeUntil(this.ngUnsubscribe))
       .subscribe(profile => {
         if (!profile || !profile.user_metadata || !profile.user_metadata.profileComplete) {
           this.cartDataStore.dispatch(new CartDataActions.SetEditMode(true));

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
 import UserProfile from '../../../../website/model/user-profile.class';
 import {UserActions} from '../../../actions/user.actions';

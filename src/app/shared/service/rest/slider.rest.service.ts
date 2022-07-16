@@ -1,6 +1,6 @@
 import {Injectable, Inject} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
+import {Observable} from 'rxjs';
+
 import Slide from '../../model/slider.class';
 import {HttpClient} from '@angular/common/http';
 import Article from '../../model/article.class';

@@ -1,6 +1,8 @@
+
+import {map} from 'rxjs/operators';
 import {Injectable, Inject} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
+import {Observable} from 'rxjs';
+
 import PaypalOrder from '../../model/paypalorder.class';
 import {HttpClient, HttpParams} from '@angular/common/http';
 
@@ -11,13 +13,13 @@ export class PaypalOrderRestService {
   }
 
   listAll(): Observable<PaypalOrder[]> {
-    return this.http.get<PaypalOrder[]>(this.BASE_URL + '/order').map(dbOrders => this.mapPaypalOrders(dbOrders));
+    return this.http.get<PaypalOrder[]>(this.BASE_URL + '/order').pipe(map(dbOrders => this.mapPaypalOrders(dbOrders)));
   }
 
   listAllByUser(userId: string): Observable<PaypalOrder[]> {
     let params: HttpParams = new HttpParams();
     params = params.set('userId', userId);
-    return this.http.get<PaypalOrder[]>(this.BASE_URL + '/order', {params}).map(dbOrders => this.mapPaypalOrders(dbOrders));
+    return this.http.get<PaypalOrder[]>(this.BASE_URL + '/order', {params}).pipe(map(dbOrders => this.mapPaypalOrders(dbOrders)));
   }
 
   save(paypalOrder: PaypalOrder): Observable<any> {

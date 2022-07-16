@@ -1,11 +1,10 @@
 import {Injectable} from '@angular/core';
 import {Actions, Effect} from '@ngrx/effects';
-import {Observable} from 'rxjs/Observable';
+import {Observable, of} from 'rxjs';
 import {Action} from '@ngrx/store';
 import {ArticleRestService} from '../../shared/service/rest/article.rest.service';
 import Article from '../../shared/model/article.class';
 import {ProductActions} from '../actions/product.actions';
-import {of} from 'rxjs/observable/of';
 import {catchError, map, mergeMap} from 'rxjs/operators';
 
 @Injectable()

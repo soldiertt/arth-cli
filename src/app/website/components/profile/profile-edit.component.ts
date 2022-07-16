@@ -1,3 +1,5 @@
+
+import {takeUntil} from 'rxjs/operators';
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
 import {CountryRestService} from '../../../shared/service/rest/country.rest.service';
@@ -7,8 +9,8 @@ import UserMetaData from '../../model/usermetadata.class';
 import UserAddresses from '../../model/user-addresses.class';
 import UserProfile from '../../model/user-profile.class';
 import {Store} from '@ngrx/store';
-import {Subject} from 'rxjs/Subject';
-import 'rxjs/add/operator/takeUntil';
+import {Subject} from 'rxjs';
+
 import {ProfileActions} from '../../../root/actions/user-profile.actions';
 import {FromProfile} from '../../../root/reducers/user-profile.reducer';
 
@@ -43,13 +45,13 @@ export class ProfileEditComponent extends FormComponent implements OnInit, OnDes
 
   ngOnInit() {
     // Load countries
-    this.countryRestService.listAll()
-      .takeUntil(this.ngUnsubscribe)
+    this.countryRestService.listAll().pipe(
+      takeUntil(this.ngUnsubscribe))
       .subscribe(countries => {
         this.countries = countries;
       });
-    this.store.select(FromProfile.selectLocalState)
-      .takeUntil(this.ngUnsubscribe)
+    this.store.select(FromProfile.selectLocalState).pipe(
+      takeUntil(this.ngUnsubscribe))
       .subscribe(profile => {
         this.userProfile = profile;
         this._fillFormWithData();

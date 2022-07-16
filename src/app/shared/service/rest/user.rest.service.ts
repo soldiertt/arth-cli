@@ -1,6 +1,8 @@
+
+import {map} from 'rxjs/operators';
 import {Injectable, Inject} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
+import {Observable} from 'rxjs';
+
 import UserMetaData from '../../../website/model/usermetadata.class';
 import {HttpClient} from '@angular/common/http';
 import UserProfile from '../../../website/model/user-profile.class';
@@ -19,7 +21,7 @@ export class UserRestService {
   }
 
   listAll(): Observable<UserProfile[]> {
-    return this.http.get<UserProfile[]>(this.BASE_URL + '/user').map(users => UserRestService.mapUsers(users));
+    return this.http.get<UserProfile[]>(this.BASE_URL + '/user').pipe(map(users => UserRestService.mapUsers(users)));
   }
 
   getUser(userId: string): Observable<UserProfile> {

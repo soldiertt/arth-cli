@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import Category from '../../../shared/model/category.class';
 import {Store} from '@ngrx/store';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {FromCategory} from '../../reducers/category.reducer';
 
 @Component({

@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Output, OnInit} from '@angular/core';
 import UserProfile from '../../model/user-profile.class';
 import {Store} from '@ngrx/store';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {FromProfile} from '../../../root/reducers/user-profile.reducer';
 
 @Component({

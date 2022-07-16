@@ -1,11 +1,13 @@
+
+import {takeUntil} from 'rxjs/operators';
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, Validators, FormGroup} from '@angular/forms';
 import {FormComponent} from '../form.component';
 import UserMetaData from '../../model/usermetadata.class';
 import UserProfile from '../../model/user-profile.class';
 import {Store} from '@ngrx/store';
-import {Subject} from 'rxjs/Subject';
-import 'rxjs/add/operator/takeUntil';
+import {Subject} from 'rxjs';
+
 import {ProfileActions} from '../../../root/actions/user-profile.actions';
 import {FromProfile} from '../../../root/reducers/user-profile.reducer';
 
@@ -51,8 +53,8 @@ export class ProfileEmailComponent extends FormComponent implements OnInit, OnDe
 
   ngOnInit() {
 
-    this.store.select(FromProfile.selectLocalState)
-      .takeUntil(this.ngUnsubscribe)
+    this.store.select(FromProfile.selectLocalState).pipe(
+      takeUntil(this.ngUnsubscribe))
       .subscribe(profile => {
         this.profile = profile;
       });

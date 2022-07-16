@@ -1,11 +1,10 @@
 import {Injectable} from '@angular/core';
 import {Actions, Effect} from '@ngrx/effects';
-import {Observable} from 'rxjs/Observable';
+import {Observable, of} from 'rxjs';
 import {Action} from '@ngrx/store';
 import Slide from '../model/slider.class';
 import {SliderRestService} from '../service/rest/slider.rest.service';
 import {SlideActions} from '../actions/slide.actions';
-import {of} from 'rxjs/observable/of';
 import {catchError, map, mergeMap} from 'rxjs/operators';
 
 @Injectable()

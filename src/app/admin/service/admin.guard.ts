@@ -1,3 +1,5 @@
+
+import {map} from 'rxjs/operators';
 import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router} from '@angular/router';
 import {Auth0Service} from '../../shared/service/auth.service';
 import {Injectable} from '@angular/core';
@@ -16,7 +18,7 @@ export class AdminGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     if (this.auth0Service.authenticated()) {
       const userId = this.sessionService.getProfile().user_id;
-      return this.userRestService.getUser(userId).map(profile => profile.app_metadata.roles.indexOf('admin') !== -1);
+      return this.userRestService.getUser(userId).pipe(map(profile => profile.app_metadata.roles.indexOf('admin') !== -1));
     } else {
       this.router.navigate(['/']);
       return false;

@@ -1,11 +1,12 @@
+
+import {take} from 'rxjs/operators';
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Auth0Service} from '../../../shared/service/auth.service';
 import CartData from '../../model/cart-data.class';
 import {Store} from '@ngrx/store';
-import {Observable} from 'rxjs/Observable';
-import {Subject} from 'rxjs/Subject';
-import 'rxjs/add/operator/take';
-import 'rxjs/add/operator/takeUntil';
+import {Observable, Subject} from 'rxjs';
+
+
 import {CartDataActions} from '../../actions/cart-data.actions';
 import {FromCartData} from '../../reducers/cart-data.reducer';
 
@@ -23,7 +24,7 @@ export class CartWizardComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.cartData$ = this.store.select(FromCartData.selectLocalState);
-    this.cartData$.take(1).subscribe(cartData => {
+    this.cartData$.pipe(take(1)).subscribe(cartData => {
       if (cartData.cart.totalCount > 0) {
         if (this.authService.authenticated()) {
           this.store.dispatch(new CartDataActions.CartMoveToStep(2));

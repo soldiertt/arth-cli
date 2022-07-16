@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import Cart from '../../../model/cart.class';
 import CartData from '../../../model/cart-data.class';
 import {Store} from '@ngrx/store';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {PictureService} from '../../../../shared/service/picture.service';
 import {CartDataActions} from '../../../actions/cart-data.actions';
 import {FromCartData} from '../../../reducers/cart-data.reducer';

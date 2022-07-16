@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import Slide from '../../../../shared/model/slider.class';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
 import Article from '../../../../shared/model/article.class';
 import {SlideActions} from '../../../../shared/actions/slide.actions';

@@ -1,11 +1,12 @@
+
+import {takeUntil} from 'rxjs/operators';
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import UserProfile from '../../model/user-profile.class';
 import UserAddress from '../../model/user-address';
 import {MailService} from '../../service/mail.service';
 import Mail from '../../model/mail.class';
 import {Store} from '@ngrx/store';
-import {Observable} from 'rxjs/Observable';
-import {Subject} from 'rxjs/Subject';
+import {Observable, Subject} from 'rxjs';
 import {ProfileActions} from '../../../root/actions/user-profile.actions';
 import {FromProfile} from '../../../root/reducers/user-profile.reducer';
 
@@ -34,8 +35,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.userProfile$ = this.store.select(FromProfile.selectLocalState);
-    this.userProfile$
-      .takeUntil(this.ngUnsubscribe)
+    this.userProfile$.pipe(
+      takeUntil(this.ngUnsubscribe))
       .subscribe(userProfile => {
         this._updateLocalData(userProfile);
         if (this.incompleteProfile) {

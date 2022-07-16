@@ -3,7 +3,7 @@ import {ActivatedRoute} from '@angular/router';
 import Article from '../../../shared/model/article.class';
 import ProductData from '../../model/product-data.class';
 import {Store} from '@ngrx/store';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {ProductActions} from '../../actions/product.actions';
 import {FromProduct} from '../../reducers/product.reducer';
 

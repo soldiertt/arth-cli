@@ -3,7 +3,7 @@ import Slide from '../../../../shared/model/slider.class';
 import {Router} from '@angular/router';
 import Article from '../../../../shared/model/article.class';
 import {Store} from '@ngrx/store';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {SlideActions} from '../../../../shared/actions/slide.actions';
 import {SlideProductActions} from '../../../../shared/actions/slide-product.actions';
 import {FromSlide} from '../../../reducers/slide.reducer';

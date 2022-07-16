@@ -4,7 +4,7 @@ import Category from '../../../../shared/model/category.class';
 import {Auth0Service} from '../../../../shared/service/auth.service';
 import {I18nService} from '../../../../shared/service/i18n.service';
 import {Store} from '@ngrx/store';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {CategoryActions} from '../../../../shared/actions/category.actions';
 import {FromCategory} from '../../../reducers/category.reducer';
 

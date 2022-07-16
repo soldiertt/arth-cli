@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import Video from '../../../../shared/model/video.class';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {VideoActions} from '../../../../shared/actions/video.actions';
 import {FromAdminVideo} from '../../../reducers/video.reducer';

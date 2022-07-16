@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Actions, Effect} from '@ngrx/effects';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {Action, Store} from '@ngrx/store';
 import {UserRestService} from '../../shared/service/rest/user.rest.service';
 import {SessionService} from '../../shared/service/session.service';

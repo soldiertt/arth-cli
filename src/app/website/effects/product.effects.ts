@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Actions, Effect} from '@ngrx/effects';
-import {Observable} from 'rxjs/Observable';
+import {Observable, of} from 'rxjs';
 import {Action} from '@ngrx/store';
 import {ArticleRestService} from '../../shared/service/rest/article.rest.service';
 import {CategoryRestService} from '../../shared/service/rest/category.rest.service';
@@ -10,7 +10,6 @@ import {CartDataActions} from '../actions/cart-data.actions';
 import {ProductActions} from '../actions/product.actions';
 import {PromoProductActions} from '../actions/promo-product.actions';
 import {map, mergeMap} from 'rxjs/operators';
-import {of} from 'rxjs/observable/of';
 
 @Injectable()
 export class ProductEffects {

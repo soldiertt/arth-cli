@@ -1,13 +1,14 @@
+
+import {takeUntil, map} from 'rxjs/operators';
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import {Observable, Subject} from 'rxjs';
 import {Store} from '@ngrx/store';
 import Article from '../../../../shared/model/article.class';
 import * as steelActions from '../../../actions/steel.actions';
 import Brand from '../../../../shared/model/brand.class';
 import Category from '../../../../shared/model/category.class';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {Subject} from 'rxjs/Subject';
-import 'rxjs/add/operator/takeUntil';
+
 import Steel from '../../../../shared/model/steel.class';
 import {BrandActions} from '../../../../shared/actions/brand.actions';
 import {CategoryActions} from '../../../../shared/actions/category.actions';
@@ -59,7 +60,7 @@ export class ProductComponent implements OnInit, OnDestroy {
     this.getAll();
     this.filteredProducts$ = this.products$;
     this.filterForm.valueChanges.subscribe(values => {
-      this.filteredProducts$ = this.products$.map((products: Article[]) => {
+      this.filteredProducts$ = this.products$.pipe(map((products: Article[]) => {
         return products.filter(product => {
           return (!values.brandFilter || product.marque === values.brandFilter) &&
             (!values.categoryFilter || product.type === values.categoryFilter) &&
@@ -67,7 +68,7 @@ export class ProductComponent implements OnInit, OnDestroy {
             (!values.promoFilter || product.promo.toString() === values.promoFilter) &&
             (!values.instockFilter || product.instock.toString() === values.instockFilter);
         });
-      });
+      }));
     });
 
     this.productStore.select(FromAdminProduct.selectCsvResponse).subscribe(csvResponse => {
@@ -98,15 +99,15 @@ export class ProductComponent implements OnInit, OnDestroy {
     this.steels$ = this.steelStore.select(FromAdminSteel.selectAll);
     this.steelStore.dispatch(new steelActions.GetAll());
 
-    this.slideProductStore.select(FromAdminSlideProduct.selectCreated)
-      .takeUntil(this.ngUnsubscribe)
+    this.slideProductStore.select(FromAdminSlideProduct.selectCreated).pipe(
+      takeUntil(this.ngUnsubscribe))
       .subscribe(created => {
         if (created) {
           // this.toast.success({title: 'Success', msg: 'Slide successfully added!'});
         }
       });
-    this.slideProductStore.select(FromAdminSlideProduct.selectError)
-      .takeUntil(this.ngUnsubscribe)
+    this.slideProductStore.select(FromAdminSlideProduct.selectError).pipe(
+      takeUntil(this.ngUnsubscribe))
       .subscribe(error => {
         if (error) {
           // this.toast.error({title: 'Error when creating slide', msg: error});

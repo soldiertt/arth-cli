@@ -3,7 +3,7 @@ import {FromAdminVideo} from '../../../admin/reducers/video.reducer';
 import {VideoActions} from '../../../shared/actions/video.actions';
 import Article from '../../../shared/model/article.class';
 import {Store} from '@ngrx/store';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import Video from '../../../shared/model/video.class';
 import {PromoProductActions} from '../../actions/promo-product.actions';
 import {FromPromoProduct} from '../../reducers/promo-product.reducer';

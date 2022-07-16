@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
-import 'rxjs/add/operator/switchMap';
+
 import Article from '../../../shared/model/article.class';
 import Brand from '../../../shared/model/brand.class';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
 import ProductData from '../../model/product-data.class';
 import {ProductActions} from '../../actions/product.actions';

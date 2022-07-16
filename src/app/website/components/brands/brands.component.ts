@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import Brand from '../../../shared/model/brand.class';
 import {Store} from '@ngrx/store';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {FromBrand} from '../../reducers/brand.reducer';
 import {BrandActions} from '../../../shared/actions/brand.actions';
 

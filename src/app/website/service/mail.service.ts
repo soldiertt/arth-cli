@@ -1,6 +1,6 @@
 import {Injectable, Inject} from '@angular/core';
 import Mail from '../model/mail.class';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 
 @Injectable()

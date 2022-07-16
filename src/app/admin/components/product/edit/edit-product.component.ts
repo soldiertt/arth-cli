@@ -2,10 +2,10 @@ import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {FormControl, NgForm} from '@angular/forms';
 import Article from '../../../../shared/model/article.class';
 import Category from '../../../../shared/model/category.class';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
 import Brand from '../../../../shared/model/brand.class';
-import 'rxjs/add/operator/combineLatest';
+
 import {UploadService} from '../../../../shared/service/upload.service';
 import {ProductActions} from '../../../actions/product.actions';
 import {FromAdminBrand} from '../../../reducers/brand.reducer';

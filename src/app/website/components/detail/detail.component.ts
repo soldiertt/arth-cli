@@ -1,3 +1,5 @@
+
+import {takeUntil} from 'rxjs/operators';
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import Article from '../../../shared/model/article.class';
@@ -7,8 +9,8 @@ import {Store} from '@ngrx/store';
 import ProductData from '../../model/product-data.class';
 import ProductItemData from '../../model/product-item-data.class';
 import {PictureService} from '../../../shared/service/picture.service';
-import {Subject} from 'rxjs/Subject';
-import 'rxjs/add/operator/takeUntil';
+import {Subject} from 'rxjs';
+
 import {CartDataActions} from '../../actions/cart-data.actions';
 import {ProductActions} from '../../actions/product.actions';
 import {FromProduct} from '../../reducers/product.reducer';
@@ -40,8 +42,8 @@ export class DetailComponent implements OnInit, OnDestroy {
       const articleId = params['articleId'];
 
       this.store.dispatch(new ProductActions.LoadOne(articleId));
-      this.store.select(FromProduct.selectSelectedState)
-        .takeUntil(this.ngUnsubscribe)
+      this.store.select(FromProduct.selectSelectedState).pipe(
+        takeUntil(this.ngUnsubscribe))
         .subscribe(selected => {
           this.selected = selected;
           setTimeout(() => {
