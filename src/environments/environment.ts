@@ -5,7 +5,7 @@
 
 export const environment = {
   production: false,
-  restEndpoint: 'http://arthurius.local.test',
+  restEndpoint: '/api',
   paypalEnvironment: 'sandbox',
   redirecturl: 'http://www.local.test:4200/authcallback'
 };

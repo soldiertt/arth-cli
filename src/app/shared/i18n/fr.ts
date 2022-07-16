@@ -132,11 +132,12 @@ export default {
       categories: 'Catégories',
       contact: 'Contact',
       home: 'Accueil',
+      homemadeknives: 'Couteaux maison',
       login: 'Se connecter',
       logout: 'Se déconnecter',
       mycart: 'Mon panier',
       profile: 'Mon profil',
-      ourbrands: 'Nos marques',
+      ourbrands: 'Les grandes marques',
       steels: 'Les aciers'
     }
   }

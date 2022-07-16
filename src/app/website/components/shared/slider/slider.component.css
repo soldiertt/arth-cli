@@ -1,5 +1,5 @@
 .carousel-inner img {
-  height: 400px;
+  /* images in carousel should all have same height or need height: 400px */
   opacity: 1;
   margin: auto;
 }
@@ -7,7 +7,6 @@
   cursor: pointer;
 }
 .carousel-caption {
-  /*color:#cd1f25;*/
   color:#000;
   font-size: 1.5em;
   font-family: arial;

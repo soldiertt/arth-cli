@@ -1,0 +1,8 @@
+{
+  "/api": {
+    "target": "http://arthurius.local.test",
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {"^/api" : ""}
+  }
+}

@@ -132,10 +132,11 @@ export default {
       categories: 'Categories',
       contact: 'Contact',
       home: 'Home',
+      homemadeknives: 'Homemade knives',
       login: 'Log in',
       logout: 'Log out',
       mycart: 'My cart',
-      ourbrands: 'Our brands',
+      ourbrands: 'Big brands',
       profile: 'My profile',
       steels: 'Steels'
     }

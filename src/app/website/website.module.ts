@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
 import {RestModule} from '../shared/rest.module';
 import {AuthCallbackComponent} from './components/authcallback/auth-callback.component';
+import {HomemadeKnivesComponent} from './components/homemadeknives/homemade-knives.component';
 import {websiteRouterConfig} from './website.routes';
 import {TruncatePipe} from './pipe/truncate.pipe';
 import {TopSalesComponent} from './components/shared/topsales/topsales.component';
@@ -70,6 +71,7 @@ import {ProductEffects} from './effects/product.effects';
     FooterComponent,
     HeaderComponent,
     HomeComponent,
+    HomemadeKnivesComponent,
     MyCartComponent,
     OrdersComponent,
     ProfileEditComponent,

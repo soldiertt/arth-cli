@@ -133,11 +133,12 @@ export default {
       categories: 'Categorieën',
       contact: 'Contact',
       home: 'Onthaal',
+      homemadeknives: 'Zelfgemaakte messen',
       login: 'Inloggen',
       logout: 'Log out',
       mycart: 'Mijn winkelmandje',
       profile: 'Mijn profiel',
-      ourbrands: 'Onze merken',
+      ourbrands: 'Grote merken',
       steels: 'Staal'
     }
   }

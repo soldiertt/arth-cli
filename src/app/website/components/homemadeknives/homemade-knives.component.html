@@ -1,0 +1,15 @@
+<div class="main">
+  <div class="content">
+    <div class="content_top">
+      <div class="heading">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item responsive-hidden-small"><a href routerLink="">{{'common.links.home' | trans}}</a></li>
+          <li class="breadcrumb-item">{{'common.links.homemadeknives' | trans}}</li>
+        </ol>
+      </div>
+    </div>
+    <div class="section group">
+      <arth-article-box *ngFor="let article of articles$ | async" [article]="article"></arth-article-box>
+    </div>
+  </div>
+</div>
