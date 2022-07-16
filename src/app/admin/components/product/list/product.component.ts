@@ -6,7 +6,6 @@ import * as steelActions from '../../../actions/steel.actions';
 import Brand from '../../../../shared/model/brand.class';
 import Category from '../../../../shared/model/category.class';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {ToastyConfig, ToastyService} from 'ng2-toasty';
 import {Subject} from 'rxjs/Subject';
 import 'rxjs/add/operator/takeUntil';
 import Steel from '../../../../shared/model/steel.class';
@@ -45,11 +44,8 @@ export class ProductComponent implements OnInit, OnDestroy {
               private brandStore: Store<FromAdminBrand.State>,
               private steelStore: Store<FromAdminSteel.State>,
               private slideProductStore: Store<FromAdminSlideProduct.State>,
-              private toast: ToastyService,
-              private toastyConfig: ToastyConfig,
               public picUtil: PictureService,
               private fb: FormBuilder) {
-    this.toastyConfig.theme = 'bootstrap';
     this.filterForm = this.fb.group({
       categoryFilter: this.fb.control(''),
       brandFilter: this.fb.control(''),
@@ -106,14 +102,14 @@ export class ProductComponent implements OnInit, OnDestroy {
       .takeUntil(this.ngUnsubscribe)
       .subscribe(created => {
         if (created) {
-          this.toast.success({title: 'Success', msg: 'Slide successfully added!'});
+          // this.toast.success({title: 'Success', msg: 'Slide successfully added!'});
         }
       });
     this.slideProductStore.select(FromAdminSlideProduct.selectError)
       .takeUntil(this.ngUnsubscribe)
       .subscribe(error => {
         if (error) {
-          this.toast.error({title: 'Error when creating slide', msg: error});
+          // this.toast.error({title: 'Error when creating slide', msg: error});
         }
       });
   }
