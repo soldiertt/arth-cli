@@ -24,7 +24,7 @@ export namespace FromAdminProduct {
 
     switch (action.type) {
       case ProductActions.GET_ALL_SUCCESS:
-        return adapter.addAll(action.entities, state);
+        return adapter.addMany(action.entities, state);
       case ProductActions.CREATE_SUCCESS:
         return adapter.addOne(action.entity, state);
       case ProductActions.UPDATE_SUCCESS:

@@ -21,7 +21,7 @@ export namespace FromAdminCategory {
 
     switch (action.type) {
       case CategoryActions.GET_ALL_SUCCESS:
-        return adapter.addAll(action.entities, state);
+        return adapter.addMany(action.entities, state);
       case CategoryActions.CREATE_SUCCESS:
         return adapter.addOne(action.entity, state);
       case CategoryActions.UPDATE_SUCCESS:

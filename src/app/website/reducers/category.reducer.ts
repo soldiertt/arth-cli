@@ -23,7 +23,7 @@ export namespace FromCategory {
       case CategoryActions.GET_ALL_ROOT:
         return state;
       case CategoryActions.GET_ALL_ROOT_SUCCESS:
-        return adapter.addAll(action.entities, state);
+        return adapter.addMany(action.entities, state);
       default:
         return state;
     }

@@ -24,7 +24,7 @@ export namespace FromAdminSlideProduct {
 
     switch (action.type) {
       case SlideProductActions.GET_ALL_SUCCESS:
-        return adapter.addAll(action.entities, state);
+        return adapter.addMany(action.entities, state);
       case SlideProductActions.CREATE:
         return {...state, created: false, error: undefined};
       case SlideProductActions.CREATE_SUCCESS:

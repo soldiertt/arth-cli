@@ -20,7 +20,7 @@ export namespace FromAdminSteel {
 
     switch (action.type) {
       case actions.GET_ALL_SUCCESS:
-        return adapter.addAll(action.entities, state);
+        return adapter.addMany(action.entities, state);
       default:
         return state;
     }

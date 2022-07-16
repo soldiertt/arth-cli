@@ -20,7 +20,7 @@ export namespace FromPaypalOrder {
 
     switch (action.type) {
       case PaypalOrderActions.GET_ALL_FOR_USER_SUCCESS:
-        return adapter.addAll(action.entities, state);
+        return adapter.addMany(action.entities, state);
       default:
         return state;
     }

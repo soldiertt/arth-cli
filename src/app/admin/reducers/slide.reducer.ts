@@ -20,7 +20,7 @@ export namespace FromAdminSlide {
 
     switch (action.type) {
       case SlideActions.GET_ALL_SUCCESS:
-        return adapter.addAll(action.entities, state);
+        return adapter.addMany(action.entities, state);
       case SlideActions.CREATE_SUCCESS:
         return adapter.addOne(action.entity, state);
       case SlideActions.UPDATE_SUCCESS:

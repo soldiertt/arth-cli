@@ -25,11 +25,11 @@
               "node_modules/font-awesome/css/font-awesome.css",
               "node_modules/@fancyapps/fancybox/dist/jquery.fancybox.css",
               "src/assets/css/arthurius.css",
-              "src/assets/famfamfam_flags/famfamfam-flags.css"
+              "src/assets/famfamfam_flags/famfamfam-flags.css",
+              "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.js",
-              "node_modules/popper.js/dist/umd/popper.js",
               "node_modules/bootstrap/dist/js/bootstrap.js",
               "node_modules/@fancyapps/fancybox/dist/jquery.fancybox.js"
             ]

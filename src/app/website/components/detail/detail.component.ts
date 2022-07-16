@@ -10,7 +10,6 @@ import ProductData from '../../model/product-data.class';
 import ProductItemData from '../../model/product-item-data.class';
 import {PictureService} from '../../../shared/service/picture.service';
 import {Subject} from 'rxjs';
-
 import {CartDataActions} from '../../actions/cart-data.actions';
 import {ProductActions} from '../../actions/product.actions';
 import {FromProduct} from '../../reducers/product.reducer';
@@ -38,7 +37,6 @@ export class DetailComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      $('html,body').animate({scrollTop: 0}, 0);
       const articleId = params['articleId'];
 
       this.store.dispatch(new ProductActions.LoadOne(articleId));

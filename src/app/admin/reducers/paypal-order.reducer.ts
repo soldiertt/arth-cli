@@ -22,7 +22,7 @@ export namespace FromAdminPaypalOrder {
       case PaypalOrderActions.GET_ALL:
         return state;
       case PaypalOrderActions.GET_ALL_SUCCESS:
-        return adapter.addAll(action.entities, state);
+        return adapter.addMany(action.entities, state);
       default:
         return state;
     }

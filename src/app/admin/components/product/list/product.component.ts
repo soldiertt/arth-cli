@@ -1,4 +1,5 @@
 
+import {ToastrService} from 'ngx-toastr';
 import {takeUntil, map} from 'rxjs/operators';
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Observable, Subject} from 'rxjs';
@@ -20,7 +21,7 @@ import {FromAdminProduct} from '../../../reducers/product.reducer';
 import {FromAdminSlideProduct} from '../../../reducers/slide-product.reducer';
 import {FromAdminSteel} from '../../../reducers/steel.reducer';
 import {PictureService} from '../../../../shared/service/picture.service';
-import { saveAs } from 'file-saver/FileSaver';
+import { saveAs } from 'file-saver';
 
 @Component({
   templateUrl: './product.component.html',
@@ -46,6 +47,7 @@ export class ProductComponent implements OnInit, OnDestroy {
               private steelStore: Store<FromAdminSteel.State>,
               private slideProductStore: Store<FromAdminSlideProduct.State>,
               public picUtil: PictureService,
+              private toastr: ToastrService,
               private fb: FormBuilder) {
     this.filterForm = this.fb.group({
       categoryFilter: this.fb.control(''),
@@ -103,14 +105,14 @@ export class ProductComponent implements OnInit, OnDestroy {
       takeUntil(this.ngUnsubscribe))
       .subscribe(created => {
         if (created) {
-          // this.toast.success({title: 'Success', msg: 'Slide successfully added!'});
+          this.toastr.success('Slide successfully added!', 'Success');
         }
       });
     this.slideProductStore.select(FromAdminSlideProduct.selectError).pipe(
       takeUntil(this.ngUnsubscribe))
       .subscribe(error => {
         if (error) {
-          // this.toast.error({title: 'Error when creating slide', msg: error});
+          this.toastr.error(error, 'Error when creating slide');
         }
       });
   }

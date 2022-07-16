@@ -21,7 +21,7 @@ export namespace FromBrand {
 
     switch (action.type) {
       case BrandActions.GET_ALL_SUCCESS:
-        return adapter.addAll(action.entities, state);
+        return adapter.addMany(action.entities, state);
 
       default:
         return state;

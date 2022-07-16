@@ -7,8 +7,6 @@ import {Store} from '@ngrx/store';
 import {ProductActions} from '../../actions/product.actions';
 import {FromProduct} from '../../reducers/product.reducer';
 
-declare const $: any;
-
 @Component({
   selector: 'arth-category-details',
   templateUrl: 'category-details.component.html',
@@ -28,7 +26,6 @@ export class CategoryDetailsComponent implements OnInit {
     this.productData$ = this.store.select(FromProduct.selectLocalState);
 
     this.activeRoute.params.subscribe((params: Params) => {
-      $('html,body').animate({scrollTop: 0}, 0);
       const categoryType = params['type'];
 
       this.store.dispatch(new ProductActions.LoadAllByCategory(categoryType));

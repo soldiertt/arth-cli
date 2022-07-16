@@ -22,7 +22,7 @@ export namespace FromSlide {
       case SlideActions.GET_ALL:
         return state;
       case SlideActions.GET_ALL_SUCCESS:
-        return adapter.addAll(action.entities, state);
+        return adapter.addMany(action.entities, state);
       default:
         return state;
     }
