@@ -8,10 +8,11 @@ import {ToastrModule} from 'ngx-toastr';
   exports : [
     BrowserModule,
     FormsModule,
-    ReactiveFormsModule
+    LuxonModule,
+    ReactiveFormsModule,
+    ToastrModule
   ],
   imports: [
-    LuxonModule,
     ToastrModule.forRoot()
   ]
 })

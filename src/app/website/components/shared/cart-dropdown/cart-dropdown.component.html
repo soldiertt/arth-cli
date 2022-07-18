@@ -1,7 +1,7 @@
 <div class="cart" *ngIf="cart$ | async as cart">
   <div class="dropdown">
     {{'comp.header.welcome' | trans}}
-    <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="minicart-dropdown">
+    <div class="dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="minicart-dropdown">
       <span>{{'common.label.cart' | trans}} : </span>{{cart.totalCount}} {{'common.label.article-pp' | trans}} - {{cart.totalAmount}} € <span class="caret"></span>
     </div>
     <ul class="dropdown-menu dropdown-cart" aria-labelledby="minicart-dropdown">
@@ -24,7 +24,7 @@
             </div>
             <div class="product-item-actions">
               <a (click)="removeOrder($event, order.article.id)" title="Remove item">
-                <i class="fa fa-times" aria-hidden="true"></i>
+                <i class="material-icons">delete</i>
               </a>
             </div>
           </div>

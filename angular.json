@@ -22,7 +22,6 @@
             ],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.css",
-              "node_modules/font-awesome/css/font-awesome.css",
               "node_modules/@fancyapps/fancybox/dist/jquery.fancybox.css",
               "src/assets/css/arthurius.css",
               "src/assets/famfamfam_flags/famfamfam-flags.css",
@@ -30,6 +29,7 @@
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.js",
+              "node_modules/@popperjs/core/dist/umd/popper.js",
               "node_modules/bootstrap/dist/js/bootstrap.js",
               "node_modules/@fancyapps/fancybox/dist/jquery.fancybox.js"
             ]

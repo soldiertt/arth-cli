@@ -4,14 +4,18 @@ import Article from '../../shared/model/article.class';
 @Pipe({name: 'orderBy'})
 export class SortPipe implements PipeTransform {
 
-  transform(array: Array<Article>, args: string): Array<Object> {
+  transform(array: Article[], args: string): any[] {
 
     if (array == null) {
       return null;
     }
+    if (array.length === 0) {
+      return array;
+    }
 
+    const sorted = [...array];
     if (args === 'price') {
-      array.sort((a: Article, b: Article) => {
+      sorted.sort((a: Article, b: Article) => {
         if (parseFloat(<any>a.price) < parseFloat(<any>b.price)) {
           return -1;
         } else if (parseFloat(<any>a.price) > parseFloat(<any>b.price)) {
@@ -21,7 +25,7 @@ export class SortPipe implements PipeTransform {
         }
       });
     } else {
-      array.sort((a: Article, b: Article) => {
+      sorted.sort((a: Article, b: Article) => {
         if (a[args].toLowerCase() < b[args].toLowerCase()) {
           return -1;
         } else if (a[args].toLowerCase() > b[args].toLowerCase()) {
@@ -32,6 +36,6 @@ export class SortPipe implements PipeTransform {
       });
     }
 
-    return array;
+    return sorted;
   }
 }

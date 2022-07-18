@@ -1,23 +1,21 @@
 .cart-wizard-breadcrumb {
-  list-style: none;
-  font: 18px Sans-Serif;
   background-color: #eee;
   border: 1px solid #ddd;
 }
 
 .cart-wizard-breadcrumb > div {
-  display: inline-block;
   padding: 5px 10px 5px 10px;
+  display: inline-flex;
+  align-items: center;
   height: 48px;
-  vertical-align: top;
 }
 
-.cart-wizard-breadcrumb > div span {
-  line-height: 38px;
+.cart-wizard-breadcrumb > div.step {
+  font: 18px Sans-Serif;
 }
 
-.cart-wizard-breadcrumb > div span i.fa {
-  padding: 10px 5px 10px 15px;
+.cart-wizard-breadcrumb > div.chevron {
+  font-size: 20px;
 }
 
 .cart-wizard-breadcrumb > div.done {

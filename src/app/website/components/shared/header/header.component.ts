@@ -32,17 +32,17 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    const closeNavBar = function () {
-      const navbarToggler$ = $('.navbar-toggler');
-      if (navbarToggler$.css('display') !== 'none') {
-        navbarToggler$.trigger('click');
-      }
-    };
-
-    setTimeout(() => {
-      $('.nav-item:not(".dropdown") a').on('click', closeNavBar);
-      $('.navbar-nav').on('click', '.dropdown-item', closeNavBar);
-    }, 50);
+    // const closeNavBar = function () {
+    //   const navbarToggler$ = $('.navbar-toggler');
+    //   if (navbarToggler$.css('display') !== 'none') {
+    //     navbarToggler$.trigger('click');
+    //   }
+    // };
+    //
+    // setTimeout(() => {
+    //   $('.nav-item:not(".dropdown") a').on('click', closeNavBar);
+    //   $('.navbar-nav').on('click', '.dropdown-item', closeNavBar);
+    // }, 50);
   }
 
   search(): void {

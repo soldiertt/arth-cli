@@ -26,10 +26,10 @@
         <td class="qty-cell">{{order.count}}
           <span>
             <a href (click)="removeArticle($event, order.article.id)" *ngIf="order.count > 1" class="action-icon">
-                <i class="fa fa-minus-circle" title="{{'page.mycart.removearticle' | trans}}"></i>
+              <i class="material-icons" title="{{'page.mycart.removearticle' | trans}}">remove_circle</i>
             </a>
             <a href (click)="addArticle($event, order.article)" class="action-icon">
-              <i class="fa fa-plus-circle" title="{{'page.mycart.addarticle' | trans}}"></i>
+              <i class="material-icons" title="{{'page.mycart.addarticle' | trans}}">add_circle</i>
             </a>
           </span>
         </td>
@@ -37,7 +37,7 @@
         <td>
           <span>
           <a href (click)="removeOrder($event, order.article.id)" class="action-icon">
-            <i class="fa fa-times" title="{{'page.mycart.removefromcart' | trans}}"></i>
+            <i class="material-icons" title="{{'page.mycart.removefromcart' | trans}}">delete</i>
           </a>
           </span>
         </td>

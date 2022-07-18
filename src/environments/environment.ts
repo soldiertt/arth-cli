@@ -7,5 +7,5 @@ export const environment = {
   production: false,
   restEndpoint: '/api',
   paypalEnvironment: 'sandbox',
-  redirecturl: 'http://www.local.test:4200/authcallback'
+  redirecturl: 'http://localhost:4200/authcallback'
 };

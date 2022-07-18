@@ -42,12 +42,16 @@ export namespace FromCartData {
 
         let existing: boolean = false;
         const cart = {...state.cart};
+        const orders: Order[] = [];
         cart.orders.forEach(function (order) {
+          const newOrder: Order = {...order};
           if (order.article.id === action.article.id) {
-            order.count++;
+            newOrder.count++;
             existing = true;
           }
+          orders.push(newOrder);
         });
+        cart.orders = orders;
         if (!existing) {
           cart.orders.push(new Order(action.article));
         }
@@ -58,6 +62,11 @@ export namespace FromCartData {
       case CartDataActions.REMOVE_ARTICLE: {
         const orderIndex = state.cart.orders.map(order => order.article.id).indexOf(action.articleId);
         const cart = {...state.cart};
+        const orders: Order[] = [];
+        cart.orders.forEach(order => {
+          orders.push({...order});
+        });
+        cart.orders = orders;
         if (orderIndex !== -1) {
           cart.orders[orderIndex].count--;
         }
@@ -67,9 +76,14 @@ export namespace FromCartData {
 
       case CartDataActions.REMOVE_ORDER: {
         const orderIndex = state.cart.orders.map(order => order.article.id).indexOf(action.articleId);
-        if (orderIndex != -1) {
+        if (orderIndex !== -1) {
           const cart = {...state.cart};
           const wizard = {...state.wizard};
+          const orders: Order[] = [];
+          cart.orders.forEach(order => {
+            orders.push({...order});
+          });
+          cart.orders = orders;
           cart.orders.splice(orderIndex, 1);
           if (!cart.orders.length) {
             cart.shipping = 0;
