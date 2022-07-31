@@ -26,7 +26,7 @@ export class Auth0Service {
   handleAuthentication(): void {
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
-        this.store.dispatch(new AuthActions.SaveToSession(authResult));
+        this.store.dispatch(AuthActions.SaveToSession({authResult}));
         this.getProfile(authResult.accessToken, (errP, profile) => {
           if (errP) {
             console.log(errP);
@@ -52,7 +52,7 @@ export class Auth0Service {
     if ($event) {
       $event.preventDefault();
     }
-    this.store.dispatch(new ProfileActions.Logout());
+    this.store.dispatch(ProfileActions.Logout());
     if (this.router.url.indexOf('/profile') !== -1 || this.router.url.indexOf('/mycart') !== -1) {
       this.router.navigate(['/']);
     }
@@ -86,10 +86,10 @@ export class Auth0Service {
         }
 
         if (needUpdate) {
-          this.store.dispatch(new ProfileActions.UpdateMetadata(profile.user_id, metaData));
+          this.store.dispatch(ProfileActions.UpdateMetadata({userId: profile.user_id, metadata: metaData}));
         } else {
-          this.store.dispatch(new ProfileActions.Set(new UserProfile(profile)));
-          this.store.dispatch(new ProfileActions.SaveToSession());
+          this.store.dispatch(ProfileActions.Set({profile: new UserProfile(profile)}));
+          this.store.dispatch(ProfileActions.SaveToSession());
         }
 
         if (extraCallbackFn) {
