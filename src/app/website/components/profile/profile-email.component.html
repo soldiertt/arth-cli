@@ -8,10 +8,10 @@
       <div>
         <input type="email" name="email" id="email" formControlName="email" maxlength="100" class="form-control">
         <div *ngIf="form.get('emails').get('email').invalid && submitAttempt" class="invalid-form-control">
-          <span *ngIf="form.get('emails').get('email').errors.required">
+          <span *ngIf="form.get('emails').get('email').errors['required']">
             {{'page.profile.requiredfield' | trans}}
           </span>
-          <span *ngIf="form.get('emails').get('email').errors.pattern">
+          <span *ngIf="form.get('emails').get('email').errors['pattern']">
             {{'page.profile.invalidemail' | trans}}
           </span>
         </div>
@@ -24,17 +24,17 @@
       <div>
         <input type="email" name="emailConfirm" id="emailConfirm" formControlName="emailConfirm" maxlength="100" class="form-control">
         <div *ngIf="form.get('emails').get('emailConfirm').invalid && submitAttempt" class="invalid-form-control">
-          <span *ngIf="form.get('emails').get('emailConfirm').errors.required">
+          <span *ngIf="form.get('emails').get('emailConfirm').errors['required']">
             {{'page.profile.requiredfield' | trans}}
           </span>
-          <span *ngIf="form.get('emails').get('emailConfirm').errors.pattern">
+          <span *ngIf="form.get('emails').get('emailConfirm').errors['pattern']">
             {{'page.profile.invalidemail' | trans}}
           </span>
         </div>
       </div>
     </div>
     <div *ngIf="form.get('emails').invalid && submitAttempt" class="alert alert-danger">
-      <span *ngIf="form.get('emails').errors.areEqual">
+      <span *ngIf="form.get('emails').errors['areEqual']">
         {{'page.profile.emailsdonotmatch' | trans}}
       </span>
     </div>

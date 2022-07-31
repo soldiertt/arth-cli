@@ -1,4 +1,5 @@
 import {NgModule} from '@angular/core';
+import {AdvancedArticleRestService} from './service/rest/advanced-article.rest.service';
 import {ArticleRestService} from './service/rest/article.rest.service';
 import {CountryRestService} from './service/rest/country.rest.service';
 import {CategoryRestService} from './service/rest/category.rest.service';
@@ -18,6 +19,7 @@ import {VideoRestService} from './service/rest/video.rest.service';
     HttpClientModule
   ],
   providers   : [
+    AdvancedArticleRestService,
     ArticleRestService,
     BrandRestService,
     CategoryRestService,

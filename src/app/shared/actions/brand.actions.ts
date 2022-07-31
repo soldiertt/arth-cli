@@ -1,58 +1,56 @@
-import {Action} from '@ngrx/store';
+import {createAction, props} from '@ngrx/store';
 import Brand from '../../shared/model/brand.class';
 
 export namespace BrandActions {
-  export const GET_ALL = '[Brand] GET ALL';
-  export const GET_ALL_FROM_PRODUCT = '[Brand] GET ALL from Product';
-  export const GET_ALL_SUCCESS = '[Brand] GET ALL Success';
-  export const CREATE = '[Brand] Create';
-  export const CREATE_SUCCESS = '[Brand] Create Success';
-  export const DELETE = '[Brand] Delete';
-  export const DELETE_SUCCESS = '[Brand] Delete Success';
+  const GET_ALL = '[Brand] GET ALL';
+  const GET_ALL_FROM_PRODUCT = '[Brand] GET ALL from Product';
+  const GET_ALL_SUCCESS = '[Brand] GET ALL Success';
+  const CREATE = '[Brand] Create';
+  const CREATE_SUCCESS = '[Brand] Create Success';
+  const DELETE = '[Brand] Delete';
+  const DELETE_SUCCESS = '[Brand] Delete Success';
 
-  export class GetAll implements Action {
-    readonly type = GET_ALL;
-  }
+  export const GetAll = createAction(
+    GET_ALL
+  );
 
-  export class GetAllFromProduct implements Action {
-    readonly type = GET_ALL_FROM_PRODUCT;
-  }
+  export const GetAllFromProduct = createAction(
+    GET_ALL_FROM_PRODUCT
+  );
 
-  export class GetAllSuccess implements Action {
-    readonly type = GET_ALL_SUCCESS;
+  export const GetAllSuccess = createAction(
+    GET_ALL_SUCCESS,
+    props<{entities: Brand[]}>()
+  );
 
-    constructor(public entities: Brand[]) {
-    }
-  }
+  export const Create = createAction(
+    CREATE,
+    props<{entity: Brand}>()
+  );
 
-  export class Create implements Action {
-    readonly type = CREATE;
-    constructor(public entity: Brand) {}
-  }
+  export const CreateSuccess = createAction(
+    CREATE_SUCCESS,
+    props<{entity: Brand}>()
+  );
 
-  export class CreateSuccess implements Action {
-    readonly type = CREATE_SUCCESS;
-    constructor(public entity: Brand) {}
-  }
+  export const Delete = createAction(
+    DELETE,
+    props<{id: string}>()
+  );
 
-  export class Delete implements Action {
-    readonly type = DELETE;
-    constructor(public id: string) {}
-  }
+  export const DeleteSuccess = createAction(
+    DELETE_SUCCESS,
+    props<{id: string}>()
+  );
 
-  export class DeleteSuccess implements Action {
-    readonly type = DELETE_SUCCESS;
-    constructor(public id: string) {}
-  }
-
-  export type Actions
-    = GetAll
-    | GetAllFromProduct
-    | GetAllSuccess
-    | Create
-    | CreateSuccess
-    | Delete
-    | DeleteSuccess;
+  // export type Actions
+  //   = GetAll
+  //   | GetAllFromProduct
+  //   | GetAllSuccess
+  //   | Create
+  //   | CreateSuccess
+  //   | Delete
+  //   | DeleteSuccess;
 
 }
 

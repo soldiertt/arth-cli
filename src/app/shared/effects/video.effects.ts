@@ -10,23 +10,23 @@ export class VideoEffects {
   constructor(private actions$: Actions, private videoRestService: VideoRestService) {}
 
   getAll$ = createEffect(() => this.actions$.pipe(
-    ofType(VideoActions.GET_ALL),
+    ofType(VideoActions.GetAll),
     mergeMap(action => this.videoRestService.listAll()),
-    map(entities => new VideoActions.GetAllSuccess(entities))
+    map(entities => VideoActions.GetAllSuccess({entities}))
   ));
 
   create$ = createEffect(() => this.actions$.pipe(
-    ofType(VideoActions.CREATE),
-    map((action: VideoActions.Create) => action.entity),
+    ofType(VideoActions.Create),
+    map((action) => action.entity),
     mergeMap(entity => this.videoRestService.create(entity)),
-    map(entity => new VideoActions.CreateSuccess(entity))
+    map(entity => VideoActions.CreateSuccess({entity}))
   ));
 
   remove$ = createEffect(() => this.actions$.pipe(
-    ofType(VideoActions.DELETE),
-    map((action: VideoActions.Delete) => action.id),
+    ofType(VideoActions.Delete),
+    map((action) => action.id),
     mergeMap(id => this.videoRestService.remove(id).pipe(map(() => id))),
-    map(id => new VideoActions.DeleteSuccess(id))
+    map(id => VideoActions.DeleteSuccess({id}))
   ));
 
 }

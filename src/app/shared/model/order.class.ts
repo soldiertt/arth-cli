@@ -1,10 +1,10 @@
-import Article from './article.class';
+import {OrderArticle} from './order-article';
 
 export default class Order {
-  article: Article;
+  article: OrderArticle;
   count: number;
 
-  constructor(article: Article) {
+  constructor(article: OrderArticle) {
     this.article = article;
     this.count = 1;
   }

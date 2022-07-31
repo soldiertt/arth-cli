@@ -1,112 +1,98 @@
-import {Action} from '@ngrx/store';
+import {createAction, props} from '@ngrx/store';
+import {OrderArticle} from '../../shared/model/order-article';
 import Cart from '../model/cart.class';
-import Article from '../../shared/model/article.class';
 import Order from '../../shared/model/order.class';
 
 export namespace CartDataActions {
   /* Wizard */
-  export const SET_EDIT_MODE = '[CartWizard] Set Edit Mode';
+  const SET_EDIT_MODE = '[CartWizard] Set Edit Mode';
   /* Cart */
-  export const GET_CART_FROM_SESSION = '[Cart] Get from session';
-  export const INITIALIZE_CART = '[Cart] Initialize cart';
-  export const SAVE_CART_IN_SESSION = '[Cart] Save cart in session';
-  export const CART_SAVED = '[Cart] Cart saved';
-  export const CART_MOVE_TO_STEP = '[Cart] Cart move to step';
-  export const ADD_ARTICLE = '[Cart] Add article';
-  export const REMOVE_ARTICLE = '[Cart] Remove article';
-  export const REMOVE_ORDER = '[Cart] Remove order';
-  export const UPDATE_TOP_SALES = '[Cart] Update top sales';
-  export const UPDATE_TOP_SALES_SUCCESS = '[Cart] Update top sales Success';
-  export const PAY = '[Cart] PAY';
-  export const PAY_SUCCESS = '[Cart] PAY Success';
+  const GET_CART_FROM_SESSION = '[Cart] Get from session';
+  const INITIALIZE_CART = '[Cart] Initialize cart';
+  const SAVE_CART_IN_SESSION = '[Cart] Save cart in session';
+  const CART_SAVED = '[Cart] Cart saved';
+  const CART_MOVE_TO_STEP = '[Cart] Cart move to step';
+  const ADD_ARTICLE = '[Cart] Add article';
+  const REMOVE_ARTICLE = '[Cart] Remove article';
+  const REMOVE_ORDER = '[Cart] Remove order';
+  const UPDATE_TOP_SALES = '[Cart] Update top sales';
+  const UPDATE_TOP_SALES_SUCCESS = '[Cart] Update top sales Success';
+  const PAY = '[Cart] PAY';
+  const PAY_SUCCESS = '[Cart] PAY Success';
 
-  export class SetEditMode implements Action {
-    readonly type = SET_EDIT_MODE;
-    constructor(public editMode: boolean) {}
-  }
+  export const SetEditMode = createAction(
+    SET_EDIT_MODE,
+    props<{editMode: boolean}>()
+  );
 
-  export class GetCartFromSession implements Action {
-    readonly type = GET_CART_FROM_SESSION;
-  }
+  export const GetCartFromSession = createAction(
+    GET_CART_FROM_SESSION
+  );
 
-  export class InitializeCart implements Action {
-    readonly type = INITIALIZE_CART;
+  export const InitializeCart = createAction(
+    INITIALIZE_CART,
+    props<{cart: Cart}>()
+  );
 
-    constructor(public cart: Cart) {
-    }
-  }
+  export const SaveCartInSession = createAction(
+    SAVE_CART_IN_SESSION,
+    props<{cart: Cart}>()
+  );
 
-  export class SaveCartInSession implements Action {
-    readonly type = SAVE_CART_IN_SESSION;
+  export const CartSaved = createAction(
+    CART_SAVED
+  );
 
-    constructor(public cart: Cart) {
-    }
-  }
+  export const CartMoveToStep = createAction(
+    CART_MOVE_TO_STEP,
+    props<{step: number, country?: string}>()
+  );
 
-  export class CartSaved implements Action {
-    readonly type = CART_SAVED;
-  }
+  export const AddArticle = createAction(
+    ADD_ARTICLE,
+    props<{article: OrderArticle}>()
+  );
 
-  export class CartMoveToStep implements Action {
-    readonly type = CART_MOVE_TO_STEP;
+  export const RemoveArticle = createAction(
+    REMOVE_ARTICLE,
+    props<{articleId: string}>()
+  );
 
-    constructor(public step: number, public country?: string) {
-    }
-  }
+  export const RemoveOrder = createAction(
+    REMOVE_ORDER,
+    props<{articleId: string}>()
+  );
 
-  export class AddArticle implements Action {
-    readonly type = ADD_ARTICLE;
+  export const UpdateTopSales = createAction(
+    UPDATE_TOP_SALES,
+    props<{orders: Order[]}>()
+  );
 
-    constructor(public article: Article) {
-    }
-  }
+  export const UpdateTopSalesSuccess = createAction(
+    UPDATE_TOP_SALES_SUCCESS
+  );
 
-  export class RemoveArticle implements Action {
-    readonly type = REMOVE_ARTICLE;
+  export const Pay = createAction(
+    PAY,
+    props<{userId: string, orders: Order[], paymentID: string, payerID: string}>()
+  );
 
-    constructor(public articleId: string) {
-    }
-  }
+  export const PaySuccess = createAction(
+    PAY_SUCCESS
+  );
 
-  export class RemoveOrder implements Action {
-    readonly type = REMOVE_ORDER;
-
-    constructor(public articleId: string) {
-    }
-  }
-
-  export class UpdateTopSales implements Action {
-    readonly type = UPDATE_TOP_SALES;
-    constructor(public orders: Order[]) {}
-  }
-
-  export class UpdateTopSalesSuccess implements Action {
-    readonly type = UPDATE_TOP_SALES_SUCCESS;
-  }
-
-  export class Pay implements Action {
-    readonly type = PAY;
-
-    constructor(public userId: string, public orders: Order[], public paymentID: string, public payerID: string) {
-    }
-  }
-
-  export class PaySuccess implements Action {
-    readonly type = PAY_SUCCESS;
-  }
-
-  export type Actions
-    = SetEditMode
-    | GetCartFromSession
-    | InitializeCart
-    | SaveCartInSession
-    | CartSaved
-    | CartMoveToStep
-    | AddArticle
-    | RemoveArticle
-    | RemoveOrder
-    | UpdateTopSales
-    | UpdateTopSalesSuccess
-    | Pay
-    | PaySuccess;
+  // export type Actions
+  //   = SetEditMode
+  //   | GetCartFromSession
+  //   | InitializeCart
+  //   | SaveCartInSession
+  //   | CartSaved
+  //   | CartMoveToStep
+  //   | AddArticle
+  //   | RemoveArticle
+  //   | RemoveOrder
+  //   | UpdateTopSales
+  //   | UpdateTopSalesSuccess
+  //   | Pay
+  //   | PaySuccess;
 }

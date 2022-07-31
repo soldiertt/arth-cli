@@ -11,37 +11,37 @@ export class CategoryEffects {
   constructor(private actions$: Actions, private categoryRestService: CategoryRestService) {}
 
   getAll$ = createEffect(() => this.actions$.pipe(
-    ofType(CategoryActions.GET_ALL),
+    ofType(CategoryActions.GetAll),
     mergeMap(action => this.categoryRestService.listAll()),
-    map(entities => new CategoryActions.GetAllSuccess(entities))
+    map(entities => CategoryActions.GetAllSuccess({entities}))
   ));
 
   getAllRoot$ = createEffect(() => this.actions$.pipe(
-    ofType(CategoryActions.GET_ALL_ROOT),
+    ofType(CategoryActions.GetAllRoot),
     mergeMap(action => this.categoryRestService.listAllRoots()),
-    map(entities => new CategoryActions.GetAllRootSuccess(entities))
+    map(entities => CategoryActions.GetAllRootSuccess({entities}))
   ));
 
   create$ = createEffect(() => this.actions$.pipe(
-    ofType(CategoryActions.CREATE),
-    map((action: CategoryActions.Create) => action.entity),
+    ofType(CategoryActions.Create),
+    map((action) => action.entity),
     mergeMap(entity => this.categoryRestService.create(entity)),
-    map(entity => new CategoryActions.CreateSuccess(entity))
+    map(entity => CategoryActions.CreateSuccess({entity}))
   ));
 
   update$ = createEffect(() => this.actions$.pipe(
-    ofType(CategoryActions.UPDATE),
-    mergeMap((action: CategoryActions.Update) => this.categoryRestService.update(action.id, <Category>action.changes).pipe(
+    ofType(CategoryActions.Update),
+    mergeMap((action) => this.categoryRestService.update(action.id, <Category>action.changes).pipe(
       map(() => action))
     ),
-    map((action: CategoryActions.Update) => new CategoryActions.UpdateSuccess(action.id, action.changes))
+    map((action) => CategoryActions.UpdateSuccess({id: action.id, changes: action.changes}))
   ));
 
   remove$ = createEffect(() => this.actions$.pipe(
-    ofType(CategoryActions.DELETE),
-    map((action: CategoryActions.Delete) => action.id),
+    ofType(CategoryActions.Delete),
+    map((action) => action.id),
     mergeMap(id => this.categoryRestService.remove(id).pipe(map(() => id))),
-    map(id => new CategoryActions.DeleteSuccess(id))
+    map(id => CategoryActions.DeleteSuccess({id}))
   ));
 
 }

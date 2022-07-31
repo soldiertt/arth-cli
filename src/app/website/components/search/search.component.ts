@@ -25,7 +25,7 @@ export class SearchComponent implements OnInit {
 
     this.route.params.subscribe(params => {
       this.searchTerm = params['term'];
-      this.store.dispatch(new ProductActions.Search(this.searchTerm));
+      this.store.dispatch(ProductActions.Search({term: this.searchTerm}));
     });
   }
 

@@ -22,7 +22,7 @@ export class CategoryComponent implements OnInit {
 
   getAll() {
     this.categories$ = this.store.select(FromAdminCategory.selectAll);
-    this.store.dispatch(new CategoryActions.GetAll());
+    this.store.dispatch(CategoryActions.GetAll());
   }
 
   newItem() {
@@ -33,9 +33,11 @@ export class CategoryComponent implements OnInit {
     this.edited = Object.assign({}, item);
   }
 
-  remove($event, id: string) {
-    $event.preventDefault();
-    this.store.dispatch(new CategoryActions.Delete(id));
+  remove($event, id: string | undefined) {
+    if (id) {
+      $event.preventDefault();
+      this.store.dispatch(CategoryActions.Delete({id}));
+    }
   }
 
 }

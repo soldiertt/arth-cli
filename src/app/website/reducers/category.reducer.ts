@@ -1,11 +1,11 @@
 import {createEntityAdapter, EntityState} from '@ngrx/entity';
-import {createSelector} from '@ngrx/store';
+import {createReducer, createSelector, on} from '@ngrx/store';
 import Category from '../../shared/model/category.class';
 import {siteFeatureSelector, SiteState} from '../model/site-state';
 import {CategoryActions} from '../../shared/actions/category.actions';
 
 const adapter = createEntityAdapter<Category>();
-const defaultState  = {
+const defaultState: FromCategory.State  = {
   ids: [],
   entities: {}
 };
@@ -17,17 +17,15 @@ export namespace FromCategory {
   export interface State extends EntityState<Category> {
   }
 
-  export function reducer(state: State = initialState, action: CategoryActions.Actions) {
-
-    switch (action.type) {
-      case CategoryActions.GET_ALL_ROOT:
-        return state;
-      case CategoryActions.GET_ALL_ROOT_SUCCESS:
-        return adapter.addMany(action.entities, state);
-      default:
-        return state;
-    }
-  }
+  export const reducer = createReducer(
+    initialState,
+    on(CategoryActions.GetAllRoot, (state, action) => {
+      return state;
+    }),
+    on(CategoryActions.GetAllRootSuccess, (state, action) => {
+      return adapter.addMany(action.entities, state);
+    }),
+  );
 
   const getLocalState = createSelector(siteFeatureSelector, (state: SiteState) => state.rootCategories);
 

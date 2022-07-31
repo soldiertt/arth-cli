@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {OrderArticle} from '../../../shared/model/order-article';
 import Cart from '../../model/cart.class';
 import Article from '../../../shared/model/article.class';
 import CartData from '../../model/cart-data.class';
@@ -25,19 +26,19 @@ export class MyCartComponent implements OnInit {
     this.cart$ = this.store.select(FromCartData.selectCartState);
   }
 
-  addArticle($event, article: Article) {
+  addArticle($event, article: OrderArticle) {
     $event.preventDefault();
-    this.store.dispatch(new CartDataActions.AddArticle(article));
+    this.store.dispatch(CartDataActions.AddArticle({article}));
   }
 
   removeArticle($event, articleId: string) {
     $event.preventDefault();
-    this.store.dispatch(new CartDataActions.RemoveArticle(articleId));
+    this.store.dispatch(CartDataActions.RemoveArticle({articleId}));
   }
 
   removeOrder($event, articleId: string) {
     $event.preventDefault();
-    this.store.dispatch(new CartDataActions.RemoveOrder(articleId));
+    this.store.dispatch(CartDataActions.RemoveOrder({articleId}));
   }
 
 }

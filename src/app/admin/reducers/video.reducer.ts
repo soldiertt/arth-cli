@@ -1,11 +1,11 @@
 import {createEntityAdapter, EntityState} from '@ngrx/entity';
-import {createSelector} from '@ngrx/store';
+import {createReducer, createSelector, on} from '@ngrx/store';
 import Video from '../../shared/model/video.class';
 import {adminFeatureSelector, AdminState} from '../model/admin-state';
 import {VideoActions} from '../../shared/actions/video.actions';
 
 const adapter = createEntityAdapter<Video>();
-const defaultState  = {
+const defaultState: FromAdminVideo.State  = {
   ids: [],
   entities: {}
 };
@@ -16,19 +16,18 @@ export namespace FromAdminVideo {
 
   export interface State extends EntityState<Video> {}
 
-  export function reducer(state: State = initialState, action: VideoActions.Actions) {
-
-    switch (action.type) {
-      case VideoActions.GET_ALL_SUCCESS:
-        return adapter.addMany(action.entities, state);
-      case VideoActions.CREATE_SUCCESS:
-        return adapter.addOne(action.entity, state);
-      case VideoActions.DELETE_SUCCESS:
-        return adapter.removeOne(action.id, state);
-      default:
-        return state;
-    }
-  }
+  export const reducer = createReducer(
+    initialState,
+    on(VideoActions.GetAllSuccess, (state, action) => {
+      return adapter.addMany(action.entities, state);
+    }),
+    on(VideoActions.CreateSuccess, (state, action) => {
+      return adapter.addOne(action.entity, state);
+    }),
+    on(VideoActions.DeleteSuccess, (state, action) => {
+      return adapter.removeOne(action.id, state);
+    }),
+  );
 
   const getLocalState = createSelector(adminFeatureSelector, (state: AdminState) => state.video);
 

@@ -13,28 +13,28 @@ export class BrandEffects {
               private productRestService: ArticleRestService) {}
 
   getAll$ = createEffect(() => this.actions$.pipe(
-    ofType(BrandActions.GET_ALL),
+    ofType(BrandActions.GetAll),
     mergeMap(action => this.brandRestService.listAll()),
-    map(entities => new BrandActions.GetAllSuccess(entities))
+    map(entities => BrandActions.GetAllSuccess({entities}))
   ));
 
   loadAllBrands$ = createEffect(() => this.actions$.pipe(
-    ofType(BrandActions.GET_ALL_FROM_PRODUCT),
+    ofType(BrandActions.GetAllFromProduct),
     mergeMap(action => this.productRestService.findAllBrands()),
-    map(entities => new BrandActions.GetAllSuccess(entities))
+    map(entities => BrandActions.GetAllSuccess({entities}))
   ));
 
   create$ = createEffect(() => this.actions$.pipe(
-    ofType(BrandActions.CREATE),
-    map((action: BrandActions.Create) => action.entity),
+    ofType(BrandActions.Create),
+    map((action) => action.entity),
     mergeMap(entity => this.brandRestService.create(entity)),
-    map(entity => new BrandActions.CreateSuccess(entity))
+    map(entity => BrandActions.CreateSuccess({entity}))
   ));
 
   remove$ = createEffect(() => this.actions$.pipe(
-    ofType(BrandActions.DELETE),
-    map((action: BrandActions.Delete) => action.id),
+    ofType(BrandActions.Delete),
+    map((action) => action.id),
     mergeMap(id => this.brandRestService.remove(id).pipe(map(() => id))),
-    map(id => new BrandActions.DeleteSuccess(id))
+    map(id => BrandActions.DeleteSuccess({id}))
   ));
 }

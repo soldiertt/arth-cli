@@ -21,7 +21,7 @@ export class UserComponent implements OnInit {
 
   getAll() {
     this.users$ = this.store.select(FromAdminUser.selectAll);
-    this.store.dispatch(new UserActions.GetAll());
+    this.store.dispatch(UserActions.GetAll());
   }
 
 }

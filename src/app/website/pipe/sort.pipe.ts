@@ -7,7 +7,7 @@ export class SortPipe implements PipeTransform {
   transform(array: Article[], args: string): any[] {
 
     if (array == null) {
-      return null;
+      return [];
     }
     if (array.length === 0) {
       return array;

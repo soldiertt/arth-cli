@@ -24,9 +24,11 @@ export class CartDropdownComponent implements OnInit {
     this.cart$ = this.store.select(FromCartData.selectCartState);
   }
 
-  removeOrder($event, articleId: string) {
+  removeOrder($event, articleId: string | undefined) {
     $event.stopPropagation();
-    this.store.dispatch(new CartDataActions.RemoveOrder(articleId));
+    if (articleId) {
+      this.store.dispatch(CartDataActions.RemoveOrder({articleId}));
+    }
   }
 
 }

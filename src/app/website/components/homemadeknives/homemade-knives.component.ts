@@ -1,30 +1,24 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Params} from '@angular/router';
-
-import Article from '../../../shared/model/article.class';
-import Brand from '../../../shared/model/brand.class';
+import AdvancedArticle from '../../../shared/model/advanced-article.class';
 import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
-import ProductData from '../../model/product-data.class';
-import {ProductActions} from '../../actions/product.actions';
-import {FromProduct} from '../../reducers/product.reducer';
+import {AdvancedProductActions} from '../../actions/advanced-product.actions';
+import {FromAdvancedProduct} from '../../reducers/advanced-product.reducer';
+
+declare const $: any;
 
 @Component({
-  selector: 'arth-homemade-knives',
   templateUrl: 'homemade-knives.component.html'
 })
 export class HomemadeKnivesComponent implements OnInit {
 
-  articles$: Observable<Article[]>;
-  brand: Brand;
+  articles$: Observable<AdvancedArticle[]>;
 
-  constructor(private route: ActivatedRoute,
-              private store: Store<ProductData>) {
+  constructor(private store: Store<AdvancedArticle[]>) {
   }
 
   ngOnInit() {
-    this.articles$ = this.store.select(FromProduct.selectCurrentProductsState);
-    this.store.dispatch(new ProductActions.LoadAllByCategory('homemade'));
+    this.articles$ = this.store.select(FromAdvancedProduct.selectLocalState);
+    this.store.dispatch(AdvancedProductActions.FilterAllByCategory({categoryName: 'homemade'}));
   }
-
 }

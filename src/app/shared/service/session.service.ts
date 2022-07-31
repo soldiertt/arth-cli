@@ -17,7 +17,7 @@ export class SessionService {
   }
 
   getCart(): Cart {
-    return JSON.parse(localStorage.getItem(this.CART_TOKEN));
+    return JSON.parse(localStorage.getItem(this.CART_TOKEN)!);
   }
 
   saveLang(lang: string): void {
@@ -25,7 +25,7 @@ export class SessionService {
   }
 
   getLang(): string {
-    return JSON.parse(localStorage.getItem(this.LANG_TOKEN));
+    return JSON.parse(localStorage.getItem(this.LANG_TOKEN)!);
   }
 
   saveProfile(profile: UserProfile): void {
@@ -41,7 +41,7 @@ export class SessionService {
   }
 
   getProfile(): UserProfile {
-    return JSON.parse(localStorage.getItem(this.PROFILE_TOKEN));
+    return JSON.parse(localStorage.getItem(this.PROFILE_TOKEN)!);
   }
 
   deleteProfile(): void {

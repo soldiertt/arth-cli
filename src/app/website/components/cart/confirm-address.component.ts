@@ -19,14 +19,14 @@ export class ConfirmAddressComponent implements OnInit, OnDestroy {
   private ngUnsubscribe: Subject<any> = new Subject();
 
   editMode: boolean = false;
-  editedItem: string;
+  editedItem: string | undefined;
   profileUpdated: boolean;
 
   constructor(private store: Store<UserProfile>,
               private cartDataStore: Store<CartData>) {}
 
   ngOnInit() {
-    // Check if address is defined, otherwise edit it immediatly
+    // Check if address is defined, otherwise edit it immediately
     this.cartDataStore.select(FromCartData.selectWizardState).pipe(
       takeUntil(this.ngUnsubscribe))
       .subscribe(wizard => {
@@ -41,27 +41,27 @@ export class ConfirmAddressComponent implements OnInit, OnDestroy {
       takeUntil(this.ngUnsubscribe))
       .subscribe(profile => {
         if (!profile || !profile.user_metadata || !profile.user_metadata.profileComplete) {
-          this.cartDataStore.dispatch(new CartDataActions.SetEditMode(true));
+          this.cartDataStore.dispatch(CartDataActions.SetEditMode({editMode: true}));
         }
     });
   }
 
   ngOnDestroy() {
-    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.next(null);
     this.ngUnsubscribe.complete();
   }
 
   editAddress(): void {
     this.profileUpdated = false;
-    this.cartDataStore.dispatch(new CartDataActions.SetEditMode(true));
+    this.cartDataStore.dispatch(CartDataActions.SetEditMode({editMode: true}));
   }
 
   cancelEdit(): void {
-    this.cartDataStore.dispatch(new CartDataActions.SetEditMode(false));
+    this.cartDataStore.dispatch(CartDataActions.SetEditMode({editMode: false}));
   }
 
   updateMetaData(): void {
-    this.cartDataStore.dispatch(new CartDataActions.SetEditMode(false));
+    this.cartDataStore.dispatch(CartDataActions.SetEditMode({editMode: false}));
     this.profileUpdated = true;
   }
 

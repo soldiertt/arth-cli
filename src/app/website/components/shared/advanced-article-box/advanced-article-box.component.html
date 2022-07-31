@@ -1,0 +1,31 @@
+<div class="article" [class.odd]="isOdd">
+  <div class="article-picture">
+    <div *ngFor="let picture of _album; let i=index">
+      <img [src]="picture.thumb" (click)="open(i)" class="zoomable" />
+    </div>
+  </div>
+  <div class="article-desc">
+    <div class="name">{{article.name}}</div>
+    <p *ngIf="article.description" class="strong" [innerHtml]="article.description"></p>
+    <p *ngIf="article.brand">{{'common.label.brand' | trans}} : <span class="strong">{{article.brand}}</span></p>
+    <p *ngIf="article.comment"><span class="strong comment" [innerHtml]="article.comment"></span></p>
+    <div *ngIf="article.youtube_ref">
+      <a class="fancyboxVideo fancybox.iframe" href="http://www.youtube.com/embed/{{article.youtube_ref}}"
+         title="{{article.name}}"><img id="youtube_vid" src="assets/images/youtube.jpg"></a>
+    </div>
+    <div class="price">
+      <p>{{'common.label.price' | trans}} : <span>{{article?.price | currency:'EUR'}}</span></p>
+    </div>
+    <div class="buttons" *ngIf="article.instock; else outofstock">
+      <ul>
+        <li>
+          <button class="btn-detail" (click)="addToCart(article)">{{'common.links.addtocart' | trans}}</button>
+        </li>
+      </ul>
+    </div>
+    <ng-template #outofstock>
+      <p *ngIf="!article.instock"><span class="warn">{{'common.label.outofstock' | trans}}</span></p>
+    </ng-template>
+  </div>
+
+</div>

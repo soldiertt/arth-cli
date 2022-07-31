@@ -30,8 +30,8 @@ export class SliderComponent implements OnInit {
     this.slidesCount$ = this.slideStore.select(FromSlide.selectTotal);
 
     this.sliderArticles$ = this.slideProductStore.select(FromSlideProduct.selectAll);
-    this.slideStore.dispatch(new SlideActions.GetAll());
-    this.slideProductStore.dispatch(new SlideProductActions.GetAll());
+    this.slideStore.dispatch(SlideActions.GetAll());
+    this.slideProductStore.dispatch(SlideProductActions.GetAll());
   }
 
   goToProductFromSlide(slide: Slide): void {

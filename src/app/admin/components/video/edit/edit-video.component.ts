@@ -16,9 +16,9 @@ export class EditVideoComponent {
 
   constructor(private store: Store<FromAdminVideo.State>) { }
 
-  save(valid: boolean) {
+  save(valid: boolean | null) {
     if (valid && (this.item.ref || this.item.title)) {
-      this.store.dispatch(new VideoActions.Create(this.item));
+      this.store.dispatch(VideoActions.Create({entity: this.item}));
       $('#videoModal').modal('hide');
     }
   }

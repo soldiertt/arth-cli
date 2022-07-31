@@ -16,9 +16,9 @@ export class EditBrandComponent {
 
   constructor(private store: Store<FromAdminBrand.State>) { }
 
-  save(valid: boolean) {
+  save(valid: boolean | null) {
     if (valid) {
-      this.store.dispatch(new BrandActions.Create(this.item));
+      this.store.dispatch(BrandActions.Create({entity: this.item}));
       $('#brandModal').modal('hide');
     }
   }

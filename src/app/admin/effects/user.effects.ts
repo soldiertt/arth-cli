@@ -10,8 +10,8 @@ export class UserEffects {
   constructor(private actions$: Actions, private userRestService: UserRestService) {}
 
   getAll$  = createEffect(() => this.actions$.pipe(
-    ofType(UserActions.GET_ALL),
+    ofType(UserActions.GetAll),
     mergeMap(action => this.userRestService.listAll()),
-    map(entities => new UserActions.GetAllSuccess(entities))
+    map(entities => UserActions.GetAllSuccess({entities}))
   ));
 }

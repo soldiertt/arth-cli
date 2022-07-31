@@ -1,50 +1,48 @@
-import {Action} from '@ngrx/store';
+import {createAction, props} from '@ngrx/store';
 import Video from '../model/video.class';
 
 export namespace VideoActions {
-  export const GET_ALL = '[Video] GET ALL';
-  export const GET_ALL_SUCCESS = '[Video] GET ALL Success';
-  export const CREATE = '[Video] Create';
-  export const CREATE_SUCCESS = '[Video] Create Success';
-  export const DELETE = '[Video] Delete';
-  export const DELETE_SUCCESS = '[Video] Delete Success';
+  const GET_ALL = '[Video] GET ALL';
+  const GET_ALL_SUCCESS = '[Video] GET ALL Success';
+  const CREATE = '[Video] Create';
+  const CREATE_SUCCESS = '[Video] Create Success';
+  const DELETE = '[Video] Delete';
+  const DELETE_SUCCESS = '[Video] Delete Success';
 
-  export class GetAll implements Action {
-    readonly type = GET_ALL;
-  }
+  export const GetAll = createAction(
+    GET_ALL
+  );
 
-  export class GetAllSuccess implements Action {
-    readonly type = GET_ALL_SUCCESS;
+  export const GetAllSuccess = createAction(
+    GET_ALL_SUCCESS,
+    props<{entities: Video[]}>()
+  );
 
-    constructor(public entities: Video[]) {
-    }
-  }
+  export const Create = createAction(
+    CREATE,
+    props<{entity: Video}>()
+  );
 
-  export class Create implements Action {
-    readonly type = CREATE;
-    constructor(public entity: Video) {}
-  }
+  export const CreateSuccess = createAction(
+    CREATE_SUCCESS,
+    props<{entity: Video}>()
+  );
 
-  export class CreateSuccess implements Action {
-    readonly type = CREATE_SUCCESS;
-    constructor(public entity: Video) {}
-  }
+  export const Delete = createAction(
+    DELETE,
+    props<{id: string}>()
+  );
 
-  export class Delete implements Action {
-    readonly type = DELETE;
-    constructor(public id: string) {}
-  }
+  export const DeleteSuccess = createAction(
+    DELETE_SUCCESS,
+    props<{id: string}>()
+  );
 
-  export class DeleteSuccess implements Action {
-    readonly type = DELETE_SUCCESS;
-    constructor(public id: string) {}
-  }
-
-  export type Actions
-    = GetAll
-    | GetAllSuccess
-    | Create
-    | CreateSuccess
-    | Delete
-    | DeleteSuccess;
+  // export type Actions
+  //   = GetAll
+  //   | GetAllSuccess
+  //   | Create
+  //   | CreateSuccess
+  //   | Delete
+  //   | DeleteSuccess;
 }

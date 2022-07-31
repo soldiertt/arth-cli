@@ -1,11 +1,11 @@
 import {createEntityAdapter, EntityState} from '@ngrx/entity';
-import {createSelector} from '@ngrx/store';
+import {createReducer, createSelector, on} from '@ngrx/store';
 import {siteFeatureSelector, SiteState} from '../model/site-state';
 import Brand from '../../shared/model/brand.class';
 import {BrandActions} from '../../shared/actions/brand.actions';
 
 const adapter = createEntityAdapter<Brand>();
-const defaultState  = {
+const defaultState: FromBrand.State  = {
   ids: [],
   entities: {}
 };
@@ -17,16 +17,12 @@ export namespace FromBrand {
   export interface State extends EntityState<Brand> {
   }
 
-  export function reducer(state: State = initialState, action: BrandActions.Actions) {
-
-    switch (action.type) {
-      case BrandActions.GET_ALL_SUCCESS:
-        return adapter.addMany(action.entities, state);
-
-      default:
-        return state;
-    }
-  }
+  export const reducer = createReducer(
+    initialState,
+    on(BrandActions.GetAllSuccess, (state, action) => {
+      return adapter.addMany(action.entities, state);
+    }),
+  );
 
   const selectLocalState = createSelector(siteFeatureSelector, (state: SiteState) => state.brands);
 

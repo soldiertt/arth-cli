@@ -73,15 +73,15 @@ export class ProfileEmailComponent extends FormComponent implements OnInit, OnDe
   }
 
   ngOnDestroy() {
-    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.next(null);
     this.ngUnsubscribe.complete();
   }
 
   save(): void {
     this.submitAttempt = true;
     if (this.form.valid) {
-      const userMetadata: UserMetaData = {email: this.form.get('emails').get('email').value};
-      this.store.dispatch(new ProfileActions.UpdateMetadata(this.profile.user_id, userMetadata));
+      const userMetadata: UserMetaData = {email: this.form.get('emails')?.get('email')?.value};
+      this.store.dispatch(ProfileActions.UpdateMetadata({userId: this.profile.user_id, metadata: userMetadata}));
       this.onUpdateMetaData.emit();
     }
   }
@@ -93,8 +93,8 @@ export class ProfileEmailComponent extends FormComponent implements OnInit, OnDe
 
   private _fillFormWithData(): void {
     if (this.profile.user_metadata.email) {
-      this.form.get('emails').get('email').setValue(this.profile.user_metadata.email);
-      this.form.get('emails').get('emailConfirm').setValue('');
+      this.form.get('emails')?.get('email')?.setValue(this.profile.user_metadata.email);
+      this.form.get('emails')?.get('emailConfirm')?.setValue('');
     }
   }
 

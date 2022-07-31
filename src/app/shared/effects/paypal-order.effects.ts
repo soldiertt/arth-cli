@@ -10,9 +10,9 @@ export class OrderEffects {
   constructor(private actions$: Actions, private orderRestService: PaypalOrderRestService) {}
 
   getAll$ = createEffect(() => this.actions$.pipe(
-    ofType(PaypalOrderActions.GET_ALL),
+    ofType(PaypalOrderActions.GetAll),
     mergeMap(action => this.orderRestService.listAll()),
-    map(entities => new PaypalOrderActions.GetAllSuccess(entities))
+    map(entities => PaypalOrderActions.GetAllSuccess({entities}))
   ));
 
 

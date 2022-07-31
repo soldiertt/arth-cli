@@ -1,4 +1,5 @@
 import {ActionReducerMap} from '@ngrx/store';
+import {FromAdvancedProduct} from './advanced-product.reducer';
 import {FromCategory} from './category.reducer';
 import {SiteState} from '../model/site-state';
 import {FromBrand} from './brand.reducer';
@@ -17,5 +18,6 @@ export const reducers: ActionReducerMap<SiteState> = {
   slides: FromSlide.reducer,
   paypalOrders: FromPaypalOrder.reducer,
   productData: FromProduct.reducer,
+  advancedProductData: FromAdvancedProduct.reducer,
   brands: FromBrand.reducer
 };

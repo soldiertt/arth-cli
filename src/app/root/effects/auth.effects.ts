@@ -1,7 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Actions, createEffect, Effect, ofType} from '@ngrx/effects';
-import {Observable} from 'rxjs';
-import {Action} from '@ngrx/store';
+import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {SessionService} from '../../shared/service/session.service';
 import {AuthActions} from '../actions/auth.actions';
 import {map} from 'rxjs/operators';
@@ -13,9 +11,9 @@ export class AuthenticationEffects {
               private sessionService: SessionService) {}
 
   saveProfileInSession$ = createEffect(() => this.actions$.pipe(
-    ofType(AuthActions.SAVE_TO_SESSION),
-    map((action: AuthActions.SaveToSession) => this.sessionService.saveAuth(action.authResult)),
-    map(() => new AuthActions.SaveToSessionSuccess())
+    ofType(AuthActions.SaveToSession),
+    map((action) => this.sessionService.saveAuth({authResult: action.authResult})),
+    map(() => AuthActions.SaveToSessionSuccess())
   ));
 
 }

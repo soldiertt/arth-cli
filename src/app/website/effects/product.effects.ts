@@ -18,20 +18,20 @@ export class ProductEffects {
               private categoryRestService: CategoryRestService) {}
 
   getAllPromo$ = createEffect(() => this.actions$.pipe(
-    ofType(PromoProductActions.GET_ALL),
+    ofType(PromoProductActions.GetAll),
     mergeMap(() => this.productRestService.listAllPromo()),
-    map(entities => new PromoProductActions.GetAllSuccess(entities))
+    map(entities => PromoProductActions.GetAllSuccess({entities}))
   ));
 
   updateTopSales$ = createEffect(() => this.actions$.pipe(
-    ofType(CartDataActions.UPDATE_TOP_SALES),
-    mergeMap((action: CartDataActions.UpdateTopSales) => this.productRestService.updateTopSales(action.orders)),
-    map(_ => new CartDataActions.UpdateTopSalesSuccess())
+    ofType(CartDataActions.UpdateTopSales),
+    mergeMap((action) => this.productRestService.updateTopSales(action.orders)),
+    map(_ => CartDataActions.UpdateTopSalesSuccess())
   ));
 
   loadProduct$ = createEffect(() => this.actions$.pipe(
-    ofType(ProductActions.LOAD_ONE),
-    mergeMap((action: ProductActions.LoadOne) => this.productRestService.findById(action.productId)),
+    ofType(ProductActions.LoadOne),
+    mergeMap((action) => this.productRestService.findById(action.productId)),
     mergeMap(product => this.categoryRestService.findCategory(product.type).pipe(map(category => ({product, category})))),
     mergeMap(productItemData => {
       if (productItemData.category.parent) {
@@ -42,27 +42,27 @@ export class ProductEffects {
         return of(productItemData);
       }
     }),
-    map(productItemData => new ProductActions.LoadOneSuccess(productItemData))
+    map(productItemData => ProductActions.LoadOneSuccess({productItemData}))
     )
   );
 
   loadAllByBrand$ = createEffect(() => this.actions$.pipe(
-    ofType(ProductActions.LOAD_ALL_BY_BRAND),
-    mergeMap((action: ProductActions.LoadAllByBrand) => this.productRestService.findByBrand(action.brand.marque)),
-    map(entities => new ProductActions.LoadAllByBrandSuccess(entities))
+    ofType(ProductActions.LoadAllByBrand),
+    mergeMap((action) => this.productRestService.findByBrand(action.brand.marque)),
+    map(entities => ProductActions.LoadAllByBrandSuccess({entities}))
     )
   );
 
   search$ = createEffect(() => this.actions$.pipe(
-    ofType(ProductActions.SEARCH),
-    mergeMap((action: ProductActions.Search) => this.productRestService.search(action.term)),
-    map(entities => new ProductActions.SearchSuccess(entities))
+    ofType(ProductActions.Search),
+    mergeMap((action) => this.productRestService.search(action.term)),
+    map(entities => ProductActions.SearchSuccess({entities}))
     )
   );
 
   loadAllByCategory$ = createEffect(() => this.actions$.pipe(
-    ofType(ProductActions.LOAD_ALL_BY_CATEGORY),
-    mergeMap((action: ProductActions.LoadAllByCategory) =>
+    ofType(ProductActions.LoadAllByCategory),
+    mergeMap((action) =>
       this.categoryRestService.findCategory(action.categoryName).pipe(
         map(category => {
           const productData = new ProductData();
@@ -108,7 +108,7 @@ export class ProductEffects {
         })
       );
     }),
-    map(productData => new ProductActions.LoadAllByCategorySuccess(productData))
+    map(productData => ProductActions.LoadAllByCategorySuccess({productData}))
     )
   );
 }

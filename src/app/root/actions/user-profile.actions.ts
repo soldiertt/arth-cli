@@ -1,48 +1,51 @@
-import {Action} from '@ngrx/store';
+import {createAction, props} from '@ngrx/store';
 import UserProfile from '../../website/model/user-profile.class';
 import UserMetaData from '../../website/model/usermetadata.class';
 
 export namespace ProfileActions {
-  export const INIT_FROM_SESSION = '[UserProfile] Init from session';
-  export const UPDATE_METADATA = '[UserProfile] Update metadata';
-  export const SET = '[UserProfile] Set';
-  export const LOGOUT = '[UserProfile] Logout';
-  export const SAVE_TO_SESSION = '[UserProfile] Save to session';
-  export const SAVE_TO_SESSION_SUCCESS = '[UserProfile] Save to session success';
+  const INIT_FROM_SESSION = '[UserProfile] Init from session';
+  const UPDATE_METADATA = '[UserProfile] Update metadata';
+  const SET = '[UserProfile] Set';
+  const UNSET = '[UserProfile] Unset';
+  const LOGOUT = '[UserProfile] Logout';
+  const SAVE_TO_SESSION = '[UserProfile] Save to session';
+  const SAVE_TO_SESSION_SUCCESS = '[UserProfile] Save to session success';
 
-  export class InitFromSession implements Action {
-    readonly type = INIT_FROM_SESSION;
-  }
+  export const InitFromSession = createAction(
+     INIT_FROM_SESSION
+  );
 
-  export class UpdateMetadata implements Action {
-    readonly type = UPDATE_METADATA;
+  export const UpdateMetadata = createAction(
+    UPDATE_METADATA,
+    props<{userId: string, metadata: UserMetaData}>()
+  );
 
-    constructor(public userId: string, public metadata: UserMetaData) {}
-  }
+  export const Set = createAction(
+    SET,
+    props<{profile: UserProfile}>()
+  );
 
-  export class Set implements Action {
-    readonly type = SET;
+  export const Unset = createAction(
+    UNSET
+  );
 
-    constructor(public profile: UserProfile) {}
-  }
+  export const Logout = createAction(
+    LOGOUT
+  );
 
-  export class Logout implements Action {
-    readonly type = LOGOUT;
-  }
+  export const SaveToSession = createAction(
+    SAVE_TO_SESSION
+  );
 
-  export class SaveToSession implements Action {
-    readonly type = SAVE_TO_SESSION;
-  }
+  export const SaveToSessionSuccess = createAction(
+    SAVE_TO_SESSION_SUCCESS
+  );
 
-  export class SaveToSessionSuccess implements Action {
-    readonly type = SAVE_TO_SESSION_SUCCESS;
-  }
-
-  export type Actions
-    = InitFromSession
-    | UpdateMetadata
-    | Set
-    | Logout
-    | SaveToSession
-    | SaveToSessionSuccess;
+  // export type Actions
+  //   = InitFromSession
+  //   | UpdateMetadata
+  //   | Set
+  //   | Logout
+  //   | SaveToSession
+  //   | SaveToSessionSuccess;
 }

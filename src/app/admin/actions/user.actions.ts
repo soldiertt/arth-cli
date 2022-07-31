@@ -1,23 +1,21 @@
-import {Action} from '@ngrx/store';
+import {createAction, props} from '@ngrx/store';
 import UserProfile from '../../website/model/user-profile.class';
 
 export namespace UserActions {
 
-  export const GET_ALL = '[User] GET ALL';
-  export const GET_ALL_SUCCESS = '[User] GET ALL Success';
+  const GET_ALL = '[User] GET ALL';
+  const GET_ALL_SUCCESS = '[User] GET ALL Success';
 
-  export class GetAll implements Action {
-    readonly type = GET_ALL;
-  }
+  export const GetAll = createAction(
+    GET_ALL
+  );
 
-  export class GetAllSuccess implements Action {
-    readonly type = GET_ALL_SUCCESS;
+  export const GetAllSuccess = createAction(
+    GET_ALL_SUCCESS,
+    props<{entities: UserProfile[]}>()
+  );
 
-    constructor(public entities: UserProfile[]) {
-    }
-  }
-
-  export type Actions
-    = GetAll
-    | GetAllSuccess;
+  // export type Actions
+  //   = GetAll
+  //   | GetAllSuccess;
 }

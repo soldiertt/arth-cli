@@ -21,15 +21,15 @@ export class PaypalOrderEffects {
               private paypalRestService: PaypalRestService) {}
 
   getAll$ = createEffect(() =>  this.actions$.pipe(
-    ofType(PaypalOrderActions.GET_ALL_FOR_USER),
-    mergeMap((action: PaypalOrderActions.GetAllForUser) => this.paypalOrderRestService.listAllByUser(action.userId)),
-    map(entities => new PaypalOrderActions.GetAllForUserSuccess(entities))
+    ofType(PaypalOrderActions.GetAllForUser),
+    mergeMap((action) => this.paypalOrderRestService.listAllByUser(action.userId)),
+    map(entities => PaypalOrderActions.GetAllForUserSuccess({entities}))
     )
   );
 
   payment$ = createEffect(() => this.actions$.pipe(
-    ofType(CartDataActions.PAY),
-    mergeMap((action: CartDataActions.Pay) => {
+    ofType(CartDataActions.Pay),
+    mergeMap((action) => {
       return this.paypalRestService.executePayment(action.paymentID, action.payerID).pipe(
         map(response => {
           const firstTx = response.transactions[0];
@@ -59,6 +59,6 @@ export class PaypalOrderEffects {
         console.log('Mail sent !');
       });
     }),
-    map(_ => new CartDataActions.PaySuccess())
+    map(_ => CartDataActions.PaySuccess())
   ));
 }

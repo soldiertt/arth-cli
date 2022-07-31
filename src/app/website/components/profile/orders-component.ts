@@ -36,13 +36,15 @@ export class OrdersComponent implements OnInit, OnDestroy {
       });
     this.profileStore.select(FromProfile.selectUserId).pipe(
       takeUntil(this.ngUnsubscribe))
-      .subscribe(userId => {
-        this.store.dispatch(new PaypalOrderActions.GetAllForUser(userId));
+      .subscribe((userId) => {
+        if (userId) {
+          this.store.dispatch(PaypalOrderActions.GetAllForUser({userId}));
+        }
       });
   }
 
   ngOnDestroy() {
-    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.next(null);
     this.ngUnsubscribe.complete();
   }
 

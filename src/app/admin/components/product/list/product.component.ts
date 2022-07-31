@@ -5,7 +5,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Observable, Subject} from 'rxjs';
 import {Store} from '@ngrx/store';
 import Article from '../../../../shared/model/article.class';
-import * as steelActions from '../../../actions/steel.actions';
+import {SteelActions} from '../../../actions/steel.actions';
 import Brand from '../../../../shared/model/brand.class';
 import Category from '../../../../shared/model/category.class';
 import {FormBuilder, FormGroup} from '@angular/forms';
@@ -75,31 +75,31 @@ export class ProductComponent implements OnInit, OnDestroy {
 
     this.productStore.select(FromAdminProduct.selectCsvResponse).subscribe(csvResponse => {
       if (csvResponse) {
-        const contentDispositionHeader: string = csvResponse.headers.get('Content-Disposition');
+        const contentDispositionHeader: string = csvResponse?.headers.get('Content-Disposition')!;
         const parts: string[] = contentDispositionHeader.split(';');
         const filename = parts[1].split('=')[1];
-        saveAs(csvResponse.body, filename);
+        saveAs(csvResponse.body!, filename);
       }
     });
   }
 
   ngOnDestroy() {
-    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.next(null);
     this.ngUnsubscribe.complete();
   }
 
   getAll() {
     this.products$ = this.productStore.select(FromAdminProduct.selectAll);
-    this.productStore.dispatch(new ProductActions.GetAll());
+    this.productStore.dispatch(ProductActions.GetAll());
 
     this.categories$ = this.categoryStore.select(FromAdminCategory.selectAll);
-    this.categoryStore.dispatch(new CategoryActions.GetAll());
+    this.categoryStore.dispatch(CategoryActions.GetAll());
 
     this.brands$ = this.brandStore.select(FromAdminBrand.selectAll);
-    this.brandStore.dispatch(new BrandActions.GetAll());
+    this.brandStore.dispatch(BrandActions.GetAll());
 
     this.steels$ = this.steelStore.select(FromAdminSteel.selectAll);
-    this.steelStore.dispatch(new steelActions.GetAll());
+    this.steelStore.dispatch(SteelActions.GetAll());
 
     this.slideProductStore.select(FromAdminSlideProduct.selectCreated).pipe(
       takeUntil(this.ngUnsubscribe))
@@ -123,11 +123,11 @@ export class ProductComponent implements OnInit, OnDestroy {
 
   export() {
     this.productStore.dispatch(
-      new ProductActions.ExportToCsv(this.filterVal('categoryFilter'),
-                                     this.filterVal('brandFilter'),
-                                     this.filterVal('steelFilter'),
-                                     this.filterVal('promoFilter'),
-                                     this.filterVal('instockFilter'))
+      ProductActions.ExportToCsv({category: this.filterVal('categoryFilter'),
+                                     brand: this.filterVal('brandFilter'),
+                                     steel: this.filterVal('steelFilter'),
+                                     promo: this.filterVal('promoFilter'),
+                                     instock: this.filterVal('instockFilter')})
     );
   }
 
@@ -135,18 +135,20 @@ export class ProductComponent implements OnInit, OnDestroy {
     this.edited = Object.assign({}, item);
   }
 
-  remove($event, id: string) {
-    $event.preventDefault();
-    this.productStore.dispatch(new ProductActions.Delete(id));
+  remove($event, id: string | undefined) {
+    if (id) {
+      $event.preventDefault();
+      this.productStore.dispatch(ProductActions.Delete({id}));
+    }
   }
 
   createSlideProduct($event, product: Article) {
     $event.preventDefault();
-    this.slideProductStore.dispatch(new SlideProductActions.Create(product));
+    this.slideProductStore.dispatch(SlideProductActions.Create({entity: product}));
   }
 
-  private filterVal(filterField: string): string {
-    const value = this.filterForm.get(filterField).value;
+  private filterVal(filterField: string): string | undefined {
+    const value = this.filterForm.get(filterField)?.value;
     if (value) {
       return value;
     } else {

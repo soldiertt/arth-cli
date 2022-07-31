@@ -27,18 +27,18 @@ export class CartWizardComponent implements OnInit, OnDestroy {
     this.cartData$.pipe(take(1)).subscribe(cartData => {
       if (cartData.cart.totalCount > 0) {
         if (this.authService.authenticated()) {
-          this.store.dispatch(new CartDataActions.CartMoveToStep(2));
+          this.store.dispatch(CartDataActions.CartMoveToStep({step: 2}));
         } else {
-          this.store.dispatch(new CartDataActions.CartMoveToStep(1));
+          this.store.dispatch(CartDataActions.CartMoveToStep({step: 1}));
         }
       } else {
-        this.store.dispatch(new CartDataActions.CartMoveToStep(0));
+        this.store.dispatch(CartDataActions.CartMoveToStep({step: 0}));
       }
     });
   }
 
   ngOnDestroy() {
-    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.next(null);
     this.ngUnsubscribe.complete();
   }
 

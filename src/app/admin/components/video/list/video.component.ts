@@ -21,7 +21,7 @@ export class VideoComponent implements OnInit {
 
   getAll() {
     this.videos$ = this.videoStore.select(FromAdminVideo.selectAll);
-    this.videoStore.dispatch(new VideoActions.GetAll());
+    this.videoStore.dispatch(VideoActions.GetAll());
   }
 
   newItem() {
@@ -30,7 +30,7 @@ export class VideoComponent implements OnInit {
 
   remove($event, id: string) {
     $event.preventDefault();
-    this.videoStore.dispatch(new VideoActions.Delete(id));
+    this.videoStore.dispatch(VideoActions.Delete({id}));
   }
 
 }

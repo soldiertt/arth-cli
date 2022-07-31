@@ -12,39 +12,39 @@ export class SlideEffects {
   constructor(private actions$: Actions, private slideRestService: SliderRestService) {}
 
   getAll$ = createEffect(() => this.actions$.pipe(
-    ofType(SlideActions.GET_ALL),
+    ofType(SlideActions.GetAll),
     mergeMap(action => this.slideRestService.listAll()),
-    map(entities => new SlideActions.GetAllSuccess(entities))
+    map(entities => SlideActions.GetAllSuccess({entities}))
   ));
 
   create$ = createEffect(() => this.actions$.pipe(
-    ofType(SlideActions.CREATE),
-    map((action: SlideActions.Create) => action.entity),
+    ofType(SlideActions.Create),
+    map((action) => action.entity),
     mergeMap(entity => this.slideRestService.create(entity)),
-    map(entity => new SlideActions.CreateSuccess(entity))
+    map(entity => SlideActions.CreateSuccess({entity}))
   ));
 
   update$ = createEffect(() => this.actions$.pipe(
-    ofType(SlideActions.UPDATE),
-    mergeMap((action: SlideActions.Update) => this.slideRestService.update(action.id, <Slide>action.changes).pipe(map(() => action))),
-    map((action: SlideActions.Update) => new SlideActions.UpdateSuccess(action.id, action.changes))
+    ofType(SlideActions.Update),
+    mergeMap((action) => this.slideRestService.update(action.id, <Slide>action.changes).pipe(map(() => action))),
+    map((action) => SlideActions.UpdateSuccess({id: action.id, changes: action.changes}))
   ));
 
   remove$ = createEffect(() => this.actions$.pipe(
-    ofType(SlideActions.DELETE),
-    map((action: SlideActions.Delete) => action.id),
+    ofType(SlideActions.Delete),
+    map((action) => action.id),
     mergeMap(id => this.slideRestService.remove(id).pipe(map(() => id))),
-    map(id => new SlideActions.DeleteSuccess(id))
+    map(id => SlideActions.DeleteSuccess({id}))
   ));
 
   uploadPicture$ = createEffect(() => this.actions$.pipe(
-    ofType(SlideActions.UPLOAD_NEW_PICTURE),
-    map((action: SlideActions.UploadNewPicture) => action.formData),
+    ofType(SlideActions.UploadNewPicture),
+    map((action) => action.formData),
     mergeMap(formData => {
       return this.slideRestService.uploadPicture(formData)
         .pipe(
-          map(_ => new SlideActions.UploadNewPictureSuccess()),
-          catchError(err => of(new SlideActions.UploadNewPictureFail(err.message)))
+          map(_ => SlideActions.UploadNewPictureSuccess()),
+          catchError(err => of(SlideActions.UploadNewPictureFail({error: err.message})))
         );
     })
   ));

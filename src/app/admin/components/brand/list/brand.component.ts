@@ -22,16 +22,18 @@ export class BrandComponent implements OnInit {
 
   getAll() {
     this.brands$ = this.store.select(FromAdminBrand.selectAll);
-    this.store.dispatch(new BrandActions.GetAll());
+    this.store.dispatch(BrandActions.GetAll());
   }
 
   newItem() {
     this.edited = new Brand();
   }
 
-  remove($event, id: string) {
+  remove($event, id: string | undefined) {
     $event.preventDefault();
-    this.store.dispatch(new BrandActions.Delete(id));
+    if (id) {
+      this.store.dispatch(BrandActions.Delete({id}));
+    }
   }
 
 

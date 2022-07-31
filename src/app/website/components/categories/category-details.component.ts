@@ -28,7 +28,7 @@ export class CategoryDetailsComponent implements OnInit {
     this.activeRoute.params.subscribe((params: Params) => {
       const categoryType = params['type'];
 
-      this.store.dispatch(new ProductActions.LoadAllByCategory(categoryType));
+      this.store.dispatch(ProductActions.LoadAllByCategory({categoryName: categoryType}));
 
     });
 

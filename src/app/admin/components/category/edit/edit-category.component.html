@@ -1,5 +1,5 @@
 <div class="modal" id="categoryModal" tabindex="-1" role="dialog">
-  <form (ngSubmit)="save(f)" #f="ngForm" class="p-2">
+  <form (ngSubmit)="save(f.valid)" #f="ngForm" class="p-2">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">

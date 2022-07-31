@@ -28,7 +28,7 @@ export class OrderComponent implements OnInit {
         return order;
       });
     }));
-    this.store.dispatch(new PaypalOrderActions.GetAll());
+    this.store.dispatch(PaypalOrderActions.GetAll());
   }
 
 }

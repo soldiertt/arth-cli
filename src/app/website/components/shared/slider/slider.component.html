@@ -2,7 +2,9 @@
   <!-- Indicators -->
   <ol class="carousel-indicators">
     <li data-target="#myCarousel" [attr.data-slide-to]="idx" [class.active]="isFirst" *ngFor="let slide of slides$ | async; let idx = index; let isFirst = first"></li>
-    <li data-target="#myCarousel" [attr.data-slide-to]="(slidesCount$ | async) + idx2" *ngFor="let sliderArticle of sliderArticles$ | async; let idx2 = index"></li>
+    <ng-container *ngIf="(slidesCount$ | async) as slidesCount">
+      <li data-target="#myCarousel" [attr.data-slide-to]="slidesCount + idx2" *ngFor="let sliderArticle of sliderArticles$ | async; let idx2 = index"></li>
+    </ng-container>
   </ol>
 
   <!-- Wrapper for slides -->

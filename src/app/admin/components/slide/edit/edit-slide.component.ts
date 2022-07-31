@@ -35,22 +35,22 @@ export class EditSlideComponent {
     }
   }
 
-  private prepareSave(): any {
+  private prepareSave(): FormData {
     const input = new FormData();
     input.append('picture', this.picture.value);
     input.append('filename', this.item.image);
     return input;
   }
 
-  save(valid: boolean) {
+  save(valid: boolean | null) {
     if (valid && (this.item.image || this.item.id)) {
       if (this.item.id) {
-        this.store.dispatch(new SlideActions.Update(this.item.id, this.item));
+        this.store.dispatch(SlideActions.Update({id: this.item.id, changes: this.item}));
       } else {
-        this.store.dispatch(new SlideActions.Create(this.item));
+        this.store.dispatch(SlideActions.Create({entity: this.item}));
       }
       if (this.fileUploadInput.nativeElement.value) {
-        this.store.dispatch(new SlideActions.UploadNewPicture(this.prepareSave()));
+        this.store.dispatch(SlideActions.UploadNewPicture({formData: this.prepareSave()}));
       }
       $('#slideModal').modal('hide');
       this.resetForm();

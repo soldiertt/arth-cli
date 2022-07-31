@@ -1,11 +1,11 @@
 import {createEntityAdapter, EntityState} from '@ngrx/entity';
-import {createSelector} from '@ngrx/store';
+import {createReducer, createSelector, on} from '@ngrx/store';
 import {siteFeatureSelector, SiteState} from '../model/site-state';
 import PaypalOrder from '../../shared/model/paypalorder.class';
 import {PaypalOrderActions} from '../../shared/actions/paypal-order.actions';
 
 const adapter = createEntityAdapter<PaypalOrder>();
-const defaultState  = {
+const defaultState: FromPaypalOrder.State  = {
   ids: [],
   entities: {}
 };
@@ -16,15 +16,12 @@ export namespace FromPaypalOrder {
 
   export interface State extends EntityState<PaypalOrder> {}
 
-  export function reducer(state: State = initialState, action: PaypalOrderActions.Actions) {
-
-    switch (action.type) {
-      case PaypalOrderActions.GET_ALL_FOR_USER_SUCCESS:
-        return adapter.addMany(action.entities, state);
-      default:
-        return state;
-    }
-  }
+  export const reducer = createReducer(
+    initialState,
+    on(PaypalOrderActions.GetAllForUserSuccess, (state, action) => {
+      return adapter.addMany(action.entities, state);
+    }),
+  );
 
   const selectLocalState = createSelector(siteFeatureSelector, (state: SiteState) => state.paypalOrders);
 

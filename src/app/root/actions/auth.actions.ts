@@ -1,21 +1,19 @@
-import {Action} from '@ngrx/store';
-import UserProfile from '../../website/model/user-profile.class';
-import UserMetaData from '../../website/model/usermetadata.class';
+import {createAction, props} from '@ngrx/store';
 
 export namespace AuthActions {
-  export const SAVE_TO_SESSION = '[Authentication] Save to session';
-  export const SAVE_TO_SESSION_SUCCESS = '[Authentication] Save to session success';
+  const SAVE_TO_SESSION = '[Authentication] Save to session';
+  const SAVE_TO_SESSION_SUCCESS = '[Authentication] Save to session success';
 
-  export class SaveToSession implements Action {
-    readonly type = SAVE_TO_SESSION;
-    constructor(public authResult: any) {}
-  }
+  export const SaveToSession = createAction(
+    SAVE_TO_SESSION,
+    props<{authResult: any}>()
+  );
 
-  export class SaveToSessionSuccess implements Action {
-    readonly type = SAVE_TO_SESSION_SUCCESS;
-  }
+  export const SaveToSessionSuccess = createAction(
+    SAVE_TO_SESSION_SUCCESS
+  );
 
-  export type Actions
-    = SaveToSession
-    | SaveToSessionSuccess;
+  // export type Actions
+  //   = SaveToSession
+  //   | SaveToSessionSuccess;
 }

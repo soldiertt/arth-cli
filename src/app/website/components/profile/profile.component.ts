@@ -20,7 +20,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   profileUpdated: boolean = false;
   editMode: boolean = false;
-  editedItem: string;
+  editedItem: string | undefined;
   deliveryAddress: UserAddress;
   email: string;
   pendingRemoval: boolean;
@@ -46,7 +46,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.next(null);
     this.ngUnsubscribe.complete();
   }
 
@@ -72,7 +72,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   askForRemoval(): void {
-    this.store.dispatch(new ProfileActions.UpdateMetadata(this.userId, {pendingRemoval: true}));
+    this.store.dispatch(ProfileActions.UpdateMetadata({userId: this.userId, metadata: {pendingRemoval: true}}));
     this.updateMetaData();
     this.mailService.sendMail(new Mail('ACCOUNT_DELETION')).subscribe(() => {
       console.log('Mail sent !');
@@ -80,7 +80,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   cancelAskForRemoval(): void {
-    this.store.dispatch(new ProfileActions.UpdateMetadata(this.userId, {pendingRemoval: false}));
+    this.store.dispatch(ProfileActions.UpdateMetadata({userId: this.userId, metadata: {pendingRemoval: false}}));
     this.updateMetaData();
     this.mailService.sendMail(new Mail('ACCOUNT_DELETION_CANCEL')).subscribe(() => {
       console.log('Mail sent !');

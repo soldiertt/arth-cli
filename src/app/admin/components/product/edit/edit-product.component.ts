@@ -50,7 +50,7 @@ export class EditProductComponent implements OnInit {
     }
   }
 
-  private prepareSave(): any {
+  private prepareSave(): FormData {
     const input = new FormData();
     input.append('picture', this.picture.value);
     input.append('filename', this.item.picture);
@@ -61,12 +61,12 @@ export class EditProductComponent implements OnInit {
   save(ngForm: NgForm) {
     if (ngForm.valid && (this.item.picture || this.item.id)) {
       if (this.item.id) {
-        this.productStore.dispatch(new ProductActions.Update(this.item.id, this.item));
+        this.productStore.dispatch(ProductActions.Update({id: this.item.id, changes: this.item}));
       } else {
-        this.productStore.dispatch(new ProductActions.Create(this.item));
+        this.productStore.dispatch(ProductActions.Create({entity: this.item}));
       }
       if (this.fileUploadInput.nativeElement.value) {
-        this.productStore.dispatch(new ProductActions.UploadNewPicture(this.prepareSave()));
+        this.productStore.dispatch(ProductActions.UploadNewPicture({formData: this.prepareSave()}));
       }
       $('#productModal').modal('hide');
       this.resetForm();

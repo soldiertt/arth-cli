@@ -1,77 +1,75 @@
-import {Action} from '@ngrx/store';
+import {createAction, props} from '@ngrx/store';
 import Category from '../model/category.class';
 
 export namespace CategoryActions {
-  export const GET_ALL_ROOT = '[Category] GET ALL Root';
-  export const GET_ALL_ROOT_SUCCESS = '[Category] GET ALL Root Success';
-  export const GET_ALL = '[Category] GET ALL';
-  export const GET_ALL_SUCCESS = '[Category] GET ALL Success';
-  export const CREATE = '[Category] Create';
-  export const CREATE_SUCCESS = '[Category] Create Success';
-  export const UPDATE = '[Category] Update';
-  export const UPDATE_SUCCESS = '[Category] Update Success';
-  export const DELETE = '[Category] Delete';
-  export const DELETE_SUCCESS = '[Category] Delete Success';
+  const GET_ALL_ROOT = '[Category] GET ALL Root';
+  const GET_ALL_ROOT_SUCCESS = '[Category] GET ALL Root Success';
+  const GET_ALL = '[Category] GET ALL';
+  const GET_ALL_SUCCESS = '[Category] GET ALL Success';
+  const CREATE = '[Category] Create';
+  const CREATE_SUCCESS = '[Category] Create Success';
+  const UPDATE = '[Category] Update';
+  const UPDATE_SUCCESS = '[Category] Update Success';
+  const DELETE = '[Category] Delete';
+  const DELETE_SUCCESS = '[Category] Delete Success';
 
-  export class GetAllRoot implements Action {
-    readonly type = GET_ALL_ROOT;
-  }
+  export const GetAllRoot = createAction(
+    GET_ALL_ROOT
+  );
 
-  export class GetAllRootSuccess implements Action {
-    readonly type = GET_ALL_ROOT_SUCCESS;
+  export const GetAllRootSuccess  = createAction(
+    GET_ALL_ROOT_SUCCESS,
+    props<{entities: Category[]}>()
+  );
 
-    constructor(public entities: Category[]) {
-    }
-  }
+  export const GetAll = createAction(
+    GET_ALL
+  );
 
-  export class GetAll implements Action {
-    readonly type = GET_ALL;
-  }
+  export const GetAllSuccess = createAction(
+    GET_ALL_SUCCESS,
+    props<{entities: Category[]}>()
+  );
 
-  export class GetAllSuccess implements Action {
-    readonly type = GET_ALL_SUCCESS;
-    constructor(public entities: Category[]) {}
-  }
+  export const Create = createAction(
+    CREATE,
+    props<{entity: Category}>()
+  );
 
-  export class Create implements Action {
-    readonly type = CREATE;
-    constructor(public entity: Category) {}
-  }
+  export const CreateSuccess = createAction(
+    CREATE_SUCCESS,
+    props<{entity: Category}>()
+  );
 
-  export class CreateSuccess implements Action {
-    readonly type = CREATE_SUCCESS;
-    constructor(public entity: Category) {}
-  }
+  export const Update = createAction(
+    UPDATE,
+    props<{id: string, changes: Partial<Category>}>()
+  );
 
-  export class Update implements Action {
-    readonly type = UPDATE;
-    constructor(public id: string, public changes: Partial<Category>) {}
-  }
+  export const UpdateSuccess = createAction(
+    UPDATE_SUCCESS,
+    props<{id: string, changes: Partial<Category>}>()
+  );
 
-  export class UpdateSuccess implements Action {
-    readonly type = UPDATE_SUCCESS;
-    constructor(public id: string, public changes: Partial<Category>) {}
-  }
+  export const Delete = createAction(
+    DELETE,
+    props<{id: string}>()
+  );
 
-  export class Delete implements Action {
-    readonly type = DELETE;
-    constructor(public id: string) {}
-  }
+  export const DeleteSuccess = createAction(
+    DELETE_SUCCESS,
+    props<{id: string}>()
+  );
 
-  export class DeleteSuccess implements Action {
-    readonly type = DELETE_SUCCESS;
-    constructor(public id: string) {}
-  }
-
-  export type Actions
-    = GetAllRoot
-    | GetAllRootSuccess
-    | GetAll
-    | GetAllSuccess
-    | Create
-    | CreateSuccess
-    | Update
-    | UpdateSuccess
-    | Delete
-    | DeleteSuccess;
+  // export type Actions
+  //   = GetAllRoot
+  //   | GetAllRootSuccess
+  //   | GetAll
+  //   | GetAllSuccess
+  //   | Create
+  //   | CreateSuccess
+  //   | Update
+  //   | UpdateSuccess
+  //   | Delete
+  //   | DeleteSuccess;
 }

@@ -20,7 +20,10 @@
           </a>
          </td>
         <td class="name-cell">
-          <a href [routerLink]="['/detail', order.article.id]">{{order.article.name}}</a>
+          <a href [routerLink]="['/detail', order.article.id]" *ngIf="!order.article.noLink; else noLink">{{order.article.name}}</a>
+          <ng-template #noLink>
+            {{order.article.name}}
+          </ng-template>
         </td>
         <td class="price-cell">{{order.article.price | currency:'EUR'}}</td>
         <td class="qty-cell">{{order.count}}

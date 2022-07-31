@@ -1,11 +1,11 @@
 import {createEntityAdapter, EntityState} from '@ngrx/entity';
 import Brand from '../../shared/model/brand.class';
-import {createSelector} from '@ngrx/store';
+import {createReducer, createSelector, on} from '@ngrx/store';
 import {adminFeatureSelector, AdminState} from '../model/admin-state';
 import {BrandActions} from '../../shared/actions/brand.actions';
 
 const adapter = createEntityAdapter<Brand>();
-const defaultState  = {
+const defaultState: FromAdminBrand.State  = {
   ids: [],
   entities: {}
 };
@@ -16,19 +16,18 @@ export namespace FromAdminBrand {
 
   export interface State extends EntityState<Brand> {}
 
-  export function reducer(state: State = initialState, action: BrandActions.Actions) {
-
-    switch (action.type) {
-      case BrandActions.GET_ALL_SUCCESS:
-        return adapter.addMany(action.entities, state);
-      case BrandActions.CREATE_SUCCESS:
-        return adapter.addOne(action.entity, state);
-      case BrandActions.DELETE_SUCCESS:
-        return adapter.removeOne(action.id, state);
-      default:
-        return state;
-    }
-  }
+  export const reducer = createReducer(
+    initialState,
+    on(BrandActions.GetAllSuccess, (state, action) => {
+      return adapter.addMany(action.entities, state);
+    }),
+    on(BrandActions.CreateSuccess, (state, action) => {
+      return adapter.addOne(action.entity, state);
+    }),
+    on(BrandActions.DeleteSuccess, (state, action) => {
+      return adapter.removeOne(action.id, state);
+    }),
+  );
 
   const getLocalState = createSelector(adminFeatureSelector, (state: AdminState) => state.brand);
 

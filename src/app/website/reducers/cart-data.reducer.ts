@@ -1,4 +1,4 @@
-import {createSelector} from '@ngrx/store';
+import {createReducer, createSelector, on} from '@ngrx/store';
 import {siteFeatureSelector, SiteState} from '../model/site-state';
 import Cart from '../model/cart.class';
 import Order from '../../shared/model/order.class';
@@ -12,101 +12,91 @@ defaultState.wizard = new CartWizard();
 
 export namespace FromCartData {
 
-  export function reducer(state: CartData = defaultState, action: CartDataActions.Actions) {
-
-    switch (action.type) {
-      case CartDataActions.SET_EDIT_MODE:
-        return {...state, wizard: {...state.wizard, editMode: action.editMode}};
-
-      case CartDataActions.INITIALIZE_CART:
-        return {...state, cart: action.cart};
-
-      case CartDataActions.CART_MOVE_TO_STEP: {
-        let shipping: number = 0;
+  export const reducer = createReducer(
+    defaultState,
+    on(CartDataActions.SetEditMode, (state, action) => {
+      return {...state, wizard: {...state.wizard, editMode: action.editMode}};
+    }),
+    on(CartDataActions.InitializeCart, (state, action) => {
+      return {...state, cart: action.cart};
+    }),
+    on(CartDataActions.CartMoveToStep, (state, action) => {
+      let shipping: number = 0;
+      const cart = {...state.cart};
+      const wizard = {...state.wizard};
+      wizard.currentStep = action.step;
+      if (action.step === 4 && action.country) {
+        if (action.country === 'BE') {
+          shipping = 9;
+        } else {
+          shipping = 15;
+        }
+      }
+      cart.shipping = shipping;
+      _updateCart(cart);
+      return {...state, cart, wizard};
+    }),
+    on(CartDataActions.AddArticle, (state, action) => {
+      let existing: boolean = false;
+      const cart = {...state.cart};
+      const orders: Order[] = [];
+      cart.orders.forEach(function (order) {
+        const newOrder: Order = {...order};
+        if (order.article.id === action.article.id) {
+          newOrder.count++;
+          existing = true;
+        }
+        orders.push(newOrder);
+      });
+      cart.orders = orders;
+      if (!existing) {
+        cart.orders.push(new Order(action.article));
+      }
+      _updateCart(cart);
+      return {...state, cart};
+    }),
+    on(CartDataActions.RemoveArticle, (state, action) => {
+      const orderIndex = state.cart.orders.map(order => order.article.id).indexOf(action.articleId);
+      const cart = {...state.cart};
+      const orders: Order[] = [];
+      cart.orders.forEach(order => {
+        orders.push({...order});
+      });
+      cart.orders = orders;
+      if (orderIndex !== -1) {
+        cart.orders[orderIndex].count--;
+      }
+      _updateCart(cart);
+      return {...state, cart};
+    }),
+    on(CartDataActions.RemoveOrder, (state, action) => {
+      const orderIndex = state.cart.orders.map(order => order.article.id).indexOf(action.articleId);
+      if (orderIndex !== -1) {
         const cart = {...state.cart};
         const wizard = {...state.wizard};
-        wizard.currentStep = action.step;
-        if (action.step === 4 && action.country) {
-          if (action.country === 'BE') {
-            shipping = 9;
-          } else {
-            shipping = 15;
-          }
-        }
-        cart.shipping = shipping;
-        _updateCart(cart);
-        return {...state, cart, wizard};
-      }
-
-      case CartDataActions.ADD_ARTICLE: {
-
-        let existing: boolean = false;
-        const cart = {...state.cart};
-        const orders: Order[] = [];
-        cart.orders.forEach(function (order) {
-          const newOrder: Order = {...order};
-          if (order.article.id === action.article.id) {
-            newOrder.count++;
-            existing = true;
-          }
-          orders.push(newOrder);
-        });
-        cart.orders = orders;
-        if (!existing) {
-          cart.orders.push(new Order(action.article));
-        }
-        _updateCart(cart);
-        return {...state, cart};
-      }
-
-      case CartDataActions.REMOVE_ARTICLE: {
-        const orderIndex = state.cart.orders.map(order => order.article.id).indexOf(action.articleId);
-        const cart = {...state.cart};
         const orders: Order[] = [];
         cart.orders.forEach(order => {
           orders.push({...order});
         });
         cart.orders = orders;
-        if (orderIndex !== -1) {
-          cart.orders[orderIndex].count--;
+        cart.orders.splice(orderIndex, 1);
+        if (!cart.orders.length) {
+          cart.shipping = 0;
+          wizard.currentStep = 0;
         }
         _updateCart(cart);
-        return {...state, cart};
+        return {...state, cart, wizard};
       }
-
-      case CartDataActions.REMOVE_ORDER: {
-        const orderIndex = state.cart.orders.map(order => order.article.id).indexOf(action.articleId);
-        if (orderIndex !== -1) {
-          const cart = {...state.cart};
-          const wizard = {...state.wizard};
-          const orders: Order[] = [];
-          cart.orders.forEach(order => {
-            orders.push({...order});
-          });
-          cart.orders = orders;
-          cart.orders.splice(orderIndex, 1);
-          if (!cart.orders.length) {
-            cart.shipping = 0;
-            wizard.currentStep = 0;
-          }
-          _updateCart(cart);
-          return {...state, cart, wizard};
-        }
-        return state;
-      }
-
-      case CartDataActions.PAY: {
-        const cart = {...state.cart};
-        cart.orders = [];
-        cart.shipping = 0;
-        _updateCart(cart);
-        return {...state, cart};
-      }
-
-      default:
-        return state;
-    }
-  }
+      return state;
+    }),
+    on(CartDataActions.Pay, (state, action) => {
+      const cart = {...state.cart};
+      cart.orders = [];
+      cart.shipping = 0;
+      _updateCart(cart);
+      return {...state, cart};
+    }),
+  );
 
   function _updateCart(cart: Cart): void {
 

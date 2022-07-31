@@ -15,8 +15,8 @@
 </div>
 
 <!-- EDIT MODE -->
-<arth-profile-email (onUpdateMetaData)="updateMetaData()" (onCancelEdit)="cancelEdit($event)" *ngIf="editedItem == 'email'"></arth-profile-email>
-<arth-profile-edit (onUpdateMetaData)="updateMetaData()" (onCancelEdit)="cancelEdit($event)" *ngIf="editedItem == 'contactinfo'"></arth-profile-edit>
+<arth-profile-email (onUpdateMetaData)="updateMetaData()" (onCancelEdit)="cancelEdit()" *ngIf="editedItem == 'email'"></arth-profile-email>
+<arth-profile-edit (onUpdateMetaData)="updateMetaData()" (onCancelEdit)="cancelEdit()" *ngIf="editedItem == 'contactinfo'"></arth-profile-edit>
 
 <arth-orders *ngIf="!editMode"></arth-orders>
 

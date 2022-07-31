@@ -28,8 +28,8 @@ export class SlideComponent implements OnInit {
   getAll() {
     this.slides$ = this.slideStore.select(FromAdminSlide.selectAll);
     this.slideProducts$ = this.slideProductStore.select(FromAdminSlideProduct.selectAll);
-    this.slideStore.dispatch(new SlideActions.GetAll());
-    this.slideProductStore.dispatch(new SlideProductActions.GetAll());
+    this.slideStore.dispatch(SlideActions.GetAll());
+    this.slideProductStore.dispatch(SlideProductActions.GetAll());
     this.slideProductsCount$ = this.slideProductStore.select(FromAdminSlideProduct.selectTotal);
   }
 
@@ -43,11 +43,13 @@ export class SlideComponent implements OnInit {
 
   remove($event, id: string) {
     $event.preventDefault();
-    this.slideStore.dispatch(new SlideActions.Delete(id));
+    this.slideStore.dispatch(SlideActions.Delete({id}));
   }
 
-  removeSlideProduct($event, id: string) {
+  removeSlideProduct($event, id: string | undefined) {
     $event.preventDefault();
-    this.slideProductStore.dispatch(new SlideProductActions.Delete(id));
+    if (id) {
+      this.slideProductStore.dispatch(SlideProductActions.Delete({id}));
+    }
   }
 }

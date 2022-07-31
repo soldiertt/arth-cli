@@ -1,82 +1,66 @@
-import {Action} from '@ngrx/store';
+import {createAction, props} from '@ngrx/store';
 import ProductItemData from '../model/product-item-data.class';
 import Brand from '../../shared/model/brand.class';
 import Article from '../../shared/model/article.class';
 import ProductData from '../model/product-data.class';
 
 export namespace ProductActions {
-  export const LOAD_ONE = '[Product] Load One';
-  export const LOAD_ONE_SUCCESS = '[Product] Load One Success';
-  export const LOAD_ALL_BY_BRAND = '[Product] Load all by brand';
-  export const LOAD_ALL_BY_BRAND_SUCCESS = '[Product] Load all by brand Success';
-  export const LOAD_ALL_BY_CATEGORY = '[Product] Load all by category';
-  export const LOAD_ALL_BY_CATEGORY_SUCCESS = '[Product] Load all by category Success';
-  export const SEARCH = '[Product] Search';
-  export const SEARCH_SUCCESS = '[Product] Search Success';
+  const LOAD_ONE = '[Product] Load One';
+  const LOAD_ONE_SUCCESS = '[Product] Load One Success';
+  const LOAD_ALL_BY_BRAND = '[Product] Load all by brand';
+  const LOAD_ALL_BY_BRAND_SUCCESS = '[Product] Load all by brand Success';
+  const LOAD_ALL_BY_CATEGORY = '[Product] Load all by category';
+  const LOAD_ALL_BY_CATEGORY_SUCCESS = '[Product] Load all by category Success';
+  const SEARCH = '[Product] Search';
+  const SEARCH_SUCCESS = '[Product] Search Success';
 
-  export class LoadOne implements Action {
-    readonly type = LOAD_ONE;
+  export const LoadOne = createAction(
+    LOAD_ONE,
+    props<{productId: string}>()
+  );
 
-    constructor(public productId: string) {
-    }
-  }
+  export const LoadOneSuccess = createAction(
+    LOAD_ONE_SUCCESS,
+    props<{productItemData: ProductItemData}>()
+  );
 
-  export class LoadOneSuccess implements Action {
-    readonly type = LOAD_ONE_SUCCESS;
+  export const LoadAllByBrand = createAction(
+    LOAD_ALL_BY_BRAND,
+    props<{brand: Brand}>()
+  );
 
-    constructor(public productItemData: ProductItemData) {
-    }
-  }
+  export const LoadAllByBrandSuccess = createAction(
+    LOAD_ALL_BY_BRAND_SUCCESS,
+    props<{entities: Article[]}>()
+  );
 
-  export class LoadAllByBrand implements Action {
-    readonly type = LOAD_ALL_BY_BRAND;
+  export const LoadAllByCategory = createAction(
+    LOAD_ALL_BY_CATEGORY,
+    props<{categoryName: string}>()
+  );
 
-    constructor(public brand: Brand) {
-    }
-  }
+  export const LoadAllByCategorySuccess = createAction(
+    LOAD_ALL_BY_CATEGORY_SUCCESS,
+    props<{productData: ProductData}>()
+  );
 
-  export class LoadAllByBrandSuccess implements Action {
-    readonly type = LOAD_ALL_BY_BRAND_SUCCESS;
+  export const Search = createAction(
+    SEARCH,
+    props<{term: string}>()
+  );
 
-    constructor(public entities: Article[]) {
-    }
-  }
+  export const SearchSuccess = createAction(
+    SEARCH_SUCCESS,
+    props<{entities: Article[]}>()
+  );
 
-  export class LoadAllByCategory implements Action {
-    readonly type = LOAD_ALL_BY_CATEGORY;
-
-    constructor(public categoryName: string) {
-    }
-  }
-
-  export class LoadAllByCategorySuccess implements Action {
-    readonly type = LOAD_ALL_BY_CATEGORY_SUCCESS;
-
-    constructor(public productData: ProductData) {
-    }
-  }
-
-  export class Search implements Action {
-    readonly type = SEARCH;
-
-    constructor(public term: string) {
-    }
-  }
-
-  export class SearchSuccess implements Action {
-    readonly type = SEARCH_SUCCESS;
-
-    constructor(public entities: Article[]) {
-    }
-  }
-
-  export type Actions
-    = LoadOne
-    | LoadOneSuccess
-    | LoadAllByBrand
-    | LoadAllByBrandSuccess
-    | LoadAllByCategory
-    | LoadAllByCategorySuccess
-    | Search
-    | SearchSuccess;
+  // export type Actions
+  //   = LoadOne
+  //   | LoadOneSuccess
+  //   | LoadAllByBrand
+  //   | LoadAllByBrandSuccess
+  //   | LoadAllByCategory
+  //   | LoadAllByCategorySuccess
+  //   | Search
+  //   | SearchSuccess;
 }

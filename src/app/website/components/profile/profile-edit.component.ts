@@ -59,7 +59,7 @@ export class ProfileEditComponent extends FormComponent implements OnInit, OnDes
   }
 
   ngOnDestroy() {
-    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.next(null);
     this.ngUnsubscribe.complete();
   }
 
@@ -69,21 +69,21 @@ export class ProfileEditComponent extends FormComponent implements OnInit, OnDes
       const deliveryAddress: UserAddresses = {
         delivery:
           {
-            street: this.form.get('street').value,
-            houseNumber: this.form.get('houseNumber').value,
-            postbox: this.form.get('postbox').value,
-            postcode: this.form.get('postcode').value,
-            city: this.form.get('city').value,
-            country: this.form.get('country').value
+            street: this.form.get('street')?.value,
+            houseNumber: this.form.get('houseNumber')?.value,
+            postbox: this.form.get('postbox')?.value,
+            postcode: this.form.get('postcode')?.value,
+            city: this.form.get('city')?.value,
+            country: this.form.get('country')?.value
           }
       };
       const userMetadata: UserMetaData = {
         addresses: deliveryAddress,
-        name: this.form.get('name').value,
-        phone: this.form.get('phone').value,
+        name: this.form.get('name')?.value,
+        phone: this.form.get('phone')?.value,
         profileComplete: true
       };
-      this.store.dispatch(new ProfileActions.UpdateMetadata(this.userProfile.user_id, userMetadata));
+      this.store.dispatch(ProfileActions.UpdateMetadata({userId: this.userProfile.user_id, metadata: userMetadata}));
       this.onUpdateMetaData.emit();
     }
   }
@@ -97,17 +97,17 @@ export class ProfileEditComponent extends FormComponent implements OnInit, OnDes
     if (this.userProfile && this.userProfile.user_metadata) {
       const metadata = this.userProfile.user_metadata;
 
-      this.form.get('name').setValue(metadata.name);
-      this.form.get('phone').setValue(metadata.phone);
+      this.form.get('name')?.setValue(metadata.name);
+      this.form.get('phone')?.setValue(metadata.phone);
 
       if (metadata.addresses && metadata.addresses.delivery) {
         const address = metadata.addresses.delivery;
-        this.form.get('street').setValue(address.street);
-        this.form.get('houseNumber').setValue(address.houseNumber);
-        this.form.get('postbox').setValue(address.postbox);
-        this.form.get('postcode').setValue(address.postcode);
-        this.form.get('city').setValue(address.city);
-        this.form.get('country').setValue(address.country);
+        this.form.get('street')?.setValue(address.street);
+        this.form.get('houseNumber')?.setValue(address.houseNumber);
+        this.form.get('postbox')?.setValue(address.postbox);
+        this.form.get('postcode')?.setValue(address.postcode);
+        this.form.get('city')?.setValue(address.city);
+        this.form.get('country')?.setValue(address.country);
       }
     }
 

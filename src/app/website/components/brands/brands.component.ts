@@ -18,7 +18,7 @@ export class BrandsComponent implements OnInit {
 
   ngOnInit() {
     this.brands$ = this.store.select(FromBrand.selectAll);
-    this.store.dispatch(new BrandActions.GetAllFromProduct());
+    this.store.dispatch(BrandActions.GetAllFromProduct());
   }
 
 }

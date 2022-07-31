@@ -16,12 +16,12 @@ export class EditCategoryComponent {
 
   constructor(private store: Store<FromAdminCategory.State>) { }
 
-  save(valid: boolean) {
+  save(valid: boolean | null) {
     if (valid) {
       if (this.item.id) {
-        this.store.dispatch(new CategoryActions.Update(this.item.id, this.item));
+        this.store.dispatch(CategoryActions.Update({id: this.item.id, changes: this.item}));
       } else {
-        this.store.dispatch(new CategoryActions.Create(this.item));
+        this.store.dispatch(CategoryActions.Create({entity: this.item}));
       }
       $('#categoryModal').modal('hide');
     }

@@ -11,20 +11,20 @@ export class CartEffects {
   constructor(private actions$: Actions, private sessionService: SessionService) {}
 
   getCartFromSession$ = createEffect(() => this.actions$.pipe(
-    ofType(CartDataActions.GET_CART_FROM_SESSION),
+    ofType(CartDataActions.GetCartFromSession),
     map(() => this.sessionService.getCart()),
     map(cart => {
       if (cart) {
-        return new CartDataActions.InitializeCart(cart);
+        return CartDataActions.InitializeCart({cart});
       } else {
-        return new CartDataActions.InitializeCart(new Cart());
+        return CartDataActions.InitializeCart({cart: new Cart()});
       }
     })
   ));
 
   saveCart = createEffect(() => this.actions$.pipe(
-    ofType(CartDataActions.SAVE_CART_IN_SESSION),
-    map((action: CartDataActions.SaveCartInSession) => this.sessionService.saveCart(action.cart)),
-    map(cart => new CartDataActions.CartSaved())
+    ofType(CartDataActions.SaveCartInSession),
+    map((action) => this.sessionService.saveCart(action.cart)),
+    map(cart => CartDataActions.CartSaved())
   ));
 }

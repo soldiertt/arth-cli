@@ -16,34 +16,34 @@ export class UserProfileEffects {
               private store: Store<AppState>) {}
 
   initProfileFromSession$ = createEffect(() => this.actions$.pipe(
-    ofType(ProfileActions.INIT_FROM_SESSION),
+    ofType(ProfileActions.InitFromSession),
     map(action => this.sessionService.getProfile()),
-    map(profile => new ProfileActions.Set(profile))
+    map(profile => ProfileActions.Set({profile}))
   ));
 
   updateProfile$ = createEffect(() => this.actions$.pipe(
-    ofType(ProfileActions.UPDATE_METADATA),
-    mergeMap((action: ProfileActions.UpdateMetadata) => this.userRestService.updateProfile(action.userId, action.metadata)),
+    ofType(ProfileActions.UpdateMetadata),
+    mergeMap((action) => this.userRestService.updateProfile(action.userId, action.metadata)),
     tap(profile => this.sessionService.saveProfile(profile)),
-    map(profile => new ProfileActions.Set(profile))
+    map(profile => ProfileActions.Set({profile}))
   ));
 
   logout$ = createEffect(() => this.actions$.pipe(
-    ofType(ProfileActions.LOGOUT),
+    ofType(ProfileActions.Logout),
     tap(() => {
       this.sessionService.deleteAuth();
       this.sessionService.deleteProfile();
     }),
-    map(profile => new ProfileActions.Set(undefined))
+    map(profile => ProfileActions.Unset())
   ));
 
   saveProfileInSession$ = createEffect(() => this.actions$.pipe(
-    ofType(ProfileActions.SAVE_TO_SESSION),
+    ofType(ProfileActions.SaveToSession),
     withLatestFrom(this.store),
     map(([action, state]) => {
       this.sessionService.saveProfile(state.profile);
     }),
-    map(cart => new ProfileActions.SaveToSessionSuccess())
+    map(cart => ProfileActions.SaveToSessionSuccess())
   ));
 
 }

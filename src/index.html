@@ -5,7 +5,8 @@
   <title>Coutellerie Arthurius</title>
   <base href="/">
   <!-- Paypal -->
-  <script src="https://www.paypalobjects.com/api/checkout.js" async></script>
+  <script src="https://www.paypalobjects.com/api/checkout.js" data-csp-nonce="xyz-123" async></script>
+  <meta http-equiv="Content-Security-Policy" content="script-src 'nonce-xyz123'; style-src 'nonce-xyz123';">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="revisit-after" content="15 days" />
   <meta name="robots" content="index, follow, all" />

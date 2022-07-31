@@ -7,7 +7,7 @@ export class CategoryTitlePipe implements PipeTransform {
 
   constructor(private i18nService: I18nService) {}
 
-  transform(value: Category, args: string[]): any {
+  transform(value: Category): any {
     if (!value) { return value; }
     if (this.i18nService.isFr() || this.i18nService.isEn()) {
       return value.titleFr;

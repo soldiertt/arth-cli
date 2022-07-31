@@ -23,7 +23,7 @@ export class ArticleBoxComponent {
   addToCart(article) {
     const component = this;
     const callback = function () {
-      component.store.dispatch(new CartDataActions.AddArticle(article));
+      component.store.dispatch(CartDataActions.AddArticle({article}));
     };
     this.jQueryService.addToCart($, callback);
   }

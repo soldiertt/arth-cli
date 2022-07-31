@@ -1,4 +1,5 @@
 import {createFeatureSelector} from '@ngrx/store';
+import AdvancedArticle from '../../shared/model/advanced-article.class';
 import CartData from './cart-data.class';
 import ProductData from './product-data.class';
 import {FromBrand} from '../reducers/brand.reducer';
@@ -16,6 +17,7 @@ export interface SiteState {
   slides: FromSlide.State;
   paypalOrders: FromPaypalOrder.State;
   productData: ProductData;
+  advancedProductData: AdvancedArticle[];
   brands: FromBrand.State;
 }
 

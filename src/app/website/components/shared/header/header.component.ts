@@ -28,7 +28,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.rootCategories$ = this.store.select(FromCategory.selectAll);
-    this.store.dispatch(new CategoryActions.GetAllRoot());
+    this.store.dispatch(CategoryActions.GetAllRoot());
   }
 
   ngAfterViewInit() {

@@ -1,11 +1,11 @@
 import {createEntityAdapter, EntityState} from '@ngrx/entity';
-import {createSelector} from '@ngrx/store';
+import {createReducer, createSelector, on} from '@ngrx/store';
 import {siteFeatureSelector, SiteState} from '../model/site-state';
 import Article from '../../shared/model/article.class';
 import {PromoProductActions} from '../actions/promo-product.actions';
 
 const adapter = createEntityAdapter<Article>();
-const defaultState  = {
+const defaultState: FromPromoProduct.State  = {
   ids: [],
   entities: {}
 };
@@ -16,17 +16,15 @@ export namespace FromPromoProduct {
 
   export interface State extends EntityState<Article> {}
 
-  export function reducer(state: State = initialState, action: PromoProductActions.Actions) {
-
-    switch (action.type) {
-      case PromoProductActions.GET_ALL:
-        return state;
-      case PromoProductActions.GET_ALL_SUCCESS:
-        return adapter.addMany(action.entities, state);
-      default:
-        return state;
-    }
-  }
+  export const reducer = createReducer(
+    initialState,
+    on(PromoProductActions.GetAll, (state, action) => {
+      return state;
+    }),
+    on(PromoProductActions.GetAllSuccess, (state, action) => {
+      return adapter.addMany(action.entities, state);
+    }),
+  );
 
   const getLocalState = createSelector(siteFeatureSelector, (state: SiteState) => state.promoArticles);
 

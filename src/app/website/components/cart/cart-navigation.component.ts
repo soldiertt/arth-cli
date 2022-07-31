@@ -53,7 +53,7 @@ export class CartNavigationComponent implements OnInit, AfterViewInit, OnDestroy
       .subscribe(profile => {
         if (profile) {
           if (profile.user_metadata) {
-            this.profileComplete = profile.user_metadata.profileComplete;
+            this.profileComplete = profile.user_metadata.profileComplete!;
             if (profile.user_metadata.addresses) {
               this.country = profile.user_metadata.addresses.delivery.country;
             } else {
@@ -72,7 +72,7 @@ export class CartNavigationComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   ngOnDestroy() {
-    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.next(null);
     this.ngUnsubscribe.complete();
   }
 
@@ -80,7 +80,7 @@ export class CartNavigationComponent implements OnInit, AfterViewInit, OnDestroy
     if (this.cartData.cart.totalCount > 0) {
       if (this.authService.authenticated()) {
         if (this.cartData.wizard.currentStep === 4) {
-          this.store.dispatch(new CartDataActions.CartMoveToStep(3));
+          this.store.dispatch(CartDataActions.CartMoveToStep({step: 3}));
         }
       }
     }
@@ -91,14 +91,14 @@ export class CartNavigationComponent implements OnInit, AfterViewInit, OnDestroy
     if (curStep !== 0) {
       if (curStep === 1) {
         if (this.authService.authenticated()) {
-          this.store.dispatch(new CartDataActions.CartMoveToStep(3));
+          this.store.dispatch(CartDataActions.CartMoveToStep({step: 3}));
         } else {
           this.authService.login();
         }
       } else if (curStep === 2) {
-        this.store.dispatch(new CartDataActions.CartMoveToStep(3));
+        this.store.dispatch(CartDataActions.CartMoveToStep({step: 3}));
       } else if (curStep === 3) {
-        this.store.dispatch(new CartDataActions.CartMoveToStep(4, this.country));
+        this.store.dispatch(CartDataActions.CartMoveToStep({step: 4, country: this.country}));
       }
     }
   }
@@ -177,8 +177,8 @@ export class CartNavigationComponent implements OnInit, AfterViewInit, OnDestroy
     // update top sales
     const orders = this.cartData.cart.orders;
 
-    this.store.dispatch(new CartDataActions.UpdateTopSales(orders));
-    this.store.dispatch(new CartDataActions.Pay(this.userId, orders, paymentID, payerID));
+    this.store.dispatch(CartDataActions.UpdateTopSales({orders}));
+    this.store.dispatch(CartDataActions.Pay({userId: this.userId, orders, paymentID, payerID}));
 
     this.paymentConfirmed = true;
     this.processingPayment = false;

@@ -22,9 +22,9 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.promoArticles$ = this.promoStore.select(FromPromoProduct.selectAll);
-    this.promoStore.dispatch(new PromoProductActions.GetAll());
+    this.promoStore.dispatch(PromoProductActions.GetAll());
     this.videos$ = this.videoStore.select(FromAdminVideo.selectAll);
-    this.videoStore.dispatch(new VideoActions.GetAll());
+    this.videoStore.dispatch(VideoActions.GetAll());
   }
 
 }

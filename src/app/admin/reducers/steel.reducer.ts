@@ -1,11 +1,11 @@
-import * as actions from '../actions/steel.actions';
+import {SteelActions} from '../actions/steel.actions';
 import {createEntityAdapter, EntityState} from '@ngrx/entity';
-import {createSelector} from '@ngrx/store';
+import {createReducer, createSelector, on} from '@ngrx/store';
 import Steel from '../../shared/model/steel.class';
 import {adminFeatureSelector, AdminState} from '../model/admin-state';
 
 const adapter = createEntityAdapter<Steel>();
-const defaultState  = {
+const defaultState: FromAdminSteel.State  = {
   ids: [],
   entities: {}
 };
@@ -16,15 +16,12 @@ export namespace FromAdminSteel {
 
   export interface State extends EntityState<Steel> {}
 
-  export function reducer(state: State = initialState, action: actions.SteelActions) {
-
-    switch (action.type) {
-      case actions.GET_ALL_SUCCESS:
-        return adapter.addMany(action.entities, state);
-      default:
-        return state;
-    }
-  }
+  export const reducer = createReducer(
+    initialState,
+    on(SteelActions.GetAllSuccess, (state, action) => {
+      return adapter.addMany(action.entities, state);
+    }),
+  );
 
   const getLocalState = createSelector(adminFeatureSelector, (state: AdminState) => state.steel);
 

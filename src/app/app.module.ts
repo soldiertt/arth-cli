@@ -1,16 +1,16 @@
-import {NgModule, LOCALE_ID} from '@angular/core';
+import {registerLocaleData} from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
+import {LOCALE_ID, NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
-import {AppComponent} from './app.component';
-import {AdminModule} from './admin/admin.module';
-import {AuthenticationEffects} from './root/effects/auth.effects';
-import {WebsiteModule} from './website/website.module';
 import {EffectsModule} from '@ngrx/effects';
 import {ActionReducerMap, StoreModule} from '@ngrx/store';
+import {AdminModule} from './admin/admin.module';
+import {AppComponent} from './app.component';
+import {AuthenticationEffects} from './root/effects/auth.effects';
 import {UserProfileEffects} from './root/effects/user-profile.effects';
-import {FromProfile} from './root/reducers/user-profile.reducer';
 import AppState from './root/model/app-state';
-import localeFr from '@angular/common/locales/fr';
-import {registerLocaleData} from '@angular/common';
+import {FromProfile} from './root/reducers/user-profile.reducer';
+import {WebsiteModule} from './website/website.module';
 
 registerLocaleData(localeFr);
 

@@ -7,6 +7,8 @@ export default class UserProfile {
   user_metadata: UserMetaData;
   app_metadata: any;
   created_at: string;
+  last_login?: string;
+  logins_count?: number;
 
   constructor(auth0Profile: Auth0UserProfile) {
     this.id = auth0Profile.clientID;
@@ -14,6 +16,8 @@ export default class UserProfile {
     this.user_metadata = auth0Profile.user_metadata;
     this.app_metadata = auth0Profile.app_metadata;
     this.created_at = auth0Profile.created_at;
+    this.last_login = auth0Profile.last_login;
+    this.logins_count = auth0Profile.logins_count;
   }
 
 }

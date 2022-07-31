@@ -39,27 +39,27 @@ export class DetailComponent implements OnInit, OnDestroy {
     this.route.params.subscribe(params => {
       const articleId = params['articleId'];
 
-      this.store.dispatch(new ProductActions.LoadOne(articleId));
+      this.store.dispatch(ProductActions.LoadOne({productId: articleId}));
       this.store.select(FromProduct.selectSelectedState).pipe(
-        takeUntil(this.ngUnsubscribe))
-        .subscribe(selected => {
-          this.selected = selected;
-          setTimeout(() => {
-            this.jQueryService.enableFancybox($);
-          }, 10);
-        });
+        takeUntil(this.ngUnsubscribe)
+      ).subscribe(selected => {
+        this.selected = selected;
+        setTimeout(() => {
+          this.jQueryService.enableFancybox($);
+        }, 10);
+      });
     });
   }
 
   ngOnDestroy() {
-    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.next(null);
     this.ngUnsubscribe.complete();
   }
 
   addToCart(article: Article) {
     const component = this;
     const callback = function () {
-      component.cartDataStore.dispatch(new CartDataActions.AddArticle(article));
+      component.cartDataStore.dispatch(CartDataActions.AddArticle({article}));
     };
     this.jQueryService.addToCart($, callback);
   }

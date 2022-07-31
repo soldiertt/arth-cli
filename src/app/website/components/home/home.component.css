@@ -7,3 +7,14 @@
   background-color: #343a40;
   border-width: 5px;
 }
+
+.home-image {
+  text-align: center;
+  padding: 20px;
+  margin-top: 20px;
+  border-top: 2px solid #ddd;
+}
+
+.home-image img {
+  max-width: 95%;
+}

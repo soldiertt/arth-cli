@@ -1,11 +1,11 @@
 import {createEntityAdapter, EntityState} from '@ngrx/entity';
-import {createSelector} from '@ngrx/store';
+import {createReducer, createSelector, on} from '@ngrx/store';
 import {siteFeatureSelector, SiteState} from '../model/site-state';
 import Slide from '../../shared/model/slider.class';
 import {SlideActions} from '../../shared/actions/slide.actions';
 
 const adapter = createEntityAdapter<Slide>();
-const defaultState  = {
+const defaultState: FromSlide.State  = {
   ids: [],
   entities: {}
 };
@@ -16,17 +16,15 @@ export namespace FromSlide {
 
   export interface State extends EntityState<Slide> {}
 
-  export function reducer(state: State = initialState, action: SlideActions.Actions) {
-
-    switch (action.type) {
-      case SlideActions.GET_ALL:
-        return state;
-      case SlideActions.GET_ALL_SUCCESS:
-        return adapter.addMany(action.entities, state);
-      default:
-        return state;
-    }
-  }
+  export const reducer = createReducer(
+    initialState,
+    on(SlideActions.GetAll, (state, action) => {
+      return state;
+    }),
+    on(SlideActions.GetAllSuccess, (state, action) => {
+      return adapter.addMany(action.entities, state);
+    }),
+  );
 
   const getLocalState = createSelector(siteFeatureSelector, (state: SiteState) => state.slides);
 

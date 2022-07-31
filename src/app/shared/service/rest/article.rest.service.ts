@@ -20,23 +20,23 @@ export class ArticleRestService {
     return this.http.get<Article[]>(this.BASE_URL + '/product/promo');
   }
 
-  findById(articleId): Observable<Article> {
+  findById(articleId: string): Observable<Article> {
     return this.http.get<Article>(this.BASE_URL + '/product/' + articleId);
   }
 
-  findByCategory(categoryType): Observable<Article[]> {
+  findByCategory(categoryType: string): Observable<Article[]> {
     let params: HttpParams = new HttpParams();
     params = params.set('category', categoryType);
     return this.http.get<Article[]>(this.BASE_URL + '/product', {params});
   }
 
-  findByBrand(brandName): Observable<Article[]> {
+  findByBrand(brandName: string): Observable<Article[]> {
     let params: HttpParams = new HttpParams();
     params = params.set('brand', brandName);
     return this.http.get<Article[]>(this.BASE_URL + '/product', {params});
   }
 
-  findTopSalesByCategory(categoryType): Observable<Article[]> {
+  findTopSalesByCategory(categoryType: string): Observable<Article[]> {
     let params: HttpParams = new HttpParams();
     params = params.set('category', categoryType);
     return this.http.get<Article[]>(this.BASE_URL + '/product/top', {params});
@@ -72,7 +72,7 @@ export class ArticleRestService {
     return this.http.post(this.BASE_URL + '/product/upload', data);
   }
 
-  exportToCsv(category: string, brand: string, steel: string, promo: string, instock: string): Observable<HttpResponse<Blob>> {
+  exportToCsv(category?: string, brand?: string, steel?: string, promo?: string, instock?: string): Observable<HttpResponse<Blob>> {
     let params: HttpParams = new HttpParams();
     if (category) {
       params = params.set('category', category);

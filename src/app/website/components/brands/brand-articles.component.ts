@@ -29,7 +29,7 @@ export class BrandArticlesComponent implements OnInit {
       const brandName = params['type'];
       this.brand = new Brand();
       this.brand.marque = brandName;
-      this.store.dispatch(new ProductActions.LoadAllByBrand(this.brand));
+      this.store.dispatch(ProductActions.LoadAllByBrand({brand: this.brand}));
     });
   }
 
