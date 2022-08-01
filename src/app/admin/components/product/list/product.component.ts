@@ -1,4 +1,5 @@
 
+import {HttpHeaders} from '@angular/common/http';
 import {ToastrService} from 'ngx-toastr';
 import {takeUntil, map} from 'rxjs/operators';
 import {Component, OnDestroy, OnInit} from '@angular/core';
@@ -21,7 +22,7 @@ import {FromAdminProduct} from '../../../reducers/product.reducer';
 import {FromAdminSlideProduct} from '../../../reducers/slide-product.reducer';
 import {FromAdminSteel} from '../../../reducers/steel.reducer';
 import {PictureService} from '../../../../shared/service/picture.service';
-import { saveAs } from 'file-saver';
+import {saveAs} from 'file-saver';
 
 @Component({
   templateUrl: './product.component.html',
@@ -73,12 +74,9 @@ export class ProductComponent implements OnInit, OnDestroy {
       }));
     });
 
-    this.productStore.select(FromAdminProduct.selectCsvResponse).subscribe(csvResponse => {
-      if (csvResponse) {
-        const contentDispositionHeader: string = csvResponse?.headers.get('Content-Disposition')!;
-        const parts: string[] = contentDispositionHeader.split(';');
-        const filename = parts[1].split('=')[1];
-        saveAs(csvResponse.body!, filename);
+    this.productStore.select(FromAdminProduct.selectCsvData).subscribe(csvData => {
+      if (csvData.csvResponse) {
+        saveAs(csvData.csvResponse.body!, csvData.filename);
       }
     });
   }

@@ -12,7 +12,7 @@ export class AuthenticationEffects {
 
   saveProfileInSession$ = createEffect(() => this.actions$.pipe(
     ofType(AuthActions.SaveToSession),
-    map((action) => this.sessionService.saveAuth({authResult: action.authResult})),
+    map((action) => this.sessionService.saveAuth(action.authResult)),
     map(() => AuthActions.SaveToSessionSuccess())
   ));
 

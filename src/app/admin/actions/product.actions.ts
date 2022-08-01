@@ -79,7 +79,7 @@ export namespace ProductActions {
 
   export const DownloadCsv = createAction(
     DOWNLOAD_CSV,
-    props<{csvResponse: HttpResponse<Blob>}>()
+    props<{csvResponse: HttpResponse<Blob>, contentDispositionHeader: string}>()
   );
 
   export const RequestFail = createAction(
@@ -87,19 +87,4 @@ export namespace ProductActions {
     props<{error: string}>()
   );
 
-  // export type Actions
-  //   = GetAll
-  //   | GetAllSuccess
-  //   | Create
-  //   | CreateSuccess
-  //   | Update
-  //   | UpdateSuccess
-  //   | Delete
-  //   | DeleteSuccess
-  //   | UploadNewPicture
-  //   | UploadNewPictureSuccess
-  //   | UploadNewPictureFail
-  //   | ExportToCsv
-  //   | DownloadCsv
-  //   | RequestFail;
 }

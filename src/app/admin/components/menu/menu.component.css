@@ -1,3 +1,8 @@
-.navbar-dark .navbar-nav .show > .nav-link, .navbar-dark .navbar-nav .active > .nav-link, .navbar-dark .navbar-nav .nav-link.show, .navbar-dark .navbar-nav .nav-link.active {
-  background-color: #DC4823;
+.navbar-dark a.nav-link {
+  color: #e0a800;
 }
+
+.navbar-dark .active a.nav-link, .navbar-dark .active a.nav-link:visited {
+  color: #fcf8e3;
+}
+

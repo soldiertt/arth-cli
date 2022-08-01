@@ -3,7 +3,7 @@
   <table class="table table-mycart table-striped" *ngIf="cart.orders.length">
     <thead>
       <tr>
-        <th class="d-none d-sm-block"></th>
+        <th class="d-none d-sm-block">&nbsp;</th>
         <th>{{'common.label.article' | trans}}</th>
         <th class="price-cell">{{'common.label.price' | trans}}</th>
         <th>{{'common.label.quantity' | trans}}</th>
@@ -18,7 +18,7 @@
             <img [src]="picUtil.miniPicture(order.article)" [attr.alt]="order.article.name">
             <img src="assets/images/promo.png" *ngIf="order.article.promo">
           </a>
-         </td>
+        </td>
         <td class="name-cell">
           <a href [routerLink]="['/detail', order.article.id]" *ngIf="!order.article.noLink; else noLink">{{order.article.name}}</a>
           <ng-template #noLink>
@@ -50,22 +50,22 @@
       <tr>
         <td colspan="4" class="foot-label-cell">{{'common.label.subtotal' | trans}} : </td>
         <td class="cart-subtotal"> {{cart.subtotalAmount | currency:'EUR'}}</td>
-        <td></td>
+        <td>&nbsp;</td>
       </tr>
       <tr *ngIf="cart.promoAmount > 0">
         <td colspan="4" class="foot-label-cell">{{'common.label.promotion' | trans}} ({{cart.promoPercentage * 100 | number : '1.0-0'}}%) : </td>
         <td class="cart-subtotal">- {{cart.promoAmount | currency:'EUR'}}</td>
-        <td></td>
+        <td>&nbsp;</td>
       </tr>
       <tr *ngIf="cart.shipping">
         <td colspan="4" class="foot-label-cell">{{'page.mycart.shipping' | trans}} : </td>
         <td class="cart-subtotal">{{cart.shipping | currency:'EUR'}}</td>
-        <td></td>
+        <td>&nbsp;</td>
       </tr>
       <tr>
         <td colspan="4" class="foot-label-cell">{{'common.label.total' | trans}} : </td>
         <td class="cart-total">{{cart.totalAmount | number : '1.2-2'}} €</td>
-        <td></td>
+        <td>&nbsp;</td>
       </tr>
     </tfoot>
   </table>

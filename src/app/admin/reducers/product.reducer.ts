@@ -9,7 +9,8 @@ const adapter = createEntityAdapter<Article>();
 const defaultState: FromAdminProduct.State  = {
   ids: [],
   entities: {},
-  csvResponse: undefined
+  csvResponse: undefined,
+  filename: undefined
 };
 
 const initialState = adapter.getInitialState(defaultState);
@@ -18,6 +19,7 @@ export namespace FromAdminProduct {
 
   export interface State extends EntityState<Article> {
     csvResponse: HttpResponse<Blob> | undefined;
+    filename: string | undefined;
   }
 
   export const reducer = createReducer(
@@ -35,7 +37,9 @@ export namespace FromAdminProduct {
       return adapter.removeOne(action.id, state);
     }),
     on(ProductActions.DownloadCsv, (state, action) => {
-      return {...state, csvResponse: action.csvResponse};
+      const parts: string[] = action.contentDispositionHeader.split(';');
+      const filename = parts[1].split('=').pop();
+      return {...state, csvResponse: action.csvResponse, filename};
     }),
     on(ProductActions.UploadNewPictureFail, ProductActions.RequestFail, (state, action) => {
       console.error(action.error);
@@ -44,7 +48,7 @@ export namespace FromAdminProduct {
   );
 
   const selectLocalState = createSelector(adminFeatureSelector, (state: AdminState) => state.product);
-  export const selectCsvResponse = createSelector(selectLocalState, (state: State) => state.csvResponse);
+  export const selectCsvData = createSelector(selectLocalState, (state: State) => ({csvResponse: state.csvResponse, filename: state.filename}));
 
   export const {
     selectAll,

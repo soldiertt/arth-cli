@@ -1,7 +1,7 @@
 <div class="p-1">
   <button type="button" class="btn btn-sm btn-secondary"
           (click)="newItem()"
-          data-toggle="modal" data-target="#slideModal">
+          data-bs-toggle="modal" data-bs-target="#slideModal">
     NEW SLIDE
   </button>
 </div>
@@ -27,7 +27,7 @@
       <td>{{slide.description}}</td>
       <td>{{slide.link}}</td>
       <td>
-        <a href (click)="editItem(slide)" data-toggle="modal" data-target="#slideModal">
+        <a href (click)="editItem(slide)" data-bs-toggle="modal" data-bs-target="#slideModal">
           <i class="material-icons">mode_edit</i>
         </a>
         <a href (click)="remove($event, slide.id)">

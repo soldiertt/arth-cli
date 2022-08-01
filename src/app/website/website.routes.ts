@@ -30,7 +30,7 @@ export const websiteRouterConfig: Routes = [
       {path: 'mycart', component: CartWizardComponent},
       {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
       {path: 'search/:term', component: SearchComponent},
-      // {path: 'steels', component: SteelsComponent},
+      {path: 'steels', component: SteelsComponent},
       {path: 'authcallback', component: AuthCallbackComponent}
     ]
   }

@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {of} from 'rxjs';
-import {catchError, map, mergeMap} from 'rxjs/operators';
+import {catchError, map, mergeMap, tap} from 'rxjs/operators';
 import Article from '../../shared/model/article.class';
 import {ArticleRestService} from '../../shared/service/rest/article.rest.service';
 import {ProductActions} from '../actions/product.actions';
@@ -54,7 +54,7 @@ export class ProductEffects {
     mergeMap((action) => {
       return this.productRestService.exportToCsv(action.category, action.brand, action.steel, action.promo, action.instock)
         .pipe(
-          map((csvResponse) => ProductActions.DownloadCsv({csvResponse})),
+          map((csvResponse) => ProductActions.DownloadCsv({csvResponse, contentDispositionHeader: csvResponse.headers.get('Content-Disposition')})),
           catchError(err => of(ProductActions.RequestFail({error: err.message})))
         );
     })

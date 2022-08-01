@@ -21,21 +21,22 @@ export class Auth0Service {
     scope: 'openid'
   });
 
-  constructor(public router: Router,  private store: Store<UserProfile>) { }
+  constructor(public router: Router,
+              private store: Store<UserProfile>) { }
 
   handleAuthentication(): void {
     this.auth0.parseHash((err, authResult) => {
+
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.store.dispatch(AuthActions.SaveToSession({authResult}));
         this.getProfile(authResult.accessToken, (errP, profile) => {
           if (errP) {
             console.log(errP);
           }
-          window.location.hash = '';
-          this.router.navigate(['/']);
+          void this.router.navigate(['/']);
         });
       } else if (err) {
-        this.router.navigate(['/']);
+        void this.router.navigate(['/']);
         console.log(err);
       }
     });

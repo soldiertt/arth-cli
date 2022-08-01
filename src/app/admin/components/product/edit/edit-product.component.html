@@ -7,13 +7,13 @@
           <ng-template #editItem>
             <h5 class="modal-title">Editing product '{{item?.name}}'</h5>
           </ng-template>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
           <div *ngIf="item">
-              <div class="form-group row">
+              <div class="form-group row mb-2">
                 <label for="category" class="col-sm-3 col-form-label">Category *</label>
                 <div class="col-sm-9">
                   <select id="category" name="category" [(ngModel)]="item.type" required="required" class="form-control">
@@ -21,7 +21,7 @@
                   </select>
                 </div>
               </div>
-              <div class="form-group row">
+              <div class="form-group row mb-2">
                 <label for="brand" class="col-sm-3 col-form-label">Brand *</label>
                 <div class="col-sm-9">
                   <select id="brand" name="brand" [(ngModel)]="item.marque" required="required" class="form-control">
@@ -29,67 +29,67 @@
                   </select>
                 </div>
               </div>
-              <div class="form-group row">
+              <div class="form-group row mb-2">
                 <label for="name" class="col-sm-3 col-form-label">Name *</label>
                 <div class="col-sm-9">
                   <input type="text" id="name" name="name" [(ngModel)]="item.name" required="required" class="form-control">
                 </div>
               </div>
-              <div class="form-group row">
+              <div class="form-group row mb-2">
                 <label for="description" class="col-sm-3 col-form-label">Description</label>
                 <div class="col-sm-9">
                   <textarea id="description" name="description" [(ngModel)]="item.description" class="form-control"></textarea>
                 </div>
               </div>
-              <div class="form-group row">
+              <div class="form-group row mb-2">
                 <label for="picture" class="col-sm-3 col-form-label">Picture *</label>
                 <div class="col-sm-9">
                   <input #fileUpload type="file" id="picture" (change)="onFileChange($event)" required="required" class="form-control">
                 </div>
               </div>
-              <div class="form-group row">
+              <div class="form-group row mb-2">
                 <label for="handle" class="col-sm-3 col-form-label">Handle</label>
                 <div class="col-sm-9">
                   <input type="text" id="handle" name="handle" [(ngModel)]="item.manche" class="form-control">
                 </div>
               </div>
-              <div class="form-group row">
+              <div class="form-group row mb-2">
                 <label for="steel" class="col-sm-3 col-form-label">Steel</label>
                 <div class="col-sm-9">
                   <input type="text" id="steel" name="steel" [(ngModel)]="item.acier" class="form-control">
                 </div>
               </div>
-              <div class="form-group row">
+              <div class="form-group row mb-2">
                 <label for="size" class="col-sm-3 col-form-label">Size</label>
                 <div class="col-sm-9">
                   <input type="text" id="size" name="size" [(ngModel)]="item.size" class="form-control">
                 </div>
               </div>
-              <div class="form-group row">
+              <div class="form-group row mb-2">
                 <label for="youtube_ref" class="col-sm-3 col-form-label">Youtube ID</label>
                 <div class="col-sm-9">
                   <input type="text" id="youtube_ref" name="youtube_ref" [(ngModel)]="item.youtube_ref" class="form-control">
                 </div>
               </div>
-              <div class="form-group row">
+              <div class="form-group row mb-2">
                 <label for="price" class="col-sm-3 col-form-label">Price *</label>
                 <div class="col-sm-9">
                   <input type="number" id="price" name="price" [(ngModel)]="item.price" required="required" class="form-control">
                 </div>
               </div>
-              <div class="form-group row">
+              <div class="form-group row mb-2">
                 <label for="old_price" class="col-sm-3 col-form-label">Old price</label>
                 <div class="col-sm-9">
                   <input type="number" id="old_price" name="old_price" [(ngModel)]="item.old_price" class="form-control">
                 </div>
               </div>
-              <div class="form-group row">
+              <div class="form-group row mb-2">
                 <label for="comment" class="col-sm-3 col-form-label">Comment</label>
                 <div class="col-sm-9">
                   <textarea id="comment" name="comment" [(ngModel)]="item.comment" class="form-control"></textarea>
                 </div>
               </div>
-              <div class="form-group row">
+              <div class="form-group row mb-2">
                 <div class="col-sm-3">Attributes</div>
                 <div class="col-sm-9">
                   <div class="form-check">
@@ -110,7 +110,7 @@
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-sm btn-success">Save</button>
-          <button type="button" class="btn btn-sm btn-link" data-dismiss="modal" (click)="resetForm()">Cancel</button>
+          <button type="button" class="btn btn-sm btn-link" data-bs-dismiss="modal" (click)="resetForm()">Cancel</button>
         </div>
       </div>
     </div>

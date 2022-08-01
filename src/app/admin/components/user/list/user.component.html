@@ -14,9 +14,9 @@
   <tbody>
     <tr *ngFor="let user of users$ | async">
       <td>{{user.user_id}}</td>
-      <td>{{user.user_metadata.name}}</td>
-      <td>{{user.user_metadata.email}}</td>
-      <td>{{user.user_metadata.phone}}</td>
+      <td>{{user.user_metadata?.name}}</td>
+      <td>{{user.user_metadata?.email}}</td>
+      <td>{{user.user_metadata?.phone}}</td>
       <td>
         <ng-container *ngIf="user.user_metadata?.addresses?.delivery">
           {{user.user_metadata.addresses.delivery.street}} {{user.user_metadata.addresses.delivery.houseNumber}} {{user.user_metadata.addresses.delivery.postbox}}

@@ -1,10 +1,10 @@
 <div class="p-1 no-print">
-  <button type="button" class="btn btn-sm btn-secondary"
+  <button type="button" class="btn btn-sm btn-secondary m-1"
           (click)="newItem()"
-          data-toggle="modal" data-target="#productModal">
+          data-bs-toggle="modal" data-bs-target="#productModal">
     NEW PRODUCT
   </button>
-  <button type="button" class="btn btn-sm btn-secondary"
+  <button type="button" class="btn btn-sm btn-secondary m-1"
           (click)="export()">
     EXPORT TO EXCEL
   </button>
@@ -85,7 +85,7 @@
         <td class="extra-thin-column no-print">{{product.promo}}</td>
         <td class="extra-thin-column no-print">{{product.instock}}</td>
         <td class="thin-column no-print">
-          <a href (click)="editItem(product)" data-toggle="modal" data-target="#productModal">
+          <a href (click)="editItem(product)" data-bs-toggle="modal" data-bs-target="#productModal">
             <i class="material-icons">mode_edit</i>
           </a>
           <a href (click)="remove($event, product.id)">

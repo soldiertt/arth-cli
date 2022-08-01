@@ -14,7 +14,7 @@ export class UploadService {
   }
 
   generateFilename(len: number, originalFilename: string) {
-    const extension = originalFilename.split('.')[1];
+    const extension = originalFilename.split('.').pop();
     return this.generateId(15) + '.' + extension;
   }
 }
