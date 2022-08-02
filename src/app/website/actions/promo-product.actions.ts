@@ -14,7 +14,4 @@ export namespace PromoProductActions {
     props<{entities: Article[]}>()
   );
 
-  // export type Actions
-  //   = GetAll
-  //   | GetAllSuccess;
 }

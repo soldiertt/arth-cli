@@ -43,14 +43,5 @@ export namespace BrandActions {
     props<{id: string}>()
   );
 
-  // export type Actions
-  //   = GetAll
-  //   | GetAllFromProduct
-  //   | GetAllSuccess
-  //   | Create
-  //   | CreateSuccess
-  //   | Delete
-  //   | DeleteSuccess;
-
 }
 

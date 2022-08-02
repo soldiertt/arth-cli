@@ -81,18 +81,4 @@ export namespace CartDataActions {
     PAY_SUCCESS
   );
 
-  // export type Actions
-  //   = SetEditMode
-  //   | GetCartFromSession
-  //   | InitializeCart
-  //   | SaveCartInSession
-  //   | CartSaved
-  //   | CartMoveToStep
-  //   | AddArticle
-  //   | RemoveArticle
-  //   | RemoveOrder
-  //   | UpdateTopSales
-  //   | UpdateTopSalesSuccess
-  //   | Pay
-  //   | PaySuccess;
 }

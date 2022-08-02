@@ -45,12 +45,4 @@ export namespace SlideProductActions {
     props<{id: string}>()
   );
 
-  // export type Actions
-  //   = GetAll
-  //   | GetAllSuccess
-  //   | Create
-  //   | CreateFail
-  //   | CreateSuccess
-  //   | Delete
-  //   | DeleteSuccess;
 }

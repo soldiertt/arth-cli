@@ -26,9 +26,4 @@ export namespace PaypalOrderActions {
     props<{entities: PaypalOrder[]}>()
   );
 
-  // export type Actions
-  //   = GetAll
-  //   | GetAllSuccess
-  //   | GetAllForUser
-  //   | GetAllForUserSuccess;
 }

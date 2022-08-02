@@ -1,5 +1,6 @@
 import {Routes} from '@angular/router';
 import {AdminComponent} from './components/admin.component';
+import {AdvancedProductComponent} from './components/advanced-product/list/advanced-product.component';
 import {ProductComponent} from './components/product/list/product.component';
 import {CategoryComponent} from './components/category/list/category.component';
 import {SlideComponent} from './components/slide/list/slide.component';
@@ -13,6 +14,7 @@ export const adminRouterConfig: Routes = [
   {path: 'admin', component: AdminComponent, canActivate: [AdminGuard],
     children: [
       {path: 'products', component: ProductComponent},
+      {path: 'advancedproducts', component: AdvancedProductComponent},
       {path: 'categories', component: CategoryComponent},
       {path: 'slides', component: SlideComponent},
       {path: 'videos', component: VideoComponent},

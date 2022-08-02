@@ -61,15 +61,4 @@ export namespace CategoryActions {
     props<{id: string}>()
   );
 
-  // export type Actions
-  //   = GetAllRoot
-  //   | GetAllRootSuccess
-  //   | GetAll
-  //   | GetAllSuccess
-  //   | Create
-  //   | CreateSuccess
-  //   | Update
-  //   | UpdateSuccess
-  //   | Delete
-  //   | DeleteSuccess;
 }

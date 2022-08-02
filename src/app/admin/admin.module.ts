@@ -6,8 +6,11 @@ import {AdminComponent} from './components/admin.component';
 import {adminRouterConfig} from './admin.routes';
 import {RouterModule} from '@angular/router';
 import {RestModule} from '../shared/rest.module';
+import {EditAdvancedProductComponent} from './components/advanced-product/edit/edit-advanced-product.component';
+import {AdvancedProductComponent} from './components/advanced-product/list/advanced-product.component';
 import {EditVideoComponent} from './components/video/edit/edit-video.component';
 import {VideoComponent} from './components/video/list/video.component';
+import {AdvancedProductEffects} from './effects/advanced-product.effects';
 import {ProductEffects} from './effects/product.effects';
 import {SharedModule} from '../shared/shared.module';
 import {BrandEffects} from '../shared/effects/brand.effects';
@@ -36,8 +39,10 @@ import {SteelEffects} from './effects/steel.effects';
   declarations: [
     AdminComponent,
     AdminMenuComponent,
+    AdvancedProductComponent,
     BrandComponent,
     CategoryComponent,
+    EditAdvancedProductComponent,
     EditBrandComponent,
     EditCategoryComponent,
     EditProductComponent,
@@ -51,6 +56,7 @@ import {SteelEffects} from './effects/steel.effects';
   ],
   imports     : [
     EffectsModule.forFeature([
+      AdvancedProductEffects,
       BrandEffects,
       CategoryEffects,
       OrderEffects,

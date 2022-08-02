@@ -46,3 +46,15 @@
 .carousel-control-prev:hover, .carousel-control-next:hover {
   background-color: rgba(255, 153, 0, 0.1);
 }
+
+@media (max-width: 400px) {
+  .carousel-caption {
+    font-size: 1em;
+  }
+  .carousel-caption .title1 {
+    font-size: 1em;
+  }
+  .carousel-caption .title2 {
+    font-size: 1em;
+  }
+}

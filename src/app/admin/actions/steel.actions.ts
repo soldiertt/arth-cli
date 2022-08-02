@@ -15,7 +15,4 @@ export namespace SteelActions {
     props<{entities: Steel[]}>()
   );
 
-  // export type SteelActions
-  //   = GetAll
-  //   | GetAllSuccess;
 }

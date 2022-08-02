@@ -26,14 +26,14 @@
     <p class="alert alert-danger">{{'page.profile.pendingremovalrequest' | trans}}</p>
     <button type="button" class="btn btn-warning" (click)="cancelAskForRemoval()">{{'page.profile.canceldeleteaccount' | trans}}</button>
   </div>
-  <a href data-toggle="modal" data-target="#confirmDeleteAccountModal" *ngIf="!pendingRemoval">{{'page.profile.deleteaccount' | trans}}</a>
+  <a href data-bs-toggle="modal" data-bs-target="#confirmDeleteAccountModal" *ngIf="!pendingRemoval">{{'page.profile.deleteaccount' | trans}}</a>
 
   <div class="modal fade" id="confirmDeleteAccountModal">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">{{'page.profile.deleteaccount' | trans}}</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -41,8 +41,8 @@
           <p>{{'page.profile.confirmdeleteaccount' | trans}}</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" (click)="askForRemoval()" data-dismiss="modal">{{'common.label.yes' | trans}}</button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">{{'common.label.no' | trans}}</button>
+          <button type="button" class="btn btn-primary" (click)="askForRemoval()" data-bs-dismiss="modal">{{'common.label.yes' | trans}}</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{'common.label.no' | trans}}</button>
         </div>
       </div>
     </div>

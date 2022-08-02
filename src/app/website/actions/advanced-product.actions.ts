@@ -20,8 +20,4 @@ export namespace AdvancedProductActions {
     props<{categoryName: string}>()
   );
 
-  // export type Actions
-  //   = LoadAll
-  //   | LoadAllSuccess
-  //   | FilterAllByCategory;
 }

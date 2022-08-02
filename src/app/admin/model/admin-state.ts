@@ -1,4 +1,5 @@
 import {createFeatureSelector} from '@ngrx/store';
+import {FromAdminAdvancedProduct} from '../reducers/advanced-product.reducer';
 import {FromAdminBrand} from '../reducers/brand.reducer';
 import {FromAdminCategory} from '../reducers/category.reducer';
 import {FromAdminPaypalOrder} from '../reducers/paypal-order.reducer';
@@ -14,6 +15,7 @@ export interface AdminState {
   category: FromAdminCategory.State;
   order: FromAdminPaypalOrder.State;
   product: FromAdminProduct.State;
+  advancedproduct: FromAdminAdvancedProduct.State;
   slide: FromAdminSlide.State;
   slideproduct: FromAdminSlideProduct.State;
   video: FromAdminVideo.State;

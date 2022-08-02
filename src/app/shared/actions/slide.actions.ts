@@ -67,16 +67,4 @@ export namespace SlideActions {
     props<{error: string}>()
   );
 
-  // export type Actions
-  //   = GetAll
-  //   | GetAllSuccess
-  //   | Create
-  //   | CreateSuccess
-  //   | Update
-  //   | UpdateSuccess
-  //   | Delete
-  //   | DeleteSuccess
-  //   | UploadNewPicture
-  //   | UploadNewPictureSuccess
-  //   | UploadNewPictureFail;
 }

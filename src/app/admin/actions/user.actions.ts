@@ -15,7 +15,4 @@ export namespace UserActions {
     props<{entities: UserProfile[]}>()
   );
 
-  // export type Actions
-  //   = GetAll
-  //   | GetAllSuccess;
 }

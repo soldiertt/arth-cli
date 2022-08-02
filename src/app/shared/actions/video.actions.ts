@@ -38,11 +38,4 @@ export namespace VideoActions {
     props<{id: string}>()
   );
 
-  // export type Actions
-  //   = GetAll
-  //   | GetAllSuccess
-  //   | Create
-  //   | CreateSuccess
-  //   | Delete
-  //   | DeleteSuccess;
 }

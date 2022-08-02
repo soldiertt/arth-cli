@@ -54,13 +54,4 @@ export namespace ProductActions {
     props<{entities: Article[]}>()
   );
 
-  // export type Actions
-  //   = LoadOne
-  //   | LoadOneSuccess
-  //   | LoadAllByBrand
-  //   | LoadAllByBrandSuccess
-  //   | LoadAllByCategory
-  //   | LoadAllByCategorySuccess
-  //   | Search
-  //   | SearchSuccess;
 }

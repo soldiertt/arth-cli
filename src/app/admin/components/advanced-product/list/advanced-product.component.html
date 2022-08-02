@@ -1,0 +1,52 @@
+<div class="p-1 no-print">
+  <button type="button" class="btn btn-sm btn-secondary m-1"
+          (click)="newItem()"
+          data-bs-toggle="modal" data-bs-target="#advancedProductModal">
+    NEW PRODUCT
+  </button>
+</div>
+
+<form [formGroup]="filterForm">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Picture</th>
+        <th>Category</th>
+        <th>Name</th>
+        <th class="extra-thin-column">Price</th>
+        <th class="thin-column no-print">Actions</th>
+      </tr>
+      <tr class="no-print">
+        <td></td>
+        <td>
+<!--          <select name="categoryfilter" id="categoryfilter" class="form-control form-control-sm" formControlName="categoryFilter">-->
+<!--            <option value="">[Category]</option>-->
+<!--            <option *ngFor="let category of categories$ | async" [value]="category.name">{{category.name}}</option>-->
+<!--          </select>-->
+        </td>
+        <td></td>
+        <td></td>
+        <td class="thin-column"></td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of filteredProducts$ | async">
+        <td><img [src]="picUtil.picture(product)"></td>
+        <td>{{product.type}}</td>
+        <td>{{product.name}}</td>
+        <td class="extra-thin-column">
+          {{product.price}}€
+        </td>
+        <td class="thin-column no-print">
+          <a href (click)="editItem(product)" data-bs-toggle="modal" data-bs-target="#advancedProductModal">
+            <i class="material-icons">mode_edit</i>
+          </a>
+          <a href (click)="remove($event, product.id)">
+            <i class="material-icons">delete_forever</i>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</form>
+<arth-admin-advanced-product-modal [item]="edited"></arth-admin-advanced-product-modal>
