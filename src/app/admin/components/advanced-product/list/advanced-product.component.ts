@@ -9,6 +9,11 @@ import {PictureService} from '../../../../shared/service/picture.service';
 import {AdvancedProductActions} from '../../../actions/advanced-product.actions';
 import {FromAdminAdvancedProduct} from '../../../reducers/advanced-product.reducer';
 
+interface AdvancedProductCategory {
+  name: string;
+  code: string;
+}
+
 @Component({
   templateUrl: './advanced-product.component.html',
   styleUrls: ['./advanced-product.component.css']
@@ -20,8 +25,12 @@ export class AdvancedProductComponent implements OnInit, OnDestroy {
   advancedProducts$: Observable<AdvancedArticle[]>;
   filteredProducts$: Observable<AdvancedArticle[]>;
   edited: AdvancedArticle;
-
   filterForm: FormGroup;
+  categories: AdvancedProductCategory[] = [
+    {name: 'Homemade knife', code: 'homemadeknives'},
+    {name: 'Stick', code: 'sticks'},
+    {name: 'Bracelet', code: 'bracelet'}
+  ];
 
   constructor(private advancedProductStore: Store<FromAdminAdvancedProduct.State>,
               public picUtil: PictureService,

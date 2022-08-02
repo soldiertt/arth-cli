@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {map} from 'rxjs/operators';
 import AdvancedArticle from '../../../shared/model/advanced-article.class';
 import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
@@ -18,7 +19,8 @@ export class HomemadeKnivesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.articles$ = this.store.select(FromAdvancedProduct.selectLocalState);
-    this.store.dispatch(AdvancedProductActions.FilterAllByCategory({categoryName: 'homemade'}));
+    this.articles$ = this.store.select(FromAdvancedProduct.selectLocalState).pipe(map(articles => {
+      return articles.filter(article => article.type === 'homemadeknives');
+    }));
   }
 }

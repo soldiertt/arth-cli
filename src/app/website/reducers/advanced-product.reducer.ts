@@ -12,9 +12,6 @@ export namespace FromAdvancedProduct {
     on(AdvancedProductActions.LoadAllSuccess, (state, action) => {
       return action.productData;
     }),
-    on(AdvancedProductActions.FilterAllByCategory, (state, action) => {
-      return state.filter(article => article.type === action.categoryName);
-    }),
   );
 
   export const selectLocalState = createSelector(siteFeatureSelector, (state: SiteState) => state.advancedProductData);

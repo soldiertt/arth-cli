@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges} from '@angular/core';
+import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {IAlbum, Lightbox} from 'ngx-lightbox';
 import AdvancedArticle from '../../../../shared/model/advanced-article.class';
 import {JQueryService} from '../../../service/jQuery.service';
@@ -14,7 +14,7 @@ declare const $: any;
   templateUrl: 'advanced-article-box.component.html',
   styleUrls: ['advanced-article-box.component.css']
 })
-export class AdvancedArticleBoxComponent implements OnChanges {
+export class AdvancedArticleBoxComponent implements OnInit, OnChanges {
 
   @Input() article: AdvancedArticle;
   @Input() isOdd = false;
@@ -26,9 +26,15 @@ export class AdvancedArticleBoxComponent implements OnChanges {
               private _lightbox: Lightbox) {
   }
 
+  ngOnInit() {
+    setTimeout(() => {
+      this.jQueryService.enableFancybox($);
+    }, 10);
+  }
+
   ngOnChanges() {
     if (this.article) {
-      this.picUtil.largePictureMulti(this.article).forEach(pic => {
+      this.picUtil.allLargePicturesFullPath(this.article).forEach(pic => {
         this._album.push({src: pic, caption: pic, thumb: this.picUtil.thumb(pic), downloadUrl: pic});
       });
     }
@@ -36,7 +42,7 @@ export class AdvancedArticleBoxComponent implements OnChanges {
   addToCart(article: AdvancedArticle) {
     const component = this;
     const callback = () => {
-      const orderArticle = {...article, picture: this.picUtil.picture(article), promo: false, noLink: true};
+      const orderArticle = {...article, picture: this.picUtil.firstPicture(article), promo: false, noLink: true};
       component.store.dispatch(CartDataActions.AddArticle({article: orderArticle}));
     };
     this.jQueryService.addToCart($, callback);

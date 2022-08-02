@@ -19,10 +19,10 @@
       <tr class="no-print">
         <td></td>
         <td>
-<!--          <select name="categoryfilter" id="categoryfilter" class="form-control form-control-sm" formControlName="categoryFilter">-->
-<!--            <option value="">[Category]</option>-->
-<!--            <option *ngFor="let category of categories$ | async" [value]="category.name">{{category.name}}</option>-->
-<!--          </select>-->
+          <select name="categoryfilter" id="categoryfilter" class="form-control form-control-sm" formControlName="categoryFilter">
+            <option value="">[Category]</option>
+            <option *ngFor="let category of categories" [value]="category.code">{{category.name}}</option>
+          </select>
         </td>
         <td></td>
         <td></td>
@@ -31,7 +31,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let product of filteredProducts$ | async">
-        <td><img [src]="picUtil.picture(product)"></td>
+        <td><img [src]="pic" *ngFor="let pic of picUtil.allMiniPicturesFullPath(product)"></td>
         <td>{{product.type}}</td>
         <td>{{product.name}}</td>
         <td class="extra-thin-column">

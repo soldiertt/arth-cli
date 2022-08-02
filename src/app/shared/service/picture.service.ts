@@ -4,15 +4,22 @@ import AdvancedArticle from '../model/advanced-article.class';
 @Injectable()
 export class PictureService {
 
-  miniPicture(product): string {
+  miniPictureFullPath(product): string {
     return 'assets/photos/' + product.type + '/' + this.thumb(product.picture);
   }
 
-  largePicture(product): string {
+  allMiniPicturesFullPath(product: AdvancedArticle): string[] {
+    if (product.pictures) {
+      return product.pictures.map(pic => 'assets/photos/' + product.type + '/' + this.thumb(pic));
+    }
+    return [];
+  }
+
+  largePictureFullPath(product): string {
     return 'assets/photos/' + product.type + '/' + product.picture;
   }
 
-  largePictureMulti(product: AdvancedArticle): string[] {
+  allLargePicturesFullPath(product: AdvancedArticle): string[] {
     if (product.pictures) {
       return product.pictures.map(pic => 'assets/photos/' + product.type + '/' + pic);
     }
@@ -27,7 +34,7 @@ export class PictureService {
     return '<undefined>';
   }
 
-  picture(product: AdvancedArticle): string {
+  firstPicture(product: AdvancedArticle): string {
     if (product.pictures) {
       return product.pictures[0];
     }

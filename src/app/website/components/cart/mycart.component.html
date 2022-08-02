@@ -15,7 +15,7 @@
       <tr *ngFor="let order of cart.orders">
         <td class="picture-cell d-none d-sm-block">
           <a href [routerLink]="['/detail', order.article.id]">
-            <img [src]="picUtil.miniPicture(order.article)" [attr.alt]="order.article.name">
+            <img [src]="picUtil.miniPictureFullPath(order.article)" [attr.alt]="order.article.name">
             <img src="assets/images/promo.png" *ngIf="order.article.promo">
           </a>
         </td>
