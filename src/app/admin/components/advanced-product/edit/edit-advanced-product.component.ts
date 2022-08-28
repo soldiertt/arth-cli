@@ -43,8 +43,9 @@ export class EditAdvancedProductComponent {
     this.localPictures = [];
   }
 
-  oneMorePicture(): void {
+  oneMorePicture($event): void {
     this.picturesCount++;
+    $event.preventDefault();
   }
 
   onFileChange(event) {

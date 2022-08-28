@@ -1,5 +1,5 @@
 import {Component, Input, OnChanges, OnInit} from '@angular/core';
-import {IAlbum, Lightbox} from 'ngx-lightbox';
+import {IAlbum, Lightbox, LightboxConfig} from 'ngx-lightbox';
 import AdvancedArticle from '../../../../shared/model/advanced-article.class';
 import {JQueryService} from '../../../service/jQuery.service';
 import CartData from '../../../model/cart-data.class';
@@ -23,7 +23,12 @@ export class AdvancedArticleBoxComponent implements OnInit, OnChanges {
   constructor(private picUtil: PictureService,
               private store: Store<CartData>,
               private jQueryService: JQueryService,
-              private _lightbox: Lightbox) {
+              private _lightbox: Lightbox,
+              private _lightboxConfig: LightboxConfig) {
+    _lightboxConfig.alwaysShowNavOnTouchDevices = true;
+    _lightboxConfig.centerVertically = true;
+    _lightboxConfig.wrapAround = true;
+    _lightboxConfig.showImageNumberLabel = true;
   }
 
   ngOnInit() {
@@ -35,7 +40,7 @@ export class AdvancedArticleBoxComponent implements OnInit, OnChanges {
   ngOnChanges() {
     if (this.article) {
       this.picUtil.allLargePicturesFullPath(this.article).forEach(pic => {
-        this._album.push({src: pic, caption: pic, thumb: this.picUtil.thumb(pic), downloadUrl: pic});
+        this._album.push({src: pic, thumb: this.picUtil.thumb(pic), downloadUrl: pic});
       });
     }
   }

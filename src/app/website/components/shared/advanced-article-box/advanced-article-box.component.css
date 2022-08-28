@@ -16,6 +16,7 @@
 
 .article-picture {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   min-height: 300px;
   min-width: 280px;

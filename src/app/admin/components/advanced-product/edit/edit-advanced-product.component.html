@@ -39,7 +39,7 @@
                   <input #fileUpload *ngFor="let imgIndex of [].constructor(picturesCount)" type="file" id="picture" (change)="onFileChange($event)" required="required" class="form-control">
                 </div>
                 <div class="col-sm-1">
-                  <button (click)="oneMorePicture()">
+                  <button (click)="oneMorePicture($event)">
                     <i class="material-icons">add</i>
                   </button>
                 </div>
