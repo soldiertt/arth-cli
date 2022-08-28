@@ -105,3 +105,12 @@
   background-color: #525252;
 }
 
+@media (max-width: 400px) {
+  .article-picture img {
+    min-height: auto;
+  }
+  .article-picture {
+    min-width: auto;
+    padding: 10px;
+  }
+}

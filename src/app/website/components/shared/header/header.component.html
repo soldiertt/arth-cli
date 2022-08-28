@@ -47,6 +47,13 @@
             <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">
               <a href class="nav-link" routerLink="">{{'common.links.home' | trans}}</a>
             </li>
+            <li class="nav-item" [routerLinkActive]="['active']">
+              <a href class="nav-link"
+                 routerLink="/homemadeknives">{{'common.links.homemadeknives' | trans}}</a>
+            </li>
+            <li class="nav-item" [routerLinkActive]="['active']">
+              <a href class="nav-link" routerLink="/brands">{{'common.links.ourbrands' | trans}}</a>
+            </li>
             <li class="nav-item dropdown">
               <a href="#" class="nav-link dropdown-toggle" id="categoriesDropdown" data-bs-toggle="dropdown"
                  aria-haspopup="true" aria-expanded="false">{{'common.links.categories' | trans}}</a>
@@ -55,13 +62,6 @@
                   <a href class="dropdown-item" [routerLink]="['/categ', category.name]">{{category | catTitle}}</a>
                 </li>
               </ul>
-            </li>
-            <li class="nav-item" [routerLinkActive]="['active']">
-              <a href class="nav-link" routerLink="/brands">{{'common.links.ourbrands' | trans}}</a>
-            </li>
-            <li class="nav-item" [routerLinkActive]="['active']">
-              <a href class="nav-link"
-                 routerLink="/homemadeknives">{{'common.links.homemadeknives' | trans}}</a>
             </li>
             <li class="nav-item" [routerLinkActive]="['active']">
               <a href class="nav-link" routerLink="/steels">{{'common.links.steels' | trans}}</a>
