@@ -8,13 +8,23 @@
   border-width: 5px;
 }
 
-.home-image {
-  text-align: center;
-  padding: 20px;
-  margin-top: 20px;
+.home-news {
   border-top: 2px solid #ddd;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 20px;
+  grid-gap: 20px;
 }
 
-.home-image img {
-  max-width: 95%;
+.news {
+  text-align: center;
+}
+
+.news img {
+  max-width: 300px;
+  border: 5px solid #ddd;
+  border-radius: 8px;
+  cursor: pointer;
 }

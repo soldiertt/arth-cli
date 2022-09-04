@@ -1,4 +1,4 @@
-import {Component, Input, QueryList, ViewChildren} from '@angular/core';
+import {Component, ElementRef, Input, ViewChild} from '@angular/core';
 import {FormArray, FormControl, NgForm} from '@angular/forms';
 import {Store} from '@ngrx/store';
 import AdvancedArticle from '../../../../shared/model/advanced-article.class';
@@ -25,34 +25,27 @@ export class EditAdvancedProductComponent {
     {name: 'Stick', code: 'sticks'},
     {name: 'Bracelet', code: 'bracelet'}
   ];
-  picturesCount = 1;
   localPictures: string[] = [];
   pictures: FormArray = new FormArray<any>([]);
 
-  @ViewChildren('fileUpload') fileUploadInput: QueryList<any>;
+  @ViewChild('fileUpload') fileUploadInput: ElementRef;
 
   constructor(private uploadService: UploadService,
               private advancedProductStore: Store<FromAdminAdvancedProduct.State>) {
   }
 
   resetForm() {
-    this.fileUploadInput.forEach((input) => {
-      input.nativeElement.value = '';
-    })
-    this.picturesCount = 1;
+    this.fileUploadInput.nativeElement.value = '';
     this.localPictures = [];
-  }
-
-  oneMorePicture($event): void {
-    this.picturesCount++;
-    $event.preventDefault();
   }
 
   onFileChange(event) {
     if (event.target.files.length > 0) {
-      const file = event.target.files[0];
-      this.localPictures.push(this.uploadService.generateFilename(15, event.target.value));
-      this.pictures.push(new FormControl(file));
+      for (let i = 0; i < event.target.files.length; i++) {
+        const file = event.target.files[i];
+        this.localPictures.push(this.uploadService.generateFilename(15, event.target.value));
+        this.pictures.push(new FormControl(file));
+      }
     }
   }
 

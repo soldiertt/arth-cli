@@ -32,6 +32,11 @@ export default {
       title: 'Présentation',
       videos: 'Nos vidéos'
     },
+    homenews: {
+      cuistax: 'Cuistax',
+      nordeclair: 'Nord Eclair',
+      vivacite: 'Vivacité'
+    },
     mycart: {
       addarticle: 'Ajouter un article',
       breadcrumb : {

@@ -1,0 +1,37 @@
+<div class="main">
+  <div class="content">
+    <div class="content_top">
+      <div class="heading">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item responsive-hidden-small"><a href routerLink="">{{'common.links.home' | trans}}</a></li>
+          <li class="breadcrumb-item">{{'page.homenews.' + type | trans}}</li>
+        </ol>
+      </div>
+    </div>
+    <article>
+      <section *ngIf="type === 'cuistax'">
+        <img src="../../../../assets/home/cuistax/cuistax2.jpg" />
+      </section>
+      <section *ngIf="type === 'nordeclair'">
+        <img src="../../../../assets/home/nordeclair/nordeclair1.jpg" />
+        <img src="../../../../assets/home/nordeclair/nordeclair2.jpg" />
+      </section>
+      <section *ngIf="type === 'vivacite'">
+        <div class="row">
+          <video width="320" height="240" controls class="col-lg-4 col-md-6 col-sm-12">
+            <source src="assets/home/vivacite/video1.mp4" type="video/mp4">
+            Your browser does not support the video or formats.
+          </video>
+          <video width="320" height="240" controls class="col-lg-4 col-md-6 col-sm-12">
+            <source src="assets/home/vivacite/video2.mp4" type="video/mp4">
+            Your browser does not support the video or formats.
+          </video>
+          <video width="320" height="240" controls class="col-lg-4 col-md-6 col-sm-12">
+            <source src="assets/home/vivacite/video3.mp4" type="video/mp4">
+            Your browser does not support the video or formats.
+          </video>
+        </div>
+      </section>
+    </article>
+  </div>
+</div>

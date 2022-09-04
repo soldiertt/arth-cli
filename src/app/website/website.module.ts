@@ -4,6 +4,7 @@ import {LightboxModule} from 'ngx-lightbox';
 import {RestModule} from '../shared/rest.module';
 import {AuthCallbackComponent} from './components/authcallback/auth-callback.component';
 import {HomemadeKnivesComponent} from './components/homemadeknives/homemade-knives.component';
+import {HomeNewsComponent} from './components/homenews/home-news.component';
 import {AdvancedArticleBoxComponent} from './components/shared/advanced-article-box/advanced-article-box.component';
 import {AdvancedProductEffects} from './effects/advanced-product.effects';
 import {websiteRouterConfig} from './website.routes';
@@ -76,6 +77,7 @@ import {ProductEffects} from './effects/product.effects';
     HeaderComponent,
     HomeComponent,
     HomemadeKnivesComponent,
+    HomeNewsComponent,
     MyCartComponent,
     OrdersComponent,
     ProfileEditComponent,
