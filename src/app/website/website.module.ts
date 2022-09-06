@@ -6,6 +6,7 @@ import {AuthCallbackComponent} from './components/authcallback/auth-callback.com
 import {HomemadeKnivesComponent} from './components/homemadeknives/homemade-knives.component';
 import {HomeNewsComponent} from './components/homenews/home-news.component';
 import {AdvancedArticleBoxComponent} from './components/shared/advanced-article-box/advanced-article-box.component';
+import {WalkingSticksComponent} from './components/walkingsticks/walking-sticks.component';
 import {AdvancedProductEffects} from './effects/advanced-product.effects';
 import {websiteRouterConfig} from './website.routes';
 import {TruncatePipe} from './pipe/truncate.pipe';
@@ -89,6 +90,7 @@ import {ProductEffects} from './effects/product.effects';
     SortPipe,
     TopSalesComponent,
     TruncatePipe,
+    WalkingSticksComponent,
     WebsiteComponent
   ],
   imports     : [

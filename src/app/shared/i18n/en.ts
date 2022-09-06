@@ -143,7 +143,8 @@ export default {
       mycart: 'My cart',
       ourbrands: 'Big brands',
       profile: 'My profile',
-      steels: 'Steels'
+      steels: 'Steels',
+      sticks: 'Wooden walking sticks'
     }
   }
 };

@@ -144,7 +144,8 @@ export default {
       mycart: 'Mijn winkelmandje',
       profile: 'Mijn profiel',
       ourbrands: 'Grote merken',
-      steels: 'Staal'
+      steels: 'Staal',
+      sticks: 'Wandelstokken'
     }
   }
 };

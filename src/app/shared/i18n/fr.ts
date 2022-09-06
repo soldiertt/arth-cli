@@ -143,7 +143,8 @@ export default {
       mycart: 'Mon panier',
       profile: 'Mon profil',
       ourbrands: 'Les grandes marques',
-      steels: 'Les aciers'
+      steels: 'Les aciers',
+      sticks: 'Bâtons de randonnées'
     }
   }
 };

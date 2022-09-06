@@ -6,9 +6,9 @@ import {Store} from '@ngrx/store';
 import {FromAdvancedProduct} from '../../reducers/advanced-product.reducer';
 
 @Component({
-  templateUrl: 'homemade-knives.component.html'
+  templateUrl: 'walking-sticks.component.html'
 })
-export class HomemadeKnivesComponent implements OnInit {
+export class WalkingSticksComponent implements OnInit {
 
   articles$: Observable<AdvancedArticle[]>;
 
@@ -17,7 +17,7 @@ export class HomemadeKnivesComponent implements OnInit {
 
   ngOnInit() {
     this.articles$ = this.store.select(FromAdvancedProduct.selectLocalState).pipe(map(articles => {
-      return articles.filter(article => article.type === 'homemadeknives');
+      return articles.filter(article => article.type === 'sticks');
     }));
   }
 }

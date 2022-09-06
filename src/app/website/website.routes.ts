@@ -13,6 +13,7 @@ import {ErrorComponent} from './components/shared/error/error.component';
 import {CartWizardComponent} from './components/cart/cart-wizard.component';
 import {SearchComponent} from './components/search/search.component';
 import {ProfileComponent} from './components/profile/profile.component';
+import {WalkingSticksComponent} from './components/walkingsticks/walking-sticks.component';
 import {WebsiteComponent} from './components/website.component';
 import {AuthGuard} from './service/auth.guard';
 
@@ -33,7 +34,8 @@ export const websiteRouterConfig: Routes = [
       {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
       {path: 'search/:term', component: SearchComponent},
       {path: 'steels', component: SteelsComponent},
-      {path: 'authcallback', component: AuthCallbackComponent}
+      {path: 'authcallback', component: AuthCallbackComponent},
+      {path: 'sticks', component: WalkingSticksComponent},
     ]
   }
 ];
