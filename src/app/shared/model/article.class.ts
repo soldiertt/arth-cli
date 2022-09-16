@@ -1,12 +1,12 @@
 export default class Article {
   id?: string;
   type: string;
-  marque: string;
+  brand: string;
   name: string;
   description?: string;
   picture: string;
-  manche: string;
-  acier: string;
+  handle: string;
+  steel: string;
   size: string;
   youtube_ref?: string;
   promo: boolean;

@@ -15,7 +15,7 @@
   </thead>
   <tbody>
   <tr *ngFor="let brand of brands$ | async">
-    <td>{{brand.marque}}</td>
+    <td>{{brand.brand}}</td>
     <td><a href (click)="remove($event, brand.id)"><i class="material-icons">delete_forever</i></a></td>
   </tr>
   </tbody>

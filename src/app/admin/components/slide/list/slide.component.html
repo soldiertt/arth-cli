@@ -54,7 +54,7 @@
     <tbody>
       <tr *ngFor="let slideProduct of slideProducts$ | async">
         <td>{{slideProduct.type}}</td>
-        <td>{{slideProduct.marque}}</td>
+        <td>{{slideProduct.brand}}</td>
         <td>{{slideProduct.name}}</td>
         <td>{{slideProduct.price}}</td>
         <td><a href (click)="removeSlideProduct($event, slideProduct.id)"><i class="material-icons">delete_forever</i></a></td>

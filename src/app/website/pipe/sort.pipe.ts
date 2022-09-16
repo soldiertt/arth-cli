@@ -24,6 +24,16 @@ export class SortPipe implements PipeTransform {
           return 0;
         }
       });
+    } else if (args === 'brand') {
+      sorted.sort((a: Article, b: Article) => {
+        if (a.brand.toLowerCase() < b.brand.toLowerCase()) {
+          return -1;
+        } else if (a.brand.toLowerCase() > b.brand.toLowerCase()) {
+          return 1;
+        } else {
+          return 0;
+        }
+      });
     } else {
       sorted.sort((a: Article, b: Article) => {
         if (a[args].toLowerCase() < b[args].toLowerCase()) {

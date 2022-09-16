@@ -28,7 +28,7 @@ export class BrandArticlesComponent implements OnInit {
     this.route.params.subscribe((params: Params) => {
       const brandName = params['type'];
       this.brand = new Brand();
-      this.brand.marque = brandName;
+      this.brand.brand = brandName;
       this.store.dispatch(ProductActions.LoadAllByBrand({brand: this.brand}));
     });
   }

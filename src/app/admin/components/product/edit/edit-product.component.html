@@ -24,8 +24,8 @@
               <div class="form-group row mb-2">
                 <label for="brand" class="col-sm-3 col-form-label">Brand *</label>
                 <div class="col-sm-9">
-                  <select id="brand" name="brand" [(ngModel)]="item.marque" required="required" class="form-control">
-                    <option *ngFor="let brand of brands$ | async" [value]="brand.marque">{{brand.marque}}</option>
+                  <select id="brand" name="brand" [(ngModel)]="item.brand" required="required" class="form-control">
+                    <option *ngFor="let brand of brands$ | async" [value]="brand.brand">{{brand.brand}}</option>
                   </select>
                 </div>
               </div>
@@ -50,13 +50,13 @@
               <div class="form-group row mb-2">
                 <label for="handle" class="col-sm-3 col-form-label">Handle</label>
                 <div class="col-sm-9">
-                  <input type="text" id="handle" name="handle" [(ngModel)]="item.manche" class="form-control">
+                  <input type="text" id="handle" name="handle" [(ngModel)]="item.handle" class="form-control">
                 </div>
               </div>
               <div class="form-group row mb-2">
                 <label for="steel" class="col-sm-3 col-form-label">Steel</label>
                 <div class="col-sm-9">
-                  <input type="text" id="steel" name="steel" [(ngModel)]="item.acier" class="form-control">
+                  <input type="text" id="steel" name="steel" [(ngModel)]="item.steel" class="form-control">
                 </div>
               </div>
               <div class="form-group row mb-2">

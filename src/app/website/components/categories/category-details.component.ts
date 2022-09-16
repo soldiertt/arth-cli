@@ -8,7 +8,6 @@ import {ProductActions} from '../../actions/product.actions';
 import {FromProduct} from '../../reducers/product.reducer';
 
 @Component({
-  selector: 'arth-category-details',
   templateUrl: 'category-details.component.html',
   styleUrls: ['category-details.component.css']
 })
@@ -16,7 +15,7 @@ export class CategoryDetailsComponent implements OnInit {
 
   productData$: Observable<ProductData>;
 
-  _orderBy: string = 'name';
+  _orderBy: string = 'brand';
 
   constructor(private store: Store<ProductData>,
               private activeRoute: ActivatedRoute) {

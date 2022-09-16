@@ -37,7 +37,7 @@
         <td>
           <select name="brandfilter" id="brandfilter" class="form-control form-control-sm" formControlName="brandFilter">
             <option value="">[Brand]</option>
-            <option *ngFor="let brand of brands$ | async" [value]="brand.marque">{{brand.marque}}</option>
+            <option *ngFor="let brand of brands$ | async" [value]="brand.brand">{{brand.brand}}</option>
           </select>
         </td>
         <td></td>
@@ -71,7 +71,7 @@
       <tr *ngFor="let product of filteredProducts$ | async">
         <td><img [src]="picUtil.miniPictureFullPath(product)"></td>
         <td class="no-print">{{product.type}}</td>
-        <td>{{product.marque}}</td>
+        <td>{{product.brand}}</td>
         <td>{{product.name}}</td>
         <td class="extra-thin-column">
           {{product.price}}€
@@ -79,8 +79,8 @@
             {{product.old_price}}€
           </div>
         </td>
-        <td class="thin-column no-print">{{product.manche}}</td>
-        <td class="thin-column no-print">{{product.acier}}</td>
+        <td class="thin-column no-print">{{product.handle}}</td>
+        <td class="thin-column no-print">{{product.steel}}</td>
         <td class="thin-column">{{product.size}}</td>
         <td class="extra-thin-column no-print">{{product.promo}}</td>
         <td class="extra-thin-column no-print">{{product.instock}}</td>

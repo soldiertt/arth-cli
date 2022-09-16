@@ -12,16 +12,14 @@
           <li class="breadcrumb-item">{{productData.selected?.category | catTitle}}</li>
         </ol>
         <div class="col align-self-end text-center product-sorter">
-          <ng-container *ngIf="!productData.subCategories?.length; else noFilter">
-            <span class="option">{{'common.label.sortby' | trans}}</span>
+          <ng-container *ngIf="!productData.subCategories?.length">
+            <span class="option">{{'common.label.sortby' | trans}}&nbsp;</span>
             <select name="orderBy" [(ngModel)]="orderBy">
+              <option value="brand">{{'common.label.brand' | trans}}</option>
               <option value="name">{{'common.label.name' | trans}}</option>
               <option value="price">{{'common.label.price' | trans}}</option>
             </select>
           </ng-container>
-          <ng-template #noFilter>
-            &nbsp;
-          </ng-template>
         </div>
       </div>
     </div>

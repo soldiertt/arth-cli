@@ -65,9 +65,9 @@ export class ProductComponent implements OnInit, OnDestroy {
     this.filterForm.valueChanges.subscribe(values => {
       this.filteredProducts$ = this.products$.pipe(map((products: Article[]) => {
         return products.filter(product => {
-          return (!values.brandFilter || product.marque === values.brandFilter) &&
+          return (!values.brandFilter || product.brand === values.brandFilter) &&
             (!values.categoryFilter || product.type === values.categoryFilter) &&
-            (!values.steelFilter || product.acier === values.steelFilter) &&
+            (!values.steelFilter || product.steel === values.steelFilter) &&
             (!values.promoFilter || product.promo.toString() === values.promoFilter) &&
             (!values.instockFilter || product.instock.toString() === values.instockFilter);
         });

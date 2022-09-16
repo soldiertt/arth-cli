@@ -24,13 +24,20 @@
   align-self: center;
 }
 
-.article-box .article-box-link .article-name {
+.article-box .article-box-link .article-detail {
   align-self: center;
   margin-left: 10px;
   font-family: ambleregular;
+  color: #6A82A4;
+}
+
+.article-detail .article-name{
   font-size: 1.3em;
   text-transform: uppercase;
-  color: #6A82A4;
+}
+
+.article-detail .article-brand {
+  text-decoration: underline;
 }
 
 .article-box .price-details {

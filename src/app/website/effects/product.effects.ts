@@ -48,7 +48,7 @@ export class ProductEffects {
 
   loadAllByBrand$ = createEffect(() => this.actions$.pipe(
     ofType(ProductActions.LoadAllByBrand),
-    mergeMap((action) => this.productRestService.findByBrand(action.brand.marque)),
+    mergeMap((action) => this.productRestService.findByBrand(action.brand.brand)),
     map(entities => ProductActions.LoadAllByBrandSuccess({entities}))
     )
   );

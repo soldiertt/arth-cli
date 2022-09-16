@@ -1,7 +1,10 @@
 <div class="article-box">
   <div class="article-box-link" [routerLink]="['/detail', article.id]">
     <img [src]="picUtil.miniPictureFullPath(article)" alt="{{ article.name}}" />
-    <div class="article-name">{{ article.name}}</div>
+    <div class="article-detail">
+      <div class="article-brand">{{article.brand}}</div>
+      <div class="article-name">{{article.name}}</div>
+    </div>
   </div>
   <div class="price-details">
     <div>
