@@ -6,6 +6,7 @@ import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 import {SlideActions} from '../../../../shared/actions/slide.actions';
 import {SlideProductActions} from '../../../../shared/actions/slide-product.actions';
+import {PictureService} from '../../../../shared/service/picture.service';
 import {FromSlide} from '../../../reducers/slide.reducer';
 import {FromSlideProduct} from '../../../reducers/slide-product.reducer';
 
@@ -23,7 +24,8 @@ export class SliderComponent implements OnInit {
 
   constructor(private slideStore: Store<FromSlide.State>,
               private slideProductStore: Store<FromSlideProduct.State>,
-              private router: Router) {}
+              private router: Router,
+              public picUtil: PictureService) {}
 
   ngOnInit() {
     this.slides$ = this.slideStore.select(FromSlide.selectAll);

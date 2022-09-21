@@ -1,5 +1,5 @@
-
-import {takeUntil} from 'rxjs/operators';
+import {IAlbum, Lightbox, LightboxConfig} from 'ngx-lightbox';
+import {filter, takeUntil} from 'rxjs/operators';
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import Article from '../../../shared/model/article.class';
@@ -27,12 +27,19 @@ export class DetailComponent implements OnInit, OnDestroy {
 
   selected: ProductItemData;
   needZoom: boolean = false;
+  _album: IAlbum[] = [];
 
   constructor(public picUtil: PictureService,
               private route: ActivatedRoute,
               private store: Store<ProductData>,
               private cartDataStore: Store<CartData>,
-              private jQueryService: JQueryService) {
+              private jQueryService: JQueryService,
+              private _lightbox: Lightbox,
+              private _lightboxConfig: LightboxConfig) {
+    _lightboxConfig.alwaysShowNavOnTouchDevices = true;
+    _lightboxConfig.centerVertically = true;
+    _lightboxConfig.wrapAround = true;
+    _lightboxConfig.showImageNumberLabel = true;
   }
 
   ngOnInit() {
@@ -41,9 +48,13 @@ export class DetailComponent implements OnInit, OnDestroy {
 
       this.store.dispatch(ProductActions.LoadOne({productId: articleId}));
       this.store.select(FromProduct.selectSelectedState).pipe(
+        filter((selected) => !!selected),
         takeUntil(this.ngUnsubscribe)
       ).subscribe(selected => {
         this.selected = selected;
+        this.picUtil.allLargePicturesFullPath(this.selected.product).forEach(pic => {
+          this._album.push({src: pic, thumb: this.picUtil.thumb(pic), downloadUrl: pic});
+        });
         setTimeout(() => {
           this.jQueryService.enableFancybox($);
         }, 10);
@@ -69,6 +80,10 @@ export class DetailComponent implements OnInit, OnDestroy {
       $event.srcElement.clientHeight < $event.srcElement.naturalHeight) {
       this.needZoom = true;
     }
+  }
+
+  open(index: number): void {
+    this._lightbox.open(this._album, index);
   }
 
 }

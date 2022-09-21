@@ -4,7 +4,7 @@ export default class Article {
   brand: string;
   name: string;
   description?: string;
-  picture: string;
+  pictures: string[];
   handle: string;
   steel: string;
   size: string;

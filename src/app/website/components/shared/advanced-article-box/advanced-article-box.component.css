@@ -1,6 +1,6 @@
 .article {
   background-color: #fffff6;
-  border: 2px solid #ddd;
+  border: 2px solid #aaa;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 20px;

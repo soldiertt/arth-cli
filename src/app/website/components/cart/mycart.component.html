@@ -15,11 +15,11 @@
       <tr *ngFor="let order of cart.orders">
         <td class="picture-cell d-none d-sm-block">
           <a href [routerLink]="['/detail', order.article.id]" *ngIf="!order.article.noLink; else noLinkThumb">
-            <img [src]="picUtil.miniPictureFullPath(order.article)" [attr.alt]="order.article.name">
+            <img [src]="picUtil.firstMiniPictureFullPath(order.article)" [attr.alt]="order.article.name">
             <img src="assets/images/promo.png" *ngIf="order.article.promo">
           </a>
           <ng-template #noLinkThumb>
-            <img [src]="picUtil.miniPictureFullPath(order.article)" [attr.alt]="order.article.name">
+            <img [src]="picUtil.firstMiniPictureFullPath(order.article)" [attr.alt]="order.article.name">
           </ng-template>
         </td>
         <td class="name-cell">

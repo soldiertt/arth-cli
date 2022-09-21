@@ -14,10 +14,17 @@
     <div>
       <div class="article" *ngIf="selected.product as article">
         <div class="article-picture">
-          <a [href]="picUtil.largePictureFullPath(article)" class="fancyboxImg" rel="gallery" alt="Image" [hidden]="!needZoom">
-            <img class="zoomable" [src]="picUtil.largePictureFullPath(article)" />
-          </a>
-          <img (mouseenter)="detectImageSize($event)" [src]="picUtil.largePictureFullPath(article)" [hidden]="needZoom" />
+          <ng-container *ngIf="article.pictures.length === 1; else picGallery">
+            <a [href]="picUtil.firstLargePictureFullPath(article)" class="fancyboxImg" rel="gallery" [hidden]="!needZoom">
+              <img class="zoomable" [src]="picUtil.firstLargePictureFullPath(article)" />
+            </a>
+            <img (mouseenter)="detectImageSize($event)" [src]="picUtil.firstLargePictureFullPath(article)" [hidden]="needZoom" />
+          </ng-container>
+          <ng-template #picGallery>
+            <div *ngFor="let picture of _album; let i=index">
+              <img [src]="picture.thumb" (click)="open(i)" class="zoomable" />
+            </div>
+          </ng-template>
         </div>
         <div class="article-desc">
           <div class="name">{{article.name}}</div>

@@ -79,13 +79,4 @@ export class AdvancedProductComponent implements OnInit, OnDestroy {
     }
   }
 
-  private filterVal(filterField: string): string | undefined {
-    const value = this.filterForm.get(filterField)?.value;
-    if (value) {
-      return value;
-    } else {
-      return undefined;
-    }
-  }
-
 }

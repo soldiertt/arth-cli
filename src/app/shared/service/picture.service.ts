@@ -1,22 +1,24 @@
 import {Injectable} from '@angular/core';
 import AdvancedArticle from '../model/advanced-article.class';
+import Article from '../model/article.class';
+import {OrderArticle} from '../model/order-article';
 
 @Injectable()
 export class PictureService {
 
-  miniPictureFullPath(product): string {
-    return 'assets/photos/' + product.type + '/' + this.thumb(product.picture);
+  firstMiniPictureFullPath(product: Article | OrderArticle): string {
+    return 'assets/photos/' + product.type + '/' + this.thumb(product.pictures[0]);
   }
 
-  allMiniPicturesFullPath(product: AdvancedArticle): string[] {
+  allMiniPicturesFullPath(product: AdvancedArticle | Article): string[] {
     if (product.pictures) {
       return product.pictures.map(pic => 'assets/photos/' + product.type + '/' + this.thumb(pic));
     }
     return [];
   }
 
-  largePictureFullPath(product): string {
-    return 'assets/photos/' + product.type + '/' + product.picture;
+  firstLargePictureFullPath(product: Article): string {
+    return 'assets/photos/' + product.type + '/' + product.pictures[0];
   }
 
   allLargePicturesFullPath(product: AdvancedArticle): string[] {

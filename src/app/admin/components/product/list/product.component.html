@@ -69,7 +69,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let product of filteredProducts$ | async">
-        <td><img [src]="picUtil.miniPictureFullPath(product)"></td>
+        <td><img [src]="pic" *ngFor="let pic of picUtil.allMiniPicturesFullPath(product)"></td>
         <td class="no-print">{{product.type}}</td>
         <td>{{product.brand}}</td>
         <td>{{product.name}}</td>

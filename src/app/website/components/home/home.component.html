@@ -32,14 +32,14 @@
       </div>
     </div>
   </div>
-  <div class="content" *ngIf="(promoArticles$ | async) as promoArticles">
+  <div class="content" *ngIf="(promoArticles$ | async).length">
     <div class="content_top">
       <div class="heading">
         <h2>{{'page.home.promotion' | trans}}</h2>
       </div>
     </div>
     <div class="section group">
-      <arth-article-box *ngFor="let promoArticle of promoArticles" [article]="promoArticle"></arth-article-box>
+      <arth-article-box *ngFor="let promoArticle of (promoArticles$ | async)" [article]="promoArticle"></arth-article-box>
     </div>
   </div>
 </div>

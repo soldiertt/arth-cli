@@ -10,7 +10,7 @@
         <div class="product-item">
           <a class="product-item-photo" href [routerLink]="['/detail', order.article.id]" [title]="order.article.name">
             <span class="helper"></span>
-            <img class="product-image-photo" [src]="picUtil.miniPictureFullPath(order.article)" [attr.alt]="order.article.name">
+            <img class="product-image-photo" [src]="picUtil.firstMiniPictureFullPath(order.article)" [attr.alt]="order.article.name">
           </a>
           <div class="product-item-details">
             <strong class="product-item-name">

@@ -44,6 +44,7 @@ export class AdvancedArticleBoxComponent implements OnInit, OnChanges {
       });
     }
   }
+
   addToCart(article: AdvancedArticle) {
     const component = this;
     const callback = () => {
@@ -54,7 +55,6 @@ export class AdvancedArticleBoxComponent implements OnInit, OnChanges {
   }
 
   open(index: number): void {
-    // open lightbox
     this._lightbox.open(this._album, index);
   }
 
