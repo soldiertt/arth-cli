@@ -32,6 +32,15 @@ export default {
       title: 'Presentation',
       videos: 'Our videos'
     },
+    homemadeknives: {
+      choosemodel: "Choose your own model",
+      choosewood: "Choose your handle",
+      description: "Choose your type of blade and your handle.",
+      engraving: "Engraving (optional and free)",
+      model: "Model",
+      wood: "Handle",
+      yourcustomknife: "Your custom knife"
+    },
     homenews: {
       cuistax: 'Cuistax',
       nordeclair: 'Nord Eclair',

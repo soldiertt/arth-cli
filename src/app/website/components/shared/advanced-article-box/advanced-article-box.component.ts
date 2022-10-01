@@ -1,6 +1,7 @@
 import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {IAlbum, Lightbox, LightboxConfig} from 'ngx-lightbox';
 import AdvancedArticle from '../../../../shared/model/advanced-article.class';
+import {OrderArticle} from '../../../../shared/model/order-article';
 import {JQueryService} from '../../../service/jQuery.service';
 import CartData from '../../../model/cart-data.class';
 import {Store} from '@ngrx/store';
@@ -48,7 +49,7 @@ export class AdvancedArticleBoxComponent implements OnInit, OnChanges {
   addToCart(article: AdvancedArticle) {
     const component = this;
     const callback = () => {
-      const orderArticle = {...article, picture: this.picUtil.firstPicture(article), promo: false, noLink: true};
+      const orderArticle: OrderArticle = {...article, promo: false, noLink: true};
       component.store.dispatch(CartDataActions.AddArticle({article: orderArticle}));
     };
     this.jQueryService.addToCart($, callback);

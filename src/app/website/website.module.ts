@@ -3,6 +3,7 @@ import {RouterModule} from '@angular/router';
 import {LightboxModule} from 'ngx-lightbox';
 import {RestModule} from '../shared/rest.module';
 import {AuthCallbackComponent} from './components/authcallback/auth-callback.component';
+import {CustomKnifeComponent} from './components/homemadeknives/custom-knife/custom-knife.component';
 import {HomemadeKnivesComponent} from './components/homemadeknives/homemade-knives.component';
 import {HomeNewsComponent} from './components/homenews/home-news.component';
 import {AdvancedArticleBoxComponent} from './components/shared/advanced-article-box/advanced-article-box.component';
@@ -71,6 +72,7 @@ import {ProductEffects} from './effects/product.effects';
     CartBreadcrumbComponent,
     CategoryListComponent,
     ConfirmAddressComponent,
+    CustomKnifeComponent,
     DetailComponent,
     ProfileDisplayComponent,
     ErrorComponent,

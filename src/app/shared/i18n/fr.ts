@@ -32,6 +32,15 @@ export default {
       title: 'Présentation',
       videos: 'Nos vidéos'
     },
+    homemadeknives: {
+      choosemodel: "Choisissez le modèle",
+      choosewood: "Choisissez le bois",
+      description: "Choisissez votre type de lame ainsi que l'essence de votre manche.",
+      engraving: "Gravure (optionnelle et gratuite)",
+      model: "Modèle",
+      wood: "Bois",
+      yourcustomknife: "Votre couteau maison personnalisé"
+    },
     homenews: {
       cuistax: 'Cuistax',
       nordeclair: 'Nord Eclair',

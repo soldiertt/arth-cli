@@ -1,0 +1,53 @@
+<div class="article" [class.odd]="isOdd">
+  <div class="article-picture">
+    <div *ngFor="let picture of _album; let i=index">
+      <img [src]="picture.thumb" (click)="open(i)" class="zoomable" />
+    </div>
+    <video width="320" height="240" controls class="col-lg-4 col-md-6 col-sm-12">
+      <source src="assets/images/custom_video1.mp4" type="video/mp4">
+      Your browser does not support the video or formats.
+    </video>
+  </div>
+  <div class="article-desc">
+    <div class="name">{{'page.homemadeknives.yourcustomknife' | trans}}</div>
+    <p class="strong">{{'page.homemadeknives.description' | trans}}</p>
+    <form #localCustomKnifeForm="ngForm" [formGroup]="customKnifeForm">
+      <div class="form-group">
+        <label for="model" class="col-form-label">{{'page.homemadeknives.model' | trans}} *</label>
+        <select id="model" class="form-control" required formControlName="model">
+          <option value="">[{{'page.homemadeknives.choosemodel' | trans}}]</option>
+          <option value="office">Office - 59€</option>
+          <option value="chef">Chef - 129€</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="wood" class="col-form-label">{{'page.homemadeknives.wood' | trans}} *</label>
+        <select id="wood" class="form-control" required formControlName="wood">
+          <option value="">[{{'page.homemadeknives.choosewood' | trans}}]</option>
+          <option value="erable">Erable megundo stabilisé</option>
+          <option value="bocote">Bocote</option>
+          <option value="chene">Chêne</option>
+          <option value="micarta">Micarta R/Noir</option>
+          <option value="olivier">Olivier</option>
+          <option value="padouck">Padouck</option>
+          <option value="teck">Teck</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="engraving" class="col-form-label">{{'page.homemadeknives.engraving' | trans}}</label>
+        <input id="engraving" type="text" class="form-control" formControlName="engraving" maxlength="20">
+      </div>
+    </form>
+    <div class="price">
+      <p>{{'common.label.price' | trans}} : <span>{{price | currency:'EUR'}}</span></p>
+    </div>
+    <div class="buttons">
+      <ul>
+        <li>
+          <button class="btn-detail" (click)="addToCart()" [disabled]="localCustomKnifeForm.invalid">{{'common.links.addtocart' | trans}}</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+</div>

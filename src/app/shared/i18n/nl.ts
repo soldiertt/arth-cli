@@ -32,6 +32,15 @@ export default {
       title: 'Presentatie',
       videos: 'Onze videos'
     },
+    homemadeknives: {
+      choosemodel: "Kies je model",
+      choosewood: "Kies uw handvat",
+      description: "Kies uw type lemet evenals uw handvat.",
+      engraving: "Gravure (optionele en gratis)",
+      model: "Model",
+      wood: "Handvat",
+      yourcustomknife: "Jouw gepersonaliseerde mes"
+    },
     homenews: {
       cuistax: 'Cuistax',
       nordeclair: 'Nord Eclair',

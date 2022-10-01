@@ -9,6 +9,7 @@
       </div>
     </div>
     <div class="section group">
+      <arth-custom-knife [isOdd]="true"></arth-custom-knife>
       <arth-advanced-article-box *ngFor="let article of articles$ | async; let isOdd = odd" [article]="article" [isOdd]="isOdd"></arth-advanced-article-box>
     </div>
   </div>
