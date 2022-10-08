@@ -35,11 +35,11 @@ export default {
     homemadeknives: {
       choosemodel: "Choisissez le modèle",
       choosewood: "Choisissez le bois",
-      description: "Choisissez votre type de lame ainsi que l'essence de votre manche.",
+      description: "Choisissez votre type de lame ainsi que l'essence de votre manche (3 semaines de délais actuellement).",
       engraving: "Gravure (optionnelle et gratuite)",
       model: "Modèle",
       wood: "Bois",
-      yourcustomknife: "Votre couteau maison personnalisé"
+      yourcustomknife: "Votre couteau professionnel personnalisé"
     },
     homenews: {
       cuistax: 'Cuistax',

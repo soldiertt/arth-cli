@@ -35,7 +35,7 @@ export default {
     homemadeknives: {
       choosemodel: "Choose your own model",
       choosewood: "Choose your handle",
-      description: "Choose your type of blade and your handle.",
+      description: "Choose your type of blade and your handle (3 weeks delay currently).",
       engraving: "Engraving (optional and free)",
       model: "Model",
       wood: "Handle",

@@ -35,7 +35,7 @@ export default {
     homemadeknives: {
       choosemodel: "Kies je model",
       choosewood: "Kies uw handvat",
-      description: "Kies uw type lemet evenals uw handvat.",
+      description: "Kies uw type lemet evenals uw handvat (Momenteel 3 weken levertijd).",
       engraving: "Gravure (optionele en gratis)",
       model: "Model",
       wood: "Handvat",

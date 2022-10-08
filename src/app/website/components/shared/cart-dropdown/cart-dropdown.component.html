@@ -8,13 +8,23 @@
       <li class="cart-title">{{'comp.minicart.youhave' | trans}} {{cart.totalCount}} {{'comp.minicart.articlesinyourcart' | trans}}</li>
       <li *ngFor="let order of cart.orders" class="cart-item dropdown-item">
         <div class="product-item">
-          <a class="product-item-photo" href [routerLink]="['/detail', order.article.id]" [title]="order.article.name">
+          <a class="product-item-photo" href [routerLink]="['/detail', order.article.id]" [title]="order.article.name"
+             *ngIf="!order.article.noLink; else noLinkThumb">
             <span class="helper"></span>
             <img class="product-image-photo" [src]="picUtil.firstMiniPictureFullPath(order.article)" [attr.alt]="order.article.name">
           </a>
+          <ng-template #noLinkThumb>
+            <span class="helper"></span>
+            <img class="product-image-photo" [src]="picUtil.firstMiniPictureFullPath(order.article)" [attr.alt]="order.article.name">
+          </ng-template>
           <div class="product-item-details">
             <strong class="product-item-name">
-              <a href [routerLink]="['/detail', order.article.id]">{{order.article.name}}</a>
+              <a href [routerLink]="['/detail', order.article.id]" *ngIf="!order.article.noLink; else noLinkName">
+                {{order.article.name}}
+              </a>
+              <ng-template #noLinkName>
+                {{order.article.name}}
+              </ng-template>
             </strong>
             <div class="product-item-qty">
               <label>{{'common.label.quantity' | trans}} :</label> <span class="number">{{order.count}}</span>

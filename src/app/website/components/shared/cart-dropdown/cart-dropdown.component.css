@@ -46,7 +46,8 @@
 .cart .product-item-details {
   float:left;
   margin-left: 30px;
-  line-height: 30px;
+  line-height: 25px;
+  white-space: normal;
 }
 .cart .product-item-qty label {
   font-weight: normal;
