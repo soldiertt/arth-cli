@@ -9,6 +9,14 @@
       </div>
     </div>
     <article>
+      <section *ngIf="type === 'notele'">
+        <video width="640" height="480" controls>
+          <source src="assets/home/notele/notele-2022-10-27.mp4" type="video/mp4">
+          Your browser does not support the video or formats.
+        </video>
+        <p>Source: <a href="https://www.notele.be/it28-media121042-le-journal-de-18h-jeudi-27-10-2022.html">Notélé - Le Journal - 27/10/2022</a> (20:27)
+        </p>
+      </section>
       <section *ngIf="type === 'nordeclair'">
         <img src="../../../../assets/home/nordeclair/nordeclair1.jpg" />
         <img src="../../../../assets/home/nordeclair/nordeclair2.jpg" />

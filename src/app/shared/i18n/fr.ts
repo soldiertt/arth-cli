@@ -44,6 +44,7 @@ export default {
     homenews: {
       cuistax: 'Cuistax',
       nordeclair: 'Nord Eclair',
+      notele: "Notélé",
       vivacite: 'Vivacité'
     },
     mycart: {
