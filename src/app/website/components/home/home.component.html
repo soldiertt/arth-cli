@@ -27,13 +27,10 @@
     </div>
   </div>
   <div class="content" *ngIf="(videos$ | async).length">
-    <div class="content_top">
-      <hr class="video-separator" />
-    </div>
-    <div class="row">
-      <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12" *ngFor="let video of (videos$ | async)">
+    <div class="home-news">
+      <div class="news" *ngFor="let video of (videos$ | async)">
         <a data-fancybox="gallery" class="fancybox.iframe" href="http://www.youtube.com/embed/{{video.ref}}" [title]="video.title">
-          <img class="video-thumbnail" src="https://img.youtube.com/vi/{{video.ref}}/hqdefault.jpg">
+          <img src="https://img.youtube.com/vi/{{video.ref}}/hqdefault.jpg">
         </a>
       </div>
     </div>

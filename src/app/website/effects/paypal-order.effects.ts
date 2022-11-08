@@ -37,7 +37,7 @@ export class PaypalOrderEffects {
           const amount = firstTx.amount;
           const paypalOrder = new PaypalOrder();
           paypalOrder.userId = action.userId;
-          paypalOrder.orderDate = DateTime.now().toFormat('YYYY-MM-DD hh:mm:ss');
+          paypalOrder.orderDate = DateTime.now().toFormat('yyyy-MM-dd hh:mm:ss');
           paypalOrder.json = JSON.stringify({items, amount});
           return paypalOrder;
       }));
