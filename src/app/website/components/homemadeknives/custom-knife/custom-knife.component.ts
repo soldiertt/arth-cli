@@ -5,7 +5,6 @@ import {OrderArticle} from '../../../../shared/model/order-article';
 import {JQueryService} from '../../../service/jQuery.service';
 import CartData from '../../../model/cart-data.class';
 import {Store} from '@ngrx/store';
-import {PictureService} from '../../../../shared/service/picture.service';
 import {CartDataActions} from '../../../actions/cart-data.actions';
 
 declare const $: any;
@@ -22,12 +21,11 @@ export class CustomKnifeComponent implements OnInit {
   customKnifeForm: FormGroup;
   price: number;
 
-  constructor(private picUtil: PictureService,
-              private store: Store<CartData>,
-              private fb: FormBuilder,
+  constructor(private store: Store<CartData>,
               private jQueryService: JQueryService,
               private _lightbox: Lightbox,
-              private _lightboxConfig: LightboxConfig) {
+              fb: FormBuilder,
+              _lightboxConfig: LightboxConfig) {
     _lightboxConfig.alwaysShowNavOnTouchDevices = true;
     _lightboxConfig.centerVertically = true;
     _lightboxConfig.wrapAround = true;
@@ -41,10 +39,10 @@ export class CustomKnifeComponent implements OnInit {
     modelCtrl.valueChanges.subscribe((model) => {
       switch (model) {
         case 'office':
-          this.price = 59;
+          this.price = 79;
           break;
         case 'chef':
-          this.price = 129;
+          this.price = 149;
           break;
         default:
           this.price = undefined;
