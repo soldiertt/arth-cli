@@ -6,10 +6,11 @@ body, html {
 
 h1 {
   font-size: 2em;
+  color: #c53211;
 }
 
 section#header {
-  background-color: #999900;
+  background-color: #2e3830;
   min-height: 400px;
   position: relative;
   padding: 20px;
@@ -28,11 +29,24 @@ section#header .intro-photo.crosseur img {
 }
 
 .photos {
+  background-color: #2e3830;
   color: white;
   padding: 20px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 20px;
+}
+
+.photo {
+  background-color: #e6dbc9;
+  color: #c53211;
+  border: 3px outset black;
+  padding: 20px 100px;
+}
+.photo img {
+  max-width: 100%;
+  border: 8px solid white;
+  border-radius: 8px;
 }
 
 @media (max-width: 1000px) {
@@ -42,23 +56,7 @@ section#header .intro-photo.crosseur img {
   .photos {
     grid-template-columns: 1fr;
   }
-}
-
-.photo.odd {
-  background-color: #FDCB00;
-  color: #990000;
-}
-
-.photo.even {
-  background-color: #990000;
-}
-
-.photo {
-  border: 3px outset lightblue;
-  padding: 20px;
-}
-.photo img {
-  max-height: 500px;
-  max-width: 400px;
-  border: 5px solid white;
+  .photo {
+    padding: 20px 30px;
+  }
 }
