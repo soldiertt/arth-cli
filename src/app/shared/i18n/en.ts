@@ -27,7 +27,7 @@ export default {
       openinghours: 'Open on Monday to Sunday from 10:00AM to 7PM with an appointment.'
     },
     home: {
-      presentation: '<p>Created in 2005, Arthurius knives, in reference to the legend of King Arthur and his famous Excalibur sword, is specialized in pocket knives, kitchen knives, hunting knives, bushcraft and military.</br>I advise you, maintain and sharpen your knives.</p><p>This site is a selection among a wider choice that you can discover at the store. Open 7 days out of 7 from 10:00 a.m. to 7:00 p.m. by appointment.</p><p>Ph. Bourlet</p>',
+      presentation: '<p>Created in 2005, Arthurius knives, in reference to the legend of King Arthur and his famous Excalibur sword, is specialized in pocket knives, kitchen knives, hunting knives, bushcraft and military.</br>I advise you, maintain and sharpen your knives.</p><p>This site is a selection among a wider choice that you can discover at the store. Open 7 days out of 7 from 10:00 a.m. to 7:00 p.m. <strong>by appointment</strong>.</p><p>Ph. Bourlet</p>',
       promotion: 'Promotions',
       title: 'Presentation',
       videos: 'Our videos'
@@ -133,7 +133,7 @@ export default {
       quantity: 'Quantity',
       size: 'Size',
       sortby: 'Sort by :',
-      steel: 'Steel',
+      steel: 'Blade',
       street: 'Street',
       subtotal: 'Subtotal',
       topsales: 'Top sales',

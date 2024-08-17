@@ -28,7 +28,7 @@
       <div *ngIf="productData.subCategories?.length; else listArticles">
         <h3>{{'common.links.categories' | trans}}</h3>
         <div class="content_bottom">
-          <div *ngFor="let subCateg of productData.subCategories" class="box-link" [routerLink]="['/categ', subCateg.name]">
+          <div *ngFor="let subCateg of productData.subCategories" class="categ-link" [routerLink]="['/categ', subCateg.name]">
             {{subCateg | catTitle}}
           </div>
           <div class="clear"></div>

@@ -52,17 +52,21 @@ export class DetailComponent implements OnInit, OnDestroy {
         takeUntil(this.ngUnsubscribe)
       ).subscribe(selected => {
         this.selected = selected;
-        this.picUtil.allLargePicturesFullPath(this.selected.product).forEach(pic => {
-          this._album.push({src: pic, thumb: this.picUtil.thumb(pic), downloadUrl: pic});
-        });
-        setTimeout(() => {
-          this.jQueryService.enableFancybox($);
-        }, 10);
+        this._album = [];
+        if (this.selected.product) {
+          this.picUtil.allLargePicturesFullPath(this.selected.product).forEach(pic => {
+            this._album.push({src: pic, thumb: this.picUtil.thumb(pic), downloadUrl: pic});
+          });
+          setTimeout(() => {
+            this.jQueryService.enableFancybox($);
+          }, 10);
+        }
       });
     });
   }
 
   ngOnDestroy() {
+    this._album = [];
     this.ngUnsubscribe.next(null);
     this.ngUnsubscribe.complete();
   }
