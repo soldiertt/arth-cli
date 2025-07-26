@@ -24,6 +24,7 @@
       </div>
     </div>
     <div>
+      <arth-static-content-category [current]="productData.selected"></arth-static-content-category>
       <arth-topsales [articles]="productData.currentTopSales"></arth-topsales>
       <div *ngIf="productData.subCategories?.length; else listArticles">
         <h3>{{'common.links.categories' | trans}}</h3>

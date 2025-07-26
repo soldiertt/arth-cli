@@ -16,6 +16,7 @@ import {ProfileComponent} from './components/profile/profile.component';
 import {WalkingSticksComponent} from './components/walkingsticks/walking-sticks.component';
 import {WebsiteComponent} from './components/website.component';
 import {AuthGuard} from './service/auth.guard';
+import {ServicesComponent} from './components/services/services.component';
 
 export const websiteRouterConfig: Routes = [
   {
@@ -33,6 +34,7 @@ export const websiteRouterConfig: Routes = [
       {path: 'mycart', component: CartWizardComponent},
       {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
       {path: 'search/:term', component: SearchComponent},
+      {path: 'services', component: ServicesComponent},
       {path: 'steels', component: SteelsComponent},
       {path: 'authcallback', component: AuthCallbackComponent},
       {path: 'sticks', component: WalkingSticksComponent},

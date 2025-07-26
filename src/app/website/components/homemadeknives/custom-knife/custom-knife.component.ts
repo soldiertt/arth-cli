@@ -39,10 +39,10 @@ export class CustomKnifeComponent implements OnInit {
     modelCtrl.valueChanges.subscribe((model) => {
       switch (model) {
         case 'office':
-          this.price = 79;
+          this.price = 82;
           break;
         case 'chef':
-          this.price = 149;
+          this.price = 179;
           break;
         default:
           this.price = undefined;
@@ -51,10 +51,10 @@ export class CustomKnifeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._album.push({src: 'assets/images/custom_summary.jpg', thumb: 'assets/images/custom_summary_m.jpg', downloadUrl: 'assets/images/custom_summary.jpg'});
-    this._album.push({src: 'assets/images/custom_office.jpg', thumb: 'assets/images/custom_office_m.jpg', downloadUrl: 'assets/images/custom_office.jpg'});
-    this._album.push({src: 'assets/images/custom_chef.jpg', thumb: 'assets/images/custom_chef_m.jpg', downloadUrl: 'assets/images/custom_chef.jpg'});
-    this._album.push({src: 'assets/images/custom_wood.jpg', thumb: 'assets/images/custom_wood_m.jpg', downloadUrl: 'assets/images/custom_wood.jpg'});
+    // this._album.push({src: 'assets/images/custom_summary.jpg', thumb: 'assets/images/custom_summary_m.jpg', downloadUrl: 'assets/images/custom_summary.jpg'});
+    // this._album.push({src: 'assets/images/custom_office.jpg', thumb: 'assets/images/custom_office_m.jpg', downloadUrl: 'assets/images/custom_office.jpg'});
+    // this._album.push({src: 'assets/images/custom_chef.jpg', thumb: 'assets/images/custom_chef_m.jpg', downloadUrl: 'assets/images/custom_chef.jpg'});
+    // this._album.push({src: 'assets/images/custom_wood.jpg', thumb: 'assets/images/custom_wood_m.jpg', downloadUrl: 'assets/images/custom_wood.jpg'});
   }
 
   addToCart() {

@@ -26,6 +26,10 @@ export default {
       mapslink: 'Google Maps toegang',
       openinghours: 'Open maandag tot zondag van 10.00u tot 19.00u op afspraak'
     },
+    butchery: {
+      knives: 'Victorinox slagersmessen',
+      prices: 'Victorinox tarieven'
+    },
     home: {
       presentation: '<p>Arthurius messen, opgericht in 2005, verwijst naar de legende van koning Arthur en zijn beroemde Excalibur-zwaard , is gespecialiseerd in zakmessen, keukenmessen, jachtmessen, bushcraft en het leger.</br>Ik adviseer, onderhoud en slijp uw messen.</p><p>Deze website is een selectie uit een ruimere keuze die u in de winkel kunt ontdekken. Open 7 dagen op 7 van 10.00 uur tot 19.00 uur <strong>op afspraak</strong>.</p><p>Ph. Bourlet</p>',
       promotion: 'Promoties',
@@ -87,6 +91,13 @@ export default {
       title: 'Mijn contactgegevens',
       updatesuccess: 'Profiel bijgewerkt !'
     },
+    services: {
+      engraving: 'Graveren',
+      engravingContent: 'Persoonlijke lasergravure: €15<br/>Degressieve prijzen voor series.<br/>Mogelijkheid om logo’s en ontwerpen toe te voegen.<br/>Graveren mogelijk op staal of hout.',
+      sharpening: 'Slijpen',
+      sharpeningContent: 'Scharen en messen (0 tot 200 mm): €7 excl. BTW<br />Degressieve prijzen voor series<br/>Gereedschappen of bladen langer dan 20 cm: op offerte<br/>Reparaties: op offerte',
+      sharpeningDescription: 'Kom je messen en gereedschappen laten slijpen door een professional.'
+    },
     steels: {
       benchmadesteels: 'Benchmade staal',
       denominationandnorms: 'Benaming en normen',
@@ -117,6 +128,7 @@ export default {
       city: 'Stad',
       contact: 'Contact informatie',
       country: 'Land',
+      documents: 'Documenten',
       email: 'Email',
       emailconfirm: 'E-mail bevestigen',
       fullname: 'Naam en voornaam',
@@ -154,6 +166,7 @@ export default {
       mycart: 'Mijn winkelmandje',
       profile: 'Mijn profiel',
       ourbrands: 'Grote merken',
+      sharpeningEngraving: 'Slijpen en graveren',
       steels: 'Staal',
       sticks: 'Wandelstokken'
     }

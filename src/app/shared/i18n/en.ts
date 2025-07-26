@@ -26,6 +26,10 @@ export default {
       mapslink: 'Google Maps link',
       openinghours: 'Open on Monday to Sunday from 10:00AM to 7PM with an appointment.'
     },
+    butchery: {
+      knives: 'Victorinox butchery knives',
+      prices: 'Victorinox prices'
+    },
     home: {
       presentation: '<p>Created in 2005, Arthurius knives, in reference to the legend of King Arthur and his famous Excalibur sword, is specialized in pocket knives, kitchen knives, hunting knives, bushcraft and military.</br>I advise you, maintain and sharpen your knives.</p><p>This site is a selection among a wider choice that you can discover at the store. Open 7 days out of 7 from 10:00 a.m. to 7:00 p.m. <strong>by appointment</strong>.</p><p>Ph. Bourlet</p>',
       promotion: 'Promotions',
@@ -86,6 +90,13 @@ export default {
       title: 'My contact details',
       updatesuccess: 'Profile updated successfully !'
     },
+    services: {
+      engraving: 'Engraving',
+      engravingContent: 'Personalized laser engraving: €15<br/>Discounted rates for batches.<br/>Option to include logos and designs.<br/>Engraving possible on steel or wood.',
+      sharpening: 'Sharpening',
+      sharpeningContent: 'Scissors and knives (0 to 200 mm): €7 excl. VAT<br />Discounted rates for batches<br/>Tools or blades over 20 cm: on quote<br/>Repairs: on quote',
+      sharpeningDescription: 'Come get your knives and tools sharpened by a professional.'
+    },
     steels: {
       benchmadesteels: 'Benchmade steels',
       denominationandnorms: 'Denomination and norms',
@@ -116,6 +127,7 @@ export default {
       city: 'City',
       contact: 'Contact information',
       country: 'Country',
+      documents: 'Documents',
       email: 'Email',
       emailconfirm: 'Confirm email',
       fullname: 'Firstname and lastname',
@@ -153,6 +165,7 @@ export default {
       mycart: 'My cart',
       ourbrands: 'Big brands',
       profile: 'My profile',
+      sharpeningEngraving: 'Sharpening and engraving',
       steels: 'Steels',
       sticks: 'Wooden walking sticks'
     }

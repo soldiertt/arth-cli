@@ -55,6 +55,8 @@ import {CategoryEffects} from '../shared/effects/category.effects';
 import {SlideEffects} from '../shared/effects/slide.effects';
 import {SlideProductEffects} from '../shared/effects/slide-product.effects';
 import {ProductEffects} from './effects/product.effects';
+import {ServicesComponent} from './components/services/services.component';
+import {StaticContentCategoryComponent} from './components/static-content-category/static-content-category.component';
 
 @NgModule({
   declarations: [
@@ -88,6 +90,8 @@ import {ProductEffects} from './effects/product.effects';
     ProfileEmailComponent,
     SliderComponent,
     SearchComponent,
+    ServicesComponent,
+    StaticContentCategoryComponent,
     SteelsComponent,
     SortPipe,
     TopSalesComponent,

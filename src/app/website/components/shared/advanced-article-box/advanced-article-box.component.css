@@ -103,7 +103,7 @@
   background-color: #525252;
 }
 
-@media (max-width: 400px) {
+@media (max-width: 500px) {
   .article {
     grid-template-columns: 1fr;
   }

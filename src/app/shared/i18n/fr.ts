@@ -26,8 +26,12 @@ export default {
       mapslink: 'Accès Google Maps',
       openinghours: 'Ouvert du lundi au dimanche de 10h00 à 19h00 sur rendez-vous.'
     },
+    butchery: {
+      knives: 'Couteaux de boucherie Victorinox',
+      prices: 'Les tarifs Victorinox'
+    },
     home: {
-      presentation: '<p>Créée en 2005, la coutellerie Arthurius, en référence à la légende du Roi Arthur et de sa fameuse épée Excalibur, est spécialisée dans les canifs, couteaux de cuisine, couteaux de chasse, bushcraft et militaire.<br/>Je vous conseille, entretien et aiguise vos couteaux.</p><p>Ce site est une sélection parmi un plus vaste choix que vous pouvez découvrir au magasin. Ouvert 7 jours sur 7 de 10h00 à 19h00 <strong>sur rendez-vous</strong> afin de mieux vous recevoir.</p><p>Ph. Bourlet</p>',
+      presentation: '<p>Créée en 2005, la coutellerie Arthurius, en référence à la légende du Roi Arthur et de sa fameuse épée Excalibur, est spécialisée dans les canifs, couteaux de cuisine, couteaux de chasse, bushcraft et militaire.<br/>Je vous conseille, j\'entretiens et aiguise vos couteaux.</p><p>Ce site est une sélection parmi un plus vaste choix que vous pouvez découvrir au magasin. Ouvert 7 jours sur 7 de 10h00 à 19h00 <strong>sur rendez-vous</strong> afin de mieux vous recevoir.</p><p>Ph. Bourlet</p>',
       promotion: 'Promotions',
       title: 'Présentation',
       videos: 'Nos vidéos'
@@ -86,6 +90,13 @@ export default {
       title: 'Mes coordonnées',
       updatesuccess: 'Profil mis à jour avec succès !'
     },
+    services: {
+      engraving: 'Gravure',
+      engravingContent: 'Gravure laser personnalisée : 15 €<br/>Prix dégressif sur les séries.<br/>Possibilité d\'inclure logos et dessins.<br/>Possibilité de graver sur acier ou sur bois.',
+      sharpening: 'Aiguisage',
+      sharpeningContent: 'Ciseaux et couteaux (de 0 à 200 mm)  : 7 € htva<br />Prix dégressif sur les séries<br/>Outils ou lame de + de 20 cm  : sur devis<br/>Réparations : sur devis',
+      sharpeningDescription: 'Venez faire aiguiser vous couteaux et outils chez un professionnel.'
+    },
     steels: {
       benchmadesteels: 'Les aciers Benchmade',
       denominationandnorms: 'Dénominations et normes',
@@ -116,6 +127,7 @@ export default {
       city: 'Commune',
       contact: 'Information de contact',
       country: 'Pays',
+      documents: 'Documents',
       email: 'E-mail',
       emailconfirm: 'Confirmation e-mail',
       fullname: 'Nom et prénom',
@@ -153,8 +165,9 @@ export default {
       mycart: 'Mon panier',
       profile: 'Mon profil',
       ourbrands: 'Les grandes marques',
+      sharpeningEngraving: 'Aiguisage et gravure',
       steels: 'Les aciers',
-      sticks: 'Bâtons de randonnées'
+      sticks: 'Bâtons de randonnée'
     }
   }
 };
