@@ -127,7 +127,6 @@ export default {
       city: 'Commune',
       contact: 'Information de contact',
       country: 'Pays',
-      documents: 'Documents',
       email: 'E-mail',
       emailconfirm: 'Confirmation e-mail',
       fullname: 'Nom et prénom',

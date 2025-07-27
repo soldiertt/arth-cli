@@ -1,10 +1,12 @@
 <div id="main" *ngIf="current.category.name === 'boucherie'">
   <div id="content">
     <section>
-      <h3>{{'common.label.documents' | trans}}</h3>
       <div class="section-content">
-        <p>{{'page.butchery.prices' | trans}}: <a href="assets/pdf/tarif_victorinox.pdf" target="_blank">tarifs-victorinox.pdf</a></p>
-        <p>{{'page.butchery.knives' | trans}}: <a href="assets/pdf/victorinox_boucherie.pdf" target="_blank">victorinox-boucherie.pdf</a></p>
+        <img src="assets/images/boucherie.png" height="350px" class="butchery-pic" />
+        <div>
+          <p>{{'page.butchery.prices' | trans}}: <a href="assets/pdf/tarif_victorinox.pdf" target="_blank">tarifs-victorinox.pdf</a></p>
+          <p>{{'page.butchery.knives' | trans}}: <a href="assets/pdf/victorinox_boucherie.pdf" target="_blank">victorinox-boucherie.pdf</a></p>
+        </div>
       </div>
     </section>
   </div>

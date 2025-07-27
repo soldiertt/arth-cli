@@ -128,7 +128,6 @@ export default {
       city: 'Stad',
       contact: 'Contact informatie',
       country: 'Land',
-      documents: 'Documenten',
       email: 'Email',
       emailconfirm: 'E-mail bevestigen',
       fullname: 'Naam en voornaam',
