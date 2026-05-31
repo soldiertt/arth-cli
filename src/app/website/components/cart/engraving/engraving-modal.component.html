@@ -1,0 +1,28 @@
+<div class="modal fade" id="engravingModal">
+  <form (ngSubmit)="save(f)" #f="ngForm" class="p-2">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{ 'page.mycart.engraving.modalTitle' | trans }}</h5>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>{{ 'page.mycart.engraving.modalContent' | trans }}</p>
+          <p><b>{{ 'common.label.price' | trans }}: {{ 15 | currency:'EUR'}}</b></p>
+          <div class="form-group row mb-2">
+            <label for="name" class="col-sm-3 col-form-label">{{ 'page.mycart.engraving.label' | trans }} *</label>
+            <div class="col-sm-9">
+              <input type="text" id="name" name="name" [(ngModel)]="engravingName" required="required" maxlength="18" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" [disabled]="!f.valid ? 'disabled':''">{{'common.label.submit' | trans}}</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{'common.label.cancel' | trans}}</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

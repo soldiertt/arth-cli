@@ -57,6 +57,7 @@ import {SlideProductEffects} from '../shared/effects/slide-product.effects';
 import {ProductEffects} from './effects/product.effects';
 import {ServicesComponent} from './components/services/services.component';
 import {StaticContentCategoryComponent} from './components/static-content-category/static-content-category.component';
+import {EngravingModalComponent} from './components/cart/engraving/engraving-modal.component';
 
 @NgModule({
   declarations: [
@@ -77,6 +78,7 @@ import {StaticContentCategoryComponent} from './components/static-content-catego
     CustomKnifeComponent,
     DetailComponent,
     ProfileDisplayComponent,
+    EngravingModalComponent,
     ErrorComponent,
     FooterComponent,
     HeaderComponent,

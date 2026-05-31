@@ -27,8 +27,21 @@
           <ng-template #noLink>
             {{order.article.name}}
           </ng-template>
+          <br/>
+          <a href data-bs-toggle="modal" data-bs-target="#engravingModal" (click)="engravingModal(order)"
+             *ngIf="!order.engraving; else engravingEnabled">{{ 'page.mycart.engraving.addEngravingOption' | trans }}</a>
+          <ng-template #engravingEnabled>
+            <div class="engraving-cell">
+              <span>{{ 'page.mycart.engraving.withEngravingOption' | trans }}:  <i>{{ order.engravingName }}</i></span>
+              <a href (click)="removeEngraving($event, order)" class="action-icon">
+                <i class="material-icons" title="{{'common.label.remove' | trans}}">close</i>
+              </a>
+            </div>
+          </ng-template>
         </td>
-        <td class="price-cell">{{order.article.price | currency:'EUR'}}</td>
+        <td class="price-cell">{{order.article.price | currency:'EUR'}}
+          <span *ngIf="order.engraving"><br/>{{15 | currency:'EUR'}}</span>
+        </td>
         <td class="qty-cell">{{order.count}}
           <span>
             <a href (click)="removeArticle($event, order.article.id)" *ngIf="order.count > 1" class="action-icon">
@@ -73,3 +86,5 @@
     </tfoot>
   </table>
 </div>
+
+<arth-engraving-modal [order]="editedOrder"></arth-engraving-modal>

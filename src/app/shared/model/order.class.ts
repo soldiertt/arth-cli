@@ -2,10 +2,13 @@ import {OrderArticle} from './order-article';
 
 export default class Order {
   article: OrderArticle;
+  engraving: boolean;
+  engravingName: string;
   count: number;
 
   constructor(article: OrderArticle) {
     this.article = article;
     this.count = 1;
+    this.engraving = false;
   }
 }

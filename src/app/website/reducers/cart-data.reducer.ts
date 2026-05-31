@@ -69,6 +69,36 @@ export namespace FromCartData {
       _updateCart(cart);
       return {...state, cart};
     }),
+    on(CartDataActions.EnableOrderEngraving, (state, action) => {
+      const orderIndex = state.cart.orders.map(order => order.article.id).indexOf(action.articleId);
+      const cart = {...state.cart};
+      const orders: Order[] = [];
+      cart.orders.forEach(order => {
+        orders.push({...order});
+      });
+      cart.orders = orders;
+      if (orderIndex !== -1) {
+        cart.orders[orderIndex].engraving = true;
+        cart.orders[orderIndex].engravingName = action.engravingName;
+      }
+      _updateCart(cart);
+      return {...state, cart};
+    }),
+    on(CartDataActions.DisableOrderEngraving, (state, action) => {
+      const orderIndex = state.cart.orders.map(order => order.article.id).indexOf(action.articleId);
+      const cart = {...state.cart};
+      const orders: Order[] = [];
+      cart.orders.forEach(order => {
+        orders.push({...order});
+      });
+      cart.orders = orders;
+      if (orderIndex !== -1) {
+        cart.orders[orderIndex].engraving = false;
+        cart.orders[orderIndex].engravingName = undefined;
+      }
+      _updateCart(cart);
+      return {...state, cart};
+    }),
     on(CartDataActions.RemoveOrder, (state, action) => {
       const orderIndex = state.cart.orders.map(order => order.article.id).indexOf(action.articleId);
       if (orderIndex !== -1) {
@@ -110,6 +140,7 @@ export namespace FromCartData {
     cart.orders.forEach(order => {
       cart.totalCount += order.count;
       cart.subtotalAmount += (order.count * order.article.price);
+      cart.subtotalAmount += (order.engraving ? 15 : 0);
       if (!order.article.promo) {
         cart.totalPromoAmount += (order.count * order.article.price);
       }

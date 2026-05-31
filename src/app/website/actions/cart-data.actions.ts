@@ -15,6 +15,8 @@ export namespace CartDataActions {
   const ADD_ARTICLE = '[Cart] Add article';
   const REMOVE_ARTICLE = '[Cart] Remove article';
   const REMOVE_ORDER = '[Cart] Remove order';
+  const DISABLE_ORDER_ENGRAVING = '[Cart] Disable order engraving';
+  const ENABLE_ORDER_ENGRAVING = '[Cart] Enable order engraving';
   const UPDATE_TOP_SALES = '[Cart] Update top sales';
   const UPDATE_TOP_SALES_SUCCESS = '[Cart] Update top sales Success';
   const PAY = '[Cart] PAY';
@@ -55,6 +57,16 @@ export namespace CartDataActions {
 
   export const RemoveArticle = createAction(
     REMOVE_ARTICLE,
+    props<{articleId: string}>()
+  );
+
+  export const EnableOrderEngraving = createAction(
+    ENABLE_ORDER_ENGRAVING,
+    props<{articleId: string, engravingName: string}>()
+  );
+
+  export const DisableOrderEngraving = createAction(
+    DISABLE_ORDER_ENGRAVING,
     props<{articleId: string}>()
   );
 

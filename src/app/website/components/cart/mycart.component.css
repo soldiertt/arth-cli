@@ -57,3 +57,12 @@
 .qty-cell span {
   float: right;
 }
+
+.engraving-cell {
+  display: flex;
+  align-items: center;
+}
+
+.engraving-cell a {
+  margin-left: 10px;
+}
