@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import {map} from 'rxjs/operators';
 import AdvancedArticle from '../../../shared/model/advanced-article.class';
 import {Observable} from 'rxjs';
@@ -11,6 +11,7 @@ import { I18nPipe } from '../../../shared/i18n/i18n.pipe';
 
 @Component({
     templateUrl: 'walking-sticks.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [RouterLink, AdvancedArticleBoxComponent, AsyncPipe, I18nPipe]
 })
 export class WalkingSticksComponent implements OnInit {

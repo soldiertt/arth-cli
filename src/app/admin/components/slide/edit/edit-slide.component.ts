@@ -1,4 +1,4 @@
-import { Component, Input, inject, viewChild } from '@angular/core';
+import { Component, Input, inject, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import {Store} from '@ngrx/store';
 import Slide from '../../../../shared/model/slider.class';
 import { FormControl, FormsModule } from '@angular/forms';
@@ -12,6 +12,7 @@ declare const $: any;
 @Component({
     selector: 'arth-admin-slide-modal',
     templateUrl: './edit-slide.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule]
 })
 export class EditSlideComponent {

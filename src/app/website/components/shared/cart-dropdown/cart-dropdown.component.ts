@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import Cart from '../../../model/cart.class';
 import CartData from '../../../model/cart-data.class';
 import {Store} from '@ngrx/store';
@@ -14,6 +14,7 @@ import { I18nPipe } from '../../../../shared/i18n/i18n.pipe';
     selector: 'arth-cart-dropdown',
     templateUrl: 'cart-dropdown.component.html',
     styleUrls: ['cart-dropdown.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [RouterLink, AsyncPipe, I18nPipe]
 })
 export class CartDropdownComponent implements OnInit {

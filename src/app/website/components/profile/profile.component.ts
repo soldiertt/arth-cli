@@ -1,6 +1,6 @@
 
 import {takeUntil} from 'rxjs/operators';
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import UserProfile from '../../model/user-profile.class';
 import UserAddress from '../../model/user-address';
 import {MailService} from '../../service/mail.service';
@@ -20,6 +20,7 @@ import { I18nPipe } from '../../../shared/i18n/i18n.pipe';
 @Component({
     selector: 'arth-profile',
     templateUrl: 'profile.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule, ProfileDisplayComponent, ProfileEmailComponent, ProfileEditComponent, OrdersComponent, AsyncPipe, I18nPipe]
 })
 export class ProfileComponent implements OnInit, OnDestroy {

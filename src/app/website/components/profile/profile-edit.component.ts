@@ -1,6 +1,6 @@
 
 import {takeUntil} from 'rxjs/operators';
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {CountryRestService} from '../../../shared/service/rest/country.rest.service';
 import Country from '../../../shared/model/country.class';
@@ -20,6 +20,7 @@ import { I18nPipe } from '../../../shared/i18n/i18n.pipe';
     selector: 'arth-profile-edit',
     templateUrl: 'profile-edit.component.html',
     styleUrls: ['profile-edit.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule, ReactiveFormsModule, I18nPipe]
 })
 export class ProfileEditComponent extends FormComponent implements OnInit, OnDestroy {

@@ -1,37 +1,31 @@
-import { Injectable, inject } from '@angular/core';
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {inject} from '@angular/core';
+import {HttpInterceptorFn} from '@angular/common/http';
 import {SessionService} from '../session.service';
 import {Auth0Service} from '../auth.service';
 
-@Injectable()
-export class RequestInterceptor implements HttpInterceptor {
-  private sessionService = inject(SessionService);
-  private auth0Service = inject(Auth0Service);
+export const requestInterceptor: HttpInterceptorFn = (request, next) => {
+  const sessionService = inject(SessionService);
+  const auth0Service = inject(Auth0Service);
 
+  const userId = getUserId(auth0Service, sessionService);
 
-  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
-    const userId = this.getUserId();
-
-    if (userId) {
-      request = request.clone({
-        setHeaders: {
-          'X-Arth-UserId': this.getUserId()
-        }
-      });
-    }
-
-    return next.handle(request);
-  }
-
-  private getUserId(): string {
-    if (this.auth0Service.authenticated()) {
-      const profile = this.sessionService.getProfile();
-      if (profile) {
-        return profile.user_id;
+  if (userId) {
+    request = request.clone({
+      setHeaders: {
+        'X-Arth-UserId': userId
       }
-    }
-    return undefined;
+    });
   }
+
+  return next(request);
+};
+
+function getUserId(auth0Service: Auth0Service, sessionService: SessionService): string {
+  if (auth0Service.authenticated()) {
+    const profile = sessionService.getProfile();
+    if (profile) {
+      return profile.user_id;
+    }
+  }
+  return undefined;
 }

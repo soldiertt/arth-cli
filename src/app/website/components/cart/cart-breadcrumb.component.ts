@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import CartData from '../../model/cart-data.class';
 import {Store} from '@ngrx/store';
 import CartWizard from '../../model/cart-wizard.class';
@@ -11,6 +11,7 @@ import { I18nPipe } from '../../../shared/i18n/i18n.pipe';
     selector: 'arth-cart-breadcrumb',
     templateUrl: 'cart-breadcrumb.component.html',
     styleUrls: ['cart-breadcrumb.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [AsyncPipe, I18nPipe]
 })
 export class CartBreadcrumbComponent implements OnInit {

@@ -1,6 +1,6 @@
 
 import {takeUntil} from 'rxjs/operators';
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, Validators, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {FormComponent} from '../form.component';
 import UserMetaData from '../../model/usermetadata.class';
@@ -17,6 +17,7 @@ import { I18nPipe } from '../../../shared/i18n/i18n.pipe';
     selector: 'arth-profile-email',
     templateUrl: 'profile-email.component.html',
     styleUrls: ['profile-email.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule, ReactiveFormsModule, I18nPipe]
 })
 export class ProfileEmailComponent extends FormComponent implements OnInit, OnDestroy {

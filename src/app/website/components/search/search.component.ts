@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import Article from '../../../shared/model/article.class';
 import ProductData from '../../model/product-data.class';
@@ -14,6 +14,7 @@ import { SortPipe } from '../../pipe/sort.pipe';
 
 @Component({
     templateUrl: './search.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [RouterLink, FormsModule, ArticleBoxComponent, AsyncPipe, I18nPipe, SortPipe]
 })
 export class SearchComponent implements OnInit {

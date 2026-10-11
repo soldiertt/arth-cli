@@ -1,8 +1,8 @@
 
 import { HttpHeaders } from '@angular/common/http';
-import {ToastrService} from 'ngx-toastr';
+import {ToastrService} from 'ngx-mat-toast';
 import {takeUntil, map} from 'rxjs/operators';
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import {Observable, Subject} from 'rxjs';
 import {Store} from '@ngrx/store';
 import Article from '../../../../shared/model/article.class';
@@ -29,6 +29,7 @@ import { EditProductComponent } from '../edit/edit-product.component';
 @Component({
     templateUrl: './product.component.html',
     styleUrls: ['./product.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule, ReactiveFormsModule, EditProductComponent, AsyncPipe]
 })
 export class ProductComponent implements OnInit, OnDestroy {

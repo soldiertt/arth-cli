@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, inject, viewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, inject, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { FormArray, FormControl, NgForm, FormsModule } from '@angular/forms';
 import Article from '../../../../shared/model/article.class';
 import Category from '../../../../shared/model/category.class';
@@ -19,6 +19,7 @@ declare const $: any;
 @Component({
     selector: 'arth-admin-product-modal',
     templateUrl: './edit-product.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule, AsyncPipe]
 })
 export class EditProductComponent implements OnInit {

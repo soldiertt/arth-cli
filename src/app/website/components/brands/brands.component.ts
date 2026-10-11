@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import Brand from '../../../shared/model/brand.class';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
@@ -11,6 +11,7 @@ import { I18nPipe } from '../../../shared/i18n/i18n.pipe';
 @Component({
     selector: 'arth-brands',
     templateUrl: 'brands.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [RouterLink, AsyncPipe, I18nPipe]
 })
 export class BrandsComponent implements OnInit {

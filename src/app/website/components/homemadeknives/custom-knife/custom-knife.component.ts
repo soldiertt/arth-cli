@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, input } from '@angular/core';
+import { Component, OnInit, inject, input, ChangeDetectionStrategy } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {IAlbum, Lightbox, LightboxConfig} from '@pierresh/ngx-lightbox';
 import {OrderArticle} from '../../../../shared/model/order-article';
@@ -12,6 +12,7 @@ declare const $: any;
 @Component({
     selector: 'arth-custom-knife',
     templateUrl: 'custom-knife.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['custom-knife.component.css']
 })
 export class CustomKnifeComponent implements OnInit {

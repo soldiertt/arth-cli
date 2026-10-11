@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
 import Brand from '../../../../shared/model/brand.class';
@@ -9,6 +9,7 @@ import { EditBrandComponent } from '../edit/edit-brand.component';
 
 @Component({
     templateUrl: './brand.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [EditBrandComponent, AsyncPipe]
 })
 export class BrandComponent implements OnInit {

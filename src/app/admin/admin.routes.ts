@@ -6,12 +6,12 @@ import {CategoryComponent} from './components/category/list/category.component';
 import {SlideComponent} from './components/slide/list/slide.component';
 import {BrandComponent} from './components/brand/list/brand.component';
 import {VideoComponent} from './components/video/list/video.component';
-import {AdminGuard} from './service/admin.guard';
+import {adminGuard} from './service/admin.guard';
 import {OrderComponent} from './components/order/list/order.component';
 import {UserComponent} from './components/user/list/user.component';
 
 export const adminRouterConfig: Routes = [
-  {path: 'admin', component: AdminComponent, canActivate: [AdminGuard],
+  {path: 'admin', component: AdminComponent, canActivate: [adminGuard],
     children: [
       {path: 'products', component: ProductComponent},
       {path: 'advancedproducts', component: AdvancedProductComponent},

@@ -1,6 +1,6 @@
 
 import {takeUntil} from 'rxjs/operators';
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import UserProfile from '../../model/user-profile.class';
 import {Store} from '@ngrx/store';
 import CartData from '../../model/cart-data.class';
@@ -18,6 +18,7 @@ import { I18nPipe } from '../../../shared/i18n/i18n.pipe';
 @Component({
     selector: 'arth-confirm-address',
     templateUrl: './confirm-address.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule, ProfileDisplayComponent, ProfileEditComponent, I18nPipe]
 })
 export class ConfirmAddressComponent implements OnInit, OnDestroy {

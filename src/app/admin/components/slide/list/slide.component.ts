@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import Slide from '../../../../shared/model/slider.class';
 import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
@@ -12,6 +12,7 @@ import { EditSlideComponent } from '../edit/edit-slide.component';
 
 @Component({
     templateUrl: './slide.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [EditSlideComponent, AsyncPipe]
 })
 export class SlideComponent implements OnInit {

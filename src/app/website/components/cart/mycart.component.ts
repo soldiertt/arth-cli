@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import {OrderArticle} from '../../../shared/model/order-article';
 import Cart from '../../model/cart.class';
 import CartData from '../../model/cart-data.class';
@@ -17,6 +17,7 @@ import { I18nPipe } from '../../../shared/i18n/i18n.pipe';
     selector: 'arth-mycart',
     templateUrl: 'mycart.component.html',
     styleUrls: ['mycart.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [RouterLink, EngravingModalComponent, AsyncPipe, DecimalPipe, CurrencyPipe, I18nPipe]
 })
 export class MyCartComponent implements OnInit {

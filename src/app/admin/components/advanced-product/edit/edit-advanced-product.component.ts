@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, inject, viewChild } from '@angular/core';
+import { Component, ElementRef, Input, inject, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { FormArray, FormControl, NgForm, FormsModule } from '@angular/forms';
 import {Store} from '@ngrx/store';
 import AdvancedArticle from '../../../../shared/model/advanced-article.class';
@@ -17,6 +17,7 @@ interface AdvancedProductCategory {
 @Component({
     selector: 'arth-admin-advanced-product-modal',
     templateUrl: './edit-advanced-product.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule]
 })
 export class EditAdvancedProductComponent {

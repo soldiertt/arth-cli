@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
 import UserProfile from '../../../../website/model/user-profile.class';
@@ -8,6 +8,7 @@ import { AsyncPipe, DatePipe } from '@angular/common';
 
 @Component({
     templateUrl: './user.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [AsyncPipe, DatePipe]
 })
 export class UserComponent implements OnInit {

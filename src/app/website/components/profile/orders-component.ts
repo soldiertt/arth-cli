@@ -1,6 +1,6 @@
 
 import {takeUntil} from 'rxjs/operators';
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import PaypalOrder from '../../../shared/model/paypalorder.class';
 import {Store} from '@ngrx/store';
 import UserProfile from '../../model/user-profile.class';
@@ -16,6 +16,7 @@ import { I18nPipe } from '../../../shared/i18n/i18n.pipe';
     selector: 'arth-orders',
     templateUrl: './orders-component.html',
     styleUrls: ['./orders-component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [CurrencyPipe, DatePipe, I18nPipe]
 })
 export class OrdersComponent implements OnInit, OnDestroy {

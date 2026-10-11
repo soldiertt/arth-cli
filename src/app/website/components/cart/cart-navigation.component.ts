@@ -1,6 +1,6 @@
 
 import {takeUntil} from 'rxjs/operators';
-import { AfterViewInit, Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import {Auth0Service} from '../../../shared/service/auth.service';
 import {PaypalRestService} from '../../../shared/service/rest/paypal.rest.service';
 import {environment} from '../../../../environments/environment';
@@ -21,6 +21,7 @@ declare const paypal: any;
     selector: 'arth-cart-navigation',
     templateUrl: './cart-navigation.component.html',
     styleUrls: ['./cart-navigation.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [I18nPipe]
 })
 export class CartNavigationComponent implements OnInit, AfterViewInit, OnDestroy {

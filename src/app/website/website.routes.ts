@@ -15,7 +15,7 @@ import {SearchComponent} from './components/search/search.component';
 import {ProfileComponent} from './components/profile/profile.component';
 import {WalkingSticksComponent} from './components/walkingsticks/walking-sticks.component';
 import {WebsiteComponent} from './components/website.component';
-import {AuthGuard} from './service/auth.guard';
+import {authGuard} from './service/auth.guard';
 import {ServicesComponent} from './components/services/services.component';
 
 export const websiteRouterConfig: Routes = [
@@ -32,7 +32,7 @@ export const websiteRouterConfig: Routes = [
       {path: 'homemadeknives', component: HomemadeKnivesComponent},
       {path: 'homenews', component: HomeNewsComponent},
       {path: 'mycart', component: CartWizardComponent},
-      {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
+      {path: 'profile', component: ProfileComponent, canActivate: [authGuard]},
       {path: 'search/:term', component: SearchComponent},
       {path: 'services', component: ServicesComponent},
       {path: 'steels', component: SteelsComponent},

@@ -30,8 +30,7 @@
               "node_modules/@fancyapps/fancybox/dist/jquery.fancybox.css",
               "node_modules/@pierresh/ngx-lightbox/lightbox.css",
               "src/assets/css/arthurius.css",
-              "src/assets/famfamfam_flags/famfamfam-flags.css",
-              "node_modules/ngx-toastr/toastr.css"
+              "src/assets/famfamfam_flags/famfamfam-flags.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.js",

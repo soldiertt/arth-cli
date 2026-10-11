@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, inject } from '@angular/core';
+import { AfterViewInit, Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import Category from '../../../../shared/model/category.class';
 import {Auth0Service} from '../../../../shared/service/auth.service';
@@ -19,6 +19,7 @@ declare const $: any;
     selector: 'arth-header',
     templateUrl: 'header.component.html',
     styleUrls: ['header.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [RouterLink, CartDropdownComponent, RouterLinkActive, FormsModule, AsyncPipe, I18nPipe, CategoryTitlePipe]
 })
 export class HeaderComponent implements OnInit, AfterViewInit {

@@ -1,8 +1,9 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import {Auth0Service} from '../../../shared/service/auth.service';
 
 @Component({
     selector: 'arth-auth-callback',
+    changeDetection: ChangeDetectionStrategy.Eager,
     templateUrl: 'auth-callback.component.html'
 })
 export class AuthCallbackComponent implements OnInit {

@@ -59,7 +59,7 @@
                 </div>
               }
               <div class="price">
-                <p>{{'common.label.price' | trans}} : <span>{{article?.price | currency:'EUR'}}</span>
+                <p>{{'common.label.price' | trans}} : <span>{{$safeNavigationMigration(article?.price) | currency:'EUR'}}</span>
                 @if (article.promo) {
                   <span class="strike">{{article.old_price | currency:'EUR'}}</span>
                 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Params, RouterLink } from '@angular/router';
 
 import ProductData from '../../model/product-data.class';
@@ -18,6 +18,7 @@ import { SortPipe } from '../../pipe/sort.pipe';
 @Component({
     templateUrl: 'category-details.component.html',
     styleUrls: ['category-details.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [RouterLink, FormsModule, TopSalesComponent, StaticContentCategoryComponent, ArticleBoxComponent, AsyncPipe, I18nPipe, CategoryTitlePipe, SortPipe]
 })
 export class CategoryDetailsComponent implements OnInit {

@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 import Category from '../../../../shared/model/category.class';
@@ -9,6 +9,7 @@ import { EditCategoryComponent } from '../edit/edit-category.component';
 
 @Component({
     templateUrl: './category.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [EditCategoryComponent, AsyncPipe]
 })
 export class CategoryComponent implements OnInit {

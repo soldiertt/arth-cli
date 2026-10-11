@@ -1,6 +1,6 @@
 
 import {map} from 'rxjs/operators';
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
 import PaypalOrder from '../../../../shared/model/paypalorder.class';
@@ -10,6 +10,7 @@ import { AsyncPipe, JsonPipe, DatePipe } from '@angular/common';
 
 @Component({
     templateUrl: './order.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [AsyncPipe, JsonPipe, DatePipe]
 })
 export class OrderComponent implements OnInit {

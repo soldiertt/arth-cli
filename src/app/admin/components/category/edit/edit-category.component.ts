@@ -1,4 +1,4 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, Input, inject, ChangeDetectionStrategy } from '@angular/core';
 import {Store} from '@ngrx/store';
 import Category from '../../../../shared/model/category.class';
 import {CategoryActions} from '../../../../shared/actions/category.actions';
@@ -11,6 +11,7 @@ declare const $: any;
 @Component({
     selector: 'arth-admin-category-modal',
     templateUrl: './edit-category.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule]
 })
 export class EditCategoryComponent {

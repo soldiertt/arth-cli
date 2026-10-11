@@ -1,7 +1,7 @@
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {Store} from '@ngrx/store';
-import {ToastrService} from 'ngx-toastr';
+import {ToastrService} from 'ngx-mat-toast';
 import {Observable, Subject} from 'rxjs';
 import {map} from 'rxjs/operators';
 import AdvancedArticle from '../../../../shared/model/advanced-article.class';
@@ -19,6 +19,7 @@ interface AdvancedProductCategory {
 @Component({
     templateUrl: './advanced-product.component.html',
     styleUrls: ['./advanced-product.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule, ReactiveFormsModule, EditAdvancedProductComponent, AsyncPipe]
 })
 export class AdvancedProductComponent implements OnInit, OnDestroy {

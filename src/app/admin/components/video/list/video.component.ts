@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import Video from '../../../../shared/model/video.class';
 import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
@@ -9,6 +9,7 @@ import { EditVideoComponent } from '../edit/edit-video.component';
 
 @Component({
     templateUrl: './video.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [EditVideoComponent, AsyncPipe]
 })
 export class VideoComponent implements OnInit {

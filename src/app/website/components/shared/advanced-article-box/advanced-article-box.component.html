@@ -24,7 +24,7 @@
         </div>
       }
       <div class="price">
-        <p>{{'common.label.price' | trans}} : <span>{{article()?.price | currency:'EUR'}}</span></p>
+        <p>{{'common.label.price' | trans}} : <span>{{$safeNavigationMigration(article()?.price) | currency:'EUR'}}</span></p>
       </div>
       @if (article().instock) {
         <div class="buttons">

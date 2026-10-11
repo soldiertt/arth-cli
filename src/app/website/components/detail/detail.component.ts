@@ -1,6 +1,6 @@
 import {IAlbum, Lightbox, LightboxConfig} from '@pierresh/ngx-lightbox';
 import {filter, takeUntil} from 'rxjs/operators';
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import Article from '../../../shared/model/article.class';
 import {JQueryService} from '../../service/jQuery.service';
@@ -23,6 +23,7 @@ declare const $: any;
     selector: 'arth-detail',
     templateUrl: './detail.component.html',
     styleUrls: ['./detail.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [RouterLink, CurrencyPipe, I18nPipe, CategoryTitlePipe]
 })
 export class DetailComponent implements OnInit, OnDestroy {

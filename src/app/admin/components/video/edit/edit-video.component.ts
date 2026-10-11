@@ -1,4 +1,4 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, Input, inject, ChangeDetectionStrategy } from '@angular/core';
 import {Store} from '@ngrx/store';
 import {VideoActions} from '../../../../shared/actions/video.actions';
 import Video from '../../../../shared/model/video.class';
@@ -11,6 +11,7 @@ declare const $: any;
 @Component({
     selector: 'arth-admin-video-modal',
     templateUrl: './edit-video.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule]
 })
 export class EditVideoComponent {

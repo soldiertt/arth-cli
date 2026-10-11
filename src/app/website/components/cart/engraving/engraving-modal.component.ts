@@ -1,4 +1,4 @@
-import { Component, inject, input } from '@angular/core';
+import { Component, inject, input, ChangeDetectionStrategy } from '@angular/core';
 import {Store} from '@ngrx/store';
 import Order from '../../../../shared/model/order.class';
 import { NgForm, FormsModule } from '@angular/forms';
@@ -11,6 +11,7 @@ declare const $: any;
 @Component({
     selector: 'arth-engraving-modal',
     templateUrl: './engraving-modal.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule, CurrencyPipe, I18nPipe]
 })
 export class EngravingModalComponent {

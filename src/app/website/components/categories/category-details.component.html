@@ -9,10 +9,10 @@
             </li>
             @if (productData.selected?.parentCategory) {
               <li class="breadcrumb-item">
-                <a href [routerLink]="['/categ', productData.selected?.parentCategory.name]" >{{productData.selected?.parentCategory | catTitle}}</a>
+                <a href [routerLink]="['/categ', $safeNavigationMigration(productData.selected?.parentCategory.name)]" >{{$safeNavigationMigration(productData.selected?.parentCategory) | catTitle}}</a>
               </li>
             }
-            <li class="breadcrumb-item">{{productData.selected?.category | catTitle}}</li>
+            <li class="breadcrumb-item">{{$safeNavigationMigration(productData.selected?.category) | catTitle}}</li>
           </ol>
           <div class="col align-self-end text-center product-sorter">
             @if (!productData.subCategories?.length) {

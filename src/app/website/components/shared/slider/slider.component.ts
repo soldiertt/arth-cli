@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import Slide from '../../../../shared/model/slider.class';
 import { Router, RouterLink } from '@angular/router';
 import Article from '../../../../shared/model/article.class';
@@ -16,6 +16,7 @@ import { TruncatePipe } from '../../../pipe/truncate.pipe';
     selector: 'arth-slider',
     templateUrl: 'slider.component.html',
     styleUrls: ['slider.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [RouterLink, AsyncPipe, CurrencyPipe, TruncatePipe]
 })
 export class SliderComponent implements OnInit {

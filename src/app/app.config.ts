@@ -2,11 +2,11 @@ import {ApplicationConfig, LOCALE_ID, importProvidersFrom} from '@angular/core';
 import {registerLocaleData} from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import {provideAnimations} from '@angular/platform-browser/animations';
-import {HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi} from '@angular/common/http';
+import {provideHttpClient, withInterceptors, withXhr} from '@angular/common/http';
 import {provideRouter} from '@angular/router';
 import {provideEffects} from '@ngrx/effects';
 import {provideState, provideStore} from '@ngrx/store';
-import {provideToastr} from 'ngx-toastr';
+import {provideNgxMatToast} from 'ngx-mat-toast';
 import {LightboxModule} from '@pierresh/ngx-lightbox';
 import {environment} from '../environments/environment';
 
@@ -54,10 +54,7 @@ import {SliderRestService} from './shared/service/rest/slider.rest.service';
 import {SteelRestService} from './shared/service/rest/steel.rest.service';
 import {UserRestService} from './shared/service/rest/user.rest.service';
 import {VideoRestService} from './shared/service/rest/video.rest.service';
-import {RequestInterceptor} from './shared/service/rest/request-interceptor';
-
-import {AuthGuard} from './website/service/auth.guard';
-import {AdminGuard} from './admin/service/admin.guard';
+import {requestInterceptor} from './shared/service/rest/request-interceptor';
 
 registerLocaleData(localeFr);
 
@@ -68,9 +65,8 @@ export const appConfig: ApplicationConfig = {
     provideRouter([...websiteRouterConfig, ...adminRouterConfig]),
 
     provideAnimations(),
-    provideToastr(),
-    provideHttpClient(withInterceptorsFromDi()),
-    {provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true},
+    provideNgxMatToast(),
+    provideHttpClient(withXhr(), withInterceptors([requestInterceptor])),
 
     provideStore({profile: FromProfile.reducer}),
     provideState('site', siteReducers),
@@ -95,9 +91,6 @@ export const appConfig: ApplicationConfig = {
     ]),
 
     importProvidersFrom(LightboxModule),
-
-    AuthGuard,
-    AdminGuard,
 
     ArthuriusEventsService,
     Auth0Service,
