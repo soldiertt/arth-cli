@@ -25,7 +25,7 @@ export const rootReducers: ActionReducerMap<AppState> = {
       AuthenticationEffects,
       UserProfileEffects
     ]),
-    RouterModule.forRoot([], { relativeLinkResolution: 'legacy' }),
+    RouterModule.forRoot([], {}),
     StoreModule.forRoot(rootReducers),
     WebsiteModule
   ],
