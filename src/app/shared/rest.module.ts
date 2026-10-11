@@ -10,30 +10,26 @@ import {SliderRestService} from './service/rest/slider.rest.service';
 import {environment} from '../../environments/environment';
 import {BrandRestService} from './service/rest/brand.rest.service';
 import {RequestInterceptor} from './service/rest/request-interceptor';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import {SteelRestService} from './service/rest/steel.rest.service';
 import {VideoRestService} from './service/rest/video.rest.service';
 
-@NgModule({
-  imports: [
-    HttpClientModule
-  ],
-  providers   : [
-    AdvancedArticleRestService,
-    ArticleRestService,
-    BrandRestService,
-    CategoryRestService,
-    CountryRestService,
-    PaypalOrderRestService,
-    PaypalRestService,
-    SliderRestService,
-    SteelRestService,
-    UserRestService,
-    VideoRestService,
-    { provide: 'REST_ENDPOINT', useValue: environment.restEndpoint},
-    { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true}
-  ],
-})
+@NgModule({ imports: [], providers: [
+        AdvancedArticleRestService,
+        ArticleRestService,
+        BrandRestService,
+        CategoryRestService,
+        CountryRestService,
+        PaypalOrderRestService,
+        PaypalRestService,
+        SliderRestService,
+        SteelRestService,
+        UserRestService,
+        VideoRestService,
+        { provide: 'REST_ENDPOINT', useValue: environment.restEndpoint },
+        { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true },
+        provideHttpClient(withInterceptorsFromDi())
+    ] })
 export class RestModule {
 
 }

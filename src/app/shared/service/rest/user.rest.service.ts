@@ -4,7 +4,7 @@ import {Injectable, Inject} from '@angular/core';
 import {Observable} from 'rxjs';
 
 import UserMetaData from '../../../website/model/usermetadata.class';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import UserProfile from '../../../website/model/user-profile.class';
 
 @Injectable()

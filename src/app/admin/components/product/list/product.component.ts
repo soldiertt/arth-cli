@@ -1,5 +1,5 @@
 
-import {HttpHeaders} from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
 import {ToastrService} from 'ngx-toastr';
 import {takeUntil, map} from 'rxjs/operators';
 import {Component, OnDestroy, OnInit} from '@angular/core';

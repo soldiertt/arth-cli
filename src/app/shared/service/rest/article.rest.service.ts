@@ -4,7 +4,7 @@ import {Observable} from 'rxjs';
 import Article from '../../model/article.class';
 import Brand from '../../model/brand.class';
 import Order from '../../model/order.class';
-import {HttpClient, HttpParams, HttpResponse} from '@angular/common/http';
+import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 
 @Injectable()
 export class ArticleRestService {

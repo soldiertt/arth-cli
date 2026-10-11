@@ -4,7 +4,7 @@ import {Injectable, Inject} from '@angular/core';
 import {Observable} from 'rxjs';
 
 import PaypalOrder from '../../model/paypalorder.class';
-import {HttpClient, HttpParams} from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 @Injectable()
 export class PaypalOrderRestService {

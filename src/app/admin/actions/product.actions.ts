@@ -1,6 +1,6 @@
 import {createAction, props} from '@ngrx/store';
 import Article from '../../shared/model/article.class';
-import {HttpResponse} from '@angular/common/http';
+import { HttpResponse } from '@angular/common/http';
 
 export namespace ProductActions {
 

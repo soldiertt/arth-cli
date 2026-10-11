@@ -4,7 +4,7 @@ import {Injectable, Inject} from '@angular/core';
 import {Observable} from 'rxjs';
 
 import Category from '../../model/category.class';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class CategoryRestService {

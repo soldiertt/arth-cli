@@ -3,7 +3,7 @@ import Article from '../../shared/model/article.class';
 import {createReducer, createSelector, on} from '@ngrx/store';
 import {adminFeatureSelector, AdminState} from '../model/admin-state';
 import {ProductActions} from '../actions/product.actions';
-import {HttpResponse} from '@angular/common/http';
+import { HttpResponse } from '@angular/common/http';
 
 const adapter = createEntityAdapter<Article>();
 const defaultState: FromAdminProduct.State  = {
