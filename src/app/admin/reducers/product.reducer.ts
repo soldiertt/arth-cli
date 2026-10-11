@@ -41,6 +41,9 @@ export namespace FromAdminProduct {
       const filename = parts[1].split('=').pop();
       return {...state, csvResponse: action.csvResponse, filename};
     }),
+    on(ProductActions.ClearCsvData, (state) => {
+      return {...state, csvResponse: undefined, filename: undefined};
+    }),
     on(ProductActions.UploadNewPictureFail, ProductActions.RequestFail, (state, action) => {
       console.error(action.error);
       return state;

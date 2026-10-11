@@ -24,7 +24,6 @@ export class MyCartComponent implements OnInit {
   picUtil = inject(PictureService);
   private store = inject<Store<CartData>>(Store);
 
-
   cart$: Observable<Cart>;
   editedOrder: Order;
 
@@ -55,5 +54,13 @@ export class MyCartComponent implements OnInit {
     $event.preventDefault();
     this.editedOrder = order;
     this.store.dispatch(CartDataActions.DisableOrderEngraving({articleId: order.article.id}));
+  }
+
+  orderTotalPrice(order: Order): number {
+    let engravingPrice = 0;
+    if (order.engraving) {
+      engravingPrice += 15;
+    }
+    return (order.article.price * order.count) + engravingPrice;
   }
 }

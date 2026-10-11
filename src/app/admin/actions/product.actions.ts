@@ -17,6 +17,7 @@ export namespace ProductActions {
   const UPLOAD_NEW_PICTURE_FAIL = '[Product] Upload new picture Fail';
   const EXPORT_TO_CSV = '[Product] Export to CSV';
   const DOWNLOAD_CSV = '[Product] Download CSV';
+  const CLEAR_CSV_DATA = '[Product] Clear CSV data';
   const REQUEST_FAIL = '[Product] Request fail';
 
   export const GetAll = createAction(
@@ -80,6 +81,10 @@ export namespace ProductActions {
   export const DownloadCsv = createAction(
     DOWNLOAD_CSV,
     props<{csvResponse: HttpResponse<Blob>, contentDispositionHeader: string}>()
+  );
+
+  export const ClearCsvData = createAction(
+    CLEAR_CSV_DATA
   );
 
   export const RequestFail = createAction(

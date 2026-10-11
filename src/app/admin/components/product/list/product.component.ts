@@ -79,11 +79,14 @@ export class ProductComponent implements OnInit, OnDestroy {
       }));
     });
 
-    this.productStore.select(FromAdminProduct.selectCsvData).subscribe(csvData => {
-      if (csvData.csvResponse) {
-        saveAs(csvData.csvResponse.body!, csvData.filename);
-      }
-    });
+    this.productStore.select(FromAdminProduct.selectCsvData).pipe(
+      takeUntil(this.ngUnsubscribe))
+      .subscribe(csvData => {
+        if (csvData.csvResponse) {
+          saveAs(csvData.csvResponse.body!, csvData.filename);
+          this.productStore.dispatch(ProductActions.ClearCsvData());
+        }
+      });
   }
 
   ngOnDestroy() {

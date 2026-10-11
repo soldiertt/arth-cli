@@ -50,6 +50,7 @@ import {SteelRestService} from './shared/service/rest/steel.rest.service';
 import {UserRestService} from './shared/service/rest/user.rest.service';
 import {VideoRestService} from './shared/service/rest/video.rest.service';
 import {requestInterceptor} from './shared/service/rest/request-interceptor';
+import {REST_ENDPOINT} from './shared/tokens';
 
 registerLocaleData(localeFr);
 
@@ -108,6 +109,6 @@ export const appConfig: ApplicationConfig = {
     UserRestService,
     VideoRestService,
 
-    {provide: 'REST_ENDPOINT', useValue: environment.restEndpoint}
+    {provide: REST_ENDPOINT, useValue: environment.restEndpoint}
   ]
 };

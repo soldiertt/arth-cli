@@ -36,8 +36,9 @@
                 }
                 <br/>
                 @if (!order.engraving) {
-                  <a href data-bs-toggle="modal" data-bs-target="#engravingModal" (click)="engravingModal(order)"
-                  >{{ 'page.mycart.engraving.addEngravingOption' | trans }}</a>
+                  <a href data-bs-toggle="modal" data-bs-target="#engravingModal" (click)="engravingModal(order)">
+                    {{ 'page.mycart.engraving.addEngravingOption' | trans }}
+                  </a>
                 } @else {
                   <div class="engraving-cell">
                     <span>{{ 'page.mycart.engraving.withEngravingOption' | trans }}:  <i>{{ order.engravingName }}</i></span>
@@ -64,7 +65,7 @@
                   </a>
                 </span>
               </td>
-              <td class="amount-cell">{{order.article.price * order.count | currency:'EUR'}}</td>
+              <td class="amount-cell">{{orderTotalPrice(order) | currency:'EUR'}}</td>
               <td>
                 <span>
                   <a href (click)="removeOrder($event, order.article.id)" class="action-icon">
