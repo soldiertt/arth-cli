@@ -15,7 +15,7 @@ declare const $: any;
     selector: 'arth-article-box',
     templateUrl: 'article-box.component.html',
     styleUrls: ['article-box.component.css'],
-    changeDetection: ChangeDetectionStrategy.Eager,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [RouterLink, CurrencyPipe, I18nPipe]
 })
 export class ArticleBoxComponent {

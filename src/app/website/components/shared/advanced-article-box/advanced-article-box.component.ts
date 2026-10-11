@@ -16,7 +16,7 @@ declare const $: any;
     selector: 'arth-advanced-article-box',
     templateUrl: 'advanced-article-box.component.html',
     styleUrls: ['advanced-article-box.component.css'],
-    changeDetection: ChangeDetectionStrategy.Eager,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [CurrencyPipe, I18nPipe]
 })
 export class AdvancedArticleBoxComponent implements OnInit {
