@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {IAlbum, Lightbox, LightboxConfig} from 'ngx-lightbox';
+import {IAlbum, Lightbox, LightboxConfig} from '@pierresh/ngx-lightbox';
 import {OrderArticle} from '../../../../shared/model/order-article';
 import {JQueryService} from '../../../service/jQuery.service';
 import CartData from '../../../model/cart-data.class';

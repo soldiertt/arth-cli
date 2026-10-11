@@ -1,5 +1,5 @@
 import {Component, Input, OnChanges, OnInit} from '@angular/core';
-import {IAlbum, Lightbox, LightboxConfig} from 'ngx-lightbox';
+import {IAlbum, Lightbox, LightboxConfig} from '@pierresh/ngx-lightbox';
 import AdvancedArticle from '../../../../shared/model/advanced-article.class';
 import {OrderArticle} from '../../../../shared/model/order-article';
 import {JQueryService} from '../../../service/jQuery.service';

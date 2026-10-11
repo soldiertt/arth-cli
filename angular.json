@@ -24,7 +24,7 @@
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.css",
               "node_modules/@fancyapps/fancybox/dist/jquery.fancybox.css",
-              "node_modules/ngx-lightbox/lightbox.css",
+              "node_modules/@pierresh/ngx-lightbox/lightbox.css",
               "src/assets/css/arthurius.css",
               "src/assets/famfamfam_flags/famfamfam-flags.css",
               "node_modules/ngx-toastr/toastr.css"
@@ -89,24 +89,24 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "arth-cli:build"
+            "buildTarget": "arth-cli:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "arth-cli:build:production"
+              "buildTarget": "arth-cli:build:production"
             },
             "development": {
-              "browserTarget": "arth-cli:build:development"
+              "buildTarget": "arth-cli:build:development"
             },
             "test": {
-              "browserTarget": "arth-cli:build:test"
+              "buildTarget": "arth-cli:build:test"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "arth-cli:build"
+            "buildTarget": "arth-cli:build"
           }
         }
       }

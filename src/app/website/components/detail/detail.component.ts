@@ -1,4 +1,4 @@
-import {IAlbum, Lightbox, LightboxConfig} from 'ngx-lightbox';
+import {IAlbum, Lightbox, LightboxConfig} from '@pierresh/ngx-lightbox';
 import {filter, takeUntil} from 'rxjs/operators';
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';

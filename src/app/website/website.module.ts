@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
-import {LightboxModule} from 'ngx-lightbox';
+import {LightboxModule} from '@pierresh/ngx-lightbox';
 import {RestModule} from '../shared/rest.module';
 import {AuthCallbackComponent} from './components/authcallback/auth-callback.component';
 import {CustomKnifeComponent} from './components/homemadeknives/custom-knife/custom-knife.component';
