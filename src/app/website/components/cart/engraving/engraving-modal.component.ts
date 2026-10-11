@@ -18,7 +18,7 @@ export class EngravingModalComponent {
   private store = inject<Store<Order>>(Store);
 
 
-  readonly order = input<Order>();
+  readonly order = input.required<Order>();
   engravingName: string;
 
   save(form: NgForm) {

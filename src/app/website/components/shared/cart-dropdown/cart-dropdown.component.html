@@ -7,7 +7,7 @@
       </div>
       <ul class="dropdown-menu dropdown-cart" aria-labelledby="minicart-dropdown">
         <li class="cart-title">{{'comp.minicart.youhave' | trans}} {{cart.totalCount}} {{'comp.minicart.articlesinyourcart' | trans}}</li>
-        @for (order of cart.orders; track order) {
+        @for (order of cart.orders; track order.article.id) {
           <li class="cart-item dropdown-item">
             <div class="product-item">
               @if (!order.article.noLink) {

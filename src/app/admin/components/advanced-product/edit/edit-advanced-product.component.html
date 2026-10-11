@@ -19,7 +19,7 @@
                 <label for="category" class="col-sm-3 col-form-label">Category *</label>
                 <div class="col-sm-9">
                   <select id="category" name="category" [(ngModel)]="item.type" required="required" class="form-control">
-                    @for (category of categories; track category) {
+                    @for (category of categories; track category.code) {
                       <option [value]="category.code">{{category.name}}</option>
                     }
                   </select>

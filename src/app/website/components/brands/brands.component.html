@@ -9,7 +9,7 @@
       </div>
     </div>
     <div class="content_bottom">
-      @for (brand of brands$ | async; track brand) {
+      @for (brand of brands$ | async; track brand.id) {
         <div class="box-link" [routerLink]="['/brand', brand.brand]">
           {{brand.brand}}
         </div>

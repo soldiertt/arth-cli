@@ -19,7 +19,7 @@
                 <label for="category" class="col-sm-3 col-form-label">Category *</label>
                 <div class="col-sm-9">
                   <select id="category" name="category" [(ngModel)]="item.type" required="required" class="form-control">
-                    @for (category of categories$ | async; track category) {
+                    @for (category of categories$ | async; track category.id) {
                       <option [value]="category.name">{{category.name}}</option>
                     }
                   </select>
@@ -29,7 +29,7 @@
                 <label for="brand" class="col-sm-3 col-form-label">Brand *</label>
                 <div class="col-sm-9">
                   <select id="brand" name="brand" [(ngModel)]="item.brand" required="required" class="form-control">
-                    @for (brand of brands$ | async; track brand) {
+                    @for (brand of brands$ | async; track brand.id) {
                       <option [value]="brand.brand">{{brand.brand}}</option>
                     }
                   </select>

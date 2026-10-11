@@ -1,11 +1,11 @@
-import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
 import Brand from '../../../../shared/model/brand.class';
 import {BrandActions} from '../../../../shared/actions/brand.actions';
 import {FromAdminBrand} from '../../../reducers/brand.reducer';
-import { AsyncPipe } from '@angular/common';
-import { EditBrandComponent } from '../edit/edit-brand.component';
+import {AsyncPipe} from '@angular/common';
+import {EditBrandComponent} from '../edit/edit-brand.component';
 
 @Component({
     templateUrl: './brand.component.html',

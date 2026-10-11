@@ -26,7 +26,7 @@
                 </a>
                 <img (mouseenter)="detectImageSize($event)" [src]="picUtil.firstLargePictureFullPath(article)" [hidden]="needZoom" />
               } @else {
-                @for (picture of _album; track picture; let i = $index) {
+                @for (picture of _album; track $index; let i = $index) {
                   <div>
                     <img [src]="picture.thumb" (click)="open(i)" class="zoomable" />
                   </div>

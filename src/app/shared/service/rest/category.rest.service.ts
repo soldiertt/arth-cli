@@ -5,11 +5,12 @@ import {Observable} from 'rxjs';
 
 import Category from '../../model/category.class';
 import { HttpClient } from '@angular/common/http';
+import {REST_ENDPOINT} from '../../tokens';
 
 @Injectable()
 export class CategoryRestService {
   private http = inject(HttpClient);
-  private BASE_URL = inject<string>('REST_ENDPOINT' as any);
+  private BASE_URL = inject(REST_ENDPOINT);
 
 
   private static _mapJsonToCategory(category: any): Category {

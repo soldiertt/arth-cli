@@ -5,11 +5,12 @@ import {Observable} from 'rxjs';
 
 import PaypalOrder from '../../model/paypalorder.class';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import {REST_ENDPOINT} from '../../tokens';
 
 @Injectable()
 export class PaypalOrderRestService {
   private http = inject(HttpClient);
-  private BASE_URL = inject<string>('REST_ENDPOINT' as any);
+  private BASE_URL = inject(REST_ENDPOINT);
 
 
   listAll(): Observable<PaypalOrder[]> {

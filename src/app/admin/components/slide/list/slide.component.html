@@ -20,7 +20,7 @@
     </tr>
   </thead>
   <tbody>
-    @for (slide of slides$ | async; track slide) {
+    @for (slide of slides$ | async; track slide.id) {
       <tr>
         <td>{{slide.image}}</td>
         <td>{{slide.title1}}</td>
@@ -54,7 +54,7 @@
       </tr>
     </thead>
     <tbody>
-      @for (slideProduct of slideProducts$ | async; track slideProduct) {
+      @for (slideProduct of slideProducts$ | async; track slideProduct.id) {
         <tr>
           <td>{{slideProduct.type}}</td>
           <td>{{slideProduct.brand}}</td>

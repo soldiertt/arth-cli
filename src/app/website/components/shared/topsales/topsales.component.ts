@@ -12,7 +12,7 @@ import { I18nPipe } from '../../../../shared/i18n/i18n.pipe';
 })
 export class TopSalesComponent {
 
-  readonly articles = input<Article[]>();
+  readonly articles = input<Article[]>([]);
 
   constructor() {}
 

@@ -6,11 +6,12 @@ import {Observable} from 'rxjs';
 import UserMetaData from '../../../website/model/usermetadata.class';
 import { HttpClient } from '@angular/common/http';
 import UserProfile from '../../../website/model/user-profile.class';
+import {REST_ENDPOINT} from '../../tokens';
 
 @Injectable()
 export class UserRestService {
   private http = inject(HttpClient);
-  private BASE_URL = inject<string>('REST_ENDPOINT' as any);
+  private BASE_URL = inject(REST_ENDPOINT);
 
 
   private static mapUsers(authUserArray): UserProfile[] {

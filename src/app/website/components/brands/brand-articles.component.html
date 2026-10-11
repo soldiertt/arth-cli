@@ -10,7 +10,7 @@
       </div>
     </div>
     <div class="section group">
-      @for (article of articles$ | async; track article) {
+      @for (article of articles$ | async; track article.id) {
         <arth-article-box [article]="article"></arth-article-box>
       }
     </div>

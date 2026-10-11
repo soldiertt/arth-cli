@@ -1,26 +1,29 @@
-<div class="article-box">
-  <div class="article-box-link" [routerLink]="['/detail', article().id]">
-    <img [src]="picUtil.firstMiniPictureFullPath(article())" alt="{{ article().name}}" />
-    <div class="article-detail">
-      <div class="article-brand">{{article().brand}}</div>
-      <div class="article-name">{{article().name}}</div>
+@let myArticle = article();
+@if (myArticle) {
+  <div class="article-box">
+    <div class="article-box-link" [routerLink]="['/detail', myArticle.id]">
+      <img [src]="picUtil.firstMiniPictureFullPath(myArticle)" alt="{{ myArticle.name}}" />
+      <div class="article-detail">
+        <div class="article-brand">{{myArticle.brand}}</div>
+        <div class="article-name">{{myArticle.name}}</div>
+      </div>
+    </div>
+    <div class="price-details">
+      <div>
+        <span class="price" [class.promo-price]="myArticle.promo">{{ myArticle.price | currency:'EUR'}}</span>
+        <div>@if (myArticle.promo) {
+          <span class="price-strike">{{myArticle.old_price | currency:'EUR'}}</span>
+        }</div>
+      </div>
+      @if (myArticle.instock) {
+        <div class="add-cart" (click)="addToCart(myArticle)">
+          <span>{{'common.links.addtocart' | trans}}</span>
+        </div>
+      } @else {
+        <div class="outofstock">
+          <span>{{'common.label.outofstock_short' | trans}}</span>
+        </div>
+      }
     </div>
   </div>
-  <div class="price-details">
-    <div>
-      <span class="price" [class.promo-price]="article().promo">{{ article().price | currency:'EUR'}}</span>
-      <div>@if (article().promo) {
-        <span class="price-strike">{{article().old_price | currency:'EUR'}}</span>
-      }</div>
-    </div>
-    @if (article().instock) {
-      <div class="add-cart" (click)="addToCart(article())">
-        <span>{{'common.links.addtocart' | trans}}</span>
-      </div>
-    } @else {
-      <div class="outofstock">
-        <span>{{'common.label.outofstock_short' | trans}}</span>
-      </div>
-    }
-  </div>
-</div>
+}

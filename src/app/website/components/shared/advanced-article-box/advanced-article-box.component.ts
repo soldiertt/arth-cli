@@ -27,7 +27,7 @@ export class AdvancedArticleBoxComponent implements OnInit {
   private _lightboxConfig = inject(LightboxConfig);
 
 
-  readonly article = input<AdvancedArticle>();
+  readonly article = input.required<AdvancedArticle>();
   readonly isOdd = input(false);
   readonly _album = computed<IAlbum[]>(() => {
     const article = this.article();

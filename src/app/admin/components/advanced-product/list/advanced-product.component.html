@@ -21,7 +21,7 @@
         <td>
           <select name="categoryfilter" id="categoryfilter" class="form-control form-control-sm" formControlName="categoryFilter">
             <option value="">[Category]</option>
-            @for (category of categories; track category) {
+            @for (category of categories; track category.code) {
               <option [value]="category.code">{{category.name}}</option>
             }
           </select>
@@ -32,11 +32,13 @@
       </tr>
     </thead>
     <tbody>
-      @for (product of filteredProducts$ | async; track product) {
+      @for (product of filteredProducts$ | async; track product.id) {
         <tr>
-          <td>@for (pic of picUtil.allMiniPicturesFullPath(product); track pic) {
-            <img [src]="pic">
-          }</td>
+          <td>
+            @for (pic of picUtil.allMiniPicturesFullPath(product); track pic) {
+              <img [src]="pic">
+            }
+          </td>
           <td>{{product.type}}</td>
           <td>{{product.name}}</td>
           <td class="extra-thin-column">

@@ -16,7 +16,7 @@
       </div>
     </div>
     <div>
-      @for (article of (articles$ | async) | orderBy : orderBy; track article) {
+      @for (article of (articles$ | async) | orderBy : orderBy; track article.id) {
         <arth-article-box [article]="article"></arth-article-box>
       }
     </div>

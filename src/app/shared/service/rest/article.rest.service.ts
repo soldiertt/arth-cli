@@ -5,11 +5,12 @@ import Article from '../../model/article.class';
 import Brand from '../../model/brand.class';
 import Order from '../../model/order.class';
 import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
+import {REST_ENDPOINT} from '../../tokens';
 
 @Injectable()
 export class ArticleRestService {
   private http = inject(HttpClient);
-  private BASE_URL = inject<string>('REST_ENDPOINT' as any);
+  private BASE_URL = inject(REST_ENDPOINT);
 
 
   listAll(): Observable<Article[]> {

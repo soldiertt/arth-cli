@@ -1,11 +1,11 @@
 <div id="myCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="10000" data-bs-pause="hover">
   <!-- Indicators -->
   <ol class="carousel-indicators">
-    @for (slide of slides$ | async; track slide; let idx = $index; let isFirst = $first) {
+    @for (slide of slides$ | async; track slide.id; let idx = $index; let isFirst = $first) {
       <li data-bs-target="#myCarousel" [attr.data-bs-slide-to]="idx" [class.active]="isFirst"></li>
     }
     @if ((slidesCount$ | async); as slidesCount) {
-      @for (sliderArticle of sliderArticles$ | async; track sliderArticle; let idx2 = $index) {
+      @for (sliderArticle of sliderArticles$ | async; track sliderArticle.id; let idx2 = $index) {
         <li data-bs-target="#myCarousel" [attr.data-bs-slide-to]="slidesCount + idx2"></li>
       }
     }
@@ -13,7 +13,7 @@
 
   <!-- Wrapper for slides -->
   <div class="carousel-inner" role="listbox">
-    @for (slide of slides$ | async; track slide; let isFirst = $first) {
+    @for (slide of slides$ | async; track slide.id; let isFirst = $first) {
       <div class="carousel-item" [class.active]="isFirst">
         <div (click)="goToProductFromSlide(slide)" [class.link]="slide.link">
           <img class="d-block img-fluid" src="assets/images/{{slide.image}}" >
@@ -25,7 +25,7 @@
         </div>
       </div>
     }
-    @for (sliderArticle of sliderArticles$ | async; track sliderArticle) {
+    @for (sliderArticle of sliderArticles$ | async; track sliderArticle.id) {
       <div class="carousel-item">
         <div [routerLink]="['/detail', sliderArticle.id]" class="link">
           <img class="d-block img-fluid" [src]="picUtil.firstLargePictureFullPath(sliderArticle)" >

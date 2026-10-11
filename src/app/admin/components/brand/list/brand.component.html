@@ -14,7 +14,7 @@
     </tr>
   </thead>
   <tbody>
-    @for (brand of brands$ | async; track brand) {
+    @for (brand of brands$ | async; track brand.id) {
       <tr>
         <td>{{brand.brand}}</td>
         <td><a href (click)="remove($event, brand.id)"><i class="material-icons">delete_forever</i></a></td>

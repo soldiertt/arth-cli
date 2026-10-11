@@ -1,7 +1,7 @@
 @if (articles()?.length) {
   <div>
     <h3>{{'common.label.topsales' | trans}}</h3>
-    @for (article of articles() ?? []; track article) {
+    @for (article of articles() ?? []; track article.id) {
       <arth-article-box [article]="article"></arth-article-box>
     }
   </div>

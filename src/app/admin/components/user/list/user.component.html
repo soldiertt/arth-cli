@@ -12,7 +12,7 @@
     </tr>
   </thead>
   <tbody>
-    @for (user of users$ | async; track user) {
+    @for (user of users$ | async; track user.user_id) {
       <tr>
         <td>{{user.user_id}}</td>
         <td>{{user.user_metadata?.name}}</td>

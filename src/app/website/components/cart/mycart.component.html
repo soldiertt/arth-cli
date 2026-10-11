@@ -14,7 +14,7 @@
           </tr>
         </thead>
         <tbody>
-          @for (order of cart.orders; track order) {
+          @for (order of cart.orders; track order.article.id) {
             <tr>
               <td class="picture-cell d-none d-sm-block">
                 @if (!order.article.noLink) {

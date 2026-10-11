@@ -24,7 +24,7 @@ export class ArticleBoxComponent {
   private jQueryService = inject(JQueryService);
 
 
-  readonly article = input<Article>();
+  readonly article = input.required<Article>();
 
   addToCart(article) {
     const component = this;

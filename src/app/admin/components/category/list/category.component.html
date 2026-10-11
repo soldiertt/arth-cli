@@ -18,7 +18,7 @@
     </tr>
   </thead>
   <tbody>
-    @for (category of categories$ | async; track category) {
+    @for (category of categories$ | async; track category.id) {
       <tr>
         <td>{{category.name}}</td>
         <td>{{category.titleFr}}</td>

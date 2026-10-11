@@ -9,7 +9,7 @@
       </div>
     </div>
     <div class="section group">
-      @for (article of articles$ | async; track article; let isOdd = $odd) {
+      @for (article of articles$ | async; track article.id; let isOdd = $odd) {
         <arth-advanced-article-box [article]="article" [isOdd]="isOdd"></arth-advanced-article-box>
       }
     </div>

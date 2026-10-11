@@ -4,11 +4,12 @@ import {Observable} from 'rxjs';
 import Slide from '../../model/slider.class';
 import { HttpClient } from '@angular/common/http';
 import Article from '../../model/article.class';
+import {REST_ENDPOINT} from '../../tokens';
 
 @Injectable()
 export class SliderRestService {
   private http = inject(HttpClient);
-  private BASE_URL = inject<string>('REST_ENDPOINT' as any);
+  private BASE_URL = inject(REST_ENDPOINT);
 
 
   listAll(): Observable<Slide[]> {

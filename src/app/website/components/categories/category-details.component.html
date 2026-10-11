@@ -32,7 +32,7 @@
           <div>
             <h3>{{'common.links.categories' | trans}}</h3>
             <div class="content_bottom">
-              @for (subCateg of productData.subCategories; track subCateg) {
+              @for (subCateg of productData.subCategories; track subCateg.id) {
                 <div class="categ-link" [routerLink]="['/categ', subCateg.name]">
                   {{subCateg | catTitle}}
                 </div>
@@ -43,7 +43,7 @@
         } @else {
           <h3>{{'common.label.allarticles' | trans}}</h3>
           <arth-static-content-category [current]="productData.selected"></arth-static-content-category>
-          @for (article of productData.currentProducts | orderBy : orderBy; track article) {
+          @for (article of productData.currentProducts | orderBy : orderBy; track article.id) {
             <arth-article-box [article]="article"></arth-article-box>
           }
         }

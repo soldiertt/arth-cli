@@ -12,6 +12,6 @@ import { I18nPipe } from '../../../shared/i18n/i18n.pipe';
 })
 export class StaticContentCategoryComponent {
 
-  readonly current = input<ProductItemData>();
+  readonly current = input.required<ProductItemData>();
 
 }
