@@ -1,10 +1,11 @@
 import {Component, ElementRef, Input, ViewChild} from '@angular/core';
-import {FormArray, FormControl, NgForm} from '@angular/forms';
+import { FormArray, FormControl, NgForm, FormsModule } from '@angular/forms';
 import {Store} from '@ngrx/store';
 import AdvancedArticle from '../../../../shared/model/advanced-article.class';
 import {UploadService} from '../../../../shared/service/upload.service';
 import {AdvancedProductActions} from '../../../actions/advanced-product.actions';
 import {FromAdminAdvancedProduct} from '../../../reducers/advanced-product.reducer';
+import { NgIf, NgFor } from '@angular/common';
 
 declare const $: any;
 
@@ -16,7 +17,7 @@ interface AdvancedProductCategory {
 @Component({
     selector: 'arth-admin-advanced-product-modal',
     templateUrl: './edit-advanced-product.component.html',
-    standalone: false
+    imports: [FormsModule, NgIf, NgFor]
 })
 export class EditAdvancedProductComponent {
 

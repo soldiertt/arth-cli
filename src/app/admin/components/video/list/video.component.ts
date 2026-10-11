@@ -4,10 +4,12 @@ import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {VideoActions} from '../../../../shared/actions/video.actions';
 import {FromAdminVideo} from '../../../reducers/video.reducer';
+import { NgFor, AsyncPipe } from '@angular/common';
+import { EditVideoComponent } from '../edit/edit-video.component';
 
 @Component({
     templateUrl: './video.component.html',
-    standalone: false
+    imports: [NgFor, EditVideoComponent, AsyncPipe]
 })
 export class VideoComponent implements OnInit {
 

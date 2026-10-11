@@ -6,10 +6,11 @@ import {Store} from '@ngrx/store';
 import PaypalOrder from '../../../../shared/model/paypalorder.class';
 import {PaypalOrderActions} from '../../../../shared/actions/paypal-order.actions';
 import {FromAdminPaypalOrder} from '../../../reducers/paypal-order.reducer';
+import { NgFor, AsyncPipe, JsonPipe, DatePipe } from '@angular/common';
 
 @Component({
     templateUrl: './order.component.html',
-    standalone: false
+    imports: [NgFor, AsyncPipe, JsonPipe, DatePipe]
 })
 export class OrderComponent implements OnInit {
 

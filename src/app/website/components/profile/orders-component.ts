@@ -9,12 +9,14 @@ import {Subject} from 'rxjs';
 import {PaypalOrderActions} from '../../../shared/actions/paypal-order.actions';
 import {FromPaypalOrder} from '../../reducers/paypal-order.reducer';
 import {FromProfile} from '../../../root/reducers/user-profile.reducer';
+import { NgFor, NgIf, CurrencyPipe, DatePipe } from '@angular/common';
+import { I18nPipe } from '../../../shared/i18n/i18n.pipe';
 
 @Component({
     selector: 'arth-orders',
     templateUrl: './orders-component.html',
     styleUrls: ['./orders-component.css'],
-    standalone: false
+    imports: [NgFor, NgIf, CurrencyPipe, DatePipe, I18nPipe]
 })
 export class OrdersComponent implements OnInit, OnDestroy {
 

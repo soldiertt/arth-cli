@@ -3,8 +3,7 @@ import {I18nService} from '../../shared/service/i18n.service';
 import Category from '../../shared/model/category.class';
 
 @Pipe({
-    name: 'catTitle', pure: false,
-    standalone: false
+    name: 'catTitle', pure: false
 })
 export class CategoryTitlePipe implements PipeTransform {
 

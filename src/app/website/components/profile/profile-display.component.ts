@@ -3,11 +3,13 @@ import UserProfile from '../../model/user-profile.class';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 import {FromProfile} from '../../../root/reducers/user-profile.reducer';
+import { NgIf, AsyncPipe } from '@angular/common';
+import { I18nPipe } from '../../../shared/i18n/i18n.pipe';
 
 @Component({
     selector: 'arth-profile-display',
     templateUrl: 'profile-display.component.html',
-    standalone: false
+    imports: [NgIf, AsyncPipe, I18nPipe]
 })
 export class ProfileDisplayComponent implements OnInit {
 

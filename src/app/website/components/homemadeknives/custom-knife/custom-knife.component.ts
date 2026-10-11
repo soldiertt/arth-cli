@@ -12,8 +12,7 @@ declare const $: any;
 @Component({
     selector: 'arth-custom-knife',
     templateUrl: 'custom-knife.component.html',
-    styleUrls: ['custom-knife.component.css'],
-    standalone: false
+    styleUrls: ['custom-knife.component.css']
 })
 export class CustomKnifeComponent implements OnInit {
 

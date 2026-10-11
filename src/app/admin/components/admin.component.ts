@@ -1,9 +1,11 @@
 import {Component} from '@angular/core';
+import { AdminMenuComponent } from './menu/menu.component';
+import { RouterOutlet } from '@angular/router';
 
 
-@Component( {
+@Component({
     templateUrl: './admin.component.html',
-    standalone: false
+    imports: [AdminMenuComponent, RouterOutlet]
 })
 export class AdminComponent {
 

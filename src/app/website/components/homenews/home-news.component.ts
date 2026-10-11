@@ -1,11 +1,13 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { NgIf } from '@angular/common';
+import { I18nPipe } from '../../../shared/i18n/i18n.pipe';
 
 @Component({
     templateUrl: 'home-news.component.html',
     styleUrls: ['home-news.component.css'],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+    imports: [RouterLink, NgIf, I18nPipe]
 })
 export class HomeNewsComponent  {
 

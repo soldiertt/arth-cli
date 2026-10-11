@@ -5,6 +5,9 @@ import CartData from '../../../model/cart-data.class';
 import {Store} from '@ngrx/store';
 import {PictureService} from '../../../../shared/service/picture.service';
 import {CartDataActions} from '../../../actions/cart-data.actions';
+import { RouterLink } from '@angular/router';
+import { NgIf, CurrencyPipe } from '@angular/common';
+import { I18nPipe } from '../../../../shared/i18n/i18n.pipe';
 
 declare const $: any;
 
@@ -12,7 +15,7 @@ declare const $: any;
     selector: 'arth-article-box',
     templateUrl: 'article-box.component.html',
     styleUrls: ['article-box.component.css'],
-    standalone: false
+    imports: [RouterLink, NgIf, CurrencyPipe, I18nPipe]
 })
 export class ArticleBoxComponent {
 

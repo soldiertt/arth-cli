@@ -1,10 +1,7 @@
 import {Pipe, PipeTransform} from '@angular/core';
 import Article from '../../shared/model/article.class';
 
-@Pipe({
-    name: 'orderBy',
-    standalone: false
-})
+@Pipe({ name: 'orderBy' })
 export class SortPipe implements PipeTransform {
 
   transform(array: Article[], args: string): any[] {

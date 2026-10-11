@@ -9,11 +9,18 @@ import {Store} from '@ngrx/store';
 import {Observable, Subject} from 'rxjs';
 import {ProfileActions} from '../../../root/actions/user-profile.actions';
 import {FromProfile} from '../../../root/reducers/user-profile.reducer';
+import { NgIf, AsyncPipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { ProfileDisplayComponent } from './profile-display.component';
+import { ProfileEmailComponent } from './profile-email.component';
+import { ProfileEditComponent } from './profile-edit.component';
+import { OrdersComponent } from './orders-component';
+import { I18nPipe } from '../../../shared/i18n/i18n.pipe';
 
 @Component({
     selector: 'arth-profile',
     templateUrl: 'profile.component.html',
-    standalone: false
+    imports: [NgIf, FormsModule, ProfileDisplayComponent, ProfileEmailComponent, ProfileEditComponent, OrdersComponent, AsyncPipe, I18nPipe]
 })
 export class ProfileComponent implements OnInit, OnDestroy {
 

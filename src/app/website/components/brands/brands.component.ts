@@ -4,11 +4,14 @@ import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 import {FromBrand} from '../../reducers/brand.reducer';
 import {BrandActions} from '../../../shared/actions/brand.actions';
+import { RouterLink } from '@angular/router';
+import { NgFor, AsyncPipe } from '@angular/common';
+import { I18nPipe } from '../../../shared/i18n/i18n.pipe';
 
 @Component({
     selector: 'arth-brands',
     templateUrl: 'brands.component.html',
-    standalone: false
+    imports: [RouterLink, NgFor, AsyncPipe, I18nPipe]
 })
 export class BrandsComponent implements OnInit {
 

@@ -3,13 +3,15 @@ import {Store} from '@ngrx/store';
 import Brand from '../../../../shared/model/brand.class';
 import {BrandActions} from '../../../../shared/actions/brand.actions';
 import {FromAdminBrand} from '../../../reducers/brand.reducer';
+import { FormsModule } from '@angular/forms';
+import { NgIf } from '@angular/common';
 
 declare const $: any;
 
 @Component({
     selector: 'arth-admin-brand-modal',
     templateUrl: './edit-brand.component.html',
-    standalone: false
+    imports: [FormsModule, NgIf]
 })
 export class EditBrandComponent {
 

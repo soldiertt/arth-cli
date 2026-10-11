@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {Store} from '@ngrx/store';
 import {ToastrService} from 'ngx-toastr';
 import {Observable, Subject} from 'rxjs';
@@ -8,6 +8,8 @@ import AdvancedArticle from '../../../../shared/model/advanced-article.class';
 import {PictureService} from '../../../../shared/service/picture.service';
 import {AdvancedProductActions} from '../../../actions/advanced-product.actions';
 import {FromAdminAdvancedProduct} from '../../../reducers/advanced-product.reducer';
+import { NgFor, AsyncPipe } from '@angular/common';
+import { EditAdvancedProductComponent } from '../edit/edit-advanced-product.component';
 
 interface AdvancedProductCategory {
   name: string;
@@ -17,7 +19,7 @@ interface AdvancedProductCategory {
 @Component({
     templateUrl: './advanced-product.component.html',
     styleUrls: ['./advanced-product.component.css'],
-    standalone: false
+    imports: [FormsModule, ReactiveFormsModule, NgFor, EditAdvancedProductComponent, AsyncPipe]
 })
 export class AdvancedProductComponent implements OnInit, OnDestroy {
 

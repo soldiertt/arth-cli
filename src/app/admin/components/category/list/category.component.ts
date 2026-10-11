@@ -4,10 +4,12 @@ import {Observable} from 'rxjs';
 import Category from '../../../../shared/model/category.class';
 import {CategoryActions} from '../../../../shared/actions/category.actions';
 import {FromAdminCategory} from '../../../reducers/category.reducer';
+import { NgFor, AsyncPipe } from '@angular/common';
+import { EditCategoryComponent } from '../edit/edit-category.component';
 
 @Component({
     templateUrl: './category.component.html',
-    standalone: false
+    imports: [NgFor, EditCategoryComponent, AsyncPipe]
 })
 export class CategoryComponent implements OnInit {
 

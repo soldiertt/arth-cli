@@ -12,6 +12,8 @@ import {Subject} from 'rxjs';
 import {CartDataActions} from '../../actions/cart-data.actions';
 import {FromCartData} from '../../reducers/cart-data.reducer';
 import {FromProfile} from '../../../root/reducers/user-profile.reducer';
+import { NgIf } from '@angular/common';
+import { I18nPipe } from '../../../shared/i18n/i18n.pipe';
 
 declare const paypal: any;
 
@@ -19,7 +21,7 @@ declare const paypal: any;
     selector: 'arth-cart-navigation',
     templateUrl: './cart-navigation.component.html',
     styleUrls: ['./cart-navigation.component.css'],
-    standalone: false
+    imports: [NgIf, I18nPipe]
 })
 export class CartNavigationComponent implements OnInit, AfterViewInit, OnDestroy {
 

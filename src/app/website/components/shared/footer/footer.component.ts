@@ -1,11 +1,14 @@
 import {Component} from '@angular/core';
 import {Auth0Service} from '../../../../shared/service/auth.service';
+import { RouterLink } from '@angular/router';
+import { NgIf } from '@angular/common';
+import { I18nPipe } from '../../../../shared/i18n/i18n.pipe';
 
 @Component({
     selector: 'arth-footer',
     templateUrl: 'footer.component.html',
     styleUrls: ['footer.component.css'],
-    standalone: false
+    imports: [RouterLink, NgIf, I18nPipe]
 })
 export class FooterComponent {
 

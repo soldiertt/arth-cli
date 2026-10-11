@@ -7,6 +7,8 @@ import CartData from '../../../model/cart-data.class';
 import {Store} from '@ngrx/store';
 import {PictureService} from '../../../../shared/service/picture.service';
 import {CartDataActions} from '../../../actions/cart-data.actions';
+import { NgFor, NgIf, CurrencyPipe } from '@angular/common';
+import { I18nPipe } from '../../../../shared/i18n/i18n.pipe';
 
 declare const $: any;
 
@@ -14,7 +16,7 @@ declare const $: any;
     selector: 'arth-advanced-article-box',
     templateUrl: 'advanced-article-box.component.html',
     styleUrls: ['advanced-article-box.component.css'],
-    standalone: false
+    imports: [NgFor, NgIf, CurrencyPipe, I18nPipe]
 })
 export class AdvancedArticleBoxComponent implements OnInit, OnChanges {
 

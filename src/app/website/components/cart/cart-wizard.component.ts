@@ -9,10 +9,15 @@ import {Observable, Subject} from 'rxjs';
 
 import {CartDataActions} from '../../actions/cart-data.actions';
 import {FromCartData} from '../../reducers/cart-data.reducer';
+import { NgIf, AsyncPipe } from '@angular/common';
+import { CartBreadcrumbComponent } from './cart-breadcrumb.component';
+import { MyCartComponent } from './mycart.component';
+import { ConfirmAddressComponent } from './confirm-address.component';
+import { CartNavigationComponent } from './cart-navigation.component';
 
 @Component({
     templateUrl: 'cart-wizard.component.html',
-    standalone: false
+    imports: [NgIf, CartBreadcrumbComponent, MyCartComponent, ConfirmAddressComponent, CartNavigationComponent, AsyncPipe]
 })
 export class CartWizardComponent implements OnInit, OnDestroy {
 

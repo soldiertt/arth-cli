@@ -4,10 +4,11 @@ import {Store} from '@ngrx/store';
 import UserProfile from '../../../../website/model/user-profile.class';
 import {UserActions} from '../../../actions/user.actions';
 import {FromAdminUser} from '../../../reducers/user.reducer';
+import { NgFor, NgIf, AsyncPipe, DatePipe } from '@angular/common';
 
 @Component({
     templateUrl: './user.component.html',
-    standalone: false
+    imports: [NgFor, NgIf, AsyncPipe, DatePipe]
 })
 export class UserComponent implements OnInit {
 

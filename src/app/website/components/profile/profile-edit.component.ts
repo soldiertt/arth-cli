@@ -1,7 +1,7 @@
 
 import {takeUntil} from 'rxjs/operators';
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {FormBuilder, Validators} from '@angular/forms';
+import { FormBuilder, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {CountryRestService} from '../../../shared/service/rest/country.rest.service';
 import Country from '../../../shared/model/country.class';
 import {FormComponent} from '../form.component';
@@ -13,12 +13,14 @@ import {Subject} from 'rxjs';
 
 import {ProfileActions} from '../../../root/actions/user-profile.actions';
 import {FromProfile} from '../../../root/reducers/user-profile.reducer';
+import { NgIf, NgFor } from '@angular/common';
+import { I18nPipe } from '../../../shared/i18n/i18n.pipe';
 
 @Component({
     selector: 'arth-profile-edit',
     templateUrl: 'profile-edit.component.html',
     styleUrls: ['profile-edit.component.css'],
-    standalone: false
+    imports: [FormsModule, ReactiveFormsModule, NgIf, NgFor, I18nPipe]
 })
 export class ProfileEditComponent extends FormComponent implements OnInit, OnDestroy {
 

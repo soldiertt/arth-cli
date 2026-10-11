@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import Slide from '../../../../shared/model/slider.class';
-import {Router} from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import Article from '../../../../shared/model/article.class';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
@@ -9,12 +9,14 @@ import {SlideProductActions} from '../../../../shared/actions/slide-product.acti
 import {PictureService} from '../../../../shared/service/picture.service';
 import {FromSlide} from '../../../reducers/slide.reducer';
 import {FromSlideProduct} from '../../../reducers/slide-product.reducer';
+import { NgFor, NgIf, AsyncPipe, CurrencyPipe } from '@angular/common';
+import { TruncatePipe } from '../../../pipe/truncate.pipe';
 
 @Component({
     selector: 'arth-slider',
     templateUrl: 'slider.component.html',
     styleUrls: ['slider.component.css'],
-    standalone: false
+    imports: [NgFor, NgIf, RouterLink, AsyncPipe, CurrencyPipe, TruncatePipe]
 })
 export class SliderComponent implements OnInit {
 

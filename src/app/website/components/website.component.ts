@@ -9,10 +9,13 @@ import {Subject} from 'rxjs';
 
 import {ProfileActions} from '../../root/actions/user-profile.actions';
 import {FromCartData} from '../reducers/cart-data.reducer';
+import { HeaderComponent } from './shared/header/header.component';
+import { RouterOutlet } from '@angular/router';
+import { FooterComponent } from './shared/footer/footer.component';
 
 @Component({
     templateUrl: './website.component.html',
-    standalone: false
+    imports: [HeaderComponent, RouterOutlet, FooterComponent]
 })
 export class WebsiteComponent implements OnInit, OnDestroy {
 

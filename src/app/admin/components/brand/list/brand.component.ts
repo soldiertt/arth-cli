@@ -4,10 +4,12 @@ import {Store} from '@ngrx/store';
 import Brand from '../../../../shared/model/brand.class';
 import {BrandActions} from '../../../../shared/actions/brand.actions';
 import {FromAdminBrand} from '../../../reducers/brand.reducer';
+import { NgFor, AsyncPipe } from '@angular/common';
+import { EditBrandComponent } from '../edit/edit-brand.component';
 
 @Component({
     templateUrl: './brand.component.html',
-    standalone: false
+    imports: [NgFor, EditBrandComponent, AsyncPipe]
 })
 export class BrandComponent implements OnInit {
 

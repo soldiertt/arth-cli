@@ -1,5 +1,5 @@
 import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
-import {FormArray, FormControl, NgForm} from '@angular/forms';
+import { FormArray, FormControl, NgForm, FormsModule } from '@angular/forms';
 import Article from '../../../../shared/model/article.class';
 import Category from '../../../../shared/model/category.class';
 import {Observable} from 'rxjs';
@@ -12,13 +12,14 @@ import {ProductActions} from '../../../actions/product.actions';
 import {FromAdminBrand} from '../../../reducers/brand.reducer';
 import {FromAdminCategory} from '../../../reducers/category.reducer';
 import {FromAdminProduct} from '../../../reducers/product.reducer';
+import { NgIf, NgFor, AsyncPipe } from '@angular/common';
 
 declare const $: any;
 
 @Component({
     selector: 'arth-admin-product-modal',
     templateUrl: './edit-product.component.html',
-    standalone: false
+    imports: [FormsModule, NgIf, NgFor, AsyncPipe]
 })
 export class EditProductComponent implements OnInit {
 
