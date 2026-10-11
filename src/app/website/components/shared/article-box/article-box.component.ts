@@ -9,9 +9,10 @@ import {CartDataActions} from '../../../actions/cart-data.actions';
 declare const $: any;
 
 @Component({
-  selector: 'arth-article-box',
-  templateUrl: 'article-box.component.html',
-  styleUrls: ['article-box.component.css']
+    selector: 'arth-article-box',
+    templateUrl: 'article-box.component.html',
+    styleUrls: ['article-box.component.css'],
+    standalone: false
 })
 export class ArticleBoxComponent {
 

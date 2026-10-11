@@ -10,9 +10,10 @@ import {FromCartData} from '../../reducers/cart-data.reducer';
 import Order from '../../../shared/model/order.class';
 
 @Component({
-  selector: 'arth-mycart',
-  templateUrl: 'mycart.component.html',
-  styleUrls: ['mycart.component.css']
+    selector: 'arth-mycart',
+    templateUrl: 'mycart.component.html',
+    styleUrls: ['mycart.component.css'],
+    standalone: false
 })
 export class MyCartComponent implements OnInit {
 

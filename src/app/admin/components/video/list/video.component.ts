@@ -6,7 +6,8 @@ import {VideoActions} from '../../../../shared/actions/video.actions';
 import {FromAdminVideo} from '../../../reducers/video.reducer';
 
 @Component({
-  templateUrl: './video.component.html'
+    templateUrl: './video.component.html',
+    standalone: false
 })
 export class VideoComponent implements OnInit {
 

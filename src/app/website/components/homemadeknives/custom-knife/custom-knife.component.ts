@@ -10,9 +10,10 @@ import {CartDataActions} from '../../../actions/cart-data.actions';
 declare const $: any;
 
 @Component({
-  selector: 'arth-custom-knife',
-  templateUrl: 'custom-knife.component.html',
-  styleUrls: ['custom-knife.component.css']
+    selector: 'arth-custom-knife',
+    templateUrl: 'custom-knife.component.html',
+    styleUrls: ['custom-knife.component.css'],
+    standalone: false
 })
 export class CustomKnifeComponent implements OnInit {
 

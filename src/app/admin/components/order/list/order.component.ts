@@ -8,7 +8,8 @@ import {PaypalOrderActions} from '../../../../shared/actions/paypal-order.action
 import {FromAdminPaypalOrder} from '../../../reducers/paypal-order.reducer';
 
 @Component({
-  templateUrl: './order.component.html'
+    templateUrl: './order.component.html',
+    standalone: false
 })
 export class OrderComponent implements OnInit {
 

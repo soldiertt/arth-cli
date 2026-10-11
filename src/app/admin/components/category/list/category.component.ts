@@ -6,7 +6,8 @@ import {CategoryActions} from '../../../../shared/actions/category.actions';
 import {FromAdminCategory} from '../../../reducers/category.reducer';
 
 @Component({
-  templateUrl: './category.component.html'
+    templateUrl: './category.component.html',
+    standalone: false
 })
 export class CategoryComponent implements OnInit {
 

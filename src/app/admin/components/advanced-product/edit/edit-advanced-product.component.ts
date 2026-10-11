@@ -14,8 +14,9 @@ interface AdvancedProductCategory {
 }
 
 @Component({
-  selector: 'arth-admin-advanced-product-modal',
-  templateUrl: './edit-advanced-product.component.html'
+    selector: 'arth-admin-advanced-product-modal',
+    templateUrl: './edit-advanced-product.component.html',
+    standalone: false
 })
 export class EditAdvancedProductComponent {
 

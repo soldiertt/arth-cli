@@ -6,7 +6,8 @@ import {UserActions} from '../../../actions/user.actions';
 import {FromAdminUser} from '../../../reducers/user.reducer';
 
 @Component({
-  templateUrl: './user.component.html'
+    templateUrl: './user.component.html',
+    standalone: false
 })
 export class UserComponent implements OnInit {
 

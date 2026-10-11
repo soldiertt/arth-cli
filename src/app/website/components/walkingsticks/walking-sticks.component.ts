@@ -6,7 +6,8 @@ import {Store} from '@ngrx/store';
 import {FromAdvancedProduct} from '../../reducers/advanced-product.reducer';
 
 @Component({
-  templateUrl: 'walking-sticks.component.html'
+    templateUrl: 'walking-sticks.component.html',
+    standalone: false
 })
 export class WalkingSticksComponent implements OnInit {
 

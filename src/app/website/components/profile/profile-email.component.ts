@@ -12,9 +12,10 @@ import {ProfileActions} from '../../../root/actions/user-profile.actions';
 import {FromProfile} from '../../../root/reducers/user-profile.reducer';
 
 @Component({
-  selector: 'arth-profile-email',
-  templateUrl: 'profile-email.component.html',
-  styleUrls: ['profile-email.component.css']
+    selector: 'arth-profile-email',
+    templateUrl: 'profile-email.component.html',
+    styleUrls: ['profile-email.component.css'],
+    standalone: false
 })
 export class ProfileEmailComponent extends FormComponent implements OnInit, OnDestroy {
 

@@ -11,9 +11,10 @@ import {FromSlide} from '../../../reducers/slide.reducer';
 import {FromSlideProduct} from '../../../reducers/slide-product.reducer';
 
 @Component({
-  selector: 'arth-slider',
-  templateUrl: 'slider.component.html',
-  styleUrls: ['slider.component.css']
+    selector: 'arth-slider',
+    templateUrl: 'slider.component.html',
+    styleUrls: ['slider.component.css'],
+    standalone: false
 })
 export class SliderComponent implements OnInit {
 

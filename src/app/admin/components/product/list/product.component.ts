@@ -25,8 +25,9 @@ import {PictureService} from '../../../../shared/service/picture.service';
 import {saveAs} from 'file-saver';
 
 @Component({
-  templateUrl: './product.component.html',
-  styleUrls: ['./product.component.css']
+    templateUrl: './product.component.html',
+    styleUrls: ['./product.component.css'],
+    standalone: false
 })
 export class ProductComponent implements OnInit, OnDestroy {
 

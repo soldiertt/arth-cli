@@ -9,8 +9,9 @@ import {FromAdminSlide} from '../../../reducers/slide.reducer';
 declare const $: any;
 
 @Component({
-  selector: 'arth-admin-slide-modal',
-  templateUrl: './edit-slide.component.html'
+    selector: 'arth-admin-slide-modal',
+    templateUrl: './edit-slide.component.html',
+    standalone: false
 })
 export class EditSlideComponent {
 

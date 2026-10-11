@@ -15,8 +15,9 @@ interface AdvancedProductCategory {
 }
 
 @Component({
-  templateUrl: './advanced-product.component.html',
-  styleUrls: ['./advanced-product.component.css']
+    templateUrl: './advanced-product.component.html',
+    styleUrls: ['./advanced-product.component.css'],
+    standalone: false
 })
 export class AdvancedProductComponent implements OnInit, OnDestroy {
 

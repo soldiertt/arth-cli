@@ -9,8 +9,9 @@ import {PromoProductActions} from '../../actions/promo-product.actions';
 import {FromPromoProduct} from '../../reducers/promo-product.reducer';
 
 @Component({
-  templateUrl: 'home.component.html',
-  styleUrls: ['home.component.css']
+    templateUrl: 'home.component.html',
+    styleUrls: ['home.component.css'],
+    standalone: false
 })
 export class HomeComponent implements OnInit {
 

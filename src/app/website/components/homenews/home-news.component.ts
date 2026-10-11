@@ -2,9 +2,10 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 
 @Component({
-  templateUrl: 'home-news.component.html',
-  styleUrls: ['home-news.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    templateUrl: 'home-news.component.html',
+    styleUrls: ['home-news.component.css'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class HomeNewsComponent  {
 

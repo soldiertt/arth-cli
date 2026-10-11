@@ -17,9 +17,10 @@ import {FromProduct} from '../../reducers/product.reducer';
 declare const $: any;
 
 @Component({
-  selector: 'arth-detail',
-  templateUrl: './detail.component.html',
-  styleUrls: ['./detail.component.css']
+    selector: 'arth-detail',
+    templateUrl: './detail.component.html',
+    styleUrls: ['./detail.component.css'],
+    standalone: false
 })
 export class DetailComponent implements OnInit, OnDestroy {
 

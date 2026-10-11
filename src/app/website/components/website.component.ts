@@ -11,7 +11,8 @@ import {ProfileActions} from '../../root/actions/user-profile.actions';
 import {FromCartData} from '../reducers/cart-data.reducer';
 
 @Component({
-  templateUrl: './website.component.html',
+    templateUrl: './website.component.html',
+    standalone: false
 })
 export class WebsiteComponent implements OnInit, OnDestroy {
 

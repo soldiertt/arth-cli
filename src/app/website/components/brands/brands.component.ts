@@ -6,8 +6,9 @@ import {FromBrand} from '../../reducers/brand.reducer';
 import {BrandActions} from '../../../shared/actions/brand.actions';
 
 @Component({
-  selector: 'arth-brands',
-  templateUrl: 'brands.component.html'
+    selector: 'arth-brands',
+    templateUrl: 'brands.component.html',
+    standalone: false
 })
 export class BrandsComponent implements OnInit {
 

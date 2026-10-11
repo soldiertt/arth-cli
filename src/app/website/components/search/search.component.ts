@@ -8,7 +8,8 @@ import {ProductActions} from '../../actions/product.actions';
 import {FromProduct} from '../../reducers/product.reducer';
 
 @Component({
-  templateUrl: './search.component.html'
+    templateUrl: './search.component.html',
+    standalone: false
 })
 export class SearchComponent implements OnInit {
 

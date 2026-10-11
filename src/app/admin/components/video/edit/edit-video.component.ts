@@ -7,8 +7,9 @@ import {FromAdminVideo} from '../../../reducers/video.reducer';
 declare const $: any;
 
 @Component({
-  selector: 'arth-admin-video-modal',
-  templateUrl: './edit-video.component.html'
+    selector: 'arth-admin-video-modal',
+    templateUrl: './edit-video.component.html',
+    standalone: false
 })
 export class EditVideoComponent {
 

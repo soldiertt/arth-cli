@@ -5,9 +5,10 @@ import {Observable} from 'rxjs';
 import {FromCategory} from '../../reducers/category.reducer';
 
 @Component({
-  selector: 'arth-category-list',
-  templateUrl: './category-list.component.html',
-  styleUrls: ['./category-list.component.css']
+    selector: 'arth-category-list',
+    templateUrl: './category-list.component.html',
+    styleUrls: ['./category-list.component.css'],
+    standalone: false
 })
 export class CategoryListComponent implements OnInit {
 

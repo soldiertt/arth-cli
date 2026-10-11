@@ -11,9 +11,10 @@ import {CartDataActions} from '../../../actions/cart-data.actions';
 declare const $: any;
 
 @Component({
-  selector: 'arth-advanced-article-box',
-  templateUrl: 'advanced-article-box.component.html',
-  styleUrls: ['advanced-article-box.component.css']
+    selector: 'arth-advanced-article-box',
+    templateUrl: 'advanced-article-box.component.html',
+    styleUrls: ['advanced-article-box.component.css'],
+    standalone: false
 })
 export class AdvancedArticleBoxComponent implements OnInit, OnChanges {
 

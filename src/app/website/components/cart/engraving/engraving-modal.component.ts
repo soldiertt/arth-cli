@@ -7,8 +7,9 @@ import {CartDataActions} from '../../../actions/cart-data.actions';
 declare const $: any;
 
 @Component({
-  selector: 'arth-engraving-modal',
-  templateUrl: './engraving-modal.component.html'
+    selector: 'arth-engraving-modal',
+    templateUrl: './engraving-modal.component.html',
+    standalone: false
 })
 export class EngravingModalComponent {
 

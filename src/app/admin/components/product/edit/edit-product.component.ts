@@ -16,8 +16,9 @@ import {FromAdminProduct} from '../../../reducers/product.reducer';
 declare const $: any;
 
 @Component({
-  selector: 'arth-admin-product-modal',
-  templateUrl: './edit-product.component.html'
+    selector: 'arth-admin-product-modal',
+    templateUrl: './edit-product.component.html',
+    standalone: false
 })
 export class EditProductComponent implements OnInit {
 

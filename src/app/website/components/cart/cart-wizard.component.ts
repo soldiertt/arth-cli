@@ -11,7 +11,8 @@ import {CartDataActions} from '../../actions/cart-data.actions';
 import {FromCartData} from '../../reducers/cart-data.reducer';
 
 @Component({
-  templateUrl: 'cart-wizard.component.html'
+    templateUrl: 'cart-wizard.component.html',
+    standalone: false
 })
 export class CartWizardComponent implements OnInit, OnDestroy {
 

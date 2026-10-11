@@ -9,7 +9,8 @@ import {FromAdminSlide} from '../../../reducers/slide.reducer';
 import {FromAdminSlideProduct} from '../../../reducers/slide-product.reducer';
 
 @Component({
-  templateUrl: './slide.component.html'
+    templateUrl: './slide.component.html',
+    standalone: false
 })
 export class SlideComponent implements OnInit {
 

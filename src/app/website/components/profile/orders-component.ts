@@ -11,9 +11,10 @@ import {FromPaypalOrder} from '../../reducers/paypal-order.reducer';
 import {FromProfile} from '../../../root/reducers/user-profile.reducer';
 
 @Component({
-  selector: 'arth-orders',
-  templateUrl: './orders-component.html',
-  styleUrls: ['./orders-component.css']
+    selector: 'arth-orders',
+    templateUrl: './orders-component.html',
+    styleUrls: ['./orders-component.css'],
+    standalone: false
 })
 export class OrdersComponent implements OnInit, OnDestroy {
 

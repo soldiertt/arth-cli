@@ -11,8 +11,9 @@ import {FromCartData} from '../../reducers/cart-data.reducer';
 import {FromProfile} from '../../../root/reducers/user-profile.reducer';
 
 @Component({
-  selector: 'arth-confirm-address',
-  templateUrl: './confirm-address.component.html'
+    selector: 'arth-confirm-address',
+    templateUrl: './confirm-address.component.html',
+    standalone: false
 })
 export class ConfirmAddressComponent implements OnInit, OnDestroy {
 

@@ -10,8 +10,9 @@ import {ProductActions} from '../../actions/product.actions';
 import {FromProduct} from '../../reducers/product.reducer';
 
 @Component({
-  selector: 'arth-brand-articles',
-  templateUrl: 'brand-articles.component.html'
+    selector: 'arth-brand-articles',
+    templateUrl: 'brand-articles.component.html',
+    standalone: false
 })
 export class BrandArticlesComponent implements OnInit {
 

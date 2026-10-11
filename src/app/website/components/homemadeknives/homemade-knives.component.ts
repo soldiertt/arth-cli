@@ -6,7 +6,8 @@ import {Store} from '@ngrx/store';
 import {FromAdvancedProduct} from '../../reducers/advanced-product.reducer';
 
 @Component({
-  templateUrl: 'homemade-knives.component.html'
+    templateUrl: 'homemade-knives.component.html',
+    standalone: false
 })
 export class HomemadeKnivesComponent implements OnInit {
 

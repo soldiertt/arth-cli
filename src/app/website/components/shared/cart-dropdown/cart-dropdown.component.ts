@@ -8,9 +8,10 @@ import {CartDataActions} from '../../../actions/cart-data.actions';
 import {FromCartData} from '../../../reducers/cart-data.reducer';
 
 @Component({
-  selector: 'arth-cart-dropdown',
-  templateUrl: 'cart-dropdown.component.html',
-  styleUrls: ['cart-dropdown.component.css']
+    selector: 'arth-cart-dropdown',
+    templateUrl: 'cart-dropdown.component.html',
+    styleUrls: ['cart-dropdown.component.css'],
+    standalone: false
 })
 export class CartDropdownComponent implements OnInit {
 

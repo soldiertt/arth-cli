@@ -6,7 +6,8 @@ import {BrandActions} from '../../../../shared/actions/brand.actions';
 import {FromAdminBrand} from '../../../reducers/brand.reducer';
 
 @Component({
-  templateUrl: './brand.component.html'
+    templateUrl: './brand.component.html',
+    standalone: false
 })
 export class BrandComponent implements OnInit {
 

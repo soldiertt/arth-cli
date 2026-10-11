@@ -6,9 +6,10 @@ import {Observable} from 'rxjs';
 import {FromCartData} from '../../reducers/cart-data.reducer';
 
 @Component({
-  selector: 'arth-cart-breadcrumb',
-  templateUrl: 'cart-breadcrumb.component.html',
-  styleUrls: ['cart-breadcrumb.component.css']
+    selector: 'arth-cart-breadcrumb',
+    templateUrl: 'cart-breadcrumb.component.html',
+    styleUrls: ['cart-breadcrumb.component.css'],
+    standalone: false
 })
 export class CartBreadcrumbComponent implements OnInit {
 

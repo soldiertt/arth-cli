@@ -8,8 +8,9 @@ import {ProductActions} from '../../actions/product.actions';
 import {FromProduct} from '../../reducers/product.reducer';
 
 @Component({
-  templateUrl: 'category-details.component.html',
-  styleUrls: ['category-details.component.css']
+    templateUrl: 'category-details.component.html',
+    styleUrls: ['category-details.component.css'],
+    standalone: false
 })
 export class CategoryDetailsComponent implements OnInit {
 

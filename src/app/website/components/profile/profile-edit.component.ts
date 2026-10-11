@@ -15,9 +15,10 @@ import {ProfileActions} from '../../../root/actions/user-profile.actions';
 import {FromProfile} from '../../../root/reducers/user-profile.reducer';
 
 @Component({
-  selector: 'arth-profile-edit',
-  templateUrl: 'profile-edit.component.html',
-  styleUrls: ['profile-edit.component.css']
+    selector: 'arth-profile-edit',
+    templateUrl: 'profile-edit.component.html',
+    styleUrls: ['profile-edit.component.css'],
+    standalone: false
 })
 export class ProfileEditComponent extends FormComponent implements OnInit, OnDestroy {
 

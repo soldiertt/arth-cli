@@ -7,8 +7,9 @@ import {FromAdminCategory} from '../../../reducers/category.reducer';
 declare const $: any;
 
 @Component({
-  selector: 'arth-admin-category-modal',
-  templateUrl: './edit-category.component.html'
+    selector: 'arth-admin-category-modal',
+    templateUrl: './edit-category.component.html',
+    standalone: false
 })
 export class EditCategoryComponent {
 

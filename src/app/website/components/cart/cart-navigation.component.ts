@@ -16,9 +16,10 @@ import {FromProfile} from '../../../root/reducers/user-profile.reducer';
 declare const paypal: any;
 
 @Component({
-  selector: 'arth-cart-navigation',
-  templateUrl: './cart-navigation.component.html',
-  styleUrls: ['./cart-navigation.component.css']
+    selector: 'arth-cart-navigation',
+    templateUrl: './cart-navigation.component.html',
+    styleUrls: ['./cart-navigation.component.css'],
+    standalone: false
 })
 export class CartNavigationComponent implements OnInit, AfterViewInit, OnDestroy {
 

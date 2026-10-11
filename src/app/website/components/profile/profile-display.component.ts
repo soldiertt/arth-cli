@@ -5,8 +5,9 @@ import {Observable} from 'rxjs';
 import {FromProfile} from '../../../root/reducers/user-profile.reducer';
 
 @Component({
-  selector: 'arth-profile-display',
-  templateUrl: 'profile-display.component.html'
+    selector: 'arth-profile-display',
+    templateUrl: 'profile-display.component.html',
+    standalone: false
 })
 export class ProfileDisplayComponent implements OnInit {
 

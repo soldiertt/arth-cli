@@ -7,8 +7,9 @@ import {FromAdminBrand} from '../../../reducers/brand.reducer';
 declare const $: any;
 
 @Component({
-  selector: 'arth-admin-brand-modal',
-  templateUrl: './edit-brand.component.html'
+    selector: 'arth-admin-brand-modal',
+    templateUrl: './edit-brand.component.html',
+    standalone: false
 })
 export class EditBrandComponent {
 
