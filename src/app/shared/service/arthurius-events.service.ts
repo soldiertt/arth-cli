@@ -1,4 +1,4 @@
-import { Injectable, Directive, output } from '@angular/core';
+import {Injectable, Directive, output} from '@angular/core';
 
 @Directive()
 @Injectable()

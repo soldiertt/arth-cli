@@ -1,4 +1,4 @@
-import { Pipe, PipeTransform, inject } from '@angular/core';
+import {Pipe, PipeTransform, inject} from '@angular/core';
 import {I18nService} from '../../shared/service/i18n.service';
 import Category from '../../shared/model/category.class';
 

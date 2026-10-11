@@ -1,11 +1,11 @@
-import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
+import {Component, OnInit, inject, ChangeDetectionStrategy} from '@angular/core';
 import CartData from '../../model/cart-data.class';
 import {Store} from '@ngrx/store';
 import CartWizard from '../../model/cart-wizard.class';
 import {Observable} from 'rxjs';
 import {FromCartData} from '../../reducers/cart-data.reducer';
-import { AsyncPipe } from '@angular/common';
-import { I18nPipe } from '../../../shared/i18n/i18n.pipe';
+import {AsyncPipe} from '@angular/common';
+import {I18nPipe} from '../../../shared/i18n/i18n.pipe';
 
 @Component({
     selector: 'arth-cart-breadcrumb',

@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
+import {Component, OnInit, inject, ChangeDetectionStrategy} from '@angular/core';
 import Cart from '../../../model/cart.class';
 import CartData from '../../../model/cart-data.class';
 import {Store} from '@ngrx/store';
@@ -6,9 +6,9 @@ import {Observable} from 'rxjs';
 import {PictureService} from '../../../../shared/service/picture.service';
 import {CartDataActions} from '../../../actions/cart-data.actions';
 import {FromCartData} from '../../../reducers/cart-data.reducer';
-import { AsyncPipe } from '@angular/common';
-import { RouterLink } from '@angular/router';
-import { I18nPipe } from '../../../../shared/i18n/i18n.pipe';
+import {AsyncPipe} from '@angular/common';
+import {RouterLink} from '@angular/router';
+import {I18nPipe} from '../../../../shared/i18n/i18n.pipe';
 
 @Component({
     selector: 'arth-cart-dropdown',

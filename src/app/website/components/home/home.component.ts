@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
+import {Component, OnInit, inject, ChangeDetectionStrategy} from '@angular/core';
 import {FromAdminVideo} from '../../../admin/reducers/video.reducer';
 import {VideoActions} from '../../../shared/actions/video.actions';
 import Article from '../../../shared/model/article.class';
@@ -7,11 +7,11 @@ import {Observable} from 'rxjs';
 import Video from '../../../shared/model/video.class';
 import {PromoProductActions} from '../../actions/promo-product.actions';
 import {FromPromoProduct} from '../../reducers/promo-product.reducer';
-import { SliderComponent } from '../shared/slider/slider.component';
-import { RouterLink } from '@angular/router';
-import { AsyncPipe } from '@angular/common';
-import { ArticleBoxComponent } from '../shared/article-box/article-box.component';
-import { I18nPipe } from '../../../shared/i18n/i18n.pipe';
+import {SliderComponent} from '../shared/slider/slider.component';
+import {RouterLink} from '@angular/router';
+import {AsyncPipe} from '@angular/common';
+import {ArticleBoxComponent} from '../shared/article-box/article-box.component';
+import {I18nPipe} from '../../../shared/i18n/i18n.pipe';
 
 @Component({
     templateUrl: 'home.component.html',

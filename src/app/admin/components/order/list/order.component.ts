@@ -1,12 +1,12 @@
 
 import {map} from 'rxjs/operators';
-import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
+import {Component, OnInit, inject, ChangeDetectionStrategy} from '@angular/core';
 import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
 import PaypalOrder from '../../../../shared/model/paypalorder.class';
 import {PaypalOrderActions} from '../../../../shared/actions/paypal-order.actions';
 import {FromAdminPaypalOrder} from '../../../reducers/paypal-order.reducer';
-import { AsyncPipe, JsonPipe, DatePipe } from '@angular/common';
+import {AsyncPipe, JsonPipe, DatePipe} from '@angular/common';
 
 @Component({
     templateUrl: './order.component.html',

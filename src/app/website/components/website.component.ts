@@ -1,17 +1,16 @@
 
 import {takeUntil} from 'rxjs/operators';
-import { Component, OnDestroy, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
+import {Component, OnDestroy, OnInit, inject, ChangeDetectionStrategy} from '@angular/core';
 import {AdvancedProductActions} from '../actions/advanced-product.actions';
 import CartData from '../model/cart-data.class';
 import {Store} from '@ngrx/store';
 import {CartDataActions} from '../actions/cart-data.actions';
 import {Subject} from 'rxjs';
-
 import {ProfileActions} from '../../root/actions/user-profile.actions';
 import {FromCartData} from '../reducers/cart-data.reducer';
-import { HeaderComponent } from './shared/header/header.component';
-import { RouterOutlet } from '@angular/router';
-import { FooterComponent } from './shared/footer/footer.component';
+import {HeaderComponent} from './shared/header/header.component';
+import {RouterOutlet} from '@angular/router';
+import {FooterComponent} from './shared/footer/footer.component';
 
 @Component({
     templateUrl: './website.component.html',

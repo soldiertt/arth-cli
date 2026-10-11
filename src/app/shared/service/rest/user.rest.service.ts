@@ -1,10 +1,9 @@
 
 import {map} from 'rxjs/operators';
-import { Injectable, inject } from '@angular/core';
+import {Injectable, inject} from '@angular/core';
 import {Observable} from 'rxjs';
-
 import UserMetaData from '../../../website/model/usermetadata.class';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import UserProfile from '../../../website/model/user-profile.class';
 import {REST_ENDPOINT} from '../../tokens';
 

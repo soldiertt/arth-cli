@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import {Injectable, inject} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {VideoActions} from '../actions/video.actions';
 import {map, mergeMap} from 'rxjs/operators';

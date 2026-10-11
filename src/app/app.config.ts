@@ -9,14 +9,11 @@ import {provideState, provideStore} from '@ngrx/store';
 import {provideNgxMatToast} from 'ngx-mat-toast';
 import {LightboxModule} from '@pierresh/ngx-lightbox';
 import {environment} from '../environments/environment';
-
 import {websiteRouterConfig} from './website/website.routes';
 import {adminRouterConfig} from './admin/admin.routes';
-
 import {FromProfile} from './root/reducers/user-profile.reducer';
 import {reducers as siteReducers} from './website/reducers';
 import {reducers as adminReducers} from './admin/reducers';
-
 import {AuthenticationEffects} from './root/effects/auth.effects';
 import {UserProfileEffects} from './root/effects/user-profile.effects';
 import {BrandEffects} from './shared/effects/brand.effects';
@@ -33,7 +30,6 @@ import {AdvancedProductEffects as AdminAdvancedProductEffects} from './admin/eff
 import {ProductEffects as AdminProductEffects} from './admin/effects/product.effects';
 import {SteelEffects} from './admin/effects/steel.effects';
 import {UserEffects} from './admin/effects/user.effects';
-
 import {ArthuriusEventsService} from './shared/service/arthurius-events.service';
 import {Auth0Service} from './shared/service/auth.service';
 import {I18nService} from './shared/service/i18n.service';
@@ -42,7 +38,6 @@ import {SessionService} from './shared/service/session.service';
 import {UploadService} from './shared/service/upload.service';
 import {JQueryService} from './website/service/jQuery.service';
 import {MailService} from './website/service/mail.service';
-
 import {AdvancedArticleRestService} from './shared/service/rest/advanced-article.rest.service';
 import {ArticleRestService} from './shared/service/rest/article.rest.service';
 import {BrandRestService} from './shared/service/rest/brand.rest.service';

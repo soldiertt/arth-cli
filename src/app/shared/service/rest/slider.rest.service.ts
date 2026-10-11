@@ -1,8 +1,7 @@
-import { Injectable, inject } from '@angular/core';
+import {Injectable, inject} from '@angular/core';
 import {Observable} from 'rxjs';
-
 import Slide from '../../model/slider.class';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import Article from '../../model/article.class';
 import {REST_ENDPOINT} from '../../tokens';
 

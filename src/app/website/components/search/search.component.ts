@@ -1,16 +1,16 @@
-import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import {Component, OnInit, inject, ChangeDetectionStrategy} from '@angular/core';
+import {ActivatedRoute, RouterLink} from '@angular/router';
 import Article from '../../../shared/model/article.class';
 import ProductData from '../../model/product-data.class';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 import {ProductActions} from '../../actions/product.actions';
 import {FromProduct} from '../../reducers/product.reducer';
-import { FormsModule } from '@angular/forms';
-import { AsyncPipe } from '@angular/common';
-import { ArticleBoxComponent } from '../shared/article-box/article-box.component';
-import { I18nPipe } from '../../../shared/i18n/i18n.pipe';
-import { SortPipe } from '../../pipe/sort.pipe';
+import {FormsModule} from '@angular/forms';
+import {AsyncPipe} from '@angular/common';
+import {ArticleBoxComponent} from '../shared/article-box/article-box.component';
+import {I18nPipe} from '../../../shared/i18n/i18n.pipe';
+import {SortPipe} from '../../pipe/sort.pipe';
 
 @Component({
     templateUrl: './search.component.html',

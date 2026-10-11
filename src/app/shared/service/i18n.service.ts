@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import {Injectable, inject} from '@angular/core';
 import frenchLanguage from '../i18n/fr';
 import dutchLanguage from '../i18n/nl';
 import englishLanguage from '../i18n/en';

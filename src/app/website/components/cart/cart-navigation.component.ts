@@ -1,6 +1,6 @@
 
 import {takeUntil} from 'rxjs/operators';
-import { AfterViewInit, Component, OnDestroy, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
+import {AfterViewInit, Component, OnDestroy, OnInit, inject, ChangeDetectionStrategy} from '@angular/core';
 import {Auth0Service} from '../../../shared/service/auth.service';
 import {PaypalRestService} from '../../../shared/service/rest/paypal.rest.service';
 import {environment} from '../../../../environments/environment';
@@ -8,12 +8,10 @@ import CartData from '../../model/cart-data.class';
 import {Store} from '@ngrx/store';
 import UserProfile from '../../model/user-profile.class';
 import {Subject} from 'rxjs';
-
 import {CartDataActions} from '../../actions/cart-data.actions';
 import {FromCartData} from '../../reducers/cart-data.reducer';
 import {FromProfile} from '../../../root/reducers/user-profile.reducer';
-
-import { I18nPipe } from '../../../shared/i18n/i18n.pipe';
+import {I18nPipe} from '../../../shared/i18n/i18n.pipe';
 
 declare const paypal: any;
 

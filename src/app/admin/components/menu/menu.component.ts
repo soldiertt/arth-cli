@@ -1,5 +1,5 @@
 import {Component, ChangeDetectionStrategy} from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import {RouterLink, RouterLinkActive} from '@angular/router';
 
 @Component({
     selector: 'arth-admin-menu',

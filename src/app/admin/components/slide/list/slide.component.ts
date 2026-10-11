@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
+import {Component, OnInit, inject, ChangeDetectionStrategy} from '@angular/core';
 import Slide from '../../../../shared/model/slider.class';
 import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
@@ -7,8 +7,8 @@ import {SlideActions} from '../../../../shared/actions/slide.actions';
 import {SlideProductActions} from '../../../../shared/actions/slide-product.actions';
 import {FromAdminSlide} from '../../../reducers/slide.reducer';
 import {FromAdminSlideProduct} from '../../../reducers/slide-product.reducer';
-import { AsyncPipe } from '@angular/common';
-import { EditSlideComponent } from '../edit/edit-slide.component';
+import {AsyncPipe} from '@angular/common';
+import {EditSlideComponent} from '../edit/edit-slide.component';
 
 @Component({
     templateUrl: './slide.component.html',

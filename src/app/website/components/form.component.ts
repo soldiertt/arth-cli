@@ -1,4 +1,4 @@
-import { Directive, output } from '@angular/core';
+import {Directive, output} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import UserMetaData from '../model/usermetadata.class';
 

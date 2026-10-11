@@ -1,4 +1,4 @@
-import { Component, OnInit, computed, inject, input, ChangeDetectionStrategy } from '@angular/core';
+import {Component, OnInit, computed, inject, input, ChangeDetectionStrategy} from '@angular/core';
 import {IAlbum, Lightbox, LightboxConfig} from '@pierresh/ngx-lightbox';
 import AdvancedArticle from '../../../../shared/model/advanced-article.class';
 import {OrderArticle} from '../../../../shared/model/order-article';
@@ -7,8 +7,8 @@ import CartData from '../../../model/cart-data.class';
 import {Store} from '@ngrx/store';
 import {PictureService} from '../../../../shared/service/picture.service';
 import {CartDataActions} from '../../../actions/cart-data.actions';
-import { CurrencyPipe } from '@angular/common';
-import { I18nPipe } from '../../../../shared/i18n/i18n.pipe';
+import {CurrencyPipe} from '@angular/common';
+import {I18nPipe} from '../../../../shared/i18n/i18n.pipe';
 
 declare const $: any;
 

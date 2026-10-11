@@ -1,6 +1,5 @@
-import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
-import { ActivatedRoute, Params, RouterLink } from '@angular/router';
-
+import {Component, OnInit, inject, ChangeDetectionStrategy} from '@angular/core';
+import {ActivatedRoute, Params, RouterLink} from '@angular/router';
 import Article from '../../../shared/model/article.class';
 import Brand from '../../../shared/model/brand.class';
 import {Observable} from 'rxjs';
@@ -8,9 +7,9 @@ import {Store} from '@ngrx/store';
 import ProductData from '../../model/product-data.class';
 import {ProductActions} from '../../actions/product.actions';
 import {FromProduct} from '../../reducers/product.reducer';
-import { AsyncPipe } from '@angular/common';
-import { ArticleBoxComponent } from '../shared/article-box/article-box.component';
-import { I18nPipe } from '../../../shared/i18n/i18n.pipe';
+import {AsyncPipe} from '@angular/common';
+import {ArticleBoxComponent} from '../shared/article-box/article-box.component';
+import {I18nPipe} from '../../../shared/i18n/i18n.pipe';
 
 @Component({
     selector: 'arth-brand-articles',

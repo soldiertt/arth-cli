@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {Component, OnDestroy, OnInit, inject, ChangeDetectionStrategy} from '@angular/core';
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {Store} from '@ngrx/store';
 import {ToastrService} from 'ngx-mat-toast';
 import {Observable, Subject} from 'rxjs';
@@ -8,8 +8,8 @@ import AdvancedArticle from '../../../../shared/model/advanced-article.class';
 import {PictureService} from '../../../../shared/service/picture.service';
 import {AdvancedProductActions} from '../../../actions/advanced-product.actions';
 import {FromAdminAdvancedProduct} from '../../../reducers/advanced-product.reducer';
-import { AsyncPipe } from '@angular/common';
-import { EditAdvancedProductComponent } from '../edit/edit-advanced-product.component';
+import {AsyncPipe} from '@angular/common';
+import {EditAdvancedProductComponent} from '../edit/edit-advanced-product.component';
 
 interface AdvancedProductCategory {
   name: string;

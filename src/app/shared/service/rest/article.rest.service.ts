@@ -1,10 +1,9 @@
-import { Injectable, inject } from '@angular/core';
+import {Injectable, inject} from '@angular/core';
 import {Observable} from 'rxjs';
-
 import Article from '../../model/article.class';
 import Brand from '../../model/brand.class';
 import Order from '../../model/order.class';
-import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
+import {HttpClient, HttpParams, HttpResponse} from '@angular/common/http';
 import {REST_ENDPOINT} from '../../tokens';
 
 @Injectable()

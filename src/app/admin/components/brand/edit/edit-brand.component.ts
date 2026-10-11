@@ -1,9 +1,9 @@
-import { Component, Input, inject, ChangeDetectionStrategy } from '@angular/core';
+import {Component, Input, inject, ChangeDetectionStrategy} from '@angular/core';
 import {Store} from '@ngrx/store';
 import Brand from '../../../../shared/model/brand.class';
 import {BrandActions} from '../../../../shared/actions/brand.actions';
 import {FromAdminBrand} from '../../../reducers/brand.reducer';
-import { FormsModule } from '@angular/forms';
+import {FormsModule} from '@angular/forms';
 
 
 declare const $: any;

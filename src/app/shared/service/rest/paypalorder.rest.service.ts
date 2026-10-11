@@ -1,10 +1,9 @@
 
 import {map} from 'rxjs/operators';
-import { Injectable, inject } from '@angular/core';
+import {Injectable, inject} from '@angular/core';
 import {Observable} from 'rxjs';
-
 import PaypalOrder from '../../model/paypalorder.class';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {REST_ENDPOINT} from '../../tokens';
 
 @Injectable()

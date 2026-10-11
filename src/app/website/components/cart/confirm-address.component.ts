@@ -1,19 +1,17 @@
 
 import {takeUntil} from 'rxjs/operators';
-import { Component, OnDestroy, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
+import {Component, OnDestroy, OnInit, inject, ChangeDetectionStrategy} from '@angular/core';
 import UserProfile from '../../model/user-profile.class';
 import {Store} from '@ngrx/store';
 import CartData from '../../model/cart-data.class';
 import {Subject} from 'rxjs';
-
 import {CartDataActions} from '../../actions/cart-data.actions';
 import {FromCartData} from '../../reducers/cart-data.reducer';
 import {FromProfile} from '../../../root/reducers/user-profile.reducer';
-
-import { FormsModule } from '@angular/forms';
-import { ProfileDisplayComponent } from '../profile/profile-display.component';
-import { ProfileEditComponent } from '../profile/profile-edit.component';
-import { I18nPipe } from '../../../shared/i18n/i18n.pipe';
+import {FormsModule} from '@angular/forms';
+import {ProfileDisplayComponent} from '../profile/profile-display.component';
+import {ProfileEditComponent} from '../profile/profile-edit.component';
+import {I18nPipe} from '../../../shared/i18n/i18n.pipe';
 
 @Component({
     selector: 'arth-confirm-address',

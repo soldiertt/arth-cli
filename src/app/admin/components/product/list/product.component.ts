@@ -1,16 +1,15 @@
 
-import { HttpHeaders } from '@angular/common/http';
+import {HttpHeaders} from '@angular/common/http';
 import {ToastrService} from 'ngx-mat-toast';
 import {takeUntil, map} from 'rxjs/operators';
-import { Component, OnDestroy, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
+import {Component, OnDestroy, OnInit, inject, ChangeDetectionStrategy} from '@angular/core';
 import {Observable, Subject} from 'rxjs';
 import {Store} from '@ngrx/store';
 import Article from '../../../../shared/model/article.class';
 import {SteelActions} from '../../../actions/steel.actions';
 import Brand from '../../../../shared/model/brand.class';
 import Category from '../../../../shared/model/category.class';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import Steel from '../../../../shared/model/steel.class';
 import {BrandActions} from '../../../../shared/actions/brand.actions';
 import {CategoryActions} from '../../../../shared/actions/category.actions';
@@ -23,8 +22,8 @@ import {FromAdminSlideProduct} from '../../../reducers/slide-product.reducer';
 import {FromAdminSteel} from '../../../reducers/steel.reducer';
 import {PictureService} from '../../../../shared/service/picture.service';
 import {saveAs} from 'file-saver';
-import { AsyncPipe } from '@angular/common';
-import { EditProductComponent } from '../edit/edit-product.component';
+import {AsyncPipe} from '@angular/common';
+import {EditProductComponent} from '../edit/edit-product.component';
 
 @Component({
     templateUrl: './product.component.html',

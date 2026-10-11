@@ -1,7 +1,7 @@
 
 import {takeUntil} from 'rxjs/operators';
-import { Component, OnDestroy, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
-import { FormBuilder, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {Component, OnDestroy, OnInit, inject, ChangeDetectionStrategy} from '@angular/core';
+import {FormBuilder, Validators, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CountryRestService} from '../../../shared/service/rest/country.rest.service';
 import Country from '../../../shared/model/country.class';
 import {FormComponent} from '../form.component';
@@ -10,11 +10,9 @@ import UserAddresses from '../../model/user-addresses.class';
 import UserProfile from '../../model/user-profile.class';
 import {Store} from '@ngrx/store';
 import {Subject} from 'rxjs';
-
 import {ProfileActions} from '../../../root/actions/user-profile.actions';
 import {FromProfile} from '../../../root/reducers/user-profile.reducer';
-
-import { I18nPipe } from '../../../shared/i18n/i18n.pipe';
+import {I18nPipe} from '../../../shared/i18n/i18n.pipe';
 
 @Component({
     selector: 'arth-profile-edit',

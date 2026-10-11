@@ -1,5 +1,5 @@
 import {Component, ChangeDetectionStrategy} from '@angular/core';
-import { I18nPipe } from '../../../shared/i18n/i18n.pipe';
+import {I18nPipe} from '../../../shared/i18n/i18n.pipe';
 
 @Component({
     selector: 'arth-services',

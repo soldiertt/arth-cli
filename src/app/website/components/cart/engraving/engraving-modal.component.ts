@@ -1,10 +1,10 @@
-import { Component, inject, input, ChangeDetectionStrategy } from '@angular/core';
+import {Component, inject, input, ChangeDetectionStrategy} from '@angular/core';
 import {Store} from '@ngrx/store';
 import Order from '../../../../shared/model/order.class';
-import { NgForm, FormsModule } from '@angular/forms';
+import {NgForm, FormsModule} from '@angular/forms';
 import {CartDataActions} from '../../../actions/cart-data.actions';
-import { CurrencyPipe } from '@angular/common';
-import { I18nPipe } from '../../../../shared/i18n/i18n.pipe';
+import {CurrencyPipe} from '@angular/common';
+import {I18nPipe} from '../../../../shared/i18n/i18n.pipe';
 
 declare const $: any;
 

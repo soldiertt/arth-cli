@@ -1,19 +1,17 @@
 
 import {take} from 'rxjs/operators';
-import { Component, OnDestroy, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
+import {Component, OnDestroy, OnInit, inject, ChangeDetectionStrategy} from '@angular/core';
 import {Auth0Service} from '../../../shared/service/auth.service';
 import CartData from '../../model/cart-data.class';
 import {Store} from '@ngrx/store';
 import {Observable, Subject} from 'rxjs';
-
-
 import {CartDataActions} from '../../actions/cart-data.actions';
 import {FromCartData} from '../../reducers/cart-data.reducer';
-import { AsyncPipe } from '@angular/common';
-import { CartBreadcrumbComponent } from './cart-breadcrumb.component';
-import { MyCartComponent } from './mycart.component';
-import { ConfirmAddressComponent } from './confirm-address.component';
-import { CartNavigationComponent } from './cart-navigation.component';
+import {AsyncPipe} from '@angular/common';
+import {CartBreadcrumbComponent} from './cart-breadcrumb.component';
+import {MyCartComponent} from './mycart.component';
+import {ConfirmAddressComponent} from './confirm-address.component';
+import {CartNavigationComponent} from './cart-navigation.component';
 
 @Component({
     templateUrl: 'cart-wizard.component.html',

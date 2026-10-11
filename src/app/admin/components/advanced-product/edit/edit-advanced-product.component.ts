@@ -1,5 +1,5 @@
-import { Component, ElementRef, Input, inject, viewChild, ChangeDetectionStrategy } from '@angular/core';
-import { FormArray, FormControl, NgForm, FormsModule } from '@angular/forms';
+import {Component, ElementRef, Input, inject, viewChild, ChangeDetectionStrategy} from '@angular/core';
+import {FormArray, FormControl, NgForm, FormsModule} from '@angular/forms';
 import {Store} from '@ngrx/store';
 import AdvancedArticle from '../../../../shared/model/advanced-article.class';
 import {UploadService} from '../../../../shared/service/upload.service';

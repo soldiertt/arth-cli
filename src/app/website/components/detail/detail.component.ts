@@ -1,7 +1,7 @@
 import {IAlbum, Lightbox, LightboxConfig} from '@pierresh/ngx-lightbox';
 import {filter, takeUntil} from 'rxjs/operators';
-import { Component, OnDestroy, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import {Component, OnDestroy, OnInit, inject, ChangeDetectionStrategy} from '@angular/core';
+import {ActivatedRoute, RouterLink} from '@angular/router';
 import Article from '../../../shared/model/article.class';
 import {JQueryService} from '../../service/jQuery.service';
 import CartData from '../../model/cart-data.class';
@@ -13,9 +13,9 @@ import {Subject} from 'rxjs';
 import {CartDataActions} from '../../actions/cart-data.actions';
 import {ProductActions} from '../../actions/product.actions';
 import {FromProduct} from '../../reducers/product.reducer';
-import { CurrencyPipe } from '@angular/common';
-import { I18nPipe } from '../../../shared/i18n/i18n.pipe';
-import { CategoryTitlePipe } from '../../pipe/category-title.pipe';
+import {CurrencyPipe} from '@angular/common';
+import {I18nPipe} from '../../../shared/i18n/i18n.pipe';
+import {CategoryTitlePipe} from '../../pipe/category-title.pipe';
 
 declare const $: any;
 

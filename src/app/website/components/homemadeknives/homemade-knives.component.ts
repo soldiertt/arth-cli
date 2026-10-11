@@ -1,14 +1,14 @@
-import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
+import {Component, OnInit, inject, ChangeDetectionStrategy} from '@angular/core';
 import {map} from 'rxjs/operators';
 import AdvancedArticle from '../../../shared/model/advanced-article.class';
 import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {FromAdvancedProduct} from '../../reducers/advanced-product.reducer';
-import { RouterLink } from '@angular/router';
-import { CustomKnifeComponent } from './custom-knife/custom-knife.component';
-import { AsyncPipe } from '@angular/common';
-import { AdvancedArticleBoxComponent } from '../shared/advanced-article-box/advanced-article-box.component';
-import { I18nPipe } from '../../../shared/i18n/i18n.pipe';
+import {RouterLink} from '@angular/router';
+import {CustomKnifeComponent} from './custom-knife/custom-knife.component';
+import {AsyncPipe} from '@angular/common';
+import {AdvancedArticleBoxComponent} from '../shared/advanced-article-box/advanced-article-box.component';
+import {I18nPipe} from '../../../shared/i18n/i18n.pipe';
 
 @Component({
     templateUrl: 'homemade-knives.component.html',

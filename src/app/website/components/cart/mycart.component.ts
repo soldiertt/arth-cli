@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
+import {Component, OnInit, inject, ChangeDetectionStrategy} from '@angular/core';
 import {OrderArticle} from '../../../shared/model/order-article';
 import Cart from '../../model/cart.class';
 import CartData from '../../model/cart-data.class';
@@ -8,10 +8,10 @@ import {PictureService} from '../../../shared/service/picture.service';
 import {CartDataActions} from '../../actions/cart-data.actions';
 import {FromCartData} from '../../reducers/cart-data.reducer';
 import Order from '../../../shared/model/order.class';
-import { AsyncPipe, DecimalPipe, CurrencyPipe } from '@angular/common';
-import { RouterLink } from '@angular/router';
-import { EngravingModalComponent } from './engraving/engraving-modal.component';
-import { I18nPipe } from '../../../shared/i18n/i18n.pipe';
+import {AsyncPipe, DecimalPipe, CurrencyPipe} from '@angular/common';
+import {RouterLink} from '@angular/router';
+import {EngravingModalComponent} from './engraving/engraving-modal.component';
+import {I18nPipe} from '../../../shared/i18n/i18n.pipe';
 
 @Component({
     selector: 'arth-mycart',

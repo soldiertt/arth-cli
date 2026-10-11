@@ -1,11 +1,11 @@
-import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
+import {Component, OnInit, inject, ChangeDetectionStrategy} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 import Category from '../../../../shared/model/category.class';
 import {CategoryActions} from '../../../../shared/actions/category.actions';
 import {FromAdminCategory} from '../../../reducers/category.reducer';
-import { AsyncPipe } from '@angular/common';
-import { EditCategoryComponent } from '../edit/edit-category.component';
+import {AsyncPipe} from '@angular/common';
+import {EditCategoryComponent} from '../edit/edit-category.component';
 
 @Component({
     templateUrl: './category.component.html',

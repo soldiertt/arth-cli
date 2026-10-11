@@ -1,18 +1,17 @@
-import { Component, ElementRef, Input, OnInit, inject, viewChild, ChangeDetectionStrategy } from '@angular/core';
-import { FormArray, FormControl, NgForm, FormsModule } from '@angular/forms';
+import {Component, ElementRef, Input, OnInit, inject, viewChild, ChangeDetectionStrategy} from '@angular/core';
+import {FormArray, FormControl, NgForm, FormsModule} from '@angular/forms';
 import Article from '../../../../shared/model/article.class';
 import Category from '../../../../shared/model/category.class';
 import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
 import Brand from '../../../../shared/model/brand.class';
-
 import {UploadService} from '../../../../shared/service/upload.service';
 import {AdvancedProductActions} from '../../../actions/advanced-product.actions';
 import {ProductActions} from '../../../actions/product.actions';
 import {FromAdminBrand} from '../../../reducers/brand.reducer';
 import {FromAdminCategory} from '../../../reducers/category.reducer';
 import {FromAdminProduct} from '../../../reducers/product.reducer';
-import { AsyncPipe } from '@angular/common';
+import {AsyncPipe} from '@angular/common';
 
 declare const $: any;
 

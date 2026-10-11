@@ -1,13 +1,13 @@
-import { Component, inject, input, ChangeDetectionStrategy } from '@angular/core';
+import {Component, inject, input, ChangeDetectionStrategy} from '@angular/core';
 import Article from '../../../../shared/model/article.class';
 import {JQueryService} from '../../../service/jQuery.service';
 import CartData from '../../../model/cart-data.class';
 import {Store} from '@ngrx/store';
 import {PictureService} from '../../../../shared/service/picture.service';
 import {CartDataActions} from '../../../actions/cart-data.actions';
-import { RouterLink } from '@angular/router';
-import { CurrencyPipe } from '@angular/common';
-import { I18nPipe } from '../../../../shared/i18n/i18n.pipe';
+import {RouterLink} from '@angular/router';
+import {CurrencyPipe} from '@angular/common';
+import {I18nPipe} from '../../../../shared/i18n/i18n.pipe';
 
 declare const $: any;
 

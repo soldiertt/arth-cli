@@ -1,6 +1,6 @@
 import {Component, ChangeDetectionStrategy} from '@angular/core';
-import { AdminMenuComponent } from './menu/menu.component';
-import { RouterOutlet } from '@angular/router';
+import {AdminMenuComponent} from './menu/menu.component';
+import {RouterOutlet} from '@angular/router';
 
 
 @Component({

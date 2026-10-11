@@ -1,9 +1,9 @@
-import { Component, Input, inject, ChangeDetectionStrategy } from '@angular/core';
+import {Component, Input, inject, ChangeDetectionStrategy} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {VideoActions} from '../../../../shared/actions/video.actions';
 import Video from '../../../../shared/model/video.class';
 import {FromAdminVideo} from '../../../reducers/video.reducer';
-import { FormsModule } from '@angular/forms';
+import {FormsModule} from '@angular/forms';
 
 
 declare const $: any;

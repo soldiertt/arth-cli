@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import {Injectable, inject} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {PaypalOrderRestService} from '../../shared/service/rest/paypalorder.rest.service';
 import {PaypalRestService} from '../../shared/service/rest/paypal.rest.service';

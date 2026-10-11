@@ -1,16 +1,15 @@
 
 import {takeUntil} from 'rxjs/operators';
-import { Component, OnDestroy, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
+import {Component, OnDestroy, OnInit, inject, ChangeDetectionStrategy} from '@angular/core';
 import PaypalOrder from '../../../shared/model/paypalorder.class';
 import {Store} from '@ngrx/store';
 import UserProfile from '../../model/user-profile.class';
-
 import {Subject} from 'rxjs';
 import {PaypalOrderActions} from '../../../shared/actions/paypal-order.actions';
 import {FromPaypalOrder} from '../../reducers/paypal-order.reducer';
 import {FromProfile} from '../../../root/reducers/user-profile.reducer';
-import { CurrencyPipe, DatePipe } from '@angular/common';
-import { I18nPipe } from '../../../shared/i18n/i18n.pipe';
+import {CurrencyPipe, DatePipe} from '@angular/common';
+import {I18nPipe} from '../../../shared/i18n/i18n.pipe';
 
 @Component({
     selector: 'arth-orders',
