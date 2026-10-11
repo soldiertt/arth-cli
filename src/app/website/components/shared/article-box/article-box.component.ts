@@ -1,4 +1,4 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import Article from '../../../../shared/model/article.class';
 import {JQueryService} from '../../../service/jQuery.service';
 import CartData from '../../../model/cart-data.class';
@@ -23,7 +23,7 @@ export class ArticleBoxComponent {
   private jQueryService = inject(JQueryService);
 
 
-  @Input() article: Article;
+  readonly article = input<Article>();
 
   addToCart(article) {
     const component = this;

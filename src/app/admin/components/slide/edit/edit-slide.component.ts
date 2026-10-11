@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, inject } from '@angular/core';
+import { Component, Input, inject, viewChild } from '@angular/core';
 import {Store} from '@ngrx/store';
 import Slide from '../../../../shared/model/slider.class';
 import { FormControl, FormsModule } from '@angular/forms';
@@ -23,10 +23,10 @@ export class EditSlideComponent {
 
   picture: FormControl = new FormControl();
 
-  @ViewChild('fileUpload') fileUploadInput: any;
+  readonly fileUploadInput = viewChild<any>('fileUpload');
 
   resetForm() {
-    this.fileUploadInput.nativeElement.value = '';
+    this.fileUploadInput().nativeElement.value = '';
   }
 
   onFileChange(event) {
@@ -51,7 +51,7 @@ export class EditSlideComponent {
       } else {
         this.store.dispatch(SlideActions.Create({entity: this.item}));
       }
-      if (this.fileUploadInput.nativeElement.value) {
+      if (this.fileUploadInput().nativeElement.value) {
         this.store.dispatch(SlideActions.UploadNewPicture({formData: this.prepareSave()}));
       }
       $('#slideModal').modal('hide');

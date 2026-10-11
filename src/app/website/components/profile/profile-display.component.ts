@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, output } from '@angular/core';
 import UserProfile from '../../model/user-profile.class';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
@@ -17,7 +17,7 @@ export class ProfileDisplayComponent implements OnInit {
 
   userProfile$: Observable<UserProfile>;
 
-  @Output() edit: EventEmitter<string> = new EventEmitter();
+  readonly edit = output<string>();
 
   ngOnInit() {
     this.userProfile$ = this.store.select(FromProfile.selectLocalState);

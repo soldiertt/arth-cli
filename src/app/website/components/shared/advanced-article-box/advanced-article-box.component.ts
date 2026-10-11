@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, inject } from '@angular/core';
+import { Component, OnInit, computed, inject, input } from '@angular/core';
 import {IAlbum, Lightbox, LightboxConfig} from '@pierresh/ngx-lightbox';
 import AdvancedArticle from '../../../../shared/model/advanced-article.class';
 import {OrderArticle} from '../../../../shared/model/order-article';
@@ -18,7 +18,7 @@ declare const $: any;
     styleUrls: ['advanced-article-box.component.css'],
     imports: [CurrencyPipe, I18nPipe]
 })
-export class AdvancedArticleBoxComponent implements OnInit, OnChanges {
+export class AdvancedArticleBoxComponent implements OnInit {
   private picUtil = inject(PictureService);
   private store = inject<Store<CartData>>(Store);
   private jQueryService = inject(JQueryService);
@@ -26,9 +26,15 @@ export class AdvancedArticleBoxComponent implements OnInit, OnChanges {
   private _lightboxConfig = inject(LightboxConfig);
 
 
-  @Input() article: AdvancedArticle;
-  @Input() isOdd = false;
-  _album: IAlbum[] = [];
+  readonly article = input<AdvancedArticle>();
+  readonly isOdd = input(false);
+  readonly _album = computed<IAlbum[]>(() => {
+    const article = this.article();
+    if (!article) {
+      return [];
+    }
+    return this.picUtil.allLargePicturesFullPath(article).map(pic => ({src: pic, thumb: this.picUtil.thumb(pic), downloadUrl: pic}));
+  });
 
   constructor() {
     const _lightboxConfig = this._lightboxConfig;
@@ -45,14 +51,6 @@ export class AdvancedArticleBoxComponent implements OnInit, OnChanges {
     }, 10);
   }
 
-  ngOnChanges() {
-    if (this.article) {
-      this.picUtil.allLargePicturesFullPath(this.article).forEach(pic => {
-        this._album.push({src: pic, thumb: this.picUtil.thumb(pic), downloadUrl: pic});
-      });
-    }
-  }
-
   addToCart(article: AdvancedArticle) {
     const component = this;
     const callback = () => {
@@ -63,7 +61,7 @@ export class AdvancedArticleBoxComponent implements OnInit, OnChanges {
   }
 
   open(index: number): void {
-    this._lightbox.open(this._album, index);
+    this._lightbox.open(this._album(), index);
   }
 
 }

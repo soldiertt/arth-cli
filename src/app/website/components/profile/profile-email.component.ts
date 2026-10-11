@@ -83,7 +83,7 @@ export class ProfileEmailComponent extends FormComponent implements OnInit, OnDe
     if (this.form.valid) {
       const userMetadata: UserMetaData = {email: this.form.get('emails')?.get('email')?.value};
       this.store.dispatch(ProfileActions.UpdateMetadata({userId: this.profile.user_id, metadata: userMetadata}));
-      this.onUpdateMetaData.emit();
+      this.onUpdateMetaData.emit(undefined);
     }
   }
 

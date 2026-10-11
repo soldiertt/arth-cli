@@ -89,7 +89,7 @@ export class ProfileEditComponent extends FormComponent implements OnInit, OnDes
         profileComplete: true
       };
       this.store.dispatch(ProfileActions.UpdateMetadata({userId: this.userProfile.user_id, metadata: userMetadata}));
-      this.onUpdateMetaData.emit();
+      this.onUpdateMetaData.emit(undefined);
     }
   }
 

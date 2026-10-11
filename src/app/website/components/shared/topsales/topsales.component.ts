@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, input} from '@angular/core';
 import Article from '../../../../shared/model/article.class';
 
 import { ArticleBoxComponent } from '../article-box/article-box.component';
@@ -11,7 +11,7 @@ import { I18nPipe } from '../../../../shared/i18n/i18n.pipe';
 })
 export class TopSalesComponent {
 
-  @Input() articles: Article[];
+  readonly articles = input<Article[]>();
 
   constructor() {}
 

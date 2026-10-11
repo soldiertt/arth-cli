@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, ViewChild, inject } from '@angular/core';
+import { Component, ElementRef, Input, inject, viewChild } from '@angular/core';
 import { FormArray, FormControl, NgForm, FormsModule } from '@angular/forms';
 import {Store} from '@ngrx/store';
 import AdvancedArticle from '../../../../shared/model/advanced-article.class';
@@ -33,10 +33,10 @@ export class EditAdvancedProductComponent {
   localPictures: string[] = [];
   pictures: FormArray = new FormArray<any>([]);
 
-  @ViewChild('fileUpload') fileUploadInput: ElementRef;
+  readonly fileUploadInput = viewChild<ElementRef>('fileUpload');
 
   resetForm() {
-    this.fileUploadInput.nativeElement.value = '';
+    this.fileUploadInput().nativeElement.value = '';
     this.localPictures = [];
   }
 

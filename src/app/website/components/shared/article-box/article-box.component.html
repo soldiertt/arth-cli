@@ -1,20 +1,20 @@
 <div class="article-box">
-  <div class="article-box-link" [routerLink]="['/detail', article.id]">
-    <img [src]="picUtil.firstMiniPictureFullPath(article)" alt="{{ article.name}}" />
+  <div class="article-box-link" [routerLink]="['/detail', article().id]">
+    <img [src]="picUtil.firstMiniPictureFullPath(article())" alt="{{ article().name}}" />
     <div class="article-detail">
-      <div class="article-brand">{{article.brand}}</div>
-      <div class="article-name">{{article.name}}</div>
+      <div class="article-brand">{{article().brand}}</div>
+      <div class="article-name">{{article().name}}</div>
     </div>
   </div>
   <div class="price-details">
     <div>
-      <span class="price" [class.promo-price]="article.promo">{{ article.price | currency:'EUR'}}</span>
-      <div>@if (article.promo) {
-        <span class="price-strike">{{article.old_price | currency:'EUR'}}</span>
+      <span class="price" [class.promo-price]="article().promo">{{ article().price | currency:'EUR'}}</span>
+      <div>@if (article().promo) {
+        <span class="price-strike">{{article().old_price | currency:'EUR'}}</span>
       }</div>
     </div>
-    @if (article.instock) {
-      <div class="add-cart" (click)="addToCart(article)">
+    @if (article().instock) {
+      <div class="add-cart" (click)="addToCart(article())">
         <span>{{'common.links.addtocart' | trans}}</span>
       </div>
     } @else {

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, input } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {IAlbum, Lightbox, LightboxConfig} from '@pierresh/ngx-lightbox';
 import {OrderArticle} from '../../../../shared/model/order-article';
@@ -20,7 +20,7 @@ export class CustomKnifeComponent implements OnInit {
   private _lightbox = inject(Lightbox);
 
 
-  @Input() isOdd = false;
+  readonly isOdd = input(false);
   _album: IAlbum[] = [];
   customKnifeForm: FormGroup;
   price: number;

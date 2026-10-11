@@ -1,11 +1,11 @@
-import { EventEmitter, Output, Directive } from '@angular/core';
+import { Directive, output } from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import UserMetaData from '../model/usermetadata.class';
 
 @Directive()
 export abstract class FormComponent {
-  @Output() onUpdateMetaData: EventEmitter<UserMetaData> = new EventEmitter();
-  @Output() onCancelEdit: EventEmitter<string> = new EventEmitter();
+  readonly onUpdateMetaData = output<UserMetaData>();
+  readonly onCancelEdit = output<string>();
   submitAttempt: boolean = false;
   form: FormGroup;
 

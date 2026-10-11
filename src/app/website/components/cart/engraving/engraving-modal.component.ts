@@ -1,4 +1,4 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import {Store} from '@ngrx/store';
 import Order from '../../../../shared/model/order.class';
 import { NgForm, FormsModule } from '@angular/forms';
@@ -17,12 +17,12 @@ export class EngravingModalComponent {
   private store = inject<Store<Order>>(Store);
 
 
-  @Input() order: Order;
+  readonly order = input<Order>();
   engravingName: string;
 
   save(form: NgForm) {
     if (form.valid) {
-      this.store.dispatch(CartDataActions.EnableOrderEngraving({articleId: this.order.article.id, engravingName: this.engravingName}));
+      this.store.dispatch(CartDataActions.EnableOrderEngraving({articleId: this.order().article.id, engravingName: this.engravingName}));
       $('#engravingModal').modal('hide');
     }
   }

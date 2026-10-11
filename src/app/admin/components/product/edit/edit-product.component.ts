@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild, inject } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, inject, viewChild } from '@angular/core';
 import { FormArray, FormControl, NgForm, FormsModule } from '@angular/forms';
 import Article from '../../../../shared/model/article.class';
 import Category from '../../../../shared/model/category.class';
@@ -34,7 +34,7 @@ export class EditProductComponent implements OnInit {
   localPictures: string[] = [];
   pictures: FormArray = new FormArray<any>([]);
 
-  @ViewChild('fileUpload') fileUploadInput: ElementRef;
+  readonly fileUploadInput = viewChild<ElementRef>('fileUpload');
 
   ngOnInit() {
     this.categories$ = this.categoryStore.select(FromAdminCategory.selectAll);
@@ -42,7 +42,7 @@ export class EditProductComponent implements OnInit {
   }
 
   resetForm() {
-    this.fileUploadInput.nativeElement.value = '';
+    this.fileUploadInput().nativeElement.value = '';
     this.localPictures = [];
   }
 

@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, input} from '@angular/core';
 import ProductItemData from '../../model/product-item-data.class';
 
 import { I18nPipe } from '../../../shared/i18n/i18n.pipe';
@@ -11,6 +11,6 @@ import { I18nPipe } from '../../../shared/i18n/i18n.pipe';
 })
 export class StaticContentCategoryComponent {
 
-  @Input() current: ProductItemData;
+  readonly current = input<ProductItemData>();
 
 }

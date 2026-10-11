@@ -1,41 +1,41 @@
-<div class="article" [class.odd]="isOdd">
+<div class="article" [class.odd]="isOdd()">
   <div class="article-picture">
-    @for (picture of _album; track picture; let i = $index) {
+    @for (picture of _album(); track picture; let i = $index) {
       <div>
         <img [src]="picture.thumb" (click)="open(i)" class="zoomable" />
       </div>
     }
   </div>
   <div class="article-desc">
-    <div class="name">{{article.name}}</div>
-    @if (article.description) {
-      <p class="strong" [innerHtml]="article.description"></p>
+    <div class="name">{{article().name}}</div>
+    @if (article().description) {
+      <p class="strong" [innerHtml]="article().description"></p>
     }
-    @if (article.brand) {
-      <p>{{'common.label.brand' | trans}} : <span class="strong">{{article.brand}}</span></p>
+    @if (article().brand) {
+      <p>{{'common.label.brand' | trans}} : <span class="strong">{{article().brand}}</span></p>
     }
-    @if (article.comment) {
-      <p><span class="strong comment" [innerHtml]="article.comment"></span></p>
+    @if (article().comment) {
+      <p><span class="strong comment" [innerHtml]="article().comment"></span></p>
     }
-    @if (article.youtube_ref) {
+    @if (article().youtube_ref) {
       <div>
-        <a class="fancyboxVideo fancybox.iframe" href="http://www.youtube.com/embed/{{article.youtube_ref}}"
-          title="{{article.name}}"><img id="youtube_vid" src="assets/images/youtube.jpg"></a>
+        <a class="fancyboxVideo fancybox.iframe" href="http://www.youtube.com/embed/{{article().youtube_ref}}"
+          title="{{article().name}}"><img id="youtube_vid" src="assets/images/youtube.jpg"></a>
         </div>
       }
       <div class="price">
-        <p>{{'common.label.price' | trans}} : <span>{{article?.price | currency:'EUR'}}</span></p>
+        <p>{{'common.label.price' | trans}} : <span>{{article()?.price | currency:'EUR'}}</span></p>
       </div>
-      @if (article.instock) {
+      @if (article().instock) {
         <div class="buttons">
           <ul>
             <li>
-              <button class="btn-detail" (click)="addToCart(article)">{{'common.links.addtocart' | trans}}</button>
+              <button class="btn-detail" (click)="addToCart(article())">{{'common.links.addtocart' | trans}}</button>
             </li>
           </ul>
         </div>
       } @else {
-        @if (!article.instock) {
+        @if (!article().instock) {
           <p><span class="warn">{{'common.label.outofstock' | trans}}</span></p>
         }
       }
