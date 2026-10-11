@@ -1,6 +1,6 @@
 
 import {take} from 'rxjs/operators';
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import {Auth0Service} from '../../../shared/service/auth.service';
 import CartData from '../../model/cart-data.class';
 import {Store} from '@ngrx/store';
@@ -9,7 +9,7 @@ import {Observable, Subject} from 'rxjs';
 
 import {CartDataActions} from '../../actions/cart-data.actions';
 import {FromCartData} from '../../reducers/cart-data.reducer';
-import { NgIf, AsyncPipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { CartBreadcrumbComponent } from './cart-breadcrumb.component';
 import { MyCartComponent } from './mycart.component';
 import { ConfirmAddressComponent } from './confirm-address.component';
@@ -17,16 +17,16 @@ import { CartNavigationComponent } from './cart-navigation.component';
 
 @Component({
     templateUrl: 'cart-wizard.component.html',
-    imports: [NgIf, CartBreadcrumbComponent, MyCartComponent, ConfirmAddressComponent, CartNavigationComponent, AsyncPipe]
+    imports: [CartBreadcrumbComponent, MyCartComponent, ConfirmAddressComponent, CartNavigationComponent, AsyncPipe]
 })
 export class CartWizardComponent implements OnInit, OnDestroy {
+  private store = inject<Store<CartData>>(Store);
+  authService = inject(Auth0Service);
+
 
   private ngUnsubscribe: Subject<any> = new Subject();
 
   cartData$: Observable<CartData>;
-
-  constructor(private store: Store<CartData>,
-              public authService: Auth0Service) {}
 
   ngOnInit() {
     this.cartData$ = this.store.select(FromCartData.selectLocalState);

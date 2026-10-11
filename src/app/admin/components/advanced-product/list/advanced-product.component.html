@@ -1,7 +1,7 @@
 <div class="p-1 no-print">
   <button type="button" class="btn btn-sm btn-secondary m-1"
-          (click)="newItem()"
-          data-bs-toggle="modal" data-bs-target="#advancedProductModal">
+    (click)="newItem()"
+    data-bs-toggle="modal" data-bs-target="#advancedProductModal">
     NEW PRODUCT
   </button>
 </div>
@@ -21,7 +21,9 @@
         <td>
           <select name="categoryfilter" id="categoryfilter" class="form-control form-control-sm" formControlName="categoryFilter">
             <option value="">[Category]</option>
-            <option *ngFor="let category of categories" [value]="category.code">{{category.name}}</option>
+            @for (category of categories; track category) {
+              <option [value]="category.code">{{category.name}}</option>
+            }
           </select>
         </td>
         <td></td>
@@ -30,22 +32,26 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let product of filteredProducts$ | async">
-        <td><img [src]="pic" *ngFor="let pic of picUtil.allMiniPicturesFullPath(product)"></td>
-        <td>{{product.type}}</td>
-        <td>{{product.name}}</td>
-        <td class="extra-thin-column">
-          {{product.price}}€
-        </td>
-        <td class="thin-column no-print">
-          <a href (click)="editItem(product)" data-bs-toggle="modal" data-bs-target="#advancedProductModal">
-            <i class="material-icons">mode_edit</i>
-          </a>
-          <a href (click)="remove($event, product.id)">
-            <i class="material-icons">delete_forever</i>
-          </a>
-        </td>
-      </tr>
+      @for (product of filteredProducts$ | async; track product) {
+        <tr>
+          <td>@for (pic of picUtil.allMiniPicturesFullPath(product); track pic) {
+            <img [src]="pic">
+          }</td>
+          <td>{{product.type}}</td>
+          <td>{{product.name}}</td>
+          <td class="extra-thin-column">
+            {{product.price}}€
+          </td>
+          <td class="thin-column no-print">
+            <a href (click)="editItem(product)" data-bs-toggle="modal" data-bs-target="#advancedProductModal">
+              <i class="material-icons">mode_edit</i>
+            </a>
+            <a href (click)="remove($event, product.id)">
+              <i class="material-icons">delete_forever</i>
+            </a>
+          </td>
+        </tr>
+      }
     </tbody>
   </table>
 </form>

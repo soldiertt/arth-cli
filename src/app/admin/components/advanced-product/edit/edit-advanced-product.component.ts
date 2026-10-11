@@ -1,11 +1,11 @@
-import {Component, ElementRef, Input, ViewChild} from '@angular/core';
+import { Component, ElementRef, Input, ViewChild, inject } from '@angular/core';
 import { FormArray, FormControl, NgForm, FormsModule } from '@angular/forms';
 import {Store} from '@ngrx/store';
 import AdvancedArticle from '../../../../shared/model/advanced-article.class';
 import {UploadService} from '../../../../shared/service/upload.service';
 import {AdvancedProductActions} from '../../../actions/advanced-product.actions';
 import {FromAdminAdvancedProduct} from '../../../reducers/advanced-product.reducer';
-import { NgIf, NgFor } from '@angular/common';
+
 
 declare const $: any;
 
@@ -17,9 +17,12 @@ interface AdvancedProductCategory {
 @Component({
     selector: 'arth-admin-advanced-product-modal',
     templateUrl: './edit-advanced-product.component.html',
-    imports: [FormsModule, NgIf, NgFor]
+    imports: [FormsModule]
 })
 export class EditAdvancedProductComponent {
+  private uploadService = inject(UploadService);
+  private advancedProductStore = inject<Store<FromAdminAdvancedProduct.State>>(Store);
+
 
   @Input() item: AdvancedArticle;
   categories: AdvancedProductCategory[] = [
@@ -31,10 +34,6 @@ export class EditAdvancedProductComponent {
   pictures: FormArray = new FormArray<any>([]);
 
   @ViewChild('fileUpload') fileUploadInput: ElementRef;
-
-  constructor(private uploadService: UploadService,
-              private advancedProductStore: Store<FromAdminAdvancedProduct.State>) {
-  }
 
   resetForm() {
     this.fileUploadInput.nativeElement.value = '';

@@ -1,34 +1,42 @@
 <div id="myCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="10000" data-bs-pause="hover">
   <!-- Indicators -->
   <ol class="carousel-indicators">
-    <li data-bs-target="#myCarousel" [attr.data-bs-slide-to]="idx" [class.active]="isFirst" *ngFor="let slide of slides$ | async; let idx = index; let isFirst = first"></li>
-    <ng-container *ngIf="(slidesCount$ | async) as slidesCount">
-      <li data-bs-target="#myCarousel" [attr.data-bs-slide-to]="slidesCount + idx2" *ngFor="let sliderArticle of sliderArticles$ | async; let idx2 = index"></li>
-    </ng-container>
+    @for (slide of slides$ | async; track slide; let idx = $index; let isFirst = $first) {
+      <li data-bs-target="#myCarousel" [attr.data-bs-slide-to]="idx" [class.active]="isFirst"></li>
+    }
+    @if ((slidesCount$ | async); as slidesCount) {
+      @for (sliderArticle of sliderArticles$ | async; track sliderArticle; let idx2 = $index) {
+        <li data-bs-target="#myCarousel" [attr.data-bs-slide-to]="slidesCount + idx2"></li>
+      }
+    }
   </ol>
 
   <!-- Wrapper for slides -->
   <div class="carousel-inner" role="listbox">
-    <div class="carousel-item" [class.active]="isFirst" *ngFor="let slide of slides$ | async; let isFirst = first">
-      <div (click)="goToProductFromSlide(slide)" [class.link]="slide.link">
-        <img class="d-block img-fluid" src="assets/images/{{slide.image}}" >
-        <div class="carousel-caption">
-          <div class="title1">{{slide.title1}}</div>
-          <div class="title2">{{slide.title2}}</div>
-          <p>{{slide.description}}</p>
+    @for (slide of slides$ | async; track slide; let isFirst = $first) {
+      <div class="carousel-item" [class.active]="isFirst">
+        <div (click)="goToProductFromSlide(slide)" [class.link]="slide.link">
+          <img class="d-block img-fluid" src="assets/images/{{slide.image}}" >
+          <div class="carousel-caption">
+            <div class="title1">{{slide.title1}}</div>
+            <div class="title2">{{slide.title2}}</div>
+            <p>{{slide.description}}</p>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="carousel-item" *ngFor="let sliderArticle of sliderArticles$ | async">
-      <div [routerLink]="['/detail', sliderArticle.id]" class="link">
-        <img class="d-block img-fluid" [src]="picUtil.firstLargePictureFullPath(sliderArticle)" >
-        <div class="carousel-caption">
-          <div class="title1">{{sliderArticle.price | currency:'EUR'}}</div>
-          <div class="title2">{{sliderArticle.name}}</div>
-          <p>{{sliderArticle.description | truncate : 250}}</p>
+    }
+    @for (sliderArticle of sliderArticles$ | async; track sliderArticle) {
+      <div class="carousel-item">
+        <div [routerLink]="['/detail', sliderArticle.id]" class="link">
+          <img class="d-block img-fluid" [src]="picUtil.firstLargePictureFullPath(sliderArticle)" >
+          <div class="carousel-caption">
+            <div class="title1">{{sliderArticle.price | currency:'EUR'}}</div>
+            <div class="title2">{{sliderArticle.name}}</div>
+            <p>{{sliderArticle.description | truncate : 250}}</p>
+          </div>
         </div>
       </div>
-    </div>
+    }
   </div>
 
   <!-- Left and right controls -->

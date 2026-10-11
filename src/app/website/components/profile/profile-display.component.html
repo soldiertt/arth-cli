@@ -1,4 +1,4 @@
-<ng-container *ngIf="userProfile$ | async as userProfile">
+@if (userProfile$ | async; as userProfile) {
   <div class="form-group row form-read-row">
     <label class="col-form-label col-2">{{'common.label.name' | trans}}</label>
     <div class="col-5">
@@ -16,15 +16,18 @@
   <div class="form-group row form-read-row">
     <label class="col-form-label col-2">{{'common.label.address' | trans}}</label>
     <div class="col-5">
-      <p *ngIf="userProfile.user_metadata?.addresses?.delivery as address; else noAddress">
-        {{address.street}}, {{address.houseNumber}} <span *ngIf="address.postbox"> / {{address.postbox}}</span><br/>
-        {{address.postcode}} {{address.city}}<br/>
-        {{address.country}}
-      </p>
-      <ng-template #noAddress>
+      @if (userProfile.user_metadata?.addresses?.delivery; as address) {
+        <p>
+          {{address.street}}, {{address.houseNumber}} @if (address.postbox) {
+          <span> / {{address.postbox}}</span>
+          }<br/>
+          {{address.postcode}} {{address.city}}<br/>
+          {{address.country}}
+        </p>
+      } @else {
         <p class="alert alert-warning">{{'page.profile.missingdata' | trans}}</p>
-      </ng-template>
+      }
     </div>
     <div class="col-5"><button type="button" (click)="editContactInfo()" class="btn btn-arth">{{'page.profile.edit' | trans}}</button></div>
   </div>
-</ng-container>
+}

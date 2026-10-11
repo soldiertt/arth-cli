@@ -1,4 +1,4 @@
-import {Injectable, Inject} from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {Observable} from 'rxjs';
 
 import Brand from '../../model/brand.class';
@@ -6,9 +6,9 @@ import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class BrandRestService {
+  private http = inject(HttpClient);
+  private BASE_URL = inject<string>('REST_ENDPOINT' as any);
 
-  constructor(private http: HttpClient, @Inject('REST_ENDPOINT') private BASE_URL: string) {
-  }
 
   listAll(): Observable<Brand[]> {
     return this.http.get<Brand[]>(this.BASE_URL + '/brand');

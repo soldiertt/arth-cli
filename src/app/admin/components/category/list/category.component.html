@@ -1,7 +1,7 @@
 <div class="p-1">
   <button type="button" class="btn btn-sm btn-secondary"
-          (click)="newItem()"
-          data-bs-toggle="modal" data-bs-target="#categoryModal">
+    (click)="newItem()"
+    data-bs-toggle="modal" data-bs-target="#categoryModal">
     NEW CATEGORY
   </button>
 </div>
@@ -18,21 +18,23 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let category of categories$ | async">
-      <td>{{category.name}}</td>
-      <td>{{category.titleFr}}</td>
-      <td>{{category.titleNl}}</td>
-      <td>{{category.parent}}</td>
-      <td>{{category.sortby}}</td>
-      <td>
-        <a href (click)="editItem(category)" data-bs-toggle="modal" data-bs-target="#categoryModal">
-          <i class="material-icons">mode_edit</i>
-        </a>
-        <a href (click)="remove($event, category.id)">
-          <i class="material-icons">delete_forever</i>
-        </a>
-      </td>
-    </tr>
+    @for (category of categories$ | async; track category) {
+      <tr>
+        <td>{{category.name}}</td>
+        <td>{{category.titleFr}}</td>
+        <td>{{category.titleNl}}</td>
+        <td>{{category.parent}}</td>
+        <td>{{category.sortby}}</td>
+        <td>
+          <a href (click)="editItem(category)" data-bs-toggle="modal" data-bs-target="#categoryModal">
+            <i class="material-icons">mode_edit</i>
+          </a>
+          <a href (click)="remove($event, category.id)">
+            <i class="material-icons">delete_forever</i>
+          </a>
+        </td>
+      </tr>
+    }
   </tbody>
 </table>
 <arth-admin-category-modal [item]="edited"></arth-admin-category-modal>

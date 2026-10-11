@@ -1,6 +1,6 @@
 
 import {takeUntil} from 'rxjs/operators';
-import {AfterViewInit, Component, OnDestroy, OnInit} from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, inject } from '@angular/core';
 import {Auth0Service} from '../../../shared/service/auth.service';
 import {PaypalRestService} from '../../../shared/service/rest/paypal.rest.service';
 import {environment} from '../../../../environments/environment';
@@ -12,7 +12,7 @@ import {Subject} from 'rxjs';
 import {CartDataActions} from '../../actions/cart-data.actions';
 import {FromCartData} from '../../reducers/cart-data.reducer';
 import {FromProfile} from '../../../root/reducers/user-profile.reducer';
-import { NgIf } from '@angular/common';
+
 import { I18nPipe } from '../../../shared/i18n/i18n.pipe';
 
 declare const paypal: any;
@@ -21,9 +21,14 @@ declare const paypal: any;
     selector: 'arth-cart-navigation',
     templateUrl: './cart-navigation.component.html',
     styleUrls: ['./cart-navigation.component.css'],
-    imports: [NgIf, I18nPipe]
+    imports: [I18nPipe]
 })
 export class CartNavigationComponent implements OnInit, AfterViewInit, OnDestroy {
+  private store = inject<Store<CartData>>(Store);
+  private profileStore = inject<Store<UserProfile>>(Store);
+  authService = inject(Auth0Service);
+  private paypalRestService = inject(PaypalRestService);
+
 
   private ngUnsubscribe: Subject<any> = new Subject();
 
@@ -37,12 +42,6 @@ export class CartNavigationComponent implements OnInit, AfterViewInit, OnDestroy
   displayPaypalButton: boolean = false;
   processingPayment: boolean = false;
   paymentConfirmed: boolean = false;
-
-  constructor(private store: Store<CartData>,
-              private profileStore: Store<UserProfile>,
-              public authService: Auth0Service,
-              private paypalRestService: PaypalRestService) {
-  }
 
   ngOnInit() {
     this.store.select(FromCartData.selectLocalState).pipe(

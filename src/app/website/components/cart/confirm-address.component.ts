@@ -1,6 +1,6 @@
 
 import {takeUntil} from 'rxjs/operators';
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import UserProfile from '../../model/user-profile.class';
 import {Store} from '@ngrx/store';
 import CartData from '../../model/cart-data.class';
@@ -9,7 +9,7 @@ import {Subject} from 'rxjs';
 import {CartDataActions} from '../../actions/cart-data.actions';
 import {FromCartData} from '../../reducers/cart-data.reducer';
 import {FromProfile} from '../../../root/reducers/user-profile.reducer';
-import { NgIf } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { ProfileDisplayComponent } from '../profile/profile-display.component';
 import { ProfileEditComponent } from '../profile/profile-edit.component';
@@ -18,18 +18,18 @@ import { I18nPipe } from '../../../shared/i18n/i18n.pipe';
 @Component({
     selector: 'arth-confirm-address',
     templateUrl: './confirm-address.component.html',
-    imports: [NgIf, FormsModule, ProfileDisplayComponent, ProfileEditComponent, I18nPipe]
+    imports: [FormsModule, ProfileDisplayComponent, ProfileEditComponent, I18nPipe]
 })
 export class ConfirmAddressComponent implements OnInit, OnDestroy {
+  private store = inject<Store<UserProfile>>(Store);
+  private cartDataStore = inject<Store<CartData>>(Store);
+
 
   private ngUnsubscribe: Subject<any> = new Subject();
 
   editMode: boolean = false;
   editedItem: string | undefined;
   profileUpdated: boolean;
-
-  constructor(private store: Store<UserProfile>,
-              private cartDataStore: Store<CartData>) {}
 
   ngOnInit() {
     // Check if address is defined, otherwise edit it immediately

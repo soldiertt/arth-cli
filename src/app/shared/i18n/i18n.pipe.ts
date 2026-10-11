@@ -1,13 +1,12 @@
-import {Pipe, PipeTransform} from '@angular/core';
+import { Pipe, PipeTransform, inject } from '@angular/core';
 import {I18nService} from '../service/i18n.service';
 
 @Pipe({
     name: 'trans', pure: false
 })
 export class I18nPipe implements PipeTransform {
+  private i18nService = inject(I18nService);
 
-  constructor(private i18nService: I18nService) {
-  }
 
   transform(value: string, args?: string[]): any {
     if (!value) { return value; }

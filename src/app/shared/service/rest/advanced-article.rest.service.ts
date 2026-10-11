@@ -1,13 +1,13 @@
 import { HttpClient } from '@angular/common/http';
-import {Inject, Injectable} from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {Observable} from 'rxjs';
 import AdvancedArticle from '../../model/advanced-article.class';
 
 @Injectable()
 export class AdvancedArticleRestService {
+  private http = inject(HttpClient);
+  private BASE_URL = inject<string>('REST_ENDPOINT' as any);
 
-  constructor(private http: HttpClient, @Inject('REST_ENDPOINT') private BASE_URL: string) {
-  }
 
   listAll(): Observable<AdvancedArticle[]> {
     return this.http.get<AdvancedArticle[]>(this.BASE_URL + '/advancedproduct');

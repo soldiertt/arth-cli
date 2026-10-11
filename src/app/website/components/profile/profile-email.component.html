@@ -7,14 +7,20 @@
       </label>
       <div>
         <input type="email" name="email" id="email" formControlName="email" maxlength="100" class="form-control">
-        <div *ngIf="form.get('emails').get('email').invalid && submitAttempt" class="invalid-form-control">
-          <span *ngIf="form.get('emails').get('email').errors['required']">
-            {{'page.profile.requiredfield' | trans}}
-          </span>
-          <span *ngIf="form.get('emails').get('email').errors['pattern']">
-            {{'page.profile.invalidemail' | trans}}
-          </span>
-        </div>
+        @if (form.get('emails').get('email').invalid && submitAttempt) {
+          <div class="invalid-form-control">
+            @if (form.get('emails').get('email').errors['required']) {
+              <span>
+                {{'page.profile.requiredfield' | trans}}
+              </span>
+            }
+            @if (form.get('emails').get('email').errors['pattern']) {
+              <span>
+                {{'page.profile.invalidemail' | trans}}
+              </span>
+            }
+          </div>
+        }
       </div>
     </div>
     <div class="form-group">
@@ -23,21 +29,31 @@
       </label>
       <div>
         <input type="email" name="emailConfirm" id="emailConfirm" formControlName="emailConfirm" maxlength="100" class="form-control">
-        <div *ngIf="form.get('emails').get('emailConfirm').invalid && submitAttempt" class="invalid-form-control">
-          <span *ngIf="form.get('emails').get('emailConfirm').errors['required']">
-            {{'page.profile.requiredfield' | trans}}
-          </span>
-          <span *ngIf="form.get('emails').get('emailConfirm').errors['pattern']">
-            {{'page.profile.invalidemail' | trans}}
-          </span>
-        </div>
+        @if (form.get('emails').get('emailConfirm').invalid && submitAttempt) {
+          <div class="invalid-form-control">
+            @if (form.get('emails').get('emailConfirm').errors['required']) {
+              <span>
+                {{'page.profile.requiredfield' | trans}}
+              </span>
+            }
+            @if (form.get('emails').get('emailConfirm').errors['pattern']) {
+              <span>
+                {{'page.profile.invalidemail' | trans}}
+              </span>
+            }
+          </div>
+        }
       </div>
     </div>
-    <div *ngIf="form.get('emails').invalid && submitAttempt" class="alert alert-danger">
-      <span *ngIf="form.get('emails').errors['areEqual']">
-        {{'page.profile.emailsdonotmatch' | trans}}
-      </span>
-    </div>
+    @if (form.get('emails').invalid && submitAttempt) {
+      <div class="alert alert-danger">
+        @if (form.get('emails').errors['areEqual']) {
+          <span>
+            {{'page.profile.emailsdonotmatch' | trans}}
+          </span>
+        }
+      </div>
+    }
   </fieldset>
   <fieldset>
     <button type="submit" class="btn btn-arth">{{'page.profile.save' | trans}}</button>

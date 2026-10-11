@@ -2,7 +2,7 @@
 import { HttpHeaders } from '@angular/common/http';
 import {ToastrService} from 'ngx-toastr';
 import {takeUntil, map} from 'rxjs/operators';
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import {Observable, Subject} from 'rxjs';
 import {Store} from '@ngrx/store';
 import Article from '../../../../shared/model/article.class';
@@ -23,15 +23,24 @@ import {FromAdminSlideProduct} from '../../../reducers/slide-product.reducer';
 import {FromAdminSteel} from '../../../reducers/steel.reducer';
 import {PictureService} from '../../../../shared/service/picture.service';
 import {saveAs} from 'file-saver';
-import { NgFor, NgIf, AsyncPipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { EditProductComponent } from '../edit/edit-product.component';
 
 @Component({
     templateUrl: './product.component.html',
     styleUrls: ['./product.component.css'],
-    imports: [FormsModule, ReactiveFormsModule, NgFor, NgIf, EditProductComponent, AsyncPipe]
+    imports: [FormsModule, ReactiveFormsModule, EditProductComponent, AsyncPipe]
 })
 export class ProductComponent implements OnInit, OnDestroy {
+  private productStore = inject<Store<FromAdminProduct.State>>(Store);
+  private categoryStore = inject<Store<FromAdminCategory.State>>(Store);
+  private brandStore = inject<Store<FromAdminBrand.State>>(Store);
+  private steelStore = inject<Store<FromAdminSteel.State>>(Store);
+  private slideProductStore = inject<Store<FromAdminSlideProduct.State>>(Store);
+  picUtil = inject(PictureService);
+  private toastr = inject(ToastrService);
+  private fb = inject(FormBuilder);
+
 
   private ngUnsubscribe: Subject<any> = new Subject();
 
@@ -45,14 +54,7 @@ export class ProductComponent implements OnInit, OnDestroy {
 
   filterForm: FormGroup;
 
-  constructor(private productStore: Store<FromAdminProduct.State>,
-              private categoryStore: Store<FromAdminCategory.State>,
-              private brandStore: Store<FromAdminBrand.State>,
-              private steelStore: Store<FromAdminSteel.State>,
-              private slideProductStore: Store<FromAdminSlideProduct.State>,
-              public picUtil: PictureService,
-              private toastr: ToastrService,
-              private fb: FormBuilder) {
+  constructor() {
     this.filterForm = this.fb.group({
       categoryFilter: this.fb.control(''),
       brandFilter: this.fb.control(''),

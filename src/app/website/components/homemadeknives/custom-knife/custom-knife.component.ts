@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {IAlbum, Lightbox, LightboxConfig} from '@pierresh/ngx-lightbox';
 import {OrderArticle} from '../../../../shared/model/order-article';
@@ -15,17 +15,20 @@ declare const $: any;
     styleUrls: ['custom-knife.component.css']
 })
 export class CustomKnifeComponent implements OnInit {
+  private store = inject<Store<CartData>>(Store);
+  private jQueryService = inject(JQueryService);
+  private _lightbox = inject(Lightbox);
+
 
   @Input() isOdd = false;
   _album: IAlbum[] = [];
   customKnifeForm: FormGroup;
   price: number;
 
-  constructor(private store: Store<CartData>,
-              private jQueryService: JQueryService,
-              private _lightbox: Lightbox,
-              fb: FormBuilder,
-              _lightboxConfig: LightboxConfig) {
+  constructor() {
+    const fb = inject(FormBuilder);
+    const _lightboxConfig = inject(LightboxConfig);
+
     _lightboxConfig.alwaysShowNavOnTouchDevices = true;
     _lightboxConfig.centerVertically = true;
     _lightboxConfig.wrapAround = true;

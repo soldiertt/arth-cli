@@ -1,4 +1,4 @@
-import {Injectable, Inject} from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {Observable} from 'rxjs';
 
 import Slide from '../../model/slider.class';
@@ -7,9 +7,9 @@ import Article from '../../model/article.class';
 
 @Injectable()
 export class SliderRestService {
+  private http = inject(HttpClient);
+  private BASE_URL = inject<string>('REST_ENDPOINT' as any);
 
-  constructor(private http: HttpClient, @Inject('REST_ENDPOINT') private BASE_URL: string) {
-  }
 
   listAll(): Observable<Slide[]> {
     return this.http.get<Slide[]>(this.BASE_URL + '/slider');

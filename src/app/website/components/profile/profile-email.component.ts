@@ -1,6 +1,6 @@
 
 import {takeUntil} from 'rxjs/operators';
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { FormBuilder, Validators, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {FormComponent} from '../form.component';
 import UserMetaData from '../../model/usermetadata.class';
@@ -10,25 +10,23 @@ import {Subject} from 'rxjs';
 
 import {ProfileActions} from '../../../root/actions/user-profile.actions';
 import {FromProfile} from '../../../root/reducers/user-profile.reducer';
-import { NgIf } from '@angular/common';
+
 import { I18nPipe } from '../../../shared/i18n/i18n.pipe';
 
 @Component({
     selector: 'arth-profile-email',
     templateUrl: 'profile-email.component.html',
     styleUrls: ['profile-email.component.css'],
-    imports: [FormsModule, ReactiveFormsModule, NgIf, I18nPipe]
+    imports: [FormsModule, ReactiveFormsModule, I18nPipe]
 })
 export class ProfileEmailComponent extends FormComponent implements OnInit, OnDestroy {
+  private fb = inject(FormBuilder);
+  private store = inject<Store<UserProfile>>(Store);
+
 
   private ngUnsubscribe: Subject<any> = new Subject();
 
   profile: UserProfile;
-
-  constructor(private fb: FormBuilder,
-              private store: Store<UserProfile>) {
-    super();
-  }
 
   private static areEqual(group: FormGroup) {
     const allValues: string[] = [];

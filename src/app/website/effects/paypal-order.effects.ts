@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {PaypalOrderRestService} from '../../shared/service/rest/paypalorder.rest.service';
 import {PaypalRestService} from '../../shared/service/rest/paypal.rest.service';
@@ -13,12 +13,12 @@ import {DateTime} from 'luxon';
 
 @Injectable()
 export class PaypalOrderEffects {
+  private actions$ = inject(Actions);
+  private mailService = inject(MailService);
+  private i18nService = inject(I18nService);
+  private paypalOrderRestService = inject(PaypalOrderRestService);
+  private paypalRestService = inject(PaypalRestService);
 
-  constructor(private actions$: Actions,
-              private mailService: MailService,
-              private i18nService: I18nService,
-              private paypalOrderRestService: PaypalOrderRestService,
-              private paypalRestService: PaypalRestService) {}
 
   getAll$ = createEffect(() =>  this.actions$.pipe(
     ofType(PaypalOrderActions.GetAllForUser),

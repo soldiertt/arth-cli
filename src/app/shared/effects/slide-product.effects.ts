@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {of} from 'rxjs/internal/observable/of';
 import {SliderRestService} from '../service/rest/slider.rest.service';
@@ -7,8 +7,9 @@ import {catchError, map, mergeMap} from 'rxjs/operators';
 
 @Injectable()
 export class SlideProductEffects {
+  private actions$ = inject(Actions);
+  private sliderRestService = inject(SliderRestService);
 
-  constructor(private actions$: Actions, private sliderRestService: SliderRestService) {}
 
   getAll$ = createEffect(() => this.actions$.pipe(
     ofType(SlideProductActions.GetAll),

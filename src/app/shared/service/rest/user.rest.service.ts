@@ -1,6 +1,6 @@
 
 import {map} from 'rxjs/operators';
-import {Injectable, Inject} from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {Observable} from 'rxjs';
 
 import UserMetaData from '../../../website/model/usermetadata.class';
@@ -9,9 +9,9 @@ import UserProfile from '../../../website/model/user-profile.class';
 
 @Injectable()
 export class UserRestService {
+  private http = inject(HttpClient);
+  private BASE_URL = inject<string>('REST_ENDPOINT' as any);
 
-  constructor(private http: HttpClient, @Inject('REST_ENDPOINT') private BASE_URL: string) {
-  }
 
   private static mapUsers(authUserArray): UserProfile[] {
     return authUserArray.map(authUser => {

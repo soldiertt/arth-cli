@@ -1,23 +1,22 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 import Category from '../../../../shared/model/category.class';
 import {CategoryActions} from '../../../../shared/actions/category.actions';
 import {FromAdminCategory} from '../../../reducers/category.reducer';
-import { NgFor, AsyncPipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { EditCategoryComponent } from '../edit/edit-category.component';
 
 @Component({
     templateUrl: './category.component.html',
-    imports: [NgFor, EditCategoryComponent, AsyncPipe]
+    imports: [EditCategoryComponent, AsyncPipe]
 })
 export class CategoryComponent implements OnInit {
+  private store = inject<Store<FromAdminCategory.State>>(Store);
+
 
   categories$: Observable<Category[]>;
   edited: Category;
-
-  constructor(private store: Store<FromAdminCategory.State>) {
-  }
 
   ngOnInit() {
     this.getAll();

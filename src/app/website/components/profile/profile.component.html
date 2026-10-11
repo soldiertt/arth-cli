@@ -1,50 +1,67 @@
 <h1>{{'page.profile.title' | trans}}</h1>
-<div class="alert alert-success" *ngIf="profileUpdated">{{'page.profile.updatesuccess' | trans}}</div>
-<div class="alert alert-warning" *ngIf="incompleteProfile">{{'page.profile.missingdata' | trans}}</div>
+@if (profileUpdated) {
+  <div class="alert alert-success">{{'page.profile.updatesuccess' | trans}}</div>
+}
+@if (incompleteProfile) {
+  <div class="alert alert-warning">{{'page.profile.missingdata' | trans}}</div>
+}
 
 <!-- READ-ONLY MODE -->
-<div *ngIf="!editMode && (userProfile$ | async) as userProfile">
-  <form class="read-details-form" >
-    <div class="form-group row form-read-row">
-      <label class="col-form-label col-2">{{'common.label.email' | trans}}</label>
-      <div class="col-5">{{userProfile?.user_metadata.email}}</div>
-      <div class="col-5"><button type="button" (click)="editEmail()" class="btn btn-arth">{{'page.profile.edit' | trans}}</button></div>
-    </div>
-    <arth-profile-display (edit)="editContactInfo()"></arth-profile-display>
-  </form>
-</div>
+@if (!editMode && (userProfile$ | async); as userProfile) {
+  <div>
+    <form class="read-details-form" >
+      <div class="form-group row form-read-row">
+        <label class="col-form-label col-2">{{'common.label.email' | trans}}</label>
+        <div class="col-5">{{userProfile?.user_metadata.email}}</div>
+        <div class="col-5"><button type="button" (click)="editEmail()" class="btn btn-arth">{{'page.profile.edit' | trans}}</button></div>
+      </div>
+      <arth-profile-display (edit)="editContactInfo()"></arth-profile-display>
+    </form>
+  </div>
+}
 
 <!-- EDIT MODE -->
-<arth-profile-email (onUpdateMetaData)="updateMetaData()" (onCancelEdit)="cancelEdit()" *ngIf="editedItem == 'email'"></arth-profile-email>
-<arth-profile-edit (onUpdateMetaData)="updateMetaData()" (onCancelEdit)="cancelEdit()" *ngIf="editedItem == 'contactinfo'"></arth-profile-edit>
+@if (editedItem == 'email') {
+  <arth-profile-email (onUpdateMetaData)="updateMetaData()" (onCancelEdit)="cancelEdit()"></arth-profile-email>
+}
+@if (editedItem == 'contactinfo') {
+  <arth-profile-edit (onUpdateMetaData)="updateMetaData()" (onCancelEdit)="cancelEdit()"></arth-profile-edit>
+}
 
-<arth-orders *ngIf="!editMode"></arth-orders>
+@if (!editMode) {
+  <arth-orders></arth-orders>
+}
 
-<div *ngIf="!editMode">
-  <h1>{{'page.profile.options' | trans}}</h1>
-  <div *ngIf="pendingRemoval">
-    <p class="alert alert-danger">{{'page.profile.pendingremovalrequest' | trans}}</p>
-    <button type="button" class="btn btn-warning" (click)="cancelAskForRemoval()">{{'page.profile.canceldeleteaccount' | trans}}</button>
-  </div>
-  <a href data-bs-toggle="modal" data-bs-target="#confirmDeleteAccountModal" *ngIf="!pendingRemoval">{{'page.profile.deleteaccount' | trans}}</a>
-
-  <div class="modal fade" id="confirmDeleteAccountModal">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">{{'page.profile.deleteaccount' | trans}}</h5>
-          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <p>{{'page.profile.confirmdeleteaccount' | trans}}</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" (click)="askForRemoval()" data-bs-dismiss="modal">{{'common.label.yes' | trans}}</button>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{'common.label.no' | trans}}</button>
+@if (!editMode) {
+  <div>
+    <h1>{{'page.profile.options' | trans}}</h1>
+    @if (pendingRemoval) {
+      <div>
+        <p class="alert alert-danger">{{'page.profile.pendingremovalrequest' | trans}}</p>
+        <button type="button" class="btn btn-warning" (click)="cancelAskForRemoval()">{{'page.profile.canceldeleteaccount' | trans}}</button>
+      </div>
+    }
+    @if (!pendingRemoval) {
+      <a href data-bs-toggle="modal" data-bs-target="#confirmDeleteAccountModal">{{'page.profile.deleteaccount' | trans}}</a>
+    }
+    <div class="modal fade" id="confirmDeleteAccountModal">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">{{'page.profile.deleteaccount' | trans}}</h5>
+            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>{{'page.profile.confirmdeleteaccount' | trans}}</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="askForRemoval()" data-bs-dismiss="modal">{{'common.label.yes' | trans}}</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{'common.label.no' | trans}}</button>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+}

@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import {environment} from '../../../environments/environment';
@@ -12,6 +12,9 @@ import UserMetaData from '../../website/model/usermetadata.class';
 
 @Injectable()
 export class Auth0Service {
+  router = inject(Router);
+  private store = inject<Store<UserProfile>>(Store);
+
 
   auth0 = new auth0.WebAuth({
     clientID: 'FagjAgAPouOSSHFFrAbAs5Z5E60KVmGD',
@@ -20,9 +23,6 @@ export class Auth0Service {
     redirectUri: environment.redirecturl,
     scope: 'openid'
   });
-
-  constructor(public router: Router,
-              private store: Store<UserProfile>) { }
 
   handleAuthentication(): void {
     this.auth0.parseHash((err, authResult) => {

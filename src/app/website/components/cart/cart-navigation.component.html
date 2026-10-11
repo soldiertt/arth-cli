@@ -1,9 +1,17 @@
 <div class="cart-nav">
-  <button class="btn previous" (click)="onPrevious()" *ngIf="displayPrevious">{{'page.mycart.previous' | trans }}</button>
-  <button class="btn btn-arth next" (click)="onNext($event)" *ngIf="displayNext">{{'page.mycart.next' | trans }}</button>
+  @if (displayPrevious) {
+    <button class="btn previous" (click)="onPrevious()">{{'page.mycart.previous' | trans }}</button>
+  }
+  @if (displayNext) {
+    <button class="btn btn-arth next" (click)="onNext($event)">{{'page.mycart.next' | trans }}</button>
+  }
   <div id="paypal-button" [hidden]="!displayPaypalButton"></div>
 </div>
-<div id="mainLoading" *ngIf="processingPayment">
-  <img src="assets/images/ajax-loader.gif" />
-</div>
-<div class="alert alert-success" *ngIf="paymentConfirmed">{{'page.mycart.paymentsuccess' | trans}}</div>
+@if (processingPayment) {
+  <div id="mainLoading">
+    <img src="assets/images/ajax-loader.gif" />
+  </div>
+}
+@if (paymentConfirmed) {
+  <div class="alert alert-success">{{'page.mycart.paymentsuccess' | trans}}</div>
+}

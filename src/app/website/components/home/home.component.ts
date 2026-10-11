@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {FromAdminVideo} from '../../../admin/reducers/video.reducer';
 import {VideoActions} from '../../../shared/actions/video.actions';
 import Article from '../../../shared/model/article.class';
@@ -9,22 +9,22 @@ import {PromoProductActions} from '../../actions/promo-product.actions';
 import {FromPromoProduct} from '../../reducers/promo-product.reducer';
 import { SliderComponent } from '../shared/slider/slider.component';
 import { RouterLink } from '@angular/router';
-import { NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { ArticleBoxComponent } from '../shared/article-box/article-box.component';
 import { I18nPipe } from '../../../shared/i18n/i18n.pipe';
 
 @Component({
     templateUrl: 'home.component.html',
     styleUrls: ['home.component.css'],
-    imports: [SliderComponent, RouterLink, NgIf, NgFor, ArticleBoxComponent, AsyncPipe, I18nPipe]
+    imports: [SliderComponent, RouterLink, ArticleBoxComponent, AsyncPipe, I18nPipe]
 })
 export class HomeComponent implements OnInit {
+  private promoStore = inject<Store<FromPromoProduct.State>>(Store);
+  private videoStore = inject<Store<FromAdminVideo.State>>(Store);
+
 
   promoArticles$: Observable<Article[]>;
   videos$: Observable<Video[]>;
-
-  constructor(private promoStore: Store<FromPromoProduct.State>,
-              private videoStore: Store<FromAdminVideo.State>) {}
 
   ngOnInit() {
     this.promoArticles$ = this.promoStore.select(FromPromoProduct.selectAll);

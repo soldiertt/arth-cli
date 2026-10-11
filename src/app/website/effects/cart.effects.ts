@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {SessionService} from '../../shared/service/session.service';
 import {CartDataActions} from '../actions/cart-data.actions';
@@ -7,8 +7,9 @@ import Cart from '../model/cart.class';
 
 @Injectable()
 export class CartEffects {
+  private actions$ = inject(Actions);
+  private sessionService = inject(SessionService);
 
-  constructor(private actions$: Actions, private sessionService: SessionService) {}
 
   getCartFromSession$ = createEffect(() => this.actions$.pipe(
     ofType(CartDataActions.GetCartFromSession),

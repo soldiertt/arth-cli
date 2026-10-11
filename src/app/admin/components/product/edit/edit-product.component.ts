@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild, inject } from '@angular/core';
 import { FormArray, FormControl, NgForm, FormsModule } from '@angular/forms';
 import Article from '../../../../shared/model/article.class';
 import Category from '../../../../shared/model/category.class';
@@ -12,16 +12,21 @@ import {ProductActions} from '../../../actions/product.actions';
 import {FromAdminBrand} from '../../../reducers/brand.reducer';
 import {FromAdminCategory} from '../../../reducers/category.reducer';
 import {FromAdminProduct} from '../../../reducers/product.reducer';
-import { NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 
 declare const $: any;
 
 @Component({
     selector: 'arth-admin-product-modal',
     templateUrl: './edit-product.component.html',
-    imports: [FormsModule, NgIf, NgFor, AsyncPipe]
+    imports: [FormsModule, AsyncPipe]
 })
 export class EditProductComponent implements OnInit {
+  private uploadService = inject(UploadService);
+  private productStore = inject<Store<FromAdminProduct.State>>(Store);
+  private categoryStore = inject<Store<FromAdminCategory.State>>(Store);
+  private brandStore = inject<Store<FromAdminBrand.State>>(Store);
+
 
   @Input() item: Article;
   categories$: Observable<Category[]>;
@@ -30,11 +35,6 @@ export class EditProductComponent implements OnInit {
   pictures: FormArray = new FormArray<any>([]);
 
   @ViewChild('fileUpload') fileUploadInput: ElementRef;
-
-  constructor(private uploadService: UploadService,
-              private productStore: Store<FromAdminProduct.State>,
-              private categoryStore: Store<FromAdminCategory.State>,
-              private brandStore: Store<FromAdminBrand.State>) { }
 
   ngOnInit() {
     this.categories$ = this.categoryStore.select(FromAdminCategory.selectAll);

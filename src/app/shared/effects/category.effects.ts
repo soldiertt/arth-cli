@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {map, mergeMap} from 'rxjs/operators';
 import {CategoryRestService} from '../service/rest/category.rest.service';
@@ -7,8 +7,9 @@ import {CategoryActions} from '../actions/category.actions';
 
 @Injectable()
 export class CategoryEffects {
+  private actions$ = inject(Actions);
+  private categoryRestService = inject(CategoryRestService);
 
-  constructor(private actions$: Actions, private categoryRestService: CategoryRestService) {}
 
   getAll$ = createEffect(() => this.actions$.pipe(
     ofType(CategoryActions.GetAll),

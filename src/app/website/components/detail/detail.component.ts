@@ -1,6 +1,6 @@
 import {IAlbum, Lightbox, LightboxConfig} from '@pierresh/ngx-lightbox';
 import {filter, takeUntil} from 'rxjs/operators';
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import Article from '../../../shared/model/article.class';
 import {JQueryService} from '../../service/jQuery.service';
@@ -13,7 +13,7 @@ import {Subject} from 'rxjs';
 import {CartDataActions} from '../../actions/cart-data.actions';
 import {ProductActions} from '../../actions/product.actions';
 import {FromProduct} from '../../reducers/product.reducer';
-import { NgIf, NgFor, CurrencyPipe } from '@angular/common';
+import { CurrencyPipe } from '@angular/common';
 import { I18nPipe } from '../../../shared/i18n/i18n.pipe';
 import { CategoryTitlePipe } from '../../pipe/category-title.pipe';
 
@@ -23,9 +23,17 @@ declare const $: any;
     selector: 'arth-detail',
     templateUrl: './detail.component.html',
     styleUrls: ['./detail.component.css'],
-    imports: [NgIf, RouterLink, NgFor, CurrencyPipe, I18nPipe, CategoryTitlePipe]
+    imports: [RouterLink, CurrencyPipe, I18nPipe, CategoryTitlePipe]
 })
 export class DetailComponent implements OnInit, OnDestroy {
+  picUtil = inject(PictureService);
+  private route = inject(ActivatedRoute);
+  private store = inject<Store<ProductData>>(Store);
+  private cartDataStore = inject<Store<CartData>>(Store);
+  private jQueryService = inject(JQueryService);
+  private _lightbox = inject(Lightbox);
+  private _lightboxConfig = inject(LightboxConfig);
+
 
   private ngUnsubscribe: Subject<any> = new Subject();
 
@@ -33,13 +41,9 @@ export class DetailComponent implements OnInit, OnDestroy {
   needZoom: boolean = false;
   _album: IAlbum[] = [];
 
-  constructor(public picUtil: PictureService,
-              private route: ActivatedRoute,
-              private store: Store<ProductData>,
-              private cartDataStore: Store<CartData>,
-              private jQueryService: JQueryService,
-              private _lightbox: Lightbox,
-              private _lightboxConfig: LightboxConfig) {
+  constructor() {
+    const _lightboxConfig = this._lightboxConfig;
+
     _lightboxConfig.alwaysShowNavOnTouchDevices = true;
     _lightboxConfig.centerVertically = true;
     _lightboxConfig.wrapAround = true;

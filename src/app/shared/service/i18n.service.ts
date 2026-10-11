@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import frenchLanguage from '../i18n/fr';
 import dutchLanguage from '../i18n/nl';
 import englishLanguage from '../i18n/en';
@@ -7,6 +7,9 @@ import {ArthuriusEventsService} from './arthurius-events.service';
 
 @Injectable()
 export class I18nService {
+  private sessionService = inject(SessionService);
+  private eventsService = inject(ArthuriusEventsService);
+
 
   private fr: any;
   private nl: any;
@@ -14,7 +17,7 @@ export class I18nService {
 
   currentLanguage: string;
 
-  constructor(private sessionService: SessionService, private eventsService: ArthuriusEventsService) {
+  constructor() {
     this.fr = frenchLanguage;
     this.nl = dutchLanguage;
     this.en = englishLanguage;

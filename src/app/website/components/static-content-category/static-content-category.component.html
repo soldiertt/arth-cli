@@ -1,13 +1,15 @@
-<div id="main" *ngIf="current.category.name === 'boucherie'">
-  <div id="content">
-    <section>
-      <div class="section-content">
-        <img src="assets/images/boucherie.png" height="350px" class="butchery-pic" />
-        <div>
-          <p>{{'page.butchery.prices' | trans}}: <a href="assets/pdf/tarif_victorinox.pdf" target="_blank">tarifs-victorinox.pdf</a></p>
-          <p>{{'page.butchery.knives' | trans}}: <a href="assets/pdf/victorinox_boucherie.pdf" target="_blank">victorinox-boucherie.pdf</a></p>
+@if (current.category.name === 'boucherie') {
+  <div id="main">
+    <div id="content">
+      <section>
+        <div class="section-content">
+          <img src="assets/images/boucherie.png" height="350px" class="butchery-pic" />
+          <div>
+            <p>{{'page.butchery.prices' | trans}}: <a href="assets/pdf/tarif_victorinox.pdf" target="_blank">tarifs-victorinox.pdf</a></p>
+            <p>{{'page.butchery.knives' | trans}}: <a href="assets/pdf/victorinox_boucherie.pdf" target="_blank">victorinox-boucherie.pdf</a></p>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   </div>
-</div>
+}

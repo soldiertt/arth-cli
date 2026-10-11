@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {Store} from '@ngrx/store';
 import {ToastrService} from 'ngx-toastr';
@@ -8,7 +8,7 @@ import AdvancedArticle from '../../../../shared/model/advanced-article.class';
 import {PictureService} from '../../../../shared/service/picture.service';
 import {AdvancedProductActions} from '../../../actions/advanced-product.actions';
 import {FromAdminAdvancedProduct} from '../../../reducers/advanced-product.reducer';
-import { NgFor, AsyncPipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { EditAdvancedProductComponent } from '../edit/edit-advanced-product.component';
 
 interface AdvancedProductCategory {
@@ -19,9 +19,14 @@ interface AdvancedProductCategory {
 @Component({
     templateUrl: './advanced-product.component.html',
     styleUrls: ['./advanced-product.component.css'],
-    imports: [FormsModule, ReactiveFormsModule, NgFor, EditAdvancedProductComponent, AsyncPipe]
+    imports: [FormsModule, ReactiveFormsModule, EditAdvancedProductComponent, AsyncPipe]
 })
 export class AdvancedProductComponent implements OnInit, OnDestroy {
+  private advancedProductStore = inject<Store<FromAdminAdvancedProduct.State>>(Store);
+  picUtil = inject(PictureService);
+  private toastr = inject(ToastrService);
+  private fb = inject(FormBuilder);
+
 
   private ngUnsubscribe: Subject<any> = new Subject();
 
@@ -35,10 +40,7 @@ export class AdvancedProductComponent implements OnInit, OnDestroy {
     {name: 'Bracelet', code: 'bracelet'}
   ];
 
-  constructor(private advancedProductStore: Store<FromAdminAdvancedProduct.State>,
-              public picUtil: PictureService,
-              private toastr: ToastrService,
-              private fb: FormBuilder) {
+  constructor() {
     this.filterForm = this.fb.group({
       categoryFilter: this.fb.control('')
     });

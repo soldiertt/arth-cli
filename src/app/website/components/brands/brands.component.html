@@ -9,9 +9,11 @@
       </div>
     </div>
     <div class="content_bottom">
-      <div *ngFor="let brand of brands$ | async" class="box-link" [routerLink]="['/brand', brand.brand]">
-        {{brand.brand}}
-      </div>
+      @for (brand of brands$ | async; track brand) {
+        <div class="box-link" [routerLink]="['/brand', brand.brand]">
+          {{brand.brand}}
+        </div>
+      }
       <div class="clear"></div>
     </div>
   </div>

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Params, RouterLink } from '@angular/router';
 
 import Article from '../../../shared/model/article.class';
@@ -8,23 +8,22 @@ import {Store} from '@ngrx/store';
 import ProductData from '../../model/product-data.class';
 import {ProductActions} from '../../actions/product.actions';
 import {FromProduct} from '../../reducers/product.reducer';
-import { NgFor, AsyncPipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { ArticleBoxComponent } from '../shared/article-box/article-box.component';
 import { I18nPipe } from '../../../shared/i18n/i18n.pipe';
 
 @Component({
     selector: 'arth-brand-articles',
     templateUrl: 'brand-articles.component.html',
-    imports: [RouterLink, NgFor, ArticleBoxComponent, AsyncPipe, I18nPipe]
+    imports: [RouterLink, ArticleBoxComponent, AsyncPipe, I18nPipe]
 })
 export class BrandArticlesComponent implements OnInit {
+  private route = inject(ActivatedRoute);
+  private store = inject<Store<ProductData>>(Store);
+
 
   articles$: Observable<Article[]>;
   brand: Brand;
-
-  constructor(private route: ActivatedRoute,
-              private store: Store<ProductData>) {
-  }
 
   ngOnInit() {
     this.articles$ = this.store.select(FromProduct.selectCurrentProductsState);

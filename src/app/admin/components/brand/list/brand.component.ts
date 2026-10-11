@@ -1,23 +1,22 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
 import Brand from '../../../../shared/model/brand.class';
 import {BrandActions} from '../../../../shared/actions/brand.actions';
 import {FromAdminBrand} from '../../../reducers/brand.reducer';
-import { NgFor, AsyncPipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { EditBrandComponent } from '../edit/edit-brand.component';
 
 @Component({
     templateUrl: './brand.component.html',
-    imports: [NgFor, EditBrandComponent, AsyncPipe]
+    imports: [EditBrandComponent, AsyncPipe]
 })
 export class BrandComponent implements OnInit {
+  private store = inject<Store<FromAdminBrand.State>>(Store);
+
 
   brands$: Observable<Brand[]>;
   edited: Brand;
-
-  constructor(private store: Store<FromAdminBrand.State>) {
-  }
 
   ngOnInit() {
     this.getAll();

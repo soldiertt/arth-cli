@@ -1,90 +1,109 @@
-<div *ngIf="(cart$ | async) as cart">
-  <h1>{{'common.links.mycart' | trans}} - {{cart.totalCount}} {{'common.label.article-pp' | trans}}</h1>
-  <table class="table table-mycart table-striped" *ngIf="cart.orders.length">
-    <thead>
-      <tr>
-        <th class="d-none d-sm-block">&nbsp;</th>
-        <th>{{'common.label.article' | trans}}</th>
-        <th class="price-cell">{{'common.label.price' | trans}}</th>
-        <th>{{'common.label.quantity' | trans}}</th>
-        <th class="amount-cell">{{'common.label.total' | trans}}</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let order of cart.orders">
-        <td class="picture-cell d-none d-sm-block">
-          <a href [routerLink]="['/detail', order.article.id]" *ngIf="!order.article.noLink; else noLinkThumb">
-            <img [src]="picUtil.firstMiniPictureFullPath(order.article)" [attr.alt]="order.article.name">
-            <img src="assets/images/promo.png" *ngIf="order.article.promo">
-          </a>
-          <ng-template #noLinkThumb>
-            <img [src]="picUtil.firstMiniPictureFullPath(order.article)" [attr.alt]="order.article.name">
-          </ng-template>
-        </td>
-        <td class="name-cell">
-          <a href [routerLink]="['/detail', order.article.id]" *ngIf="!order.article.noLink; else noLink">{{order.article.name}}</a>
-          <ng-template #noLink>
-            {{order.article.name}}
-          </ng-template>
-          <br/>
-          <a href data-bs-toggle="modal" data-bs-target="#engravingModal" (click)="engravingModal(order)"
-             *ngIf="!order.engraving; else engravingEnabled">{{ 'page.mycart.engraving.addEngravingOption' | trans }}</a>
-          <ng-template #engravingEnabled>
-            <div class="engraving-cell">
-              <span>{{ 'page.mycart.engraving.withEngravingOption' | trans }}:  <i>{{ order.engravingName }}</i></span>
-              <a href (click)="removeEngraving($event, order)" class="action-icon">
-                <i class="material-icons" title="{{'common.label.remove' | trans}}">close</i>
-              </a>
-            </div>
-          </ng-template>
-        </td>
-        <td class="price-cell">{{order.article.price | currency:'EUR'}}
-          <span *ngIf="order.engraving"><br/>{{15 | currency:'EUR'}}</span>
-        </td>
-        <td class="qty-cell">{{order.count}}
-          <span>
-            <a href (click)="removeArticle($event, order.article.id)" *ngIf="order.count > 1" class="action-icon">
-              <i class="material-icons" title="{{'page.mycart.removearticle' | trans}}">remove_circle</i>
-            </a>
-            <a href (click)="addArticle($event, order.article)" class="action-icon">
-              <i class="material-icons" title="{{'page.mycart.addarticle' | trans}}">add_circle</i>
-            </a>
-          </span>
-        </td>
-        <td class="amount-cell">{{order.article.price * order.count | currency:'EUR'}}</td>
-        <td>
-          <span>
-          <a href (click)="removeOrder($event, order.article.id)" class="action-icon">
-            <i class="material-icons" title="{{'page.mycart.removefromcart' | trans}}">delete</i>
-          </a>
-          </span>
-        </td>
-      </tr>
-    </tbody>
-    <tfoot>
-      <tr>
-        <td colspan="4" class="foot-label-cell">{{'common.label.subtotal' | trans}} : </td>
-        <td class="cart-subtotal"> {{cart.subtotalAmount | currency:'EUR'}}</td>
-        <td>&nbsp;</td>
-      </tr>
-      <tr *ngIf="cart.promoAmount > 0">
-        <td colspan="4" class="foot-label-cell">{{'common.label.promotion' | trans}} ({{cart.promoPercentage * 100 | number : '1.0-0'}}%) : </td>
-        <td class="cart-subtotal">- {{cart.promoAmount | currency:'EUR'}}</td>
-        <td>&nbsp;</td>
-      </tr>
-      <tr *ngIf="cart.shipping">
-        <td colspan="4" class="foot-label-cell">{{'page.mycart.shipping' | trans}} : </td>
-        <td class="cart-subtotal">{{cart.shipping | currency:'EUR'}}</td>
-        <td>&nbsp;</td>
-      </tr>
-      <tr>
-        <td colspan="4" class="foot-label-cell">{{'common.label.total' | trans}} : </td>
-        <td class="cart-total">{{cart.totalAmount | number : '1.2-2'}} €</td>
-        <td>&nbsp;</td>
-      </tr>
-    </tfoot>
-  </table>
-</div>
+@if ((cart$ | async); as cart) {
+  <div>
+    <h1>{{'common.links.mycart' | trans}} - {{cart.totalCount}} {{'common.label.article-pp' | trans}}</h1>
+    @if (cart.orders.length) {
+      <table class="table table-mycart table-striped">
+        <thead>
+          <tr>
+            <th class="d-none d-sm-block">&nbsp;</th>
+            <th>{{'common.label.article' | trans}}</th>
+            <th class="price-cell">{{'common.label.price' | trans}}</th>
+            <th>{{'common.label.quantity' | trans}}</th>
+            <th class="amount-cell">{{'common.label.total' | trans}}</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (order of cart.orders; track order) {
+            <tr>
+              <td class="picture-cell d-none d-sm-block">
+                @if (!order.article.noLink) {
+                  <a href [routerLink]="['/detail', order.article.id]">
+                    <img [src]="picUtil.firstMiniPictureFullPath(order.article)" [attr.alt]="order.article.name">
+                    @if (order.article.promo) {
+                      <img src="assets/images/promo.png">
+                    }
+                  </a>
+                } @else {
+                  <img [src]="picUtil.firstMiniPictureFullPath(order.article)" [attr.alt]="order.article.name">
+                }
+              </td>
+              <td class="name-cell">
+                @if (!order.article.noLink) {
+                  <a href [routerLink]="['/detail', order.article.id]">{{order.article.name}}</a>
+                } @else {
+                  {{order.article.name}}
+                }
+                <br/>
+                @if (!order.engraving) {
+                  <a href data-bs-toggle="modal" data-bs-target="#engravingModal" (click)="engravingModal(order)"
+                  >{{ 'page.mycart.engraving.addEngravingOption' | trans }}</a>
+                } @else {
+                  <div class="engraving-cell">
+                    <span>{{ 'page.mycart.engraving.withEngravingOption' | trans }}:  <i>{{ order.engravingName }}</i></span>
+                    <a href (click)="removeEngraving($event, order)" class="action-icon">
+                      <i class="material-icons" title="{{'common.label.remove' | trans}}">close</i>
+                    </a>
+                  </div>
+                }
+              </td>
+              <td class="price-cell">{{order.article.price | currency:'EUR'}}
+                @if (order.engraving) {
+                  <span><br/>{{15 | currency:'EUR'}}</span>
+                }
+              </td>
+              <td class="qty-cell">{{order.count}}
+                <span>
+                  @if (order.count > 1) {
+                    <a href (click)="removeArticle($event, order.article.id)" class="action-icon">
+                      <i class="material-icons" title="{{'page.mycart.removearticle' | trans}}">remove_circle</i>
+                    </a>
+                  }
+                  <a href (click)="addArticle($event, order.article)" class="action-icon">
+                    <i class="material-icons" title="{{'page.mycart.addarticle' | trans}}">add_circle</i>
+                  </a>
+                </span>
+              </td>
+              <td class="amount-cell">{{order.article.price * order.count | currency:'EUR'}}</td>
+              <td>
+                <span>
+                  <a href (click)="removeOrder($event, order.article.id)" class="action-icon">
+                    <i class="material-icons" title="{{'page.mycart.removefromcart' | trans}}">delete</i>
+                  </a>
+                </span>
+              </td>
+            </tr>
+          }
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="4" class="foot-label-cell">{{'common.label.subtotal' | trans}} : </td>
+            <td class="cart-subtotal"> {{cart.subtotalAmount | currency:'EUR'}}</td>
+            <td>&nbsp;</td>
+          </tr>
+          @if (cart.promoAmount > 0) {
+            <tr>
+              <td colspan="4" class="foot-label-cell">{{'common.label.promotion' | trans}} ({{cart.promoPercentage * 100 | number : '1.0-0'}}%) : </td>
+              <td class="cart-subtotal">- {{cart.promoAmount | currency:'EUR'}}</td>
+              <td>&nbsp;</td>
+            </tr>
+          }
+          @if (cart.shipping) {
+            <tr>
+              <td colspan="4" class="foot-label-cell">{{'page.mycart.shipping' | trans}} : </td>
+              <td class="cart-subtotal">{{cart.shipping | currency:'EUR'}}</td>
+              <td>&nbsp;</td>
+            </tr>
+          }
+          <tr>
+            <td colspan="4" class="foot-label-cell">{{'common.label.total' | trans}} : </td>
+            <td class="cart-total">{{cart.totalAmount | number : '1.2-2'}} €</td>
+            <td>&nbsp;</td>
+          </tr>
+        </tfoot>
+      </table>
+    }
+  </div>
+}
 
 <arth-engraving-modal [order]="editedOrder"></arth-engraving-modal>

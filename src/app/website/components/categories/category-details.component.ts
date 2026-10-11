@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Params, RouterLink } from '@angular/router';
 
 import ProductData from '../../model/product-data.class';
@@ -6,7 +6,7 @@ import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {ProductActions} from '../../actions/product.actions';
 import {FromProduct} from '../../reducers/product.reducer';
-import { NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TopSalesComponent } from '../shared/topsales/topsales.component';
 import { StaticContentCategoryComponent } from '../static-content-category/static-content-category.component';
@@ -18,17 +18,16 @@ import { SortPipe } from '../../pipe/sort.pipe';
 @Component({
     templateUrl: 'category-details.component.html',
     styleUrls: ['category-details.component.css'],
-    imports: [NgIf, RouterLink, FormsModule, TopSalesComponent, NgFor, StaticContentCategoryComponent, ArticleBoxComponent, AsyncPipe, I18nPipe, CategoryTitlePipe, SortPipe]
+    imports: [RouterLink, FormsModule, TopSalesComponent, StaticContentCategoryComponent, ArticleBoxComponent, AsyncPipe, I18nPipe, CategoryTitlePipe, SortPipe]
 })
 export class CategoryDetailsComponent implements OnInit {
+  private store = inject<Store<ProductData>>(Store);
+  private activeRoute = inject(ActivatedRoute);
+
 
   productData$: Observable<ProductData>;
 
   _orderBy: string = 'brand';
-
-  constructor(private store: Store<ProductData>,
-              private activeRoute: ActivatedRoute) {
-  }
 
   ngOnInit() {
     this.productData$ = this.store.select(FromProduct.selectLocalState);

@@ -1,11 +1,11 @@
 <div class="p-1 no-print">
   <button type="button" class="btn btn-sm btn-secondary m-1"
-          (click)="newItem()"
-          data-bs-toggle="modal" data-bs-target="#productModal">
+    (click)="newItem()"
+    data-bs-toggle="modal" data-bs-target="#productModal">
     NEW PRODUCT
   </button>
   <button type="button" class="btn btn-sm btn-secondary m-1"
-          (click)="export()">
+    (click)="export()">
     EXPORT TO EXCEL
   </button>
 </div>
@@ -31,13 +31,17 @@
         <td>
           <select name="categoryfilter" id="categoryfilter" class="form-control form-control-sm" formControlName="categoryFilter">
             <option value="">[Category]</option>
-            <option *ngFor="let category of categories$ | async" [value]="category.name">{{category.name}}</option>
+            @for (category of categories$ | async; track category) {
+              <option [value]="category.name">{{category.name}}</option>
+            }
           </select>
         </td>
         <td>
           <select name="brandfilter" id="brandfilter" class="form-control form-control-sm" formControlName="brandFilter">
             <option value="">[Brand]</option>
-            <option *ngFor="let brand of brands$ | async" [value]="brand.brand">{{brand.brand}}</option>
+            @for (brand of brands$ | async; track brand) {
+              <option [value]="brand.brand">{{brand.brand}}</option>
+            }
           </select>
         </td>
         <td></td>
@@ -46,7 +50,9 @@
         <td class="thin-column">
           <select name="steelfilter" id="steelfilter" class="form-control form-control-sm" formControlName="steelFilter">
             <option value="">[Steel]</option>
-            <option *ngFor="let steel of steels$ | async" [value]="steel.name">{{steel.name}}</option>
+            @for (steel of steels$ | async; track steel) {
+              <option [value]="steel.name">{{steel.name}}</option>
+            }
           </select>
         </td>
         <td class="thin-column"></td>
@@ -68,34 +74,40 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let product of filteredProducts$ | async">
-        <td><img [src]="pic" *ngFor="let pic of picUtil.allMiniPicturesFullPath(product)"></td>
-        <td class="no-print">{{product.type}}</td>
-        <td>{{product.brand}}</td>
-        <td>{{product.name}}</td>
-        <td class="extra-thin-column">
-          {{product.price}}€
-          <div *ngIf="product.old_price" class="old-price">
-            {{product.old_price}}€
-          </div>
-        </td>
-        <td class="thin-column no-print">{{product.handle}}</td>
-        <td class="thin-column no-print">{{product.steel}}</td>
-        <td class="thin-column">{{product.size}}</td>
-        <td class="extra-thin-column no-print">{{product.promo}}</td>
-        <td class="extra-thin-column no-print">{{product.instock}}</td>
-        <td class="thin-column no-print">
-          <a href (click)="editItem(product)" data-bs-toggle="modal" data-bs-target="#productModal">
-            <i class="material-icons">mode_edit</i>
-          </a>
-          <a href (click)="remove($event, product.id)">
-            <i class="material-icons">delete_forever</i>
-          </a>
-          <a href (click)="createSlideProduct($event, product)">
-            <i class="material-icons">slideshow</i>
-          </a>
-        </td>
-      </tr>
+      @for (product of filteredProducts$ | async; track product) {
+        <tr>
+          <td>@for (pic of picUtil.allMiniPicturesFullPath(product); track pic) {
+            <img [src]="pic">
+          }</td>
+          <td class="no-print">{{product.type}}</td>
+          <td>{{product.brand}}</td>
+          <td>{{product.name}}</td>
+          <td class="extra-thin-column">
+            {{product.price}}€
+            @if (product.old_price) {
+              <div class="old-price">
+                {{product.old_price}}€
+              </div>
+            }
+          </td>
+          <td class="thin-column no-print">{{product.handle}}</td>
+          <td class="thin-column no-print">{{product.steel}}</td>
+          <td class="thin-column">{{product.size}}</td>
+          <td class="extra-thin-column no-print">{{product.promo}}</td>
+          <td class="extra-thin-column no-print">{{product.instock}}</td>
+          <td class="thin-column no-print">
+            <a href (click)="editItem(product)" data-bs-toggle="modal" data-bs-target="#productModal">
+              <i class="material-icons">mode_edit</i>
+            </a>
+            <a href (click)="remove($event, product.id)">
+              <i class="material-icons">delete_forever</i>
+            </a>
+            <a href (click)="createSlideProduct($event, product)">
+              <i class="material-icons">slideshow</i>
+            </a>
+          </td>
+        </tr>
+      }
     </tbody>
   </table>
 </form>

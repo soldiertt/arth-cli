@@ -1,23 +1,25 @@
 <div class="p-1">
   <button type="button" class="btn btn-sm btn-secondary"
-          (click)="newItem()"
-          data-bs-toggle="modal" data-bs-target="#brandModal">
+    (click)="newItem()"
+    data-bs-toggle="modal" data-bs-target="#brandModal">
     NEW BRAND
   </button>
 </div>
 
 <table class="table table-striped">
   <thead>
-  <tr>
-    <th>Name</th>
-    <th>Actions</th>
-  </tr>
+    <tr>
+      <th>Name</th>
+      <th>Actions</th>
+    </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let brand of brands$ | async">
-    <td>{{brand.brand}}</td>
-    <td><a href (click)="remove($event, brand.id)"><i class="material-icons">delete_forever</i></a></td>
-  </tr>
+    @for (brand of brands$ | async; track brand) {
+      <tr>
+        <td>{{brand.brand}}</td>
+        <td><a href (click)="remove($event, brand.id)"><i class="material-icons">delete_forever</i></a></td>
+      </tr>
+    }
   </tbody>
 </table>
 

@@ -1,7 +1,7 @@
 <div class="p-1">
   <button type="button" class="btn btn-sm btn-secondary"
-          (click)="newItem()"
-          data-bs-toggle="modal" data-bs-target="#videoModal">
+    (click)="newItem()"
+    data-bs-toggle="modal" data-bs-target="#videoModal">
     NEW VIDEO
   </button>
 </div>
@@ -17,15 +17,17 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let video of videos$ | async">
-      <td>{{video.ref}}</td>
-      <td>{{video.title}}</td>
-      <td>
-        <a href (click)="remove($event, video.id)">
-          <i class="material-icons">delete_forever</i>
-        </a>
-      </td>
-    </tr>
+    @for (video of videos$ | async; track video) {
+      <tr>
+        <td>{{video.ref}}</td>
+        <td>{{video.title}}</td>
+        <td>
+          <a href (click)="remove($event, video.id)">
+            <i class="material-icons">delete_forever</i>
+          </a>
+        </td>
+      </tr>
+    }
   </tbody>
 </table>
 

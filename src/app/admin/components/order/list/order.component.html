@@ -1,17 +1,19 @@
 <div id="ordersAccordion" role="tablist" class="m-2">
-  <div class="card" *ngFor="let order of orders$ | async">
-    <div class="card-header" role="tab" [attr.id]="'heading' + order.id">
-      <h5 class="mb-0">
-        <a data-bs-toggle="collapse" [href]="'#collapse' + order.id" [attr.aria-controls]="'collapse' + order.id">
-          {{order.orderDate | date:'dd-MM-yyyy HH:mm'}}
-        </a>
-      </h5>
-      <span>{{order.userId}}</span>
-    </div>
-    <div [attr.id]="'collapse' + order.id" class="collapse" role="tabpanel" [attr.aria-labelledby]="'heading' + order.id" data-parent="#ordersAccordion">
-      <div class="card-body">
-        <pre>{{order.parsedJson | json}}</pre>
+  @for (order of orders$ | async; track order) {
+    <div class="card">
+      <div class="card-header" role="tab" [attr.id]="'heading' + order.id">
+        <h5 class="mb-0">
+          <a data-bs-toggle="collapse" [href]="'#collapse' + order.id" [attr.aria-controls]="'collapse' + order.id">
+            {{order.orderDate | date:'dd-MM-yyyy HH:mm'}}
+          </a>
+        </h5>
+        <span>{{order.userId}}</span>
+      </div>
+      <div [attr.id]="'collapse' + order.id" class="collapse" role="tabpanel" [attr.aria-labelledby]="'heading' + order.id" data-parent="#ordersAccordion">
+        <div class="card-body">
+          <pre>{{order.parsedJson | json}}</pre>
+        </div>
       </div>
     </div>
-  </div>
+  }
 </div>

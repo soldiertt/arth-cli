@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit} from '@angular/core';
+import { Component, Input, OnChanges, OnInit, inject } from '@angular/core';
 import {IAlbum, Lightbox, LightboxConfig} from '@pierresh/ngx-lightbox';
 import AdvancedArticle from '../../../../shared/model/advanced-article.class';
 import {OrderArticle} from '../../../../shared/model/order-article';
@@ -7,7 +7,7 @@ import CartData from '../../../model/cart-data.class';
 import {Store} from '@ngrx/store';
 import {PictureService} from '../../../../shared/service/picture.service';
 import {CartDataActions} from '../../../actions/cart-data.actions';
-import { NgFor, NgIf, CurrencyPipe } from '@angular/common';
+import { CurrencyPipe } from '@angular/common';
 import { I18nPipe } from '../../../../shared/i18n/i18n.pipe';
 
 declare const $: any;
@@ -16,19 +16,23 @@ declare const $: any;
     selector: 'arth-advanced-article-box',
     templateUrl: 'advanced-article-box.component.html',
     styleUrls: ['advanced-article-box.component.css'],
-    imports: [NgFor, NgIf, CurrencyPipe, I18nPipe]
+    imports: [CurrencyPipe, I18nPipe]
 })
 export class AdvancedArticleBoxComponent implements OnInit, OnChanges {
+  private picUtil = inject(PictureService);
+  private store = inject<Store<CartData>>(Store);
+  private jQueryService = inject(JQueryService);
+  private _lightbox = inject(Lightbox);
+  private _lightboxConfig = inject(LightboxConfig);
+
 
   @Input() article: AdvancedArticle;
   @Input() isOdd = false;
   _album: IAlbum[] = [];
 
-  constructor(private picUtil: PictureService,
-              private store: Store<CartData>,
-              private jQueryService: JQueryService,
-              private _lightbox: Lightbox,
-              private _lightboxConfig: LightboxConfig) {
+  constructor() {
+    const _lightboxConfig = this._lightboxConfig;
+
     _lightboxConfig.alwaysShowNavOnTouchDevices = true;
     _lightboxConfig.centerVertically = true;
     _lightboxConfig.wrapAround = true;

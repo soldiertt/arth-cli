@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {VideoActions} from '../actions/video.actions';
 import {map, mergeMap} from 'rxjs/operators';
@@ -6,8 +6,9 @@ import {VideoRestService} from '../service/rest/video.rest.service';
 
 @Injectable()
 export class VideoEffects {
+  private actions$ = inject(Actions);
+  private videoRestService = inject(VideoRestService);
 
-  constructor(private actions$: Actions, private videoRestService: VideoRestService) {}
 
   getAll$ = createEffect(() => this.actions$.pipe(
     ofType(VideoActions.GetAll),

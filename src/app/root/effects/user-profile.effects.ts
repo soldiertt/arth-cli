@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {Store} from '@ngrx/store';
 import {UserRestService} from '../../shared/service/rest/user.rest.service';
@@ -9,11 +9,11 @@ import {map, mergeMap, tap, withLatestFrom} from 'rxjs/operators';
 
 @Injectable()
 export class UserProfileEffects {
+  private actions$ = inject(Actions);
+  private userRestService = inject(UserRestService);
+  private sessionService = inject(SessionService);
+  private store = inject<Store<AppState>>(Store);
 
-  constructor(private actions$: Actions,
-              private userRestService: UserRestService,
-              private sessionService: SessionService,
-              private store: Store<AppState>) {}
 
   initProfileFromSession$ = createEffect(() => this.actions$.pipe(
     ofType(ProfileActions.InitFromSession),

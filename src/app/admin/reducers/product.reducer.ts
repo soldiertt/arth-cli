@@ -13,7 +13,7 @@ const defaultState: FromAdminProduct.State  = {
   filename: undefined
 };
 
-const initialState = adapter.getInitialState(defaultState);
+const initialState = adapter.getInitialState<FromAdminProduct.State>(defaultState);
 
 export namespace FromAdminProduct {
 

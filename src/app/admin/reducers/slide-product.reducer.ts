@@ -11,7 +11,7 @@ const defaultState: FromAdminSlideProduct.State  = {
   created: false
 };
 
-const initialState = adapter.getInitialState(defaultState);
+const initialState = adapter.getInitialState<FromAdminSlideProduct.State>(defaultState);
 
 export namespace FromAdminSlideProduct {
 

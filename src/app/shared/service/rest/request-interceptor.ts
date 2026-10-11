@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {SessionService} from '../session.service';
@@ -6,8 +6,9 @@ import {Auth0Service} from '../auth.service';
 
 @Injectable()
 export class RequestInterceptor implements HttpInterceptor {
+  private sessionService = inject(SessionService);
+  private auth0Service = inject(Auth0Service);
 
-  constructor(private sessionService: SessionService, private auth0Service: Auth0Service) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 

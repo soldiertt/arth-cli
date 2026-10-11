@@ -1,23 +1,23 @@
-import {Component, Input} from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import {Store} from '@ngrx/store';
 import {VideoActions} from '../../../../shared/actions/video.actions';
 import Video from '../../../../shared/model/video.class';
 import {FromAdminVideo} from '../../../reducers/video.reducer';
 import { FormsModule } from '@angular/forms';
-import { NgIf } from '@angular/common';
+
 
 declare const $: any;
 
 @Component({
     selector: 'arth-admin-video-modal',
     templateUrl: './edit-video.component.html',
-    imports: [FormsModule, NgIf]
+    imports: [FormsModule]
 })
 export class EditVideoComponent {
+  private store = inject<Store<FromAdminVideo.State>>(Store);
+
 
   @Input() item: Video;
-
-  constructor(private store: Store<FromAdminVideo.State>) { }
 
   save(valid: boolean | null) {
     if (valid && (this.item.ref || this.item.title)) {

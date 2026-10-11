@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import Slide from '../../../../shared/model/slider.class';
 import { Router, RouterLink } from '@angular/router';
 import Article from '../../../../shared/model/article.class';
@@ -9,26 +9,26 @@ import {SlideProductActions} from '../../../../shared/actions/slide-product.acti
 import {PictureService} from '../../../../shared/service/picture.service';
 import {FromSlide} from '../../../reducers/slide.reducer';
 import {FromSlideProduct} from '../../../reducers/slide-product.reducer';
-import { NgFor, NgIf, AsyncPipe, CurrencyPipe } from '@angular/common';
+import { AsyncPipe, CurrencyPipe } from '@angular/common';
 import { TruncatePipe } from '../../../pipe/truncate.pipe';
 
 @Component({
     selector: 'arth-slider',
     templateUrl: 'slider.component.html',
     styleUrls: ['slider.component.css'],
-    imports: [NgFor, NgIf, RouterLink, AsyncPipe, CurrencyPipe, TruncatePipe]
+    imports: [RouterLink, AsyncPipe, CurrencyPipe, TruncatePipe]
 })
 export class SliderComponent implements OnInit {
+  private slideStore = inject<Store<FromSlide.State>>(Store);
+  private slideProductStore = inject<Store<FromSlideProduct.State>>(Store);
+  private router = inject(Router);
+  picUtil = inject(PictureService);
+
 
   slides$: Observable<Slide[]>;
   slidesCount$: Observable<number>;
 
   sliderArticles$: Observable<Article[]>;
-
-  constructor(private slideStore: Store<FromSlide.State>,
-              private slideProductStore: Store<FromSlideProduct.State>,
-              private router: Router,
-              public picUtil: PictureService) {}
 
   ngOnInit() {
     this.slides$ = this.slideStore.select(FromSlide.selectAll);

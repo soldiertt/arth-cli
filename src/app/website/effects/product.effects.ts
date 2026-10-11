@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {of} from 'rxjs';
 import {ArticleRestService} from '../../shared/service/rest/article.rest.service';
@@ -12,10 +12,10 @@ import {map, mergeMap} from 'rxjs/operators';
 
 @Injectable()
 export class ProductEffects {
+  private actions$ = inject(Actions);
+  private productRestService = inject(ArticleRestService);
+  private categoryRestService = inject(CategoryRestService);
 
-  constructor(private actions$: Actions,
-              private productRestService: ArticleRestService,
-              private categoryRestService: CategoryRestService) {}
 
   getAllPromo$ = createEffect(() => this.actions$.pipe(
     ofType(PromoProductActions.GetAll),

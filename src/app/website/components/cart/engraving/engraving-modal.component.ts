@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import {Store} from '@ngrx/store';
 import Order from '../../../../shared/model/order.class';
 import { NgForm, FormsModule } from '@angular/forms';
@@ -14,12 +14,11 @@ declare const $: any;
     imports: [FormsModule, CurrencyPipe, I18nPipe]
 })
 export class EngravingModalComponent {
+  private store = inject<Store<Order>>(Store);
+
 
   @Input() order: Order;
   engravingName: string;
-
-  constructor(private store: Store<Order>) {
-  }
 
   save(form: NgForm) {
     if (form.valid) {

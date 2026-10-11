@@ -1,23 +1,22 @@
 
 import {map} from 'rxjs/operators';
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
 import PaypalOrder from '../../../../shared/model/paypalorder.class';
 import {PaypalOrderActions} from '../../../../shared/actions/paypal-order.actions';
 import {FromAdminPaypalOrder} from '../../../reducers/paypal-order.reducer';
-import { NgFor, AsyncPipe, JsonPipe, DatePipe } from '@angular/common';
+import { AsyncPipe, JsonPipe, DatePipe } from '@angular/common';
 
 @Component({
     templateUrl: './order.component.html',
-    imports: [NgFor, AsyncPipe, JsonPipe, DatePipe]
+    imports: [AsyncPipe, JsonPipe, DatePipe]
 })
 export class OrderComponent implements OnInit {
+  private store = inject<Store<FromAdminPaypalOrder.State>>(Store);
+
 
   orders$: Observable<PaypalOrder[]>;
-
-  constructor(private store: Store<FromAdminPaypalOrder.State>) {
-  }
 
   ngOnInit() {
     this.getAll();

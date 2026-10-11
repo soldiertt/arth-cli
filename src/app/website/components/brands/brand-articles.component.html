@@ -10,7 +10,9 @@
       </div>
     </div>
     <div class="section group">
-      <arth-article-box *ngFor="let article of articles$ | async" [article]="article"></arth-article-box>
+      @for (article of articles$ | async; track article) {
+        <arth-article-box [article]="article"></arth-article-box>
+      }
     </div>
   </div>
 </div>

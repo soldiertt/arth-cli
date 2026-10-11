@@ -1,6 +1,6 @@
 
 import {map} from 'rxjs/operators';
-import {Injectable, Inject} from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {Observable} from 'rxjs';
 
 import Category from '../../model/category.class';
@@ -8,9 +8,9 @@ import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class CategoryRestService {
+  private http = inject(HttpClient);
+  private BASE_URL = inject<string>('REST_ENDPOINT' as any);
 
-  constructor(private http: HttpClient, @Inject('REST_ENDPOINT') private BASE_URL: string) {
-  }
 
   private static _mapJsonToCategory(category: any): Category {
     return Category.fromObject(category);

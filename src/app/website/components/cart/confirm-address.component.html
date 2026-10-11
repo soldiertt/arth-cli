@@ -1,9 +1,15 @@
 <h1>{{'page.profile.title' | trans}}</h1>
-<div class="alert alert-success" *ngIf="profileUpdated">{{'page.profile.updatesuccess' | trans}}</div>
-<div *ngIf="!editMode">
-  <form class="read-details-form" >
-    <arth-profile-display (edit)="editAddress()"></arth-profile-display>
-  </form>
-</div>
+@if (profileUpdated) {
+  <div class="alert alert-success">{{'page.profile.updatesuccess' | trans}}</div>
+}
+@if (!editMode) {
+  <div>
+    <form class="read-details-form" >
+      <arth-profile-display (edit)="editAddress()"></arth-profile-display>
+    </form>
+  </div>
+}
 
-<arth-profile-edit (onUpdateMetaData)="updateMetaData()" (onCancelEdit)="cancelEdit()" *ngIf="editedItem == 'address'"></arth-profile-edit>
+@if (editedItem == 'address') {
+  <arth-profile-edit (onUpdateMetaData)="updateMetaData()" (onCancelEdit)="cancelEdit()"></arth-profile-edit>
+}

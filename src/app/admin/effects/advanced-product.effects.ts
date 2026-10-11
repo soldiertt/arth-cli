@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {of} from 'rxjs';
 import {catchError, map, mergeMap} from 'rxjs/operators';
@@ -8,8 +8,9 @@ import {AdvancedProductActions} from '../actions/advanced-product.actions';
 
 @Injectable()
 export class AdvancedProductEffects {
+  private actions$ = inject(Actions);
+  private advancedProductRestService = inject(AdvancedArticleRestService);
 
-  constructor(private actions$: Actions, private advancedProductRestService: AdvancedArticleRestService) {}
 
   getAll$ = createEffect(() => this.actions$.pipe(
     ofType(AdvancedProductActions.GetAll),

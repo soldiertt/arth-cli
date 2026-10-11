@@ -1,4 +1,4 @@
-import {Injectable, Inject} from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {Observable} from 'rxjs';
 
 import { HttpClient } from '@angular/common/http';
@@ -6,9 +6,9 @@ import Video from '../../model/video.class';
 
 @Injectable()
 export class VideoRestService {
+  private http = inject(HttpClient);
+  private BASE_URL = inject<string>('REST_ENDPOINT' as any);
 
-  constructor(private http: HttpClient, @Inject('REST_ENDPOINT') private BASE_URL: string) {
-  }
 
   listAll(): Observable<Video[]> {
     return this.http.get<Video[]>(this.BASE_URL + '/videos');

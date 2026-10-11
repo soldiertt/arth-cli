@@ -1,6 +1,6 @@
 
 import {takeUntil} from 'rxjs/operators';
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import {AdvancedProductActions} from '../actions/advanced-product.actions';
 import CartData from '../model/cart-data.class';
 import {Store} from '@ngrx/store';
@@ -18,10 +18,10 @@ import { FooterComponent } from './shared/footer/footer.component';
     imports: [HeaderComponent, RouterOutlet, FooterComponent]
 })
 export class WebsiteComponent implements OnInit, OnDestroy {
+  private store = inject<Store<CartData>>(Store);
+
 
   private ngUnsubscribe: Subject<any> = new Subject();
-
-  constructor(private store: Store<CartData>) { }
 
   ngOnInit() {
     // Initialize Cart from local storage

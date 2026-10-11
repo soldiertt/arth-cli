@@ -1,29 +1,29 @@
-import {Component, Input, ViewChild} from '@angular/core';
+import { Component, Input, ViewChild, inject } from '@angular/core';
 import {Store} from '@ngrx/store';
 import Slide from '../../../../shared/model/slider.class';
 import { FormControl, FormsModule } from '@angular/forms';
 import {UploadService} from '../../../../shared/service/upload.service';
 import {SlideActions} from '../../../../shared/actions/slide.actions';
 import {FromAdminSlide} from '../../../reducers/slide.reducer';
-import { NgIf } from '@angular/common';
+
 
 declare const $: any;
 
 @Component({
     selector: 'arth-admin-slide-modal',
     templateUrl: './edit-slide.component.html',
-    imports: [FormsModule, NgIf]
+    imports: [FormsModule]
 })
 export class EditSlideComponent {
+  private uploadService = inject(UploadService);
+  private store = inject<Store<FromAdminSlide.State>>(Store);
+
 
   @Input() item: Slide;
 
   picture: FormControl = new FormControl();
 
   @ViewChild('fileUpload') fileUploadInput: any;
-
-  constructor(private uploadService: UploadService,
-              private store: Store<FromAdminSlide.State>) { }
 
   resetForm() {
     this.fileUploadInput.nativeElement.value = '';

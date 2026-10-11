@@ -1,6 +1,6 @@
 
 import {map} from 'rxjs/operators';
-import {Injectable, Inject} from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {Observable} from 'rxjs';
 
 import PaypalOrder from '../../model/paypalorder.class';
@@ -8,9 +8,9 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 
 @Injectable()
 export class PaypalOrderRestService {
+  private http = inject(HttpClient);
+  private BASE_URL = inject<string>('REST_ENDPOINT' as any);
 
-  constructor(private http: HttpClient, @Inject('REST_ENDPOINT') private BASE_URL: string) {
-  }
 
   listAll(): Observable<PaypalOrder[]> {
     return this.http.get<PaypalOrder[]>(this.BASE_URL + '/order').pipe(map(dbOrders => this.mapPaypalOrders(dbOrders)));

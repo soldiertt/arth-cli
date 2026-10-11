@@ -20,23 +20,31 @@
       </div>
     </div>
   </div>
-  <div class="content" *ngIf="(videos$ | async).length">
-    <div class="home-news">
-      <div class="news" *ngFor="let video of (videos$ | async)">
-        <a data-fancybox="gallery" class="fancybox.iframe" href="http://www.youtube.com/embed/{{video.ref}}" [title]="video.title">
-          <img src="https://img.youtube.com/vi/{{video.ref}}/hqdefault.jpg">
-        </a>
+  @if ((videos$ | async).length) {
+    <div class="content">
+      <div class="home-news">
+        @for (video of (videos$ | async); track video) {
+          <div class="news">
+            <a data-fancybox="gallery" class="fancybox.iframe" href="http://www.youtube.com/embed/{{video.ref}}" [title]="video.title">
+              <img src="https://img.youtube.com/vi/{{video.ref}}/hqdefault.jpg">
+            </a>
+          </div>
+        }
       </div>
     </div>
-  </div>
-  <div class="content" *ngIf="(promoArticles$ | async).length">
-    <div class="content_top">
-      <div class="heading">
-        <h2>{{'page.home.promotion' | trans}}</h2>
+  }
+  @if ((promoArticles$ | async).length) {
+    <div class="content">
+      <div class="content_top">
+        <div class="heading">
+          <h2>{{'page.home.promotion' | trans}}</h2>
+        </div>
+      </div>
+      <div class="section group">
+        @for (promoArticle of (promoArticles$ | async); track promoArticle) {
+          <arth-article-box [article]="promoArticle"></arth-article-box>
+        }
       </div>
     </div>
-    <div class="section group">
-      <arth-article-box *ngFor="let promoArticle of (promoArticles$ | async)" [article]="promoArticle"></arth-article-box>
-    </div>
-  </div>
+  }
 </div>
