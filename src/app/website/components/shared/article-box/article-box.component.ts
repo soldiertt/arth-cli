@@ -1,4 +1,4 @@
-import {Component, inject, input, ChangeDetectionStrategy} from '@angular/core';
+import {Component, inject, input} from '@angular/core';
 import Article from '../../../../shared/model/article.class';
 import {JQueryService} from '../../../service/jQuery.service';
 import CartData from '../../../model/cart-data.class';
@@ -15,7 +15,6 @@ declare const $: any;
     selector: 'arth-article-box',
     templateUrl: 'article-box.component.html',
     styleUrls: ['article-box.component.css'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [RouterLink, CurrencyPipe, I18nPipe]
 })
 export class ArticleBoxComponent {

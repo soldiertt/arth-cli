@@ -23,7 +23,6 @@ export class ConfirmAddressComponent implements OnInit, OnDestroy {
   private store = inject<Store<UserProfile>>(Store);
   private cartDataStore = inject<Store<CartData>>(Store);
 
-
   private ngUnsubscribe: Subject<any> = new Subject();
 
   editMode: boolean = false;

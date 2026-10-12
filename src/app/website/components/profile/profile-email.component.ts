@@ -22,7 +22,6 @@ export class ProfileEmailComponent extends FormComponent implements OnInit, OnDe
   private fb = inject(FormBuilder);
   private store = inject<Store<UserProfile>>(Store);
 
-
   private ngUnsubscribe: Subject<any> = new Subject();
 
   profile: UserProfile;

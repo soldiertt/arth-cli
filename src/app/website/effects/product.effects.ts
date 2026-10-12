@@ -8,7 +8,7 @@ import ProductData from '../model/product-data.class';
 import {CartDataActions} from '../actions/cart-data.actions';
 import {ProductActions} from '../actions/product.actions';
 import {PromoProductActions} from '../actions/promo-product.actions';
-import {map, mergeMap} from 'rxjs/operators';
+import {map, mergeMap, switchMap, catchError} from 'rxjs/operators';
 
 @Injectable()
 export class ProductEffects {
@@ -31,18 +31,25 @@ export class ProductEffects {
 
   loadProduct$ = createEffect(() => this.actions$.pipe(
     ofType(ProductActions.LoadOne),
-    mergeMap((action) => this.productRestService.findById(action.productId)),
-    mergeMap(product => this.categoryRestService.findCategory(product.type).pipe(map(category => ({product, category})))),
-    mergeMap(productItemData => {
-      if (productItemData.category.parent) {
-        return this.categoryRestService.findCategory(productItemData.category.parent).pipe(
-          map(parentCategory => ({...productItemData, parentCategory}))
-        );
-      } else {
-        return of(productItemData);
-      }
-    }),
-    map(productItemData => ProductActions.LoadOneSuccess({productItemData}))
+    switchMap((action) => this.productRestService.findById(action.productId).pipe(
+      switchMap(product => this.categoryRestService.findCategory(product.type).pipe(
+        map(category => ({product, category}))
+      )),
+      switchMap(productItemData => {
+        if (productItemData.category.parent) {
+          return this.categoryRestService.findCategory(productItemData.category.parent).pipe(
+            map(parentCategory => ({...productItemData, parentCategory}))
+          );
+        } else {
+          return of(productItemData);
+        }
+      }),
+      map(productItemData => ProductActions.LoadOneSuccess({productItemData})),
+      catchError(error => {
+        console.error('Failed to load product', action.productId, error);
+        return of(ProductActions.LoadOneFailure({productId: action.productId}));
+      })
+    ))
     )
   );
 
@@ -62,53 +69,57 @@ export class ProductEffects {
 
   loadAllByCategory$ = createEffect(() => this.actions$.pipe(
     ofType(ProductActions.LoadAllByCategory),
-    mergeMap((action) =>
+    switchMap((action) =>
       this.categoryRestService.findCategory(action.categoryName).pipe(
         map(category => {
           const productData = new ProductData();
           productData.selected = new ProductItemData();
           productData.selected.category = category;
           return productData;
-        }))
-    ),
-    mergeMap(productData => {
-      if (productData.selected.category.parent) {
-        return this.categoryRestService.findCategory(productData.selected.category.parent).pipe(
-          map(parentCategory => {
-            productData.selected.parentCategory = parentCategory;
+        }),
+        mergeMap(productData => {
+          if (productData.selected.category.parent) {
+            return this.categoryRestService.findCategory(productData.selected.category.parent).pipe(
+              map(parentCategory => {
+                productData.selected.parentCategory = parentCategory;
+                return productData;
+              }));
+          } else {
+            return of(productData);
+          }
+        }),
+        mergeMap(productData => this.categoryRestService.listSubCategories(productData.selected.category.name).pipe(
+          map(subCategories => {
+            productData.subCategories = subCategories;
             return productData;
-          }));
-      } else {
-        return of(productData);
-      }
-    }),
-    mergeMap(productData => this.categoryRestService.listSubCategories(productData.selected.category.name).pipe(
-      map(subCategories => {
-        productData.subCategories = subCategories;
-        return productData;
-      }))
-    ),
-    mergeMap(productData => {
-      if (!productData.subCategories.length) {
-        return this.productRestService.findByCategory(productData.selected.category.name).pipe(
-          map(products => {
-            productData.currentProducts = products;
-            return productData;
-          })
-        );
-      } else {
-        return of(productData);
-      }
-    }),
-    mergeMap(productData => {
-      return this.productRestService.findTopSalesByCategory(productData.selected.category.name).pipe(
-        map(articles => {
-          productData.currentTopSales = articles;
-          return productData;
+          }))
+        ),
+        mergeMap(productData => {
+          if (!productData.subCategories.length) {
+            return this.productRestService.findByCategory(productData.selected.category.name).pipe(
+              map(products => {
+                productData.currentProducts = products;
+                return productData;
+              })
+            );
+          } else {
+            return of(productData);
+          }
+        }),
+        mergeMap(productData => {
+          return this.productRestService.findTopSalesByCategory(productData.selected.category.name).pipe(
+            map(articles => {
+              productData.currentTopSales = articles;
+              return productData;
+            })
+          );
+        }),
+        map(productData => ProductActions.LoadAllByCategorySuccess({productData})),
+        catchError(error => {
+          console.error('Failed to load category', action.categoryName, error);
+          return of(ProductActions.LoadAllByCategoryFailure({categoryName: action.categoryName}));
         })
-      );
-    }),
-    map(productData => ProductActions.LoadAllByCategorySuccess({productData}))
+      ))
     )
   );
 }

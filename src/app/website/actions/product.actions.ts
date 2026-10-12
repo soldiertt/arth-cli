@@ -7,10 +7,12 @@ import ProductData from '../model/product-data.class';
 export namespace ProductActions {
   const LOAD_ONE = '[Product] Load One';
   const LOAD_ONE_SUCCESS = '[Product] Load One Success';
+  const LOAD_ONE_FAILURE = '[Product] Load One Failure';
   const LOAD_ALL_BY_BRAND = '[Product] Load all by brand';
   const LOAD_ALL_BY_BRAND_SUCCESS = '[Product] Load all by brand Success';
   const LOAD_ALL_BY_CATEGORY = '[Product] Load all by category';
   const LOAD_ALL_BY_CATEGORY_SUCCESS = '[Product] Load all by category Success';
+  const LOAD_ALL_BY_CATEGORY_FAILURE = '[Product] Load all by category Failure';
   const SEARCH = '[Product] Search';
   const SEARCH_SUCCESS = '[Product] Search Success';
 
@@ -22,6 +24,11 @@ export namespace ProductActions {
   export const LoadOneSuccess = createAction(
     LOAD_ONE_SUCCESS,
     props<{productItemData: ProductItemData}>()
+  );
+
+  export const LoadOneFailure = createAction(
+    LOAD_ONE_FAILURE,
+    props<{productId: string}>()
   );
 
   export const LoadAllByBrand = createAction(
@@ -42,6 +49,11 @@ export namespace ProductActions {
   export const LoadAllByCategorySuccess = createAction(
     LOAD_ALL_BY_CATEGORY_SUCCESS,
     props<{productData: ProductData}>()
+  );
+
+  export const LoadAllByCategoryFailure = createAction(
+    LOAD_ALL_BY_CATEGORY_FAILURE,
+    props<{categoryName: string}>()
   );
 
   export const Search = createAction(

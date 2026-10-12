@@ -1,8 +1,6 @@
-
-import {HttpHeaders} from '@angular/common/http';
 import {ToastrService} from 'ngx-mat-toast';
-import {takeUntil, map} from 'rxjs/operators';
-import {Component, OnDestroy, OnInit, inject, ChangeDetectionStrategy} from '@angular/core';
+import {map, takeUntil} from 'rxjs/operators';
+import {Component, inject, OnDestroy, OnInit} from '@angular/core';
 import {Observable, Subject} from 'rxjs';
 import {Store} from '@ngrx/store';
 import Article from '../../../../shared/model/article.class';
@@ -29,7 +27,6 @@ import {EditProductComponent} from '../edit/edit-product.component';
 @Component({
     templateUrl: './product.component.html',
     styleUrls: ['./product.component.css'],
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule, ReactiveFormsModule, AsyncPipe]
 })
 export class ProductComponent implements OnInit, OnDestroy {
@@ -42,7 +39,6 @@ export class ProductComponent implements OnInit, OnDestroy {
   private toastr = inject(ToastrService);
   private fb = inject(FormBuilder);
   private dialog = inject(MatDialog);
-
 
   private ngUnsubscribe: Subject<any> = new Subject();
 
@@ -95,7 +91,7 @@ export class ProductComponent implements OnInit, OnDestroy {
     this.ngUnsubscribe.complete();
   }
 
-  getAll() {
+  private getAll() {
     this.products$ = this.productStore.select(FromAdminProduct.selectAll);
     this.productStore.dispatch(ProductActions.GetAll());
 

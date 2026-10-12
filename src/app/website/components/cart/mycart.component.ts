@@ -1,4 +1,4 @@
-import {Component, OnInit, inject, ChangeDetectionStrategy} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {OrderArticle} from '../../../shared/model/order-article';
 import Cart from '../../model/cart.class';
 import CartData from '../../model/cart-data.class';
@@ -8,7 +8,7 @@ import {PictureService} from '../../../shared/service/picture.service';
 import {CartDataActions} from '../../actions/cart-data.actions';
 import {FromCartData} from '../../reducers/cart-data.reducer';
 import Order from '../../../shared/model/order.class';
-import {AsyncPipe, DecimalPipe, CurrencyPipe} from '@angular/common';
+import {AsyncPipe, CurrencyPipe, DecimalPipe} from '@angular/common';
 import {RouterLink} from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
 import {EngravingModalComponent} from './engraving/engraving-modal.component';
@@ -18,7 +18,6 @@ import {I18nPipe} from '../../../shared/i18n/i18n.pipe';
     selector: 'arth-mycart',
     templateUrl: 'mycart.component.html',
     styleUrls: ['mycart.component.css'],
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [RouterLink, AsyncPipe, DecimalPipe, CurrencyPipe, I18nPipe]
 })
 export class MyCartComponent implements OnInit {
@@ -47,7 +46,8 @@ export class MyCartComponent implements OnInit {
     this.store.dispatch(CartDataActions.RemoveOrder({articleId}));
   }
 
-  engravingModal(order: Order) {
+  engravingModal($event, order: Order) {
+    $event.preventDefault();
     this.dialog.open(EngravingModalComponent, {data: order});
   }
 

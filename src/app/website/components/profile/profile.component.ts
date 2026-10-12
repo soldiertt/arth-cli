@@ -27,7 +27,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
   private store = inject<Store<UserProfile>>(Store);
   private mailService = inject(MailService);
 
-
   private ngUnsubscribe: Subject<any> = new Subject();
 
   profileUpdated: boolean = false;

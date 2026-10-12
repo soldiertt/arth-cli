@@ -1,6 +1,5 @@
-
 import {takeUntil} from 'rxjs/operators';
-import {Component, OnDestroy, OnInit, inject, ChangeDetectionStrategy} from '@angular/core';
+import {Component, inject, OnDestroy, OnInit} from '@angular/core';
 import {AdvancedProductActions} from '../actions/advanced-product.actions';
 import CartData from '../model/cart-data.class';
 import {Store} from '@ngrx/store';
@@ -14,12 +13,10 @@ import {FooterComponent} from './shared/footer/footer.component';
 
 @Component({
     templateUrl: './website.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [HeaderComponent, RouterOutlet, FooterComponent]
 })
 export class WebsiteComponent implements OnInit, OnDestroy {
   private store = inject<Store<CartData>>(Store);
-
 
   private ngUnsubscribe: Subject<any> = new Subject();
 

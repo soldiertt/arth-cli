@@ -1,4 +1,4 @@
-import {Component, OnInit, inject, ChangeDetectionStrategy} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {FromAdminVideo} from '../../../admin/reducers/video.reducer';
 import {VideoActions} from '../../../shared/actions/video.actions';
 import Article from '../../../shared/model/article.class';
@@ -16,13 +16,11 @@ import {I18nPipe} from '../../../shared/i18n/i18n.pipe';
 @Component({
     templateUrl: 'home.component.html',
     styleUrls: ['home.component.css'],
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [SliderComponent, RouterLink, ArticleBoxComponent, AsyncPipe, I18nPipe]
 })
 export class HomeComponent implements OnInit {
   private promoStore = inject<Store<FromPromoProduct.State>>(Store);
   private videoStore = inject<Store<FromAdminVideo.State>>(Store);
-
 
   promoArticles$: Observable<Article[]>;
   videos$: Observable<Video[]>;

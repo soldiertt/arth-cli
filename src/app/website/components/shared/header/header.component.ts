@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, inject, ChangeDetectionStrategy} from '@angular/core';
+import {AfterViewInit, Component, inject, OnInit} from '@angular/core';
 import {Router, RouterLink, RouterLinkActive} from '@angular/router';
 import Category from '../../../../shared/model/category.class';
 import {Auth0Service} from '../../../../shared/service/auth.service';
@@ -19,7 +19,6 @@ declare const $: any;
     selector: 'arth-header',
     templateUrl: 'header.component.html',
     styleUrls: ['header.component.css'],
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [RouterLink, CartDropdownComponent, RouterLinkActive, FormsModule, AsyncPipe, I18nPipe, CategoryTitlePipe]
 })
 export class HeaderComponent implements OnInit, AfterViewInit {
@@ -27,7 +26,6 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   private store = inject<Store<FromCategory.State>>(Store);
   private router = inject(Router);
   i18nService = inject(I18nService);
-
 
   rootCategories$: Observable<Category[]>;
   searchTerm: string;

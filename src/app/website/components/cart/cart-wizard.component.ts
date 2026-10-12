@@ -1,6 +1,5 @@
-
 import {take} from 'rxjs/operators';
-import {Component, OnDestroy, OnInit, inject, ChangeDetectionStrategy} from '@angular/core';
+import {Component, inject, OnDestroy, OnInit} from '@angular/core';
 import {Auth0Service} from '../../../shared/service/auth.service';
 import CartData from '../../model/cart-data.class';
 import {Store} from '@ngrx/store';
@@ -15,13 +14,11 @@ import {CartNavigationComponent} from './cart-navigation.component';
 
 @Component({
     templateUrl: 'cart-wizard.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [CartBreadcrumbComponent, MyCartComponent, ConfirmAddressComponent, CartNavigationComponent, AsyncPipe]
 })
 export class CartWizardComponent implements OnInit, OnDestroy {
   private store = inject<Store<CartData>>(Store);
   authService = inject(Auth0Service);
-
 
   private ngUnsubscribe: Subject<any> = new Subject();
 

@@ -20,7 +20,6 @@ export class CustomKnifeComponent implements OnInit {
   private jQueryService = inject(JQueryService);
   private _lightbox = inject(Lightbox);
 
-
   readonly isOdd = input(false);
   _album: IAlbum[] = [];
   customKnifeForm: FormGroup;
@@ -29,7 +28,6 @@ export class CustomKnifeComponent implements OnInit {
   constructor() {
     const fb = inject(FormBuilder);
     const _lightboxConfig = inject(LightboxConfig);
-
     _lightboxConfig.alwaysShowNavOnTouchDevices = true;
     _lightboxConfig.centerVertically = true;
     _lightboxConfig.wrapAround = true;

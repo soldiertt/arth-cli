@@ -1,6 +1,6 @@
 import {IAlbum, Lightbox, LightboxConfig} from '@pierresh/ngx-lightbox';
-import {filter, takeUntil} from 'rxjs/operators';
-import {Component, OnDestroy, OnInit, inject, ChangeDetectionStrategy} from '@angular/core';
+import {filter, takeUntil, switchMap} from 'rxjs/operators';
+import {Component, OnDestroy, OnInit, inject, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import Article from '../../../shared/model/article.class';
 import {JQueryService} from '../../service/jQuery.service';
@@ -34,7 +34,7 @@ export class DetailComponent implements OnInit, OnDestroy {
   private jQueryService = inject(JQueryService);
   private _lightbox = inject(Lightbox);
   private _lightboxConfig = inject(LightboxConfig);
-
+  private cdr = inject(ChangeDetectorRef);
 
   private ngUnsubscribe: Subject<any> = new Subject();
 
@@ -44,7 +44,6 @@ export class DetailComponent implements OnInit, OnDestroy {
 
   constructor() {
     const _lightboxConfig = this._lightboxConfig;
-
     _lightboxConfig.alwaysShowNavOnTouchDevices = true;
     _lightboxConfig.centerVertically = true;
     _lightboxConfig.wrapAround = true;
@@ -52,25 +51,25 @@ export class DetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
-      const articleId = params['articleId'];
-
-      this.store.dispatch(ProductActions.LoadOne({productId: articleId}));
-      this.store.select(FromProduct.selectSelectedState).pipe(
-        filter((selected) => !!selected),
-        takeUntil(this.ngUnsubscribe)
-      ).subscribe(selected => {
-        this.selected = selected;
-        this._album = [];
-        if (this.selected.product) {
-          this.picUtil.allLargePicturesFullPath(this.selected.product).forEach(pic => {
-            this._album.push({src: pic, thumb: this.picUtil.thumb(pic), downloadUrl: pic});
-          });
-          setTimeout(() => {
-            this.jQueryService.enableFancybox($);
-          }, 10);
-        }
+    this.route.params.pipe(
+      takeUntil(this.ngUnsubscribe),
+      switchMap(params => {
+        const articleId = params['articleId'];
+        this.store.dispatch(ProductActions.LoadOne({productId: articleId}));
+        return this.store.select(FromProduct.selectSelectedArticleState).pipe(
+          filter(selected => !!selected && !!selected.product && String(selected.product.id) === String(articleId))
+        );
+      })
+    ).subscribe(selected => {
+      this.selected = selected;
+      this._album = [];
+      this.picUtil.allLargePicturesFullPath(this.selected.product).forEach(pic => {
+        this._album.push({src: pic, thumb: this.picUtil.thumb(pic), downloadUrl: pic});
       });
+      setTimeout(() => {
+        this.jQueryService.enableFancybox($);
+      }, 10);
+      this.cdr.markForCheck();
     });
   }
 

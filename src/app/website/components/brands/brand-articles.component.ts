@@ -1,4 +1,4 @@
-import {Component, OnInit, inject, ChangeDetectionStrategy} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {ActivatedRoute, Params, RouterLink} from '@angular/router';
 import Article from '../../../shared/model/article.class';
 import Brand from '../../../shared/model/brand.class';
@@ -14,13 +14,11 @@ import {I18nPipe} from '../../../shared/i18n/i18n.pipe';
 @Component({
     selector: 'arth-brand-articles',
     templateUrl: 'brand-articles.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [RouterLink, ArticleBoxComponent, AsyncPipe, I18nPipe]
 })
 export class BrandArticlesComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private store = inject<Store<ProductData>>(Store);
-
 
   articles$: Observable<Article[]>;
   brand: Brand;

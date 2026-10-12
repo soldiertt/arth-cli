@@ -1,4 +1,4 @@
-import {Component, OnInit, inject, ChangeDetectionStrategy} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {ActivatedRoute, Params, RouterLink} from '@angular/router';
 import ProductData from '../../model/product-data.class';
 import {Observable} from 'rxjs';
@@ -17,13 +17,11 @@ import {SortPipe} from '../../pipe/sort.pipe';
 @Component({
     templateUrl: 'category-details.component.html',
     styleUrls: ['category-details.component.css'],
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [RouterLink, FormsModule, TopSalesComponent, StaticContentCategoryComponent, ArticleBoxComponent, AsyncPipe, I18nPipe, CategoryTitlePipe, SortPipe]
 })
 export class CategoryDetailsComponent implements OnInit {
   private store = inject<Store<ProductData>>(Store);
   private activeRoute = inject(ActivatedRoute);
-
 
   productData$: Observable<ProductData>;
 
@@ -34,9 +32,7 @@ export class CategoryDetailsComponent implements OnInit {
 
     this.activeRoute.params.subscribe((params: Params) => {
       const categoryType = params['type'];
-
       this.store.dispatch(ProductActions.LoadAllByCategory({categoryName: categoryType}));
-
     });
 
   }

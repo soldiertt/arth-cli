@@ -1,4 +1,4 @@
-import {Component, inject, viewChild, ChangeDetectionStrategy} from '@angular/core';
+import {Component, inject, viewChild} from '@angular/core';
 import {Store} from '@ngrx/store';
 import Slide from '../../../../shared/model/slider.class';
 import {FormControl, FormsModule} from '@angular/forms';
@@ -11,14 +11,12 @@ import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/
 @Component({
     selector: 'arth-admin-slide-modal',
     templateUrl: './edit-slide.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule, MatDialogModule]
 })
 export class EditSlideComponent {
   private uploadService = inject(UploadService);
   private store = inject<Store<FromAdminSlide.State>>(Store);
   private dialogRef = inject<MatDialogRef<EditSlideComponent>>(MatDialogRef);
-
 
   item: Slide = inject<Slide>(MAT_DIALOG_DATA);
 

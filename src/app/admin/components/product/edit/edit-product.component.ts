@@ -1,5 +1,5 @@
-import {Component, ElementRef, OnInit, inject, viewChild, ChangeDetectionStrategy} from '@angular/core';
-import {FormArray, FormControl, NgForm, FormsModule} from '@angular/forms';
+import {Component, ElementRef, inject, OnInit, viewChild} from '@angular/core';
+import {FormArray, FormControl, FormsModule, NgForm} from '@angular/forms';
 import Article from '../../../../shared/model/article.class';
 import Category from '../../../../shared/model/category.class';
 import {Observable} from 'rxjs';
@@ -16,7 +16,6 @@ import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/
 @Component({
     selector: 'arth-admin-product-modal',
     templateUrl: './edit-product.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule, AsyncPipe, MatDialogModule]
 })
 export class EditProductComponent implements OnInit {
@@ -25,7 +24,6 @@ export class EditProductComponent implements OnInit {
   private categoryStore = inject<Store<FromAdminCategory.State>>(Store);
   private brandStore = inject<Store<FromAdminBrand.State>>(Store);
   private dialogRef = inject<MatDialogRef<EditProductComponent>>(MatDialogRef);
-
 
   item: Article = inject<Article>(MAT_DIALOG_DATA);
   categories$: Observable<Category[]>;

@@ -10,13 +10,11 @@ import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/
 @Component({
     selector: 'arth-admin-brand-modal',
     templateUrl: './edit-brand.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule, MatDialogModule]
 })
 export class EditBrandComponent {
   private store = inject<Store<FromAdminBrand.State>>(Store);
   private dialogRef = inject<MatDialogRef<EditBrandComponent>>(MatDialogRef);
-
 
   item: Brand = inject<Brand>(MAT_DIALOG_DATA);
 

@@ -22,7 +22,6 @@ export class OrdersComponent implements OnInit, OnDestroy {
   private profileStore = inject<Store<UserProfile>>(Store);
   private store = inject<Store<FromPaypalOrder.State>>(Store);
 
-
   private ngUnsubscribe: Subject<any> = new Subject();
 
   paypalOrders: PaypalOrder[];

@@ -1,4 +1,4 @@
-import {Component, inject, ChangeDetectionStrategy} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {Store} from '@ngrx/store';
 import Category from '../../../../shared/model/category.class';
 import {CategoryActions} from '../../../../shared/actions/category.actions';
@@ -10,13 +10,11 @@ import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/
 @Component({
     selector: 'arth-admin-category-modal',
     templateUrl: './edit-category.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule, MatDialogModule]
 })
 export class EditCategoryComponent {
   private store = inject<Store<FromAdminCategory.State>>(Store);
   private dialogRef = inject<MatDialogRef<EditCategoryComponent>>(MatDialogRef);
-
 
   item: Category = inject<Category>(MAT_DIALOG_DATA);
 

@@ -1,4 +1,4 @@
-import {Component, OnInit, inject, ChangeDetectionStrategy} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 import Category from '../../../../shared/model/category.class';
@@ -10,13 +10,11 @@ import {EditCategoryComponent} from '../edit/edit-category.component';
 
 @Component({
     templateUrl: './category.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [AsyncPipe]
 })
 export class CategoryComponent implements OnInit {
   private store = inject<Store<FromAdminCategory.State>>(Store);
   private dialog = inject(MatDialog);
-
 
   categories$: Observable<Category[]>;
 
@@ -24,7 +22,7 @@ export class CategoryComponent implements OnInit {
     this.getAll();
   }
 
-  getAll() {
+  private getAll() {
     this.categories$ = this.store.select(FromAdminCategory.selectAll);
     this.store.dispatch(CategoryActions.GetAll());
   }

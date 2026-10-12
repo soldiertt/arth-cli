@@ -21,7 +21,6 @@ export class SearchComponent implements OnInit {
   private store = inject<Store<ProductData>>(Store);
   private route = inject(ActivatedRoute);
 
-
   articles$: Observable<Article[]>;
   searchTerm: string;
   _orderBy: string = 'name';

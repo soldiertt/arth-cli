@@ -1,4 +1,4 @@
-import {Component, OnInit, inject, ChangeDetectionStrategy} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import Slide from '../../../../shared/model/slider.class';
 import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
@@ -13,14 +13,12 @@ import {EditSlideComponent} from '../edit/edit-slide.component';
 
 @Component({
     templateUrl: './slide.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [AsyncPipe]
 })
 export class SlideComponent implements OnInit {
   private slideStore = inject<Store<FromAdminSlide.State>>(Store);
   private slideProductStore = inject<Store<FromAdminSlideProduct.State>>(Store);
   private dialog = inject(MatDialog);
-
 
   slides$: Observable<Slide[]>;
   slideProducts$: Observable<Article[]>;
@@ -30,7 +28,7 @@ export class SlideComponent implements OnInit {
     this.getAll();
   }
 
-  getAll() {
+  private getAll() {
     this.slides$ = this.slideStore.select(FromAdminSlide.selectAll);
     this.slideProducts$ = this.slideProductStore.select(FromAdminSlideProduct.selectAll);
     this.slideStore.dispatch(SlideActions.GetAll());

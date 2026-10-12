@@ -12,7 +12,10 @@ export namespace FromProduct {
   export const reducer = createReducer(
     defaultState,
     on(ProductActions.LoadOneSuccess, (state, action) => {
-      return {...state, selected: action.productItemData};
+      return {...state, selectedArticle: action.productItemData};
+    }),
+    on(ProductActions.LoadOneFailure, (state) => {
+      return {...state, selectedArticle: undefined};
     }),
     on(ProductActions.LoadAllByBrandSuccess, (state, action) => {
       return {...state, currentProducts: action.entities};
@@ -21,13 +24,23 @@ export namespace FromProduct {
       return {...state, currentProducts: action.entities};
     }),
     on(ProductActions.LoadAllByCategorySuccess, (state, action) => {
-      return action.productData;
+      return {
+        ...state,
+        selected: action.productData.selected,
+        subCategories: action.productData.subCategories,
+        currentProducts: action.productData.currentProducts,
+        currentTopSales: action.productData.currentTopSales
+      };
+    }),
+    on(ProductActions.LoadAllByCategoryFailure, (state) => {
+      return {...state, selected: undefined, subCategories: [], currentProducts: [], currentTopSales: []};
     }),
   );
 
   export const selectLocalState = createSelector(siteFeatureSelector, (state: SiteState) => state.productData);
 
   export const selectSelectedState = createSelector(selectLocalState, (state: ProductData) => state.selected);
+  export const selectSelectedArticleState = createSelector(selectLocalState, (state: ProductData) => state.selectedArticle);
   export const selectCurrentProductsState = createSelector(selectLocalState, (state: ProductData) => state.currentProducts);
 
 }

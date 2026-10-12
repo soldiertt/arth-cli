@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import Category from '../../../shared/model/category.class';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
@@ -16,13 +16,10 @@ import {CategoryTitlePipe} from '../../pipe/category-title.pipe';
 })
 export class CategoryListComponent implements OnInit {
 
+  private store = inject<Store<FromCategory.State>>(Store);
   rootCategories$: Observable<Category[]>;
 
-  constructor(private store: Store<FromCategory.State>) {
-  }
-
   ngOnInit(): void {
-
     this.rootCategories$ = this.store.select(FromCategory.selectAll);
   }
 

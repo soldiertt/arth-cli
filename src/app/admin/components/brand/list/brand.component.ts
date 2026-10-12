@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject, OnInit} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
 import Brand from '../../../../shared/model/brand.class';
@@ -10,13 +10,11 @@ import {EditBrandComponent} from '../edit/edit-brand.component';
 
 @Component({
     templateUrl: './brand.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [AsyncPipe]
 })
 export class BrandComponent implements OnInit {
   private store = inject<Store<FromAdminBrand.State>>(Store);
   private dialog = inject(MatDialog);
-
 
   brands$: Observable<Brand[]>;
 
@@ -24,7 +22,7 @@ export class BrandComponent implements OnInit {
     this.getAll();
   }
 
-  getAll() {
+  private getAll() {
     this.brands$ = this.store.select(FromAdminBrand.selectAll);
     this.store.dispatch(BrandActions.GetAll());
   }
@@ -39,6 +37,5 @@ export class BrandComponent implements OnInit {
       this.store.dispatch(BrandActions.Delete({id}));
     }
   }
-
 
 }

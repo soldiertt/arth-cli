@@ -1,4 +1,4 @@
-import {Component, OnInit, inject, ChangeDetectionStrategy} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {map} from 'rxjs/operators';
 import AdvancedArticle from '../../../shared/model/advanced-article.class';
 import {Observable} from 'rxjs';
@@ -12,12 +12,10 @@ import {I18nPipe} from '../../../shared/i18n/i18n.pipe';
 
 @Component({
     templateUrl: 'homemade-knives.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [RouterLink, CustomKnifeComponent, AdvancedArticleBoxComponent, AsyncPipe, I18nPipe]
 })
 export class HomemadeKnivesComponent implements OnInit {
   private store = inject<Store<AdvancedArticle[]>>(Store);
-
 
   articles$: Observable<AdvancedArticle[]>;
 

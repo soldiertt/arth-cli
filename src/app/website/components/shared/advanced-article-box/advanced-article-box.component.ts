@@ -1,4 +1,4 @@
-import {Component, OnInit, computed, inject, input, ChangeDetectionStrategy} from '@angular/core';
+import {Component, computed, inject, input, OnInit} from '@angular/core';
 import {IAlbum, Lightbox, LightboxConfig} from '@pierresh/ngx-lightbox';
 import AdvancedArticle from '../../../../shared/model/advanced-article.class';
 import {OrderArticle} from '../../../../shared/model/order-article';
@@ -16,7 +16,6 @@ declare const $: any;
     selector: 'arth-advanced-article-box',
     templateUrl: 'advanced-article-box.component.html',
     styleUrls: ['advanced-article-box.component.css'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [CurrencyPipe, I18nPipe]
 })
 export class AdvancedArticleBoxComponent implements OnInit {

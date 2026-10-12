@@ -1,4 +1,4 @@
-import {Component, inject, ChangeDetectionStrategy} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {VideoActions} from '../../../../shared/actions/video.actions';
 import Video from '../../../../shared/model/video.class';
@@ -10,13 +10,11 @@ import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/
 @Component({
     selector: 'arth-admin-video-modal',
     templateUrl: './edit-video.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule, MatDialogModule]
 })
 export class EditVideoComponent {
   private store = inject<Store<FromAdminVideo.State>>(Store);
   private dialogRef = inject<MatDialogRef<EditVideoComponent>>(MatDialogRef);
-
 
   item: Video = inject<Video>(MAT_DIALOG_DATA);
 

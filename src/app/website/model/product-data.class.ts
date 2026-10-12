@@ -4,6 +4,7 @@ import Category from '../../shared/model/category.class';
 
 export default class ProductData {
   selected: ProductItemData;
+  selectedArticle: ProductItemData;
   currentTopSales: Article[];
   currentProducts: Article[];
   subCategories: Category[];

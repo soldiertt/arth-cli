@@ -1,16 +1,12 @@
-import {Component, ChangeDetectionStrategy} from '@angular/core';
+import {Component} from '@angular/core';
 import {RouterLink, RouterLinkActive} from '@angular/router';
 
 @Component({
     selector: 'arth-admin-menu',
     templateUrl: './menu.component.html',
     styleUrls: ['./menu.component.css'],
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [RouterLink, RouterLinkActive]
 })
 export class AdminMenuComponent {
-
-  constructor() {
-  }
 
 }

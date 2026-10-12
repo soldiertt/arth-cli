@@ -1,4 +1,4 @@
-import {Component, OnInit, inject, ChangeDetectionStrategy} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import Slide from '../../../../shared/model/slider.class';
 import {Router, RouterLink} from '@angular/router';
 import Article from '../../../../shared/model/article.class';
@@ -16,7 +16,6 @@ import {TruncatePipe} from '../../../pipe/truncate.pipe';
     selector: 'arth-slider',
     templateUrl: 'slider.component.html',
     styleUrls: ['slider.component.css'],
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [RouterLink, AsyncPipe, CurrencyPipe, TruncatePipe]
 })
 export class SliderComponent implements OnInit {
@@ -25,16 +24,13 @@ export class SliderComponent implements OnInit {
   private router = inject(Router);
   picUtil = inject(PictureService);
 
-
   slides$: Observable<Slide[]>;
   slidesCount$: Observable<number>;
-
   sliderArticles$: Observable<Article[]>;
 
   ngOnInit() {
     this.slides$ = this.slideStore.select(FromSlide.selectAll);
     this.slidesCount$ = this.slideStore.select(FromSlide.selectTotal);
-
     this.sliderArticles$ = this.slideProductStore.select(FromSlideProduct.selectAll);
     this.slideStore.dispatch(SlideActions.GetAll());
     this.slideProductStore.dispatch(SlideProductActions.GetAll());

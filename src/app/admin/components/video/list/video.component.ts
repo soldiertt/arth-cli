@@ -1,4 +1,4 @@
-import {Component, OnInit, inject, ChangeDetectionStrategy} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import Video from '../../../../shared/model/video.class';
 import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
@@ -10,13 +10,11 @@ import {EditVideoComponent} from '../edit/edit-video.component';
 
 @Component({
     templateUrl: './video.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [AsyncPipe]
 })
 export class VideoComponent implements OnInit {
   private videoStore = inject<Store<FromAdminVideo.State>>(Store);
   private dialog = inject(MatDialog);
-
 
   videos$: Observable<Video[]>;
 
@@ -24,7 +22,7 @@ export class VideoComponent implements OnInit {
     this.getAll();
   }
 
-  getAll() {
+  private getAll() {
     this.videos$ = this.videoStore.select(FromAdminVideo.selectAll);
     this.videoStore.dispatch(VideoActions.GetAll());
   }
