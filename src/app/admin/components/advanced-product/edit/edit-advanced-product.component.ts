@@ -1,5 +1,5 @@
-import {Component, ElementRef, Input, inject, viewChild, ChangeDetectionStrategy} from '@angular/core';
-import {FormArray, FormControl, NgForm, FormsModule} from '@angular/forms';
+import {Component, ElementRef, inject, input, viewChild} from '@angular/core';
+import {FormArray, FormControl, FormsModule, NgForm} from '@angular/forms';
 import {Store} from '@ngrx/store';
 import AdvancedArticle from '../../../../shared/model/advanced-article.class';
 import {UploadService} from '../../../../shared/service/upload.service';
@@ -17,15 +17,14 @@ interface AdvancedProductCategory {
 @Component({
     selector: 'arth-admin-advanced-product-modal',
     templateUrl: './edit-advanced-product.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule]
 })
 export class EditAdvancedProductComponent {
   private uploadService = inject(UploadService);
   private advancedProductStore = inject<Store<FromAdminAdvancedProduct.State>>(Store);
 
+  item = input.required<AdvancedArticle>();
 
-  @Input() item: AdvancedArticle;
   categories: AdvancedProductCategory[] = [
     {name: 'Homemade knife', code: 'homemadeknives'},
     {name: 'Stick', code: 'sticks'},
@@ -39,6 +38,7 @@ export class EditAdvancedProductComponent {
   resetForm() {
     this.fileUploadInput().nativeElement.value = '';
     this.localPictures = [];
+    this.pictures.clear();
   }
 
   onFileChange(event) {
@@ -57,21 +57,22 @@ export class EditAdvancedProductComponent {
       const input = new FormData();
       input.append('picture', this.pictures.controls.shift().value);
       input.append('filename', fileName);
-      input.append('category', this.item.type);
+      input.append('category', this.item().type);
       data.push(input);
     });
     return data;
   }
 
   save(ngForm: NgForm) {
-    if (ngForm.valid && (this.localPictures || this.item.id)) {
+    const item = this.item();
+    if (ngForm.valid && (this.localPictures || item.id)) {
       if (this.localPictures.length) {
-        this.item.pictures = [...this.localPictures];
+        item.pictures = [...this.localPictures];
       }
-      if (this.item.id) {
-        this.advancedProductStore.dispatch(AdvancedProductActions.Update({id: this.item.id, changes: this.item}));
+      if (item.id) {
+        this.advancedProductStore.dispatch(AdvancedProductActions.Update({id: item.id, changes: item}));
       } else {
-        this.advancedProductStore.dispatch(AdvancedProductActions.Create({entity: this.item}));
+        this.advancedProductStore.dispatch(AdvancedProductActions.Create({entity: item}));
       }
       if (this.localPictures.length) {
         this.prepareSave().forEach((formData) => {

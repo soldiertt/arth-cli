@@ -1,7 +1,6 @@
-import {Component, OnDestroy, OnInit, inject, ChangeDetectionStrategy} from '@angular/core';
+import {Component, inject, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {Store} from '@ngrx/store';
-import {ToastrService} from 'ngx-mat-toast';
 import {Observable, Subject} from 'rxjs';
 import {map} from 'rxjs/operators';
 import AdvancedArticle from '../../../../shared/model/advanced-article.class';
@@ -19,15 +18,12 @@ interface AdvancedProductCategory {
 @Component({
     templateUrl: './advanced-product.component.html',
     styleUrls: ['./advanced-product.component.css'],
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule, ReactiveFormsModule, EditAdvancedProductComponent, AsyncPipe]
 })
 export class AdvancedProductComponent implements OnInit, OnDestroy {
   private advancedProductStore = inject<Store<FromAdminAdvancedProduct.State>>(Store);
   picUtil = inject(PictureService);
-  private toastr = inject(ToastrService);
   private fb = inject(FormBuilder);
-
 
   private ngUnsubscribe: Subject<any> = new Subject();
 
@@ -57,7 +53,6 @@ export class AdvancedProductComponent implements OnInit, OnDestroy {
         });
       }));
     });
-
   }
 
   ngOnDestroy() {
@@ -65,7 +60,7 @@ export class AdvancedProductComponent implements OnInit, OnDestroy {
     this.ngUnsubscribe.complete();
   }
 
-  getAll() {
+  private getAll() {
     this.advancedProducts$ = this.advancedProductStore.select(FromAdminAdvancedProduct.selectAll);
     this.advancedProductStore.dispatch(AdvancedProductActions.GetAll());
   }

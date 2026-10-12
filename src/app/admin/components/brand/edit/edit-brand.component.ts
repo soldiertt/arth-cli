@@ -1,4 +1,4 @@
-import {Component, Input, inject, ChangeDetectionStrategy} from '@angular/core';
+import {Component, inject, input} from '@angular/core';
 import {Store} from '@ngrx/store';
 import Brand from '../../../../shared/model/brand.class';
 import {BrandActions} from '../../../../shared/actions/brand.actions';
@@ -11,18 +11,16 @@ declare const $: any;
 @Component({
     selector: 'arth-admin-brand-modal',
     templateUrl: './edit-brand.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule]
 })
 export class EditBrandComponent {
   private store = inject<Store<FromAdminBrand.State>>(Store);
 
-
-  @Input() item: Brand;
+  item = input.required<Brand>();
 
   save(valid: boolean | null) {
     if (valid) {
-      this.store.dispatch(BrandActions.Create({entity: this.item}));
+      this.store.dispatch(BrandActions.Create({entity: this.item()}));
       $('#brandModal').modal('hide');
     }
   }

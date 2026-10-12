@@ -3,22 +3,23 @@
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          @if (!this.item?.id) {
+          @if (!item()?.id) {
             <h5 class="modal-title">Add new advanced product</h5>
           } @else {
-            <h5 class="modal-title">Editing advanced product '{{item?.name}}'</h5>
+            <h5 class="modal-title">Editing advanced product '{{item()?.name}}'</h5>
           }
           <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          @if (item) {
+          @let advItem = item();
+          @if (advItem) {
             <div>
               <div class="form-group row mb-2">
                 <label for="category" class="col-sm-3 col-form-label">Category *</label>
                 <div class="col-sm-9">
-                  <select id="category" name="category" [(ngModel)]="item.type" required="required" class="form-control">
+                  <select id="category" name="category" [(ngModel)]="advItem.type" required="required" class="form-control">
                     @for (category of categories; track category.code) {
                       <option [value]="category.code">{{category.name}}</option>
                     }
@@ -28,13 +29,13 @@
               <div class="form-group row mb-2">
                 <label for="name" class="col-sm-3 col-form-label">Name *</label>
                 <div class="col-sm-9">
-                  <input type="text" id="name" name="name" [(ngModel)]="item.name" required="required" class="form-control">
+                  <input type="text" id="name" name="name" [(ngModel)]="advItem.name" required="required" class="form-control">
                 </div>
               </div>
               <div class="form-group row mb-2">
                 <label for="description" class="col-sm-3 col-form-label">Description</label>
                 <div class="col-sm-9">
-                  <textarea id="description" name="description" [(ngModel)]="item.description" class="form-control"></textarea>
+                  <textarea id="description" name="description" [(ngModel)]="advItem.description" class="form-control"></textarea>
                 </div>
               </div>
               <div class="form-group row mb-2">
@@ -46,19 +47,19 @@
               <div class="form-group row mb-2">
                 <label for="youtube_ref" class="col-sm-3 col-form-label">Youtube ID</label>
                 <div class="col-sm-9">
-                  <input type="text" id="youtube_ref" name="youtube_ref" [(ngModel)]="item.youtube_ref" class="form-control">
+                  <input type="text" id="youtube_ref" name="youtube_ref" [(ngModel)]="advItem.youtube_ref" class="form-control">
                 </div>
               </div>
               <div class="form-group row mb-2">
                 <label for="price" class="col-sm-3 col-form-label">Price *</label>
                 <div class="col-sm-9">
-                  <input type="number" id="price" name="price" [(ngModel)]="item.price" required="required" class="form-control">
+                  <input type="number" id="price" name="price" [(ngModel)]="advItem.price" required="required" class="form-control">
                 </div>
               </div>
               <div class="form-group row mb-2">
                 <label for="comment" class="col-sm-3 col-form-label">Comment</label>
                 <div class="col-sm-9">
-                  <textarea id="comment" name="comment" [(ngModel)]="item.comment" class="form-control"></textarea>
+                  <textarea id="comment" name="comment" [(ngModel)]="advItem.comment" class="form-control"></textarea>
                 </div>
               </div>
               <div class="form-group row mb-2">
@@ -66,7 +67,7 @@
                 <div class="col-sm-9">
                   <div class="form-check">
                     <label for="instock" class="form-check-label">
-                      <input type="checkbox" id="instock" name="instock" [(ngModel)]="item.instock" class="form-check-input">
+                      <input type="checkbox" id="instock" name="instock" [(ngModel)]="advItem.instock" class="form-check-input">
                       In stock
                     </label>
                   </div>
