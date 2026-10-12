@@ -10,6 +10,7 @@ import {FromCartData} from '../../reducers/cart-data.reducer';
 import Order from '../../../shared/model/order.class';
 import {AsyncPipe, DecimalPipe, CurrencyPipe} from '@angular/common';
 import {RouterLink} from '@angular/router';
+import {MatDialog} from '@angular/material/dialog';
 import {EngravingModalComponent} from './engraving/engraving-modal.component';
 import {I18nPipe} from '../../../shared/i18n/i18n.pipe';
 
@@ -18,14 +19,14 @@ import {I18nPipe} from '../../../shared/i18n/i18n.pipe';
     templateUrl: 'mycart.component.html',
     styleUrls: ['mycart.component.css'],
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [RouterLink, EngravingModalComponent, AsyncPipe, DecimalPipe, CurrencyPipe, I18nPipe]
+    imports: [RouterLink, AsyncPipe, DecimalPipe, CurrencyPipe, I18nPipe]
 })
 export class MyCartComponent implements OnInit {
   picUtil = inject(PictureService);
   private store = inject<Store<CartData>>(Store);
+  private dialog = inject(MatDialog);
 
   cart$: Observable<Cart>;
-  editedOrder: Order;
 
   ngOnInit() {
     this.cart$ = this.store.select(FromCartData.selectCartState);
@@ -47,12 +48,11 @@ export class MyCartComponent implements OnInit {
   }
 
   engravingModal(order: Order) {
-    this.editedOrder = order;
+    this.dialog.open(EngravingModalComponent, {data: order});
   }
 
   removeEngraving($event, order: Order) {
     $event.preventDefault();
-    this.editedOrder = order;
     this.store.dispatch(CartDataActions.DisableOrderEngraving({articleId: order.article.id}));
   }
 

@@ -36,7 +36,7 @@
                 }
                 <br/>
                 @if (!order.engraving) {
-                  <a href data-bs-toggle="modal" data-bs-target="#engravingModal" (click)="engravingModal(order)">
+                  <a href (click)="engravingModal(order)">
                     {{ 'page.mycart.engraving.addEngravingOption' | trans }}
                   </a>
                 } @else {
@@ -106,5 +106,3 @@
     }
   </div>
 }
-
-<arth-engraving-modal [order]="editedOrder"></arth-engraving-modal>

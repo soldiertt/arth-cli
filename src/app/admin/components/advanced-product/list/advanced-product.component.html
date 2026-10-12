@@ -1,7 +1,6 @@
 <div class="p-1 no-print">
   <button type="button" class="btn btn-sm btn-secondary m-1"
-    (click)="newItem()"
-    data-bs-toggle="modal" data-bs-target="#advancedProductModal">
+    (click)="newItem()">
     NEW PRODUCT
   </button>
 </div>
@@ -45,7 +44,7 @@
             {{product.price}}€
           </td>
           <td class="thin-column no-print">
-            <a href (click)="editItem(product)" data-bs-toggle="modal" data-bs-target="#advancedProductModal">
+            <a href (click)="editItem($event, product)">
               <i class="material-icons">mode_edit</i>
             </a>
             <a href (click)="remove($event, product.id)">
@@ -57,4 +56,3 @@
     </tbody>
   </table>
 </form>
-<arth-admin-advanced-product-modal [item]="edited"></arth-admin-advanced-product-modal>

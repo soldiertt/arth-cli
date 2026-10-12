@@ -5,19 +5,20 @@ import Category from '../../../../shared/model/category.class';
 import {CategoryActions} from '../../../../shared/actions/category.actions';
 import {FromAdminCategory} from '../../../reducers/category.reducer';
 import {AsyncPipe} from '@angular/common';
+import {MatDialog} from '@angular/material/dialog';
 import {EditCategoryComponent} from '../edit/edit-category.component';
 
 @Component({
     templateUrl: './category.component.html',
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [EditCategoryComponent, AsyncPipe]
+    imports: [AsyncPipe]
 })
 export class CategoryComponent implements OnInit {
   private store = inject<Store<FromAdminCategory.State>>(Store);
+  private dialog = inject(MatDialog);
 
 
   categories$: Observable<Category[]>;
-  edited: Category;
 
   ngOnInit() {
     this.getAll();
@@ -29,11 +30,12 @@ export class CategoryComponent implements OnInit {
   }
 
   newItem() {
-    this.edited = new Category();
+    this.dialog.open(EditCategoryComponent, {data: new Category(), width: '800px'});
   }
 
-  editItem(item: Category) {
-    this.edited = Object.assign({}, item);
+  editItem($event, item: Category) {
+    $event.preventDefault();
+    this.dialog.open(EditCategoryComponent, {data: Object.assign({}, item), width: '800px'});
   }
 
   remove($event, id: string | undefined) {

@@ -8,6 +8,7 @@ import {PictureService} from '../../../../shared/service/picture.service';
 import {AdvancedProductActions} from '../../../actions/advanced-product.actions';
 import {FromAdminAdvancedProduct} from '../../../reducers/advanced-product.reducer';
 import {AsyncPipe} from '@angular/common';
+import {MatDialog} from '@angular/material/dialog';
 import {EditAdvancedProductComponent} from '../edit/edit-advanced-product.component';
 
 interface AdvancedProductCategory {
@@ -18,18 +19,18 @@ interface AdvancedProductCategory {
 @Component({
     templateUrl: './advanced-product.component.html',
     styleUrls: ['./advanced-product.component.css'],
-    imports: [FormsModule, ReactiveFormsModule, EditAdvancedProductComponent, AsyncPipe]
+    imports: [FormsModule, ReactiveFormsModule, AsyncPipe]
 })
 export class AdvancedProductComponent implements OnInit, OnDestroy {
   private advancedProductStore = inject<Store<FromAdminAdvancedProduct.State>>(Store);
   picUtil = inject(PictureService);
   private fb = inject(FormBuilder);
+  private dialog = inject(MatDialog);
 
   private ngUnsubscribe: Subject<any> = new Subject();
 
   advancedProducts$: Observable<AdvancedArticle[]>;
   filteredProducts$: Observable<AdvancedArticle[]>;
-  edited: AdvancedArticle;
   filterForm: FormGroup;
   categories: AdvancedProductCategory[] = [
     {name: 'Homemade knife', code: 'homemadeknives'},
@@ -66,11 +67,12 @@ export class AdvancedProductComponent implements OnInit, OnDestroy {
   }
 
   newItem() {
-    this.edited = new AdvancedArticle();
+    this.dialog.open(EditAdvancedProductComponent, {data: new AdvancedArticle(), width: '800px'});
   }
 
-  editItem(item: AdvancedArticle) {
-    this.edited = Object.assign({}, item);
+  editItem($event, item: AdvancedArticle) {
+    $event.preventDefault();
+    this.dialog.open(EditAdvancedProductComponent, {data: Object.assign({}, item), width: '800px'});
   }
 
   remove($event, id: string | undefined) {

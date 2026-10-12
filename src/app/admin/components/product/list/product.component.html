@@ -1,7 +1,6 @@
 <div class="p-1 no-print">
   <button type="button" class="btn btn-sm btn-secondary m-1"
-    (click)="newItem()"
-    data-bs-toggle="modal" data-bs-target="#productModal">
+    (click)="newItem()">
     NEW PRODUCT
   </button>
   <button type="button" class="btn btn-sm btn-secondary m-1"
@@ -98,7 +97,7 @@
           <td class="extra-thin-column no-print">{{product.promo}}</td>
           <td class="extra-thin-column no-print">{{product.instock}}</td>
           <td class="thin-column no-print">
-            <a href (click)="editItem(product)" data-bs-toggle="modal" data-bs-target="#productModal">
+            <a href (click)="editItem($event, product)">
               <i class="material-icons">mode_edit</i>
             </a>
             <a href (click)="remove($event, product.id)">
@@ -113,4 +112,3 @@
     </tbody>
   </table>
 </form>
-<arth-admin-product-modal [item]="edited"></arth-admin-product-modal>

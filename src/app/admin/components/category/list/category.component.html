@@ -1,7 +1,6 @@
 <div class="p-1">
   <button type="button" class="btn btn-sm btn-secondary"
-    (click)="newItem()"
-    data-bs-toggle="modal" data-bs-target="#categoryModal">
+    (click)="newItem()">
     NEW CATEGORY
   </button>
 </div>
@@ -26,7 +25,7 @@
         <td>{{category.parent}}</td>
         <td>{{category.sortby}}</td>
         <td>
-          <a href (click)="editItem(category)" data-bs-toggle="modal" data-bs-target="#categoryModal">
+          <a href (click)="editItem($event, category)">
             <i class="material-icons">mode_edit</i>
           </a>
           <a href (click)="remove($event, category.id)">
@@ -37,4 +36,3 @@
     }
   </tbody>
 </table>
-<arth-admin-category-modal [item]="edited"></arth-admin-category-modal>

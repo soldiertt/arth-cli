@@ -8,22 +8,23 @@ import {SlideProductActions} from '../../../../shared/actions/slide-product.acti
 import {FromAdminSlide} from '../../../reducers/slide.reducer';
 import {FromAdminSlideProduct} from '../../../reducers/slide-product.reducer';
 import {AsyncPipe} from '@angular/common';
+import {MatDialog} from '@angular/material/dialog';
 import {EditSlideComponent} from '../edit/edit-slide.component';
 
 @Component({
     templateUrl: './slide.component.html',
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [EditSlideComponent, AsyncPipe]
+    imports: [AsyncPipe]
 })
 export class SlideComponent implements OnInit {
   private slideStore = inject<Store<FromAdminSlide.State>>(Store);
   private slideProductStore = inject<Store<FromAdminSlideProduct.State>>(Store);
+  private dialog = inject(MatDialog);
 
 
   slides$: Observable<Slide[]>;
   slideProducts$: Observable<Article[]>;
   slideProductsCount$: Observable<number>;
-  edited: Slide;
 
   ngOnInit() {
     this.getAll();
@@ -38,11 +39,12 @@ export class SlideComponent implements OnInit {
   }
 
   newItem() {
-    this.edited = new Slide();
+    this.dialog.open(EditSlideComponent, {data: new Slide(), width: '800px'});
   }
 
-  editItem(item: Slide) {
-    this.edited = Object.assign({}, item);
+  editItem($event, item: Slide) {
+    $event.preventDefault();
+    this.dialog.open(EditSlideComponent, {data: Object.assign({}, item), width: '800px'});
   }
 
   remove($event, id: string) {

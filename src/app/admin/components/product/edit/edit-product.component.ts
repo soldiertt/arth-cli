@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnInit, inject, viewChild, ChangeDetectionStrategy} from '@angular/core';
+import {Component, ElementRef, OnInit, inject, viewChild, ChangeDetectionStrategy} from '@angular/core';
 import {FormArray, FormControl, NgForm, FormsModule} from '@angular/forms';
 import Article from '../../../../shared/model/article.class';
 import Category from '../../../../shared/model/category.class';
@@ -6,29 +6,28 @@ import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
 import Brand from '../../../../shared/model/brand.class';
 import {UploadService} from '../../../../shared/service/upload.service';
-import {AdvancedProductActions} from '../../../actions/advanced-product.actions';
 import {ProductActions} from '../../../actions/product.actions';
 import {FromAdminBrand} from '../../../reducers/brand.reducer';
 import {FromAdminCategory} from '../../../reducers/category.reducer';
 import {FromAdminProduct} from '../../../reducers/product.reducer';
 import {AsyncPipe} from '@angular/common';
-
-declare const $: any;
+import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 
 @Component({
     selector: 'arth-admin-product-modal',
     templateUrl: './edit-product.component.html',
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [FormsModule, AsyncPipe]
+    imports: [FormsModule, AsyncPipe, MatDialogModule]
 })
 export class EditProductComponent implements OnInit {
   private uploadService = inject(UploadService);
   private productStore = inject<Store<FromAdminProduct.State>>(Store);
   private categoryStore = inject<Store<FromAdminCategory.State>>(Store);
   private brandStore = inject<Store<FromAdminBrand.State>>(Store);
+  private dialogRef = inject<MatDialogRef<EditProductComponent>>(MatDialogRef);
 
 
-  @Input() item: Article;
+  item: Article = inject<Article>(MAT_DIALOG_DATA);
   categories$: Observable<Category[]>;
   brands$: Observable<Brand[]>;
   localPictures: string[] = [];
@@ -83,8 +82,7 @@ export class EditProductComponent implements OnInit {
           this.productStore.dispatch(ProductActions.UploadNewPicture({formData}));
         });
       }
-      $('#productModal').modal('hide');
-      this.resetForm();
+      this.dialogRef.close(this.item);
     }
   }
 

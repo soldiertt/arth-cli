@@ -5,19 +5,20 @@ import {Store} from '@ngrx/store';
 import {VideoActions} from '../../../../shared/actions/video.actions';
 import {FromAdminVideo} from '../../../reducers/video.reducer';
 import {AsyncPipe} from '@angular/common';
+import {MatDialog} from '@angular/material/dialog';
 import {EditVideoComponent} from '../edit/edit-video.component';
 
 @Component({
     templateUrl: './video.component.html',
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [EditVideoComponent, AsyncPipe]
+    imports: [AsyncPipe]
 })
 export class VideoComponent implements OnInit {
   private videoStore = inject<Store<FromAdminVideo.State>>(Store);
+  private dialog = inject(MatDialog);
 
 
   videos$: Observable<Video[]>;
-  edited: Video;
 
   ngOnInit() {
     this.getAll();
@@ -29,7 +30,7 @@ export class VideoComponent implements OnInit {
   }
 
   newItem() {
-    this.edited = new Video();
+    this.dialog.open(EditVideoComponent, {data: new Video(), width: '800px'});
   }
 
   remove($event, id: string) {

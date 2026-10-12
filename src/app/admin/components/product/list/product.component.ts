@@ -23,13 +23,14 @@ import {FromAdminSteel} from '../../../reducers/steel.reducer';
 import {PictureService} from '../../../../shared/service/picture.service';
 import {saveAs} from 'file-saver';
 import {AsyncPipe} from '@angular/common';
+import {MatDialog} from '@angular/material/dialog';
 import {EditProductComponent} from '../edit/edit-product.component';
 
 @Component({
     templateUrl: './product.component.html',
     styleUrls: ['./product.component.css'],
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [FormsModule, ReactiveFormsModule, EditProductComponent, AsyncPipe]
+    imports: [FormsModule, ReactiveFormsModule, AsyncPipe]
 })
 export class ProductComponent implements OnInit, OnDestroy {
   private productStore = inject<Store<FromAdminProduct.State>>(Store);
@@ -40,6 +41,7 @@ export class ProductComponent implements OnInit, OnDestroy {
   picUtil = inject(PictureService);
   private toastr = inject(ToastrService);
   private fb = inject(FormBuilder);
+  private dialog = inject(MatDialog);
 
 
   private ngUnsubscribe: Subject<any> = new Subject();
@@ -50,7 +52,6 @@ export class ProductComponent implements OnInit, OnDestroy {
   steels$: Observable<Steel[]>;
 
   filteredProducts$: Observable<Article[]>;
-  edited: Article;
 
   filterForm: FormGroup;
 
@@ -124,7 +125,7 @@ export class ProductComponent implements OnInit, OnDestroy {
   }
 
   newItem() {
-    this.edited = new Article();
+    this.dialog.open(EditProductComponent, {data: new Article(), width: '800px'});
   }
 
   export() {
@@ -137,8 +138,9 @@ export class ProductComponent implements OnInit, OnDestroy {
     );
   }
 
-  editItem(item: Article) {
-    this.edited = Object.assign({}, item);
+  editItem($event, item: Article) {
+    $event.preventDefault();
+    this.dialog.open(EditProductComponent, {data: Object.assign({}, item), width: '800px'});
   }
 
   remove($event, id: string | undefined) {

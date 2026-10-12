@@ -1,125 +1,117 @@
-<div class="modal" id="productModal" tabindex="-1" role="dialog">
-  <form (ngSubmit)="save(f)" #f="ngForm" class="p-2">
-    <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          @if (!this.item?.id) {
-            <h5 class="modal-title">Add new product</h5>
-          } @else {
-            <h5 class="modal-title">Editing product '{{item?.name}}'</h5>
-          }
-          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+<form (ngSubmit)="save(f)" #f="ngForm">
+  <h2 mat-dialog-title class="d-flex align-items-center justify-content-between">
+    @if (!item?.id) {
+      <span>Add new product</span>
+    } @else {
+      <span>Editing product '{{item?.name}}'</span>
+    }
+    <button type="button" class="btn-close" aria-label="Close" mat-dialog-close></button>
+  </h2>
+  <mat-dialog-content>
+    @if (item) {
+      <div>
+        <div class="form-group row mb-2">
+          <label for="category" class="col-sm-3 col-form-label">Category *</label>
+          <div class="col-sm-9">
+            <select id="category" name="category" [(ngModel)]="item.type" required="required" class="form-control">
+              @for (category of categories$ | async; track category.id) {
+                <option [value]="category.name">{{category.name}}</option>
+              }
+            </select>
+          </div>
         </div>
-        <div class="modal-body">
-          @if (item) {
-            <div>
-              <div class="form-group row mb-2">
-                <label for="category" class="col-sm-3 col-form-label">Category *</label>
-                <div class="col-sm-9">
-                  <select id="category" name="category" [(ngModel)]="item.type" required="required" class="form-control">
-                    @for (category of categories$ | async; track category.id) {
-                      <option [value]="category.name">{{category.name}}</option>
-                    }
-                  </select>
-                </div>
-              </div>
-              <div class="form-group row mb-2">
-                <label for="brand" class="col-sm-3 col-form-label">Brand *</label>
-                <div class="col-sm-9">
-                  <select id="brand" name="brand" [(ngModel)]="item.brand" required="required" class="form-control">
-                    @for (brand of brands$ | async; track brand.id) {
-                      <option [value]="brand.brand">{{brand.brand}}</option>
-                    }
-                  </select>
-                </div>
-              </div>
-              <div class="form-group row mb-2">
-                <label for="name" class="col-sm-3 col-form-label">Name *</label>
-                <div class="col-sm-9">
-                  <input type="text" id="name" name="name" [(ngModel)]="item.name" required="required" class="form-control">
-                </div>
-              </div>
-              <div class="form-group row mb-2">
-                <label for="description" class="col-sm-3 col-form-label">Description</label>
-                <div class="col-sm-9">
-                  <textarea id="description" name="description" [(ngModel)]="item.description" class="form-control"></textarea>
-                </div>
-              </div>
-              <div class="form-group row mb-2">
-                <label for="picture" class="col-sm-3 col-form-label">Pictures *</label>
-                <div class="col-sm-9">
-                  <input multiple #fileUpload type="file" id="picture" (change)="onFileChange($event)" required="required" class="form-control">
-                </div>
-              </div>
-              <div class="form-group row mb-2">
-                <label for="handle" class="col-sm-3 col-form-label">Handle</label>
-                <div class="col-sm-9">
-                  <input type="text" id="handle" name="handle" [(ngModel)]="item.handle" class="form-control">
-                </div>
-              </div>
-              <div class="form-group row mb-2">
-                <label for="steel" class="col-sm-3 col-form-label">Steel</label>
-                <div class="col-sm-9">
-                  <input type="text" id="steel" name="steel" [(ngModel)]="item.steel" class="form-control">
-                </div>
-              </div>
-              <div class="form-group row mb-2">
-                <label for="size" class="col-sm-3 col-form-label">Size</label>
-                <div class="col-sm-9">
-                  <input type="text" id="size" name="size" [(ngModel)]="item.size" class="form-control">
-                </div>
-              </div>
-              <div class="form-group row mb-2">
-                <label for="youtube_ref" class="col-sm-3 col-form-label">Youtube ID</label>
-                <div class="col-sm-9">
-                  <input type="text" id="youtube_ref" name="youtube_ref" [(ngModel)]="item.youtube_ref" class="form-control">
-                </div>
-              </div>
-              <div class="form-group row mb-2">
-                <label for="price" class="col-sm-3 col-form-label">Price *</label>
-                <div class="col-sm-9">
-                  <input type="number" id="price" name="price" [(ngModel)]="item.price" required="required" class="form-control">
-                </div>
-              </div>
-              <div class="form-group row mb-2">
-                <label for="old_price" class="col-sm-3 col-form-label">Old price</label>
-                <div class="col-sm-9">
-                  <input type="number" id="old_price" name="old_price" [(ngModel)]="item.old_price" class="form-control">
-                </div>
-              </div>
-              <div class="form-group row mb-2">
-                <label for="comment" class="col-sm-3 col-form-label">Comment</label>
-                <div class="col-sm-9">
-                  <textarea id="comment" name="comment" [(ngModel)]="item.comment" class="form-control"></textarea>
-                </div>
-              </div>
-              <div class="form-group row mb-2">
-                <div class="col-sm-3">Attributes</div>
-                <div class="col-sm-9">
-                  <div class="form-check">
-                    <label for="promo" class="form-check-label">
-                      <input type="checkbox" id="promo" name="promo" [(ngModel)]="item.promo" class="form-check-input">
-                      Promo
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <label for="instock" class="form-check-label">
-                      <input type="checkbox" id="instock" name="instock" [(ngModel)]="item.instock" class="form-check-input">
-                      In stock
-                    </label>
-                  </div>
-                </div>
-              </div>
+        <div class="form-group row mb-2">
+          <label for="brand" class="col-sm-3 col-form-label">Brand *</label>
+          <div class="col-sm-9">
+            <select id="brand" name="brand" [(ngModel)]="item.brand" required="required" class="form-control">
+              @for (brand of brands$ | async; track brand.id) {
+                <option [value]="brand.brand">{{brand.brand}}</option>
+              }
+            </select>
+          </div>
+        </div>
+        <div class="form-group row mb-2">
+          <label for="name" class="col-sm-3 col-form-label">Name *</label>
+          <div class="col-sm-9">
+            <input type="text" id="name" name="name" [(ngModel)]="item.name" required="required" class="form-control">
+          </div>
+        </div>
+        <div class="form-group row mb-2">
+          <label for="description" class="col-sm-3 col-form-label">Description</label>
+          <div class="col-sm-9">
+            <textarea id="description" name="description" [(ngModel)]="item.description" class="form-control"></textarea>
+          </div>
+        </div>
+        <div class="form-group row mb-2">
+          <label for="picture" class="col-sm-3 col-form-label">Pictures *</label>
+          <div class="col-sm-9">
+            <input multiple #fileUpload type="file" id="picture" (change)="onFileChange($event)" required="required" class="form-control">
+          </div>
+        </div>
+        <div class="form-group row mb-2">
+          <label for="handle" class="col-sm-3 col-form-label">Handle</label>
+          <div class="col-sm-9">
+            <input type="text" id="handle" name="handle" [(ngModel)]="item.handle" class="form-control">
+          </div>
+        </div>
+        <div class="form-group row mb-2">
+          <label for="steel" class="col-sm-3 col-form-label">Steel</label>
+          <div class="col-sm-9">
+            <input type="text" id="steel" name="steel" [(ngModel)]="item.steel" class="form-control">
+          </div>
+        </div>
+        <div class="form-group row mb-2">
+          <label for="size" class="col-sm-3 col-form-label">Size</label>
+          <div class="col-sm-9">
+            <input type="text" id="size" name="size" [(ngModel)]="item.size" class="form-control">
+          </div>
+        </div>
+        <div class="form-group row mb-2">
+          <label for="youtube_ref" class="col-sm-3 col-form-label">Youtube ID</label>
+          <div class="col-sm-9">
+            <input type="text" id="youtube_ref" name="youtube_ref" [(ngModel)]="item.youtube_ref" class="form-control">
+          </div>
+        </div>
+        <div class="form-group row mb-2">
+          <label for="price" class="col-sm-3 col-form-label">Price *</label>
+          <div class="col-sm-9">
+            <input type="number" id="price" name="price" [(ngModel)]="item.price" required="required" class="form-control">
+          </div>
+        </div>
+        <div class="form-group row mb-2">
+          <label for="old_price" class="col-sm-3 col-form-label">Old price</label>
+          <div class="col-sm-9">
+            <input type="number" id="old_price" name="old_price" [(ngModel)]="item.old_price" class="form-control">
+          </div>
+        </div>
+        <div class="form-group row mb-2">
+          <label for="comment" class="col-sm-3 col-form-label">Comment</label>
+          <div class="col-sm-9">
+            <textarea id="comment" name="comment" [(ngModel)]="item.comment" class="form-control"></textarea>
+          </div>
+        </div>
+        <div class="form-group row mb-2">
+          <div class="col-sm-3">Attributes</div>
+          <div class="col-sm-9">
+            <div class="form-check">
+              <label for="promo" class="form-check-label">
+                <input type="checkbox" id="promo" name="promo" [(ngModel)]="item.promo" class="form-check-input">
+                Promo
+              </label>
             </div>
-          }
-        </div>
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-sm btn-success">Save</button>
-          <button type="button" class="btn btn-sm btn-link" data-bs-dismiss="modal" (click)="resetForm()">Cancel</button>
+            <div class="form-check">
+              <label for="instock" class="form-check-label">
+                <input type="checkbox" id="instock" name="instock" [(ngModel)]="item.instock" class="form-check-input">
+                In stock
+              </label>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </form>
-</div>
+    }
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button type="submit" class="btn btn-sm btn-success">Save</button>
+    <button type="button" class="btn btn-sm btn-link" mat-dialog-close (click)="resetForm()">Cancel</button>
+  </mat-dialog-actions>
+</form>

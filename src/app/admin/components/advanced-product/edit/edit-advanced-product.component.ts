@@ -1,13 +1,12 @@
-import {Component, ElementRef, inject, input, viewChild} from '@angular/core';
+import {Component, ElementRef, inject, signal, viewChild} from '@angular/core';
 import {FormArray, FormControl, FormsModule, NgForm} from '@angular/forms';
 import {Store} from '@ngrx/store';
 import AdvancedArticle from '../../../../shared/model/advanced-article.class';
 import {UploadService} from '../../../../shared/service/upload.service';
 import {AdvancedProductActions} from '../../../actions/advanced-product.actions';
 import {FromAdminAdvancedProduct} from '../../../reducers/advanced-product.reducer';
+import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 
-
-declare const $: any;
 
 interface AdvancedProductCategory {
   name: string;
@@ -17,13 +16,14 @@ interface AdvancedProductCategory {
 @Component({
     selector: 'arth-admin-advanced-product-modal',
     templateUrl: './edit-advanced-product.component.html',
-    imports: [FormsModule]
+    imports: [FormsModule, MatDialogModule]
 })
 export class EditAdvancedProductComponent {
   private uploadService = inject(UploadService);
   private advancedProductStore = inject<Store<FromAdminAdvancedProduct.State>>(Store);
+  private dialogRef = inject<MatDialogRef<EditAdvancedProductComponent>>(MatDialogRef);
 
-  item = input.required<AdvancedArticle>();
+  readonly item = signal<AdvancedArticle>(inject(MAT_DIALOG_DATA));
 
   categories: AdvancedProductCategory[] = [
     {name: 'Homemade knife', code: 'homemadeknives'},
@@ -79,8 +79,7 @@ export class EditAdvancedProductComponent {
           this.advancedProductStore.dispatch(AdvancedProductActions.UploadNewPicture({formData}));
         });
       }
-      $('#advancedProductModal').modal('hide');
-      this.resetForm();
+      this.dialogRef.close(item);
     }
   }
 

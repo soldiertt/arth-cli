@@ -1,26 +1,26 @@
-import {Component, Input, inject, viewChild, ChangeDetectionStrategy} from '@angular/core';
+import {Component, inject, viewChild, ChangeDetectionStrategy} from '@angular/core';
 import {Store} from '@ngrx/store';
 import Slide from '../../../../shared/model/slider.class';
 import {FormControl, FormsModule} from '@angular/forms';
 import {UploadService} from '../../../../shared/service/upload.service';
 import {SlideActions} from '../../../../shared/actions/slide.actions';
 import {FromAdminSlide} from '../../../reducers/slide.reducer';
+import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 
-
-declare const $: any;
 
 @Component({
     selector: 'arth-admin-slide-modal',
     templateUrl: './edit-slide.component.html',
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [FormsModule]
+    imports: [FormsModule, MatDialogModule]
 })
 export class EditSlideComponent {
   private uploadService = inject(UploadService);
   private store = inject<Store<FromAdminSlide.State>>(Store);
+  private dialogRef = inject<MatDialogRef<EditSlideComponent>>(MatDialogRef);
 
 
-  @Input() item: Slide;
+  item: Slide = inject<Slide>(MAT_DIALOG_DATA);
 
   picture: FormControl = new FormControl();
 
@@ -55,8 +55,7 @@ export class EditSlideComponent {
       if (this.fileUploadInput().nativeElement.value) {
         this.store.dispatch(SlideActions.UploadNewPicture({formData: this.prepareSave()}));
       }
-      $('#slideModal').modal('hide');
-      this.resetForm();
+      this.dialogRef.close(this.item);
     }
   }
 }

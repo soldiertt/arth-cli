@@ -5,19 +5,20 @@ import Brand from '../../../../shared/model/brand.class';
 import {BrandActions} from '../../../../shared/actions/brand.actions';
 import {FromAdminBrand} from '../../../reducers/brand.reducer';
 import {AsyncPipe} from '@angular/common';
+import {MatDialog} from '@angular/material/dialog';
 import {EditBrandComponent} from '../edit/edit-brand.component';
 
 @Component({
     templateUrl: './brand.component.html',
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [EditBrandComponent, AsyncPipe]
+    imports: [AsyncPipe]
 })
 export class BrandComponent implements OnInit {
   private store = inject<Store<FromAdminBrand.State>>(Store);
+  private dialog = inject(MatDialog);
 
 
   brands$: Observable<Brand[]>;
-  edited: Brand;
 
   ngOnInit() {
     this.getAll();
@@ -29,7 +30,7 @@ export class BrandComponent implements OnInit {
   }
 
   newItem() {
-    this.edited = new Brand();
+    this.dialog.open(EditBrandComponent, {data: new Brand(), width: '800px'});
   }
 
   remove($event, id: string | undefined) {
