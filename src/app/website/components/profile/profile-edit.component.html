@@ -129,7 +129,7 @@
       <div class="col-7">
         <select id="country" class="form-control" formControlName="country">
           <option value="">[{{'page.profile.choosecountry' | trans}}]</option>
-          @for (country of countries; track country.id) {
+          @for (country of countries.value() ?? []; track country.id) {
             <option [value]="country.alpha2">{{country.name_fr}}</option>
           }
         </select>

@@ -1,12 +1,11 @@
 
-import {takeUntil} from 'rxjs/operators';
-import {Component, OnDestroy, OnInit, inject, ChangeDetectionStrategy} from '@angular/core';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {Component, DestroyRef, OnInit, inject, ChangeDetectionStrategy} from '@angular/core';
 import {FormBuilder, Validators, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {FormComponent} from '../form.component';
 import UserMetaData from '../../model/usermetadata.class';
 import UserProfile from '../../model/user-profile.class';
 import {Store} from '@ngrx/store';
-import {Subject} from 'rxjs';
 import {ProfileActions} from '../../../root/actions/user-profile.actions';
 import {FromProfile} from '../../../root/reducers/user-profile.reducer';
 import {I18nPipe} from '../../../shared/i18n/i18n.pipe';
@@ -18,11 +17,10 @@ import {I18nPipe} from '../../../shared/i18n/i18n.pipe';
     changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule, ReactiveFormsModule, I18nPipe]
 })
-export class ProfileEmailComponent extends FormComponent implements OnInit, OnDestroy {
+export class ProfileEmailComponent extends FormComponent implements OnInit {
   private fb = inject(FormBuilder);
   private store = inject<Store<UserProfile>>(Store);
-
-  private ngUnsubscribe: Subject<any> = new Subject();
+  private destroyRef = inject(DestroyRef);
 
   profile: UserProfile;
 
@@ -53,7 +51,7 @@ export class ProfileEmailComponent extends FormComponent implements OnInit, OnDe
   ngOnInit() {
 
     this.store.select(FromProfile.selectLocalState).pipe(
-      takeUntil(this.ngUnsubscribe))
+      takeUntilDestroyed(this.destroyRef))
       .subscribe(profile => {
         this.profile = profile;
       });
@@ -69,11 +67,6 @@ export class ProfileEmailComponent extends FormComponent implements OnInit, OnDe
 
     this._fillFormWithData();
 
-  }
-
-  ngOnDestroy() {
-    this.ngUnsubscribe.next(null);
-    this.ngUnsubscribe.complete();
   }
 
   save(): void {

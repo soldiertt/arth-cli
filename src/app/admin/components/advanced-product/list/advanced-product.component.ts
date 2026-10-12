@@ -1,7 +1,7 @@
-import {Component, inject, OnDestroy, OnInit} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {Store} from '@ngrx/store';
-import {Observable, Subject} from 'rxjs';
+import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import AdvancedArticle from '../../../../shared/model/advanced-article.class';
 import {PictureService} from '../../../../shared/service/picture.service';
@@ -21,13 +21,11 @@ interface AdvancedProductCategory {
     styleUrls: ['./advanced-product.component.css'],
     imports: [FormsModule, ReactiveFormsModule, AsyncPipe]
 })
-export class AdvancedProductComponent implements OnInit, OnDestroy {
+export class AdvancedProductComponent implements OnInit {
   private advancedProductStore = inject<Store<FromAdminAdvancedProduct.State>>(Store);
   picUtil = inject(PictureService);
   private fb = inject(FormBuilder);
   private dialog = inject(MatDialog);
-
-  private ngUnsubscribe: Subject<any> = new Subject();
 
   advancedProducts$: Observable<AdvancedArticle[]>;
   filteredProducts$: Observable<AdvancedArticle[]>;
@@ -54,11 +52,6 @@ export class AdvancedProductComponent implements OnInit, OnDestroy {
         });
       }));
     });
-  }
-
-  ngOnDestroy() {
-    this.ngUnsubscribe.next(null);
-    this.ngUnsubscribe.complete();
   }
 
   private getAll() {

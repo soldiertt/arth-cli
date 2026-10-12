@@ -1,6 +1,7 @@
 import {IAlbum, Lightbox, LightboxConfig} from '@pierresh/ngx-lightbox';
-import {filter, takeUntil, switchMap} from 'rxjs/operators';
-import {Component, OnDestroy, OnInit, inject, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {filter, switchMap} from 'rxjs/operators';
+import {Component, DestroyRef, OnInit, inject, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import Article from '../../../shared/model/article.class';
 import {JQueryService} from '../../service/jQuery.service';
@@ -9,7 +10,6 @@ import {Store} from '@ngrx/store';
 import ProductData from '../../model/product-data.class';
 import ProductItemData from '../../model/product-item-data.class';
 import {PictureService} from '../../../shared/service/picture.service';
-import {Subject} from 'rxjs';
 import {CartDataActions} from '../../actions/cart-data.actions';
 import {ProductActions} from '../../actions/product.actions';
 import {FromProduct} from '../../reducers/product.reducer';
@@ -26,7 +26,7 @@ declare const $: any;
     changeDetection: ChangeDetectionStrategy.Eager,
     imports: [RouterLink, CurrencyPipe, I18nPipe, CategoryTitlePipe]
 })
-export class DetailComponent implements OnInit, OnDestroy {
+export class DetailComponent implements OnInit {
   picUtil = inject(PictureService);
   private route = inject(ActivatedRoute);
   private store = inject<Store<ProductData>>(Store);
@@ -35,8 +35,7 @@ export class DetailComponent implements OnInit, OnDestroy {
   private _lightbox = inject(Lightbox);
   private _lightboxConfig = inject(LightboxConfig);
   private cdr = inject(ChangeDetectorRef);
-
-  private ngUnsubscribe: Subject<any> = new Subject();
+  private destroyRef = inject(DestroyRef);
 
   selected: ProductItemData;
   needZoom: boolean = false;
@@ -48,11 +47,15 @@ export class DetailComponent implements OnInit, OnDestroy {
     _lightboxConfig.centerVertically = true;
     _lightboxConfig.wrapAround = true;
     _lightboxConfig.showImageNumberLabel = true;
+
+    this.destroyRef.onDestroy(() => {
+      this._album = [];
+    });
   }
 
   ngOnInit() {
     this.route.params.pipe(
-      takeUntil(this.ngUnsubscribe),
+      takeUntilDestroyed(this.destroyRef),
       switchMap(params => {
         const articleId = params['articleId'];
         this.store.dispatch(ProductActions.LoadOne({productId: articleId}));
@@ -71,12 +74,6 @@ export class DetailComponent implements OnInit, OnDestroy {
       }, 10);
       this.cdr.markForCheck();
     });
-  }
-
-  ngOnDestroy() {
-    this._album = [];
-    this.ngUnsubscribe.next(null);
-    this.ngUnsubscribe.complete();
   }
 
   addToCart(article: Article) {

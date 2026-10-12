@@ -1,10 +1,9 @@
-import {takeUntil} from 'rxjs/operators';
-import {Component, inject, OnDestroy, OnInit} from '@angular/core';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {Component, DestroyRef, inject, OnInit} from '@angular/core';
 import {AdvancedProductActions} from '../actions/advanced-product.actions';
 import CartData from '../model/cart-data.class';
 import {Store} from '@ngrx/store';
 import {CartDataActions} from '../actions/cart-data.actions';
-import {Subject} from 'rxjs';
 import {ProfileActions} from '../../root/actions/user-profile.actions';
 import {FromCartData} from '../reducers/cart-data.reducer';
 import {HeaderComponent} from './shared/header/header.component';
@@ -15,10 +14,10 @@ import {FooterComponent} from './shared/footer/footer.component';
     templateUrl: './website.component.html',
     imports: [HeaderComponent, RouterOutlet, FooterComponent]
 })
-export class WebsiteComponent implements OnInit, OnDestroy {
+export class WebsiteComponent implements OnInit {
   private store = inject<Store<CartData>>(Store);
 
-  private ngUnsubscribe: Subject<any> = new Subject();
+  private destroyRef = inject(DestroyRef);
 
   ngOnInit() {
     // Initialize Cart from local storage
@@ -26,7 +25,7 @@ export class WebsiteComponent implements OnInit, OnDestroy {
 
     // Save cart to local storage as soon as it is updated
     this.store.select(FromCartData.selectCartState).pipe(
-      takeUntil(this.ngUnsubscribe))
+      takeUntilDestroyed(this.destroyRef))
       .subscribe(cart => {
         this.store.dispatch(CartDataActions.SaveCartInSession({cart}));
     });
@@ -36,11 +35,6 @@ export class WebsiteComponent implements OnInit, OnDestroy {
 
     // Load advanced products
     this.store.dispatch(AdvancedProductActions.LoadAll());
-  }
-
-  ngOnDestroy() {
-    this.ngUnsubscribe.next(null);
-    this.ngUnsubscribe.complete();
   }
 
 }

@@ -1,12 +1,12 @@
 
-import {takeUntil} from 'rxjs/operators';
-import {Component, OnDestroy, OnInit, inject, ChangeDetectionStrategy} from '@angular/core';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {Component, DestroyRef, OnInit, inject, ChangeDetectionStrategy} from '@angular/core';
 import UserProfile from '../../model/user-profile.class';
 import UserAddress from '../../model/user-address';
 import {MailService} from '../../service/mail.service';
 import Mail from '../../model/mail.class';
 import {Store} from '@ngrx/store';
-import {Observable, Subject} from 'rxjs';
+import {Observable} from 'rxjs';
 import {ProfileActions} from '../../../root/actions/user-profile.actions';
 import {FromProfile} from '../../../root/reducers/user-profile.reducer';
 import {AsyncPipe} from '@angular/common';
@@ -23,11 +23,10 @@ import {I18nPipe} from '../../../shared/i18n/i18n.pipe';
     changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule, ProfileDisplayComponent, ProfileEmailComponent, ProfileEditComponent, OrdersComponent, AsyncPipe, I18nPipe]
 })
-export class ProfileComponent implements OnInit, OnDestroy {
+export class ProfileComponent implements OnInit {
   private store = inject<Store<UserProfile>>(Store);
   private mailService = inject(MailService);
-
-  private ngUnsubscribe: Subject<any> = new Subject();
+  private destroyRef = inject(DestroyRef);
 
   profileUpdated: boolean = false;
   editMode: boolean = false;
@@ -43,18 +42,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.userProfile$ = this.store.select(FromProfile.selectLocalState);
     this.userProfile$.pipe(
-      takeUntil(this.ngUnsubscribe))
+      takeUntilDestroyed(this.destroyRef))
       .subscribe(userProfile => {
         this._updateLocalData(userProfile);
         if (this.incompleteProfile) {
           this.editContactInfo();
         }
       });
-  }
-
-  ngOnDestroy() {
-    this.ngUnsubscribe.next(null);
-    this.ngUnsubscribe.complete();
   }
 
   editContactInfo(): void {

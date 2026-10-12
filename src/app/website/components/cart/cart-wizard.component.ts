@@ -1,9 +1,9 @@
 import {take} from 'rxjs/operators';
-import {Component, inject, OnDestroy, OnInit} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {Auth0Service} from '../../../shared/service/auth.service';
 import CartData from '../../model/cart-data.class';
 import {Store} from '@ngrx/store';
-import {Observable, Subject} from 'rxjs';
+import {Observable} from 'rxjs';
 import {CartDataActions} from '../../actions/cart-data.actions';
 import {FromCartData} from '../../reducers/cart-data.reducer';
 import {AsyncPipe} from '@angular/common';
@@ -16,11 +16,9 @@ import {CartNavigationComponent} from './cart-navigation.component';
     templateUrl: 'cart-wizard.component.html',
     imports: [CartBreadcrumbComponent, MyCartComponent, ConfirmAddressComponent, CartNavigationComponent, AsyncPipe]
 })
-export class CartWizardComponent implements OnInit, OnDestroy {
+export class CartWizardComponent implements OnInit {
   private store = inject<Store<CartData>>(Store);
   authService = inject(Auth0Service);
-
-  private ngUnsubscribe: Subject<any> = new Subject();
 
   cartData$: Observable<CartData>;
 
@@ -37,11 +35,6 @@ export class CartWizardComponent implements OnInit, OnDestroy {
         this.store.dispatch(CartDataActions.CartMoveToStep({step: 0}));
       }
     });
-  }
-
-  ngOnDestroy() {
-    this.ngUnsubscribe.next(null);
-    this.ngUnsubscribe.complete();
   }
 
 }

@@ -1,7 +1,8 @@
 import {ToastrService} from 'ngx-mat-toast';
-import {map, takeUntil} from 'rxjs/operators';
-import {Component, inject, OnDestroy, OnInit} from '@angular/core';
-import {Observable, Subject} from 'rxjs';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {map} from 'rxjs/operators';
+import {Component, DestroyRef, inject, OnInit} from '@angular/core';
+import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
 import Article from '../../../../shared/model/article.class';
 import {SteelActions} from '../../../actions/steel.actions';
@@ -29,7 +30,7 @@ import {EditProductComponent} from '../edit/edit-product.component';
     styleUrls: ['./product.component.css'],
     imports: [FormsModule, ReactiveFormsModule, AsyncPipe]
 })
-export class ProductComponent implements OnInit, OnDestroy {
+export class ProductComponent implements OnInit {
   private productStore = inject<Store<FromAdminProduct.State>>(Store);
   private categoryStore = inject<Store<FromAdminCategory.State>>(Store);
   private brandStore = inject<Store<FromAdminBrand.State>>(Store);
@@ -39,8 +40,7 @@ export class ProductComponent implements OnInit, OnDestroy {
   private toastr = inject(ToastrService);
   private fb = inject(FormBuilder);
   private dialog = inject(MatDialog);
-
-  private ngUnsubscribe: Subject<any> = new Subject();
+  private destroyRef = inject(DestroyRef);
 
   products$: Observable<Article[]>;
   categories$: Observable<Category[]>;
@@ -77,18 +77,13 @@ export class ProductComponent implements OnInit, OnDestroy {
     });
 
     this.productStore.select(FromAdminProduct.selectCsvData).pipe(
-      takeUntil(this.ngUnsubscribe))
+      takeUntilDestroyed(this.destroyRef))
       .subscribe(csvData => {
         if (csvData.csvResponse) {
           saveAs(csvData.csvResponse.body!, csvData.filename);
           this.productStore.dispatch(ProductActions.ClearCsvData());
         }
       });
-  }
-
-  ngOnDestroy() {
-    this.ngUnsubscribe.next(null);
-    this.ngUnsubscribe.complete();
   }
 
   private getAll() {
@@ -105,14 +100,14 @@ export class ProductComponent implements OnInit, OnDestroy {
     this.steelStore.dispatch(SteelActions.GetAll());
 
     this.slideProductStore.select(FromAdminSlideProduct.selectCreated).pipe(
-      takeUntil(this.ngUnsubscribe))
+      takeUntilDestroyed(this.destroyRef))
       .subscribe(created => {
         if (created) {
           this.toastr.success('Slide successfully added!', 'Success');
         }
       });
     this.slideProductStore.select(FromAdminSlideProduct.selectError).pipe(
-      takeUntil(this.ngUnsubscribe))
+      takeUntilDestroyed(this.destroyRef))
       .subscribe(error => {
         if (error) {
           this.toastr.error(error, 'Error when creating slide');

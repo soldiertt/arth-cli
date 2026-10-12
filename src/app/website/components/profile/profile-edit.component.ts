@@ -1,15 +1,12 @@
-
-import {takeUntil} from 'rxjs/operators';
-import {Component, OnDestroy, OnInit, inject, ChangeDetectionStrategy} from '@angular/core';
-import {FormBuilder, Validators, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {Component, DestroyRef, inject, OnInit} from '@angular/core';
+import {rxResource, takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {FormBuilder, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {CountryRestService} from '../../../shared/service/rest/country.rest.service';
-import Country from '../../../shared/model/country.class';
 import {FormComponent} from '../form.component';
 import UserMetaData from '../../model/usermetadata.class';
 import UserAddresses from '../../model/user-addresses.class';
 import UserProfile from '../../model/user-profile.class';
 import {Store} from '@ngrx/store';
-import {Subject} from 'rxjs';
 import {ProfileActions} from '../../../root/actions/user-profile.actions';
 import {FromProfile} from '../../../root/reducers/user-profile.reducer';
 import {I18nPipe} from '../../../shared/i18n/i18n.pipe';
@@ -18,18 +15,18 @@ import {I18nPipe} from '../../../shared/i18n/i18n.pipe';
     selector: 'arth-profile-edit',
     templateUrl: 'profile-edit.component.html',
     styleUrls: ['profile-edit.component.css'],
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule, ReactiveFormsModule, I18nPipe]
 })
-export class ProfileEditComponent extends FormComponent implements OnInit, OnDestroy {
+export class ProfileEditComponent extends FormComponent implements OnInit {
   private fb = inject(FormBuilder);
   private store = inject<Store<UserProfile>>(Store);
   private countryRestService = inject(CountryRestService);
-
-  private ngUnsubscribe: Subject<any> = new Subject();
+  private destroyRef = inject(DestroyRef);
 
   userProfile: UserProfile;
-  countries: Country[];
+  countries = rxResource({
+    stream: () => this.countryRestService.listAll()
+  });
 
   constructor() {
     super();
@@ -47,23 +44,12 @@ export class ProfileEditComponent extends FormComponent implements OnInit, OnDes
   }
 
   ngOnInit() {
-    // Load countries
-    this.countryRestService.listAll().pipe(
-      takeUntil(this.ngUnsubscribe))
-      .subscribe(countries => {
-        this.countries = countries;
-      });
     this.store.select(FromProfile.selectLocalState).pipe(
-      takeUntil(this.ngUnsubscribe))
+      takeUntilDestroyed(this.destroyRef))
       .subscribe(profile => {
         this.userProfile = profile;
         this._fillFormWithData();
       });
-  }
-
-  ngOnDestroy() {
-    this.ngUnsubscribe.next(null);
-    this.ngUnsubscribe.complete();
   }
 
   save(): void {

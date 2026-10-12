@@ -1,10 +1,9 @@
 
-import {takeUntil} from 'rxjs/operators';
-import {Component, OnDestroy, OnInit, inject, ChangeDetectionStrategy} from '@angular/core';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {Component, DestroyRef, OnInit, inject, ChangeDetectionStrategy} from '@angular/core';
 import PaypalOrder from '../../../shared/model/paypalorder.class';
 import {Store} from '@ngrx/store';
 import UserProfile from '../../model/user-profile.class';
-import {Subject} from 'rxjs';
 import {PaypalOrderActions} from '../../../shared/actions/paypal-order.actions';
 import {FromPaypalOrder} from '../../reducers/paypal-order.reducer';
 import {FromProfile} from '../../../root/reducers/user-profile.reducer';
@@ -18,17 +17,16 @@ import {I18nPipe} from '../../../shared/i18n/i18n.pipe';
     changeDetection: ChangeDetectionStrategy.Eager,
     imports: [CurrencyPipe, DatePipe, I18nPipe]
 })
-export class OrdersComponent implements OnInit, OnDestroy {
+export class OrdersComponent implements OnInit {
   private profileStore = inject<Store<UserProfile>>(Store);
   private store = inject<Store<FromPaypalOrder.State>>(Store);
-
-  private ngUnsubscribe: Subject<any> = new Subject();
+  private destroyRef = inject(DestroyRef);
 
   paypalOrders: PaypalOrder[];
 
   ngOnInit() {
     this.store.select(FromPaypalOrder.selectAll).pipe(
-      takeUntil(this.ngUnsubscribe))
+      takeUntilDestroyed(this.destroyRef))
       .subscribe(orders => {
         this.paypalOrders = orders;
         this.paypalOrders.forEach(paypalOrder => {
@@ -36,17 +34,12 @@ export class OrdersComponent implements OnInit, OnDestroy {
         });
       });
     this.profileStore.select(FromProfile.selectUserId).pipe(
-      takeUntil(this.ngUnsubscribe))
+      takeUntilDestroyed(this.destroyRef))
       .subscribe((userId) => {
         if (userId) {
           this.store.dispatch(PaypalOrderActions.GetAllForUser({userId}));
         }
       });
-  }
-
-  ngOnDestroy() {
-    this.ngUnsubscribe.next(null);
-    this.ngUnsubscribe.complete();
   }
 
 }
