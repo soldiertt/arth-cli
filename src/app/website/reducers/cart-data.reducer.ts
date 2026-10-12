@@ -119,7 +119,7 @@ export namespace FromCartData {
       }
       return state;
     }),
-    on(CartDataActions.Pay, (state, action) => {
+    on(CartDataActions.PaySuccess, (state) => {
       const cart = {...state.cart};
       cart.orders = [];
       cart.shipping = 0;

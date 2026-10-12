@@ -71,6 +71,7 @@ export default {
       next: 'Suivant',
       paymentconfirmation: 'Valider le paiement',
       paymentsuccess: 'Votre paiement a été effectué avec succès !',
+      paymenterror: 'Le paiement n\'a pas pu être effectué. Veuillez réessayer.',
       previous: 'Précédent',
       removearticle: 'Retirer un article',
       removefromcart: 'Enlever du panier',

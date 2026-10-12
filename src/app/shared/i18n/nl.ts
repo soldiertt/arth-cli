@@ -71,6 +71,7 @@ export default {
       next: 'Volgende',
       paymentconfirmation: 'Betalingsbevestiging',
       paymentsuccess: 'De betaling werd succesvol uitgevoerd!',
+      paymenterror: 'De betaling kon niet worden voltooid. Probeer het opnieuw.',
       previous: 'Vorig',
       removearticle: 'Een artikel wegnemen',
       removefromcart: 'Verwijderen uit mandje',

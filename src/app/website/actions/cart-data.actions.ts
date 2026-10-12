@@ -21,6 +21,7 @@ export namespace CartDataActions {
   const UPDATE_TOP_SALES_SUCCESS = '[Cart] Update top sales Success';
   const PAY = '[Cart] PAY';
   const PAY_SUCCESS = '[Cart] PAY Success';
+  const PAY_FAILURE = '[Cart] PAY Failure';
 
   export const SetEditMode = createAction(
     SET_EDIT_MODE,
@@ -86,11 +87,16 @@ export namespace CartDataActions {
 
   export const Pay = createAction(
     PAY,
-    props<{userId: string, orders: Order[], paymentID: string, payerID: string}>()
+    props<{userId: string, orders: Order[], orderID: string, payerID: string}>()
   );
 
   export const PaySuccess = createAction(
     PAY_SUCCESS
+  );
+
+  export const PayFailure = createAction(
+    PAY_FAILURE,
+    props<{message: string}>()
   );
 
 }

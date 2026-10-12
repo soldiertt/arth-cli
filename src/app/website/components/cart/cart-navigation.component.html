@@ -15,3 +15,6 @@
 @if (paymentConfirmed) {
   <div class="alert alert-success">{{'page.mycart.paymentsuccess' | trans}}</div>
 }
+@if (paymentError) {
+  <div class="alert alert-danger">{{'page.mycart.paymenterror' | trans}}</div>
+}

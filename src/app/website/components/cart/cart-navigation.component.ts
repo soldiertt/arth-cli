@@ -1,19 +1,18 @@
-
-import {takeUntil} from 'rxjs/operators';
+import {takeUntil, take} from 'rxjs/operators';
 import {AfterViewInit, Component, OnDestroy, OnInit, inject, ChangeDetectionStrategy} from '@angular/core';
+import {Actions, ofType} from '@ngrx/effects';
 import {Auth0Service} from '../../../shared/service/auth.service';
 import {PaypalRestService} from '../../../shared/service/rest/paypal.rest.service';
+import {PaypalSdkService} from '../../service/paypal-sdk.service';
 import {environment} from '../../../../environments/environment';
 import CartData from '../../model/cart-data.class';
 import {Store} from '@ngrx/store';
 import UserProfile from '../../model/user-profile.class';
-import {Subject} from 'rxjs';
+import {Subject, firstValueFrom} from 'rxjs';
 import {CartDataActions} from '../../actions/cart-data.actions';
 import {FromCartData} from '../../reducers/cart-data.reducer';
 import {FromProfile} from '../../../root/reducers/user-profile.reducer';
 import {I18nPipe} from '../../../shared/i18n/i18n.pipe';
-
-declare const paypal: any;
 
 @Component({
     selector: 'arth-cart-navigation',
@@ -25,8 +24,10 @@ declare const paypal: any;
 export class CartNavigationComponent implements OnInit, AfterViewInit, OnDestroy {
   private store = inject<Store<CartData>>(Store);
   private profileStore = inject<Store<UserProfile>>(Store);
+  private actions$ = inject(Actions);
   authService = inject(Auth0Service);
   private paypalRestService = inject(PaypalRestService);
+  private paypalSdkService = inject(PaypalSdkService);
 
 
   private ngUnsubscribe: Subject<any> = new Subject();
@@ -41,6 +42,11 @@ export class CartNavigationComponent implements OnInit, AfterViewInit, OnDestroy
   displayPaypalButton: boolean = false;
   processingPayment: boolean = false;
   paymentConfirmed: boolean = false;
+  paymentError: boolean = false;
+
+  private viewReady = false;
+  private paypalButtonReady = false;
+  private paypalSession: any;
 
   ngOnInit() {
     this.store.select(FromCartData.selectLocalState).pipe(
@@ -69,6 +75,24 @@ export class CartNavigationComponent implements OnInit, AfterViewInit, OnDestroy
           this.country = undefined;
           this.profileComplete = false;
         }
+      });
+
+    this.actions$.pipe(
+      ofType(CartDataActions.PaySuccess),
+      takeUntil(this.ngUnsubscribe))
+      .subscribe(() => {
+        this.processingPayment = false;
+        this.paymentConfirmed = true;
+        this.paymentError = false;
+      });
+
+    this.actions$.pipe(
+      ofType(CartDataActions.PayFailure),
+      takeUntil(this.ngUnsubscribe))
+      .subscribe(() => {
+        this.processingPayment = false;
+        this.paymentConfirmed = false;
+        this.paymentError = true;
       });
   }
 
@@ -105,34 +129,14 @@ export class CartNavigationComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   ngAfterViewInit() {
-    const paypalDefinedInterval = setInterval(() => {
-
-      if (window['paypal'] && this.cartData.cart.orders.length > 0) {
-
-        paypal.Button.render({
-          env: environment.paypalEnvironment,
-          payment: (resolve, reject) => {
-
-            this.paypalRestService.createPayment(this.cartData.cart).subscribe(response => {
-              resolve(response.paymentID);
-            }, err => reject(err));
-
-          },
-
-          onAuthorize: (data, actions) => {
-            this._confirmPayment(data.paymentID, data.payerID);
-          }
-
-        }, '#paypal-button');
-
-        if (paypalDefinedInterval) {
-          clearInterval(paypalDefinedInterval);
-        }
-      }
-    }, 100);
+    this.viewReady = true;
+    this._checkButtonDisplay();
   }
 
   private _checkButtonDisplay(): void {
+    if (!this.cartData) {
+      return;
+    }
     if (this.cartData.cart.totalCount > 0) {
       if (this.authService.authenticated()) {
         if (this.cartData.wizard.currentStep === 4) {
@@ -140,6 +144,7 @@ export class CartNavigationComponent implements OnInit, AfterViewInit, OnDestroy
           this.displayPrevious = true;
           this.displayNext = false;
           this.displayPaypalButton = true;
+          void this._initPaypal();
         } else if (this.cartData.wizard.currentStep === 3) {
           if (!this.cartData.wizard.editMode && this.profileComplete) {
             // Step3. completed profile
@@ -172,20 +177,88 @@ export class CartNavigationComponent implements OnInit, AfterViewInit, OnDestroy
     }
   }
 
-  private _confirmPayment(paymentID: string, payerID: string) {
+  private async _initPaypal(): Promise<void> {
+    if (this.paypalButtonReady || !this.viewReady || !this.displayPaypalButton) {
+      return;
+    }
+    const container = document.getElementById('paypal-button');
+    if (!container) {
+      return;
+    }
+    this.paypalButtonReady = true;
+    try {
+      const paypal = await this.paypalSdkService.load();
+      const sdkInstance = await paypal.createInstance({
+        clientId: environment.paypalClientId,
+        components: ['paypal-payments'],
+        pageType: 'checkout'
+      });
+      const eligibility = await sdkInstance.findEligibleMethods({currencyCode: 'EUR'});
+      if (!eligibility.isEligible('paypal')) {
+        this.paypalButtonReady = false;
+        return;
+      }
+      this.paypalSession = await sdkInstance.createPayPalOneTimePaymentSession({
+        onApprove: (data: any) => this._onApprove(data),
+        onCancel: () => this._onCancel(),
+        onError: (err: any) => this._onError(err)
+      });
+      const button = document.createElement('paypal-button');
+      container.replaceChildren(button);
+      button.addEventListener('click', () => this._startPayment());
+    } catch (err) {
+      console.error('PayPal initialization failed', err);
+      this.paypalButtonReady = false;
+    }
+  }
+
+  private _startPayment(): void {
+    if (!this.paypalSession || !this.cartData || !this.cartData.cart.orders.length) {
+      return;
+    }
+    this.paymentError = false;
+    const createOrderPromise = firstValueFrom(this.paypalRestService.createOrder(this.cartData.cart))
+      .then(response => ({orderId: response.id}));
+    void this.paypalSession.start({presentationMode: 'auto'}, createOrderPromise);
+  }
+
+  private _onApprove(data: any): Promise<void> {
+    if (!this.cartData) {
+      return Promise.resolve();
+    }
     this.processingPayment = true;
+    this.paymentConfirmed = false;
+
+    const settled$ = firstValueFrom(this.actions$.pipe(
+      ofType(CartDataActions.PaySuccess, CartDataActions.PayFailure),
+      take(1)));
 
     // update top sales
     const orders = this.cartData.cart.orders;
 
     this.store.dispatch(CartDataActions.UpdateTopSales({orders}));
-    this.store.dispatch(CartDataActions.Pay({userId: this.userId, orders, paymentID, payerID}));
+    this.store.dispatch(CartDataActions.Pay({
+      userId: this.userId,
+      orders,
+      orderID: data.orderId,
+      payerID: data.payerId
+    }));
 
-    this.paymentConfirmed = true;
+    return settled$.then(action => {
+      if (action.type === CartDataActions.PayFailure.type) {
+        throw new Error('Payment capture failed');
+      }
+    });
+  }
+
+  private _onCancel(): void {
     this.processingPayment = false;
+  }
 
-    this._checkButtonDisplay();
-
+  private _onError(err: any): void {
+    console.error('PayPal payment error', err);
+    this.processingPayment = false;
+    this.paymentError = true;
   }
 
 }

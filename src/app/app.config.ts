@@ -38,6 +38,7 @@ import {SessionService} from './shared/service/session.service';
 import {UploadService} from './shared/service/upload.service';
 import {JQueryService} from './website/service/jQuery.service';
 import {MailService} from './website/service/mail.service';
+import {PaypalSdkService} from './website/service/paypal-sdk.service';
 import {AdvancedArticleRestService} from './shared/service/rest/advanced-article.rest.service';
 import {ArticleRestService} from './shared/service/rest/article.rest.service';
 import {BrandRestService} from './shared/service/rest/brand.rest.service';
@@ -96,6 +97,7 @@ export const appConfig: ApplicationConfig = {
     UploadService,
     JQueryService,
     MailService,
+    PaypalSdkService,
 
     AdvancedArticleRestService,
     ArticleRestService,

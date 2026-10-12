@@ -71,6 +71,7 @@ export default {
       next: 'Next',
       paymentconfirmation: 'Payment validation',
       paymentsuccess: 'Payment was successfully executed !',
+      paymenterror: 'The payment could not be completed. Please try again.',
       previous: 'Previous',
       removearticle: 'Remove one article',
       removefromcart: 'Remove from cart',
