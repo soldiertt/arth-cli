@@ -1,7 +1,5 @@
-
-import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
-import {Component, DestroyRef, OnInit, inject, ChangeDetectionStrategy} from '@angular/core';
-import {FormBuilder, Validators, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {Component, inject, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {FormComponent} from '../form.component';
 import UserMetaData from '../../model/usermetadata.class';
 import UserProfile from '../../model/user-profile.class';
@@ -14,15 +12,13 @@ import {I18nPipe} from '../../../shared/i18n/i18n.pipe';
     selector: 'arth-profile-email',
     templateUrl: 'profile-email.component.html',
     styleUrls: ['profile-email.component.css'],
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule, ReactiveFormsModule, I18nPipe]
 })
 export class ProfileEmailComponent extends FormComponent implements OnInit {
   private fb = inject(FormBuilder);
   private store = inject<Store<UserProfile>>(Store);
-  private destroyRef = inject(DestroyRef);
 
-  profile: UserProfile;
+  readonly profile = this.store.selectSignal(FromProfile.selectLocalState);
 
   private static areEqual(group: FormGroup) {
     const allValues: string[] = [];
@@ -49,13 +45,6 @@ export class ProfileEmailComponent extends FormComponent implements OnInit {
   }
 
   ngOnInit() {
-
-    this.store.select(FromProfile.selectLocalState).pipe(
-      takeUntilDestroyed(this.destroyRef))
-      .subscribe(profile => {
-        this.profile = profile;
-      });
-
     const emailRegex = '^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$';
     this.form = this.fb.group({
       emails: this.fb.group({
@@ -73,7 +62,7 @@ export class ProfileEmailComponent extends FormComponent implements OnInit {
     this.submitAttempt = true;
     if (this.form.valid) {
       const userMetadata: UserMetaData = {email: this.form.get('emails')?.get('email')?.value};
-      this.store.dispatch(ProfileActions.UpdateMetadata({userId: this.profile.user_id, metadata: userMetadata}));
+      this.store.dispatch(ProfileActions.UpdateMetadata({userId: this.profile().user_id, metadata: userMetadata}));
       this.onUpdateMetaData.emit(undefined);
     }
   }
@@ -84,8 +73,8 @@ export class ProfileEmailComponent extends FormComponent implements OnInit {
   }
 
   private _fillFormWithData(): void {
-    if (this.profile.user_metadata.email) {
-      this.form.get('emails')?.get('email')?.setValue(this.profile.user_metadata.email);
+    if (this.profile().user_metadata.email) {
+      this.form.get('emails')?.get('email')?.setValue(this.profile().user_metadata.email);
       this.form.get('emails')?.get('emailConfirm')?.setValue('');
     }
   }

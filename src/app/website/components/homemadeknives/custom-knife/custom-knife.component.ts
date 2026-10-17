@@ -1,4 +1,5 @@
-import {Component, OnInit, inject, input, ChangeDetectionStrategy} from '@angular/core';
+import {Component, computed, inject, input, OnInit, Signal} from '@angular/core';
+import {toSignal} from '@angular/core/rxjs-interop';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {IAlbum, Lightbox, LightboxConfig} from '@pierresh/ngx-lightbox';
 import {OrderArticle} from '../../../../shared/model/order-article';
@@ -12,7 +13,6 @@ declare const $: any;
 @Component({
     selector: 'arth-custom-knife',
     templateUrl: 'custom-knife.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['custom-knife.component.css']
 })
 export class CustomKnifeComponent implements OnInit {
@@ -23,7 +23,7 @@ export class CustomKnifeComponent implements OnInit {
   readonly isOdd = input(false);
   _album: IAlbum[] = [];
   customKnifeForm: FormGroup;
-  price: number;
+  readonly price: Signal<number | undefined>;
 
   constructor() {
     const fb = inject(FormBuilder);
@@ -38,16 +38,15 @@ export class CustomKnifeComponent implements OnInit {
       wood: fb.control('', Validators.required),
       engraving: fb.control('', Validators.maxLength(20))
     });
-    modelCtrl.valueChanges.subscribe((model) => {
-      switch (model) {
+    const model = toSignal(modelCtrl.valueChanges, {initialValue: modelCtrl.value});
+    this.price = computed(() => {
+      switch (model()) {
         case 'office':
-          this.price = 82;
-          break;
+          return 82;
         case 'chef':
-          this.price = 179;
-          break;
+          return 179;
         default:
-          this.price = undefined;
+          return undefined;
       }
     });
   }
@@ -64,7 +63,7 @@ export class CustomKnifeComponent implements OnInit {
     const callback = () => {
       const engraving = this.customKnifeForm.get('engraving').value ? ` engraving '${this.customKnifeForm.get('engraving').value}'` : '';
       const articleName = `Homemade '${this.customKnifeForm.get('model').value}' handle '${this.customKnifeForm.get('wood').value}'${engraving}`;
-      const orderArticle: OrderArticle = {id: this.homemadeCustomId(), name: articleName, type: 'homemadeknives', pictures: ['custom_summary.jpg'], price: this.price, promo: false, noLink: true};
+      const orderArticle: OrderArticle = {id: this.homemadeCustomId(), name: articleName, type: 'homemadeknives', pictures: ['custom_summary.jpg'], price: this.price(), promo: false, noLink: true};
       component.store.dispatch(CartDataActions.AddArticle({article: orderArticle}));
     };
     this.jQueryService.addToCart($, callback);
