@@ -1,33 +1,35 @@
 @if (wizard$ | async; as wizard) {
-  <div class="cart-wizard-breadcrumb">
-    <div [class.done]="wizard.currentStep >= 1" class="step">
-      <span>
-        1. {{'page.mycart.breadcrumb.myarticles' | trans}}
-      </span>
-    </div>
-    <div class="chevron">
-      &gt;
-    </div>
-    <div [class.done]="wizard.currentStep >= 2" class="step">
-      <span>
-        2. {{'page.mycart.breadcrumb.signin' | trans}}
-      </span>
-    </div>
-    <div class="chevron">
-      &gt;
-    </div>
-    <div [class.done]="wizard.currentStep >= 4" [class.active]="wizard.currentStep === 3" class="step">
-      <span>
-        3. {{'page.mycart.breadcrumb.mycontactdetails' | trans}}
-      </span>
-    </div>
-    <div class="chevron">
-      &gt;
-    </div>
-    <div [class.active]="wizard.currentStep === 4" class="step">
-      <span>
-        4. {{'page.mycart.breadcrumb.payment' | trans}}
-      </span>
-    </div>
-  </div>
+  <nav aria-label="Étapes du panier">
+    <ol class="cart-wizard-breadcrumb">
+      <li [class.done]="wizard.currentStep >= 1" [class.active]="wizard.currentStep === 1" class="step"
+        [attr.aria-current]="wizard.currentStep === 1 ? 'step' : null">
+        <span class="step-index">1</span>
+        <span class="step-label">{{'page.mycart.breadcrumb.myarticles' | trans}}</span>
+      </li>
+      <li aria-hidden="true" class="chevron">
+        &gt;
+      </li>
+      <li [class.done]="wizard.currentStep >= 2" [class.active]="wizard.currentStep === 2" class="step"
+        [attr.aria-current]="wizard.currentStep === 2 ? 'step' : null">
+        <span class="step-index">2</span>
+        <span class="step-label">{{'page.mycart.breadcrumb.signin' | trans}}</span>
+      </li>
+      <li aria-hidden="true" class="chevron">
+        &gt;
+      </li>
+      <li [class.done]="wizard.currentStep >= 4" [class.active]="wizard.currentStep === 3" class="step"
+        [attr.aria-current]="wizard.currentStep === 3 ? 'step' : null">
+        <span class="step-index">3</span>
+        <span class="step-label">{{'page.mycart.breadcrumb.mycontactdetails' | trans}}</span>
+      </li>
+      <li aria-hidden="true" class="chevron">
+        &gt;
+      </li>
+      <li [class.active]="wizard.currentStep === 4" class="step"
+        [attr.aria-current]="wizard.currentStep === 4 ? 'step' : null">
+        <span class="step-index">4</span>
+        <span class="step-label">{{'page.mycart.breadcrumb.payment' | trans}}</span>
+      </li>
+    </ol>
+  </nav>
 }

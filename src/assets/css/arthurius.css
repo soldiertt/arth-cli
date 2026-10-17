@@ -1,61 +1,150 @@
 /********************************
+******* DESIGN TOKENS ************
+*********************************
+  Mini design system "Coutellerie Arthurius".
+  Palette artisanale : forge (orange), acier (bleu-gris),
+  neutres chauds (sable) et etats fonctionnels.
+  Toute couleur / espacement / typographie doit venir de ces variables.
+*/
+
+:root {
+  /* Couleur principale : "Forge" (identite historique #DC4823, contraste ameliore) */
+  --arth-primary: #C8401E;
+  --arth-primary-dark: #A32F12;
+  --arth-primary-darker: #7E2410;
+  --arth-primary-soft: #F9E9E3;
+
+  /* Accent : "Acier" */
+  --arth-accent: #55697A;
+  --arth-accent-soft: #E7ECF0;
+
+  /* Encre / surfaces / neutres chauds */
+  --arth-ink: #1D242A;
+  --arth-ink-2: #2B333A;
+  --arth-text: #2A3138;
+  --arth-muted: #6B7480;
+  --arth-border: #E3DFD8;
+  --arth-border-strong: #CFC8BE;
+  --arth-surface: #FFFFFF;
+  --arth-bg: #F7F5F2;
+  --arth-sand: #EFEAE2;
+  --arth-sand-2: #E3DBCE;
+
+  /* Couleurs d'etat */
+  --arth-success: #2E7D4F;
+  --arth-success-soft: #E4F1E9;
+  --arth-warning: #B7791F;
+  --arth-warning-soft: #FBF0DC;
+  --arth-danger: #C0392B;
+  --arth-danger-soft: #FBE6E3;
+  --arth-info: #2C6E9B;
+  --arth-info-soft: #E4EFF6;
+
+  /* Typographie */
+  --arth-font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  --arth-font-display: ambleregular, var(--arth-font-body);
+
+  /* Espacements */
+  --arth-space-1: 0.25rem;
+  --arth-space-2: 0.5rem;
+  --arth-space-3: 0.75rem;
+  --arth-space-4: 1rem;
+  --arth-space-5: 1.5rem;
+  --arth-space-6: 2rem;
+  --arth-space-7: 3rem;
+  --arth-space-8: 4rem;
+
+  /* Rayons et ombres */
+  --arth-radius-sm: 6px;
+  --arth-radius: 10px;
+  --arth-radius-lg: 16px;
+  --arth-shadow-sm: 0 1px 2px rgba(29, 36, 42, 0.06),
+    0 1px 3px rgba(29, 36, 42, 0.08);
+  --arth-shadow-md: 0 4px 12px rgba(29, 36, 42, 0.09),
+    0 2px 4px rgba(29, 36, 42, 0.06);
+  --arth-shadow-lg: 0 12px 28px rgba(29, 36, 42, 0.14),
+    0 4px 10px rgba(29, 36, 42, 0.08);
+
+  /* Focus accessible */
+  --arth-focus-ring: 0 0 0 3px rgba(200, 64, 30, 0.35);
+}
+
+/********************************
 ********* GLOBAL ****************
 *********************************/
 
 @font-face {
   font-family: ambleregular;
-  src:  url(../font/amble-regular-webfont.ttf) format('truetype');
-  src:  url(../font/amble-regular-webfont.woff) format('woff'),
-        url(../font/amble-regular-webfont.woff2) format('woff2');
+  src: url(../font/amble-regular-webfont.ttf) format('truetype');
+  src: url(../font/amble-regular-webfont.woff) format('woff'),
+    url(../font/amble-regular-webfont.woff2) format('woff2');
   font-weight: normal;
 }
 
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
 body {
-  font-family: arial;
-  font-size: 0.9em;
+  font-family: var(--arth-font-body);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--arth-text);
+  background-color: var(--arth-bg);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--arth-font-display);
+  letter-spacing: 0.02em;
 }
 
 h1 {
-  margin-top: 10px;
-  font-size: 20px;
-  border:1px solid #ddd;
-  padding: 15px;
-  font-family: ambleregular;
+  margin-top: var(--arth-space-4);
+  font-size: 1.4rem;
+  padding: var(--arth-space-4);
+  border: 1px solid var(--arth-border);
+  border-left: 4px solid var(--arth-primary);
+  border-radius: var(--arth-radius-sm);
   text-transform: uppercase;
-  color: #343a40;
-  background-color: #e9ecef;
+  color: var(--arth-ink);
+  background-color: var(--arth-surface);
+  box-shadow: var(--arth-shadow-sm);
   clear: both;
 }
 
 h2 {
   margin-top: 0;
   margin-bottom: 0;
-  font-size: 18px;
-  border:1px solid #ddd;
-  padding: 10px;
-  font-family: ambleregular;
+  font-size: 1.15rem;
+  padding: var(--arth-space-3);
+  border: 1px solid var(--arth-primary-dark);
+  border-radius: var(--arth-radius-sm);
   text-transform: uppercase;
-  color:#fff;
-  background-color: #DC4823;
+  color: #fff;
+  background-color: var(--arth-primary);
   clear: both;
 }
 
 h3 {
-  margin-top: 10px;
-  font-size: 17px;
-  padding: 5px;
-  font-family: ambleregular;
+  margin-top: var(--arth-space-4);
+  font-size: 1.05rem;
+  padding: var(--arth-space-2) var(--arth-space-3);
+  border-radius: var(--arth-radius-sm);
+  font-family: var(--arth-font-display);
   text-transform: uppercase;
   color: #fff;
-  background-color: #DC4823;
-  background-image: linear-gradient(to right, #DC4823, #343a40);
+  background-color: var(--arth-primary);
+  background-image: linear-gradient(to right, var(--arth-primary), var(--arth-ink-2));
   clear: both;
   margin-bottom: 0;
 }
 
 .administration h3 {
   text-transform: none;
-  background-color: #DC4823;
+  background-color: var(--arth-primary);
   background-image: none;
 }
 
@@ -74,16 +163,27 @@ ul li {
 }
 
 a {
-  color: #DC4823;
+  color: var(--arth-primary);
 }
 
 a:visited {
-  color: #DC4823;
+  color: var(--arth-primary);
 }
 
 a:hover {
   text-decoration: none;
-  color: #BC2803;
+  color: var(--arth-primary-dark);
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: none;
+  box-shadow: var(--arth-focus-ring);
+  border-radius: var(--arth-radius-sm);
 }
 
 .right {
@@ -91,27 +191,28 @@ a:hover {
 }
 
 .clear {
-  clear:both;
+  clear: both;
 }
 
 .wrap {
-  width:80%;
+  width: 80%;
   margin: 0 auto;
 }
 
 .content_top {
-  margin-top: 10px;
+  margin-top: var(--arth-space-4);
 }
 
 .content_bottom {
-  margin-top: 10px;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  margin-top: var(--arth-space-3);
+  padding: var(--arth-space-4);
+  border: 1px solid var(--arth-border);
+  border-radius: var(--arth-radius);
+  background-color: var(--arth-surface);
 }
 
 .amble {
-  font-family: ambleregular;
+  font-family: var(--arth-font-display);
 }
 
 /********************************
@@ -121,38 +222,168 @@ a:hover {
 .box-link {
   float: left;
   width: 178px;
-  padding:3px;
-  font-family: ambleregular;
-  background-color: antiquewhite;
+  padding: var(--arth-space-3);
+  font-family: var(--arth-font-display);
+  background-color: var(--arth-sand);
   text-align: center;
-  border:1px solid #aaa;
-  margin: 1px;
+  border: 1px solid var(--arth-border-strong);
+  border-radius: var(--arth-radius-sm);
+  margin: var(--arth-space-1);
   cursor: pointer;
-  transition: all 0.5s ease-in-out;
-  color:#DC4823;
-  font-size: 1.1em;
+  transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+  color: var(--arth-primary);
+  font-size: 1.05rem;
 }
 
 .box-link:hover {
-  background-color: #DC4823;
-  color: white;
+  background-color: var(--arth-primary);
+  color: #fff;
+  transform: translateY(-2px);
 }
 
+/********************************
+***** BOUTONS (DESIGN SYSTEM) ***
+*********************************/
+
+.btn {
+  cursor: pointer;
+  font-family: var(--arth-font-display);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  border-radius: var(--arth-radius-sm);
+  transition: background-color 0.2s ease, color 0.2s ease,
+    border-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn-arth {
+  color: #fff;
+  background-color: var(--arth-primary);
+  border: 1px solid var(--arth-primary);
+  padding: var(--arth-space-2) var(--arth-space-4);
+}
+
+.btn-arth:hover,
+.btn-arth:focus-visible {
+  color: #fff;
+  background-color: var(--arth-primary-dark);
+  border-color: var(--arth-primary-dark);
+}
+
+.btn-arth-outline {
+  color: var(--arth-primary);
+  background-color: transparent;
+  border: 1px solid var(--arth-primary);
+  padding: var(--arth-space-2) var(--arth-space-4);
+}
+
+.btn-arth-outline:hover,
+.btn-arth-outline:focus-visible {
+  color: #fff;
+  background-color: var(--arth-primary);
+}
+
+/********************************
+******* CHAMPS DE SAISIE ********
+*********************************/
+
+.form-control {
+  border: 1px solid var(--arth-border-strong);
+  border-radius: var(--arth-radius-sm);
+  background-color: var(--arth-surface);
+  color: var(--arth-text);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-control:focus {
+  border-color: var(--arth-primary);
+  box-shadow: var(--arth-focus-ring);
+}
+
+.form-control::placeholder {
+  color: var(--arth-muted);
+  opacity: 1;
+}
 
 /********************************
 ********* DIVERS ****************
 *********************************/
 
 .product-sorter {
-  background-color: #e9ecef;
-  border: 1px solid #ddd;
-  border-radius: 0.25rem;
-  padding: 5px 10px 5px 10px;
-  font-family: ambleregular;
-  font-size: 20px;
+  background-color: var(--arth-surface);
+  border: 1px solid var(--arth-border);
+  border-radius: var(--arth-radius-sm);
+  padding: var(--arth-space-2) var(--arth-space-3);
+  font-family: var(--arth-font-display);
+  font-size: 1rem;
   text-transform: uppercase;
   line-height: 2em;
-  margin-left: 3px;
+  margin-left: var(--arth-space-1);
+}
+
+/********************************
+***** MESSAGES D'ETAT ***********
+*********************************/
+
+.state-msg {
+  border-radius: var(--arth-radius);
+  padding: var(--arth-space-3) var(--arth-space-4);
+  border: 1px solid transparent;
+}
+
+.state-msg.success {
+  color: var(--arth-success);
+  background-color: var(--arth-success-soft);
+  border-color: var(--arth-success);
+}
+
+.state-msg.warning {
+  color: var(--arth-warning);
+  background-color: var(--arth-warning-soft);
+  border-color: var(--arth-warning);
+}
+
+.state-msg.error {
+  color: var(--arth-danger);
+  background-color: var(--arth-danger-soft);
+  border-color: var(--arth-danger);
+}
+
+.state-msg.info {
+  color: var(--arth-info);
+  background-color: var(--arth-info-soft);
+  border-color: var(--arth-info);
+}
+
+/********************************
+*** LIGNES DE LECTURE (FORM) ****
+*********************************/
+
+.form-read-row {
+  padding: var(--arth-space-2) var(--arth-space-3);
+  border-radius: var(--arth-radius-sm);
+  background-color: var(--arth-bg);
+  align-items: center;
+}
+
+.form-read-row + .form-read-row {
+  margin-top: var(--arth-space-2);
+}
+
+.form-read-row label.col-form-label {
+  color: var(--arth-ink);
+  font-weight: 600;
+}
+
+.form-read-row p {
+  margin-bottom: 0;
+}
+
+.form-read-row .state-msg.warning {
+  margin-bottom: 0;
 }
 
 /********************************
@@ -196,20 +427,23 @@ a:hover {
 
 /* Override bootstrap styles for dropdown */
 .dropdown .dropdown-toggle {
-  cursor:pointer;
+  cursor: pointer;
 }
 
-.dropdown-item.active, .dropdown-item:active {
-  background-color: #dcd2c7;
+.dropdown-item.active,
+.dropdown-item:active {
+  background-color: var(--arth-sand);
 }
 
 .breadcrumb {
   margin: 0;
-  color: #343a40;
-  border: 1px solid #ddd;
-  padding: 5px 10px;
-  font-family: ambleregular, Verdana, Arial, sans-serif;
-  font-size: 20px;
+  color: var(--arth-text);
+  border: 1px solid var(--arth-border);
+  border-radius: var(--arth-radius-sm);
+  padding: var(--arth-space-2) var(--arth-space-3);
+  background-color: var(--arth-surface);
+  font-family: var(--arth-font-display);
+  font-size: 1rem;
   text-transform: uppercase;
 }
 
@@ -230,15 +464,66 @@ a:hover {
 }
 
 .breadcrumb-item select {
-  border-radius: 4px;
-  padding: 4px;
+  border-radius: var(--arth-radius-sm);
+  padding: var(--arth-space-1);
 }
 
-.btn {
-  cursor: pointer;
+/* Shared presentation for admin creation and editing dialogs only. */
+.admin-edit-dialog {
+  display: block;
+  background: var(--arth-surface);
+  color: var(--arth-text);
 }
 
-.btn-arth {
+.admin-edit-dialog [mat-dialog-title] {
+  margin: 0;
+  padding: var(--arth-space-4) var(--arth-space-5);
+  gap: var(--arth-space-4);
+  background: var(--arth-surface);
+  color: var(--arth-ink);
+  border: 0;
+  border-bottom: 1px solid var(--arth-border);
+  border-radius: 0;
+  font-family: var(--arth-font-body);
+  font-size: 1.15rem;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.admin-edit-dialog mat-dialog-content {
+  padding: var(--arth-space-5);
+  color: var(--arth-text);
+}
+
+.admin-edit-dialog .col-form-label {
+  font-weight: 500;
+  color: var(--arth-text);
+}
+
+.admin-edit-dialog mat-dialog-actions {
+  padding: var(--arth-space-4) var(--arth-space-5);
+  gap: var(--arth-space-3);
+  border-top: 1px solid var(--arth-border);
+}
+
+.admin-edit-dialog .btn-success {
+  background: var(--arth-ink-2);
+  border-color: var(--arth-ink-2);
   color: #fff;
-  background-color: #DC4823;
+}
+
+.admin-edit-dialog .btn-success:hover {
+  background: var(--arth-ink);
+  border-color: var(--arth-ink);
+}
+
+.admin-edit-dialog .btn-link {
+  color: var(--arth-text);
+  text-decoration: none;
+  border: 1px solid var(--arth-border-strong);
+}
+
+.admin-edit-dialog .btn-link:hover {
+  background: var(--arth-sand);
 }

@@ -10,6 +10,7 @@ import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/
 
 @Component({
     selector: 'arth-admin-slide-modal',
+    host: {class: 'admin-edit-dialog'},
     templateUrl: './edit-slide.component.html',
     imports: [FormsModule, MatDialogModule]
 })

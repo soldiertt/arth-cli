@@ -75,7 +75,9 @@ export default {
       previous: 'Précédent',
       removearticle: 'Retirer un article',
       removefromcart: 'Enlever du panier',
-      shipping: 'Frais de port'
+      shipping: 'Frais de port',
+      emptycart: 'Votre panier est actuellement vide.',
+      emptycartcta: 'Découvrir nos couteaux'
     },
     profile: {
       choosecountry: 'Choisissez un pays',

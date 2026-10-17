@@ -15,6 +15,7 @@ import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/
 
 @Component({
     selector: 'arth-admin-product-modal',
+    host: {class: 'admin-edit-dialog'},
     templateUrl: './edit-product.component.html',
     imports: [FormsModule, AsyncPipe, MatDialogModule]
 })

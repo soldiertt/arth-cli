@@ -10,6 +10,7 @@ import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/
 @Component({
     selector: 'arth-engraving-modal',
     templateUrl: './engraving-modal.component.html',
+    styleUrls: ['./engraving-modal.component.css'],
     imports: [FormsModule, CurrencyPipe, I18nPipe, MatDialogModule]
 })
 export class EngravingModalComponent {

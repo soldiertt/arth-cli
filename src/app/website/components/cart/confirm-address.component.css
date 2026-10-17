@@ -1,0 +1,19 @@
+.confirm-address {
+  margin-top: var(--arth-space-4);
+}
+
+.confirm-address-title {
+  margin-bottom: var(--arth-space-4);
+}
+
+.confirm-address .state-msg {
+  margin-bottom: var(--arth-space-4);
+}
+
+.confirm-address-body {
+  padding: var(--arth-space-5);
+  background-color: var(--arth-surface);
+  border: 1px solid var(--arth-border);
+  border-radius: var(--arth-radius);
+  box-shadow: var(--arth-shadow-sm);
+}

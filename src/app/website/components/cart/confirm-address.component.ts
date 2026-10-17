@@ -15,6 +15,7 @@ import {I18nPipe} from '../../../shared/i18n/i18n.pipe';
 @Component({
     selector: 'arth-confirm-address',
     templateUrl: './confirm-address.component.html',
+    styleUrls: ['./confirm-address.component.css'],
     changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule, ProfileDisplayComponent, ProfileEditComponent, I18nPipe]
 })

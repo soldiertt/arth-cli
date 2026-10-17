@@ -1,0 +1,33 @@
+.engraving-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--arth-space-3);
+  font-family: var(--arth-font-display);
+  text-transform: uppercase;
+  color: var(--arth-ink);
+  background: var(--arth-surface);
+  border: 0;
+  border-bottom: 1px solid var(--arth-border);
+  border-radius: 0;
+  font-size: 1.15rem;
+  letter-spacing: 0.02em;
+}
+
+.engraving-price {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--arth-space-2);
+  padding: var(--arth-space-2) var(--arth-space-3);
+  background-color: var(--arth-sand);
+  border-radius: var(--arth-radius-sm);
+  color: var(--arth-ink);
+}
+
+.engraving-price strong {
+  color: var(--arth-primary);
+}
+
+mat-dialog-actions {
+  gap: var(--arth-space-2);
+}

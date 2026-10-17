@@ -9,6 +9,7 @@ import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/
 
 @Component({
     selector: 'arth-admin-video-modal',
+    host: {class: 'admin-edit-dialog'},
     templateUrl: './edit-video.component.html',
     imports: [FormsModule, MatDialogModule]
 })

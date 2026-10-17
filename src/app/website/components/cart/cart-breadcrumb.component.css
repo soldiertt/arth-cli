@@ -1,31 +1,80 @@
 .cart-wizard-breadcrumb {
-  background-color: #eee;
-  border: 1px solid #ddd;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: var(--arth-space-1);
+  margin-bottom: var(--arth-space-5);
+  padding: var(--arth-space-2);
+  list-style: none;
+  background-color: var(--arth-surface);
+  border: 1px solid var(--arth-border);
+  border-radius: var(--arth-radius);
+  box-shadow: var(--arth-shadow-sm);
 }
 
-.cart-wizard-breadcrumb > div {
-  padding: 5px 10px 5px 10px;
+.cart-wizard-breadcrumb > li {
   display: inline-flex;
   align-items: center;
-  height: 48px;
+  gap: var(--arth-space-2);
+  height: 46px;
+  padding: 0 var(--arth-space-3);
+  border-radius: var(--arth-radius-sm);
+  font-family: var(--arth-font-display);
+  color: var(--arth-muted);
 }
 
-.cart-wizard-breadcrumb > div.step {
-  font: 18px Sans-Serif;
+.cart-wizard-breadcrumb > li.step {
+  flex: 1 1 auto;
+  min-width: 150px;
 }
 
-.cart-wizard-breadcrumb > div.chevron {
-  font-size: 20px;
+.cart-wizard-breadcrumb > li .step-index {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  font-weight: 700;
+  color: var(--arth-muted);
+  background-color: var(--arth-sand);
+  border: 1px solid var(--arth-border-strong);
 }
 
-.cart-wizard-breadcrumb > div.done {
-  color: white;
-  background: #DC4823;
+.cart-wizard-breadcrumb > li.chevron {
+  padding: 0 var(--arth-space-1);
+  color: var(--arth-border-strong);
+  font-size: 1.1rem;
 }
 
-.cart-wizard-breadcrumb > div.active {
-  color: white;
-  background: #C9674F;
+.cart-wizard-breadcrumb > li.done {
+  color: var(--arth-ink);
 }
 
+.cart-wizard-breadcrumb > li.done .step-index {
+  color: #fff;
+  background-color: var(--arth-primary);
+  border-color: var(--arth-primary);
+}
 
+.cart-wizard-breadcrumb > li.active {
+  color: #fff;
+  background-color: var(--arth-primary);
+}
+
+.cart-wizard-breadcrumb > li.active .step-index {
+  color: var(--arth-primary);
+  background-color: #fff;
+  border-color: #fff;
+}
+
+@media (max-width: 768px) {
+  .cart-wizard-breadcrumb > li.chevron {
+    display: none;
+  }
+
+  .cart-wizard-breadcrumb > li.step {
+    flex: 1 1 100%;
+    min-width: 0;
+  }
+}

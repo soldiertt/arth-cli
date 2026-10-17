@@ -1,28 +1,36 @@
 @let myArticle = article();
 @if (myArticle) {
   <div class="article-box">
-    <div class="article-box-link" [routerLink]="['/detail', myArticle.id]">
-      <img [src]="picUtil.firstMiniPictureFullPath(myArticle)" alt="{{ myArticle.name}}" />
+    <a class="article-box-link" [routerLink]="['/detail', myArticle.id]"
+      [attr.aria-label]="myArticle.name">
+      <div class="article-media">
+        <img [src]="picUtil.firstMiniPictureFullPath(myArticle)" [attr.alt]="myArticle.name"
+          loading="lazy" />
+      </div>
       <div class="article-detail">
-        <div class="article-brand">{{myArticle.brand}}</div>
+        @if (myArticle.brand) {
+          <div class="article-brand">{{myArticle.brand}}</div>
+        }
         <div class="article-name">{{myArticle.name}}</div>
       </div>
-    </div>
+    </a>
     <div class="price-details">
-      <div>
+      <div class="price-block">
+        @if (myArticle.promo) {
+          <span class="badge-promo">{{'page.home.promotion' | trans}}</span>
+        }
         <span class="price" [class.promo-price]="myArticle.promo">{{ myArticle.price | currency:'EUR'}}</span>
-        <div>@if (myArticle.promo) {
+        @if (myArticle.promo) {
           <span class="price-strike">{{myArticle.old_price | currency:'EUR'}}</span>
-        }</div>
+        }
       </div>
       @if (myArticle.instock) {
-        <div class="add-cart" (click)="addToCart(myArticle)">
+        <button type="button" class="add-cart" (click)="addToCart(myArticle)">
+          <span class="material-icons" aria-hidden="true">shopping_cart</span>
           <span>{{'common.links.addtocart' | trans}}</span>
-        </div>
+        </button>
       } @else {
-        <div class="outofstock">
-          <span>{{'common.label.outofstock_short' | trans}}</span>
-        </div>
+        <span class="outofstock">{{'common.label.outofstock_short' | trans}}</span>
       }
     </div>
   </div>

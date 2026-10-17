@@ -1,17 +1,59 @@
 .read-details-form {
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: 0;
+  padding-right: 0;
 }
 
-.form-read-row {
-  padding: 5px 0 5px 0;
-  background-color: #f5f5f5;
+form fieldset {
+  margin-bottom: var(--arth-space-5);
+  padding: var(--arth-space-4) var(--arth-space-5) var(--arth-space-5);
+  background-color: var(--arth-surface);
+  border: 1px solid var(--arth-border);
+  border-radius: var(--arth-radius);
+  box-shadow: var(--arth-shadow-sm);
 }
 
-.wasvalidated input.ng-invalid, .wasvalidated select.ng-invalid {
-  border-color: #BC2803;
+form legend {
+  float: none;
+  width: auto;
+  padding: 0 var(--arth-space-3);
+  margin: 0 0 var(--arth-space-4);
+  font-family: var(--arth-font-display);
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  color: var(--arth-primary);
+}
+
+form .row {
+  margin-bottom: var(--arth-space-3);
+}
+
+form label.col-form-label {
+  color: var(--arth-ink);
+  font-weight: 600;
+}
+
+.wasvalidated input.ng-invalid,
+.wasvalidated select.ng-invalid {
+  border-color: var(--arth-danger);
+  box-shadow: 0 0 0 3px var(--arth-danger-soft);
 }
 
 .invalid-form-control {
-  color: #BC2803;
+  margin-top: var(--arth-space-1);
+  font-size: 0.85rem;
+  color: var(--arth-danger);
+}
+
+@media (max-width: 575px) {
+  form fieldset {
+    padding: var(--arth-space-4);
+  }
+
+  form .row > [class*="col-"] {
+    width: 100%;
+  }
+
+  form button {
+    margin-bottom: var(--arth-space-2);
+  }
 }

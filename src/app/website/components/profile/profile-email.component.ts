@@ -11,7 +11,7 @@ import {I18nPipe} from '../../../shared/i18n/i18n.pipe';
 @Component({
     selector: 'arth-profile-email',
     templateUrl: 'profile-email.component.html',
-    styleUrls: ['profile-email.component.css'],
+    styleUrls: ['profile-edit.component.css', 'profile-email.component.css'],
     imports: [FormsModule, ReactiveFormsModule, I18nPipe]
 })
 export class ProfileEmailComponent extends FormComponent implements OnInit {

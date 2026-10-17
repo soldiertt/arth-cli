@@ -1,11 +1,11 @@
 <form [formGroup]="form" (ngSubmit)="save()" [class.wasvalidated]="submitAttempt">
   <fieldset formGroupName="emails">
     <legend>{{'common.label.email' | trans}}</legend>
-    <div class="form-group">
-      <label for="email">
+    <div class="form-group row">
+      <label for="email" class="col-12 col-sm-3 col-form-label">
         {{'common.label.email' | trans}}
       </label>
-      <div>
+      <div class="col-12 col-sm-7">
         <input type="email" name="email" id="email" formControlName="email" maxlength="100" class="form-control">
         @if (form.get('emails').get('email').invalid && submitAttempt) {
           <div class="invalid-form-control">
@@ -23,11 +23,11 @@
         }
       </div>
     </div>
-    <div class="form-group">
-      <label for="emailConfirm">
+    <div class="form-group row">
+      <label for="emailConfirm" class="col-12 col-sm-3 col-form-label">
         {{'common.label.emailconfirm' | trans}}
       </label>
-      <div>
+      <div class="col-12 col-sm-7">
         <input type="email" name="emailConfirm" id="emailConfirm" formControlName="emailConfirm" maxlength="100" class="form-control">
         @if (form.get('emails').get('emailConfirm').invalid && submitAttempt) {
           <div class="invalid-form-control">
@@ -55,9 +55,8 @@
       </div>
     }
   </fieldset>
-  <fieldset>
+  <fieldset class="form-actions">
     <button type="submit" class="btn btn-arth">{{'page.profile.save' | trans}}</button>
     <button type="button" class="btn btn-secondary" (click)="cancelEdit()">{{'page.profile.cancel' | trans}}</button>
   </fieldset>
 </form>
-

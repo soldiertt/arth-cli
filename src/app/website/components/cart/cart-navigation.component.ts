@@ -101,6 +101,8 @@ export class CartNavigationComponent implements OnInit, AfterViewInit {
       if (this.authService.authenticated()) {
         if (this.cartData.wizard.currentStep === 4) {
           this.store.dispatch(CartDataActions.CartMoveToStep({step: 3}));
+        } else if (this.cartData.wizard.currentStep === 3 && !this.cartData.wizard.editMode) {
+          this.store.dispatch(CartDataActions.CartMoveToStep({step: 2}));
         }
       }
     }
@@ -143,7 +145,7 @@ export class CartNavigationComponent implements OnInit, AfterViewInit {
         } else if (this.cartData.wizard.currentStep === 3) {
           if (!this.cartData.wizard.editMode && this.profileComplete) {
             // Step3. completed profile
-            this.displayPrevious = false;
+            this.displayPrevious = true;
             this.displayNext = true;
             this.displayPaypalButton = false;
           } else {

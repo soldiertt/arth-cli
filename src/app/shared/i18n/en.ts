@@ -75,7 +75,9 @@ export default {
       previous: 'Previous',
       removearticle: 'Remove one article',
       removefromcart: 'Remove from cart',
-      shipping: 'Shipping cost'
+      shipping: 'Shipping cost',
+      emptycart: 'Your cart is currently empty.',
+      emptycartcta: 'Discover our knives'
     },
     profile: {
       choosecountry: 'Choose a country',

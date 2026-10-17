@@ -9,6 +9,7 @@ import {I18nPipe} from '../../../shared/i18n/i18n.pipe';
 @Component({
     selector: 'arth-profile-display',
     templateUrl: 'profile-display.component.html',
+    styleUrls: ['profile-display.component.css'],
     imports: [AsyncPipe, I18nPipe]
 })
 export class ProfileDisplayComponent implements OnInit {

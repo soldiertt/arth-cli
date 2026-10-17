@@ -1,108 +1,117 @@
 @if ((cart$ | async); as cart) {
-  <div>
-    <h1>{{'common.links.mycart' | trans}} - {{cart.totalCount}} {{'common.label.article-pp' | trans}}</h1>
+  <section class="cart-panel">
+    <h1 class="cart-title">{{'common.links.mycart' | trans}} - {{cart.totalCount}} {{'common.label.article-pp' | trans}}</h1>
+
     @if (cart.orders.length) {
-      <table class="table table-mycart table-striped">
-        <thead>
-          <tr>
-            <th class="d-none d-sm-block">&nbsp;</th>
-            <th>{{'common.label.article' | trans}}</th>
-            <th class="price-cell">{{'common.label.price' | trans}}</th>
-            <th>{{'common.label.quantity' | trans}}</th>
-            <th class="amount-cell">{{'common.label.total' | trans}}</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          @for (order of cart.orders; track order.article.id) {
+      <div class="cart-table-wrap">
+        <table class="table table-mycart">
+          <caption class="visually-hidden">{{'common.links.mycart' | trans}}</caption>
+          <thead>
             <tr>
-              <td class="picture-cell d-none d-sm-block">
-                @if (!order.article.noLink) {
-                  <a href [routerLink]="['/detail', order.article.id]">
+              <th scope="col" class="picture-cell">&nbsp;</th>
+              <th scope="col">{{'common.label.article' | trans}}</th>
+              <th scope="col" class="price-cell">{{'common.label.price' | trans}}</th>
+              <th scope="col" class="qty-cell">{{'common.label.quantity' | trans}}</th>
+              <th scope="col" class="amount-cell">{{'common.label.total' | trans}}</th>
+              <th scope="col" class="actions-cell">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (order of cart.orders; track order.article.id) {
+              <tr>
+                <td class="picture-cell" [attr.data-label]="'common.label.article' | trans">
+                  @if (!order.article.noLink) {
+                    <a href [routerLink]="['/detail', order.article.id]">
+                      <img [src]="picUtil.firstMiniPictureFullPath(order.article)" [attr.alt]="order.article.name">
+                      @if (order.article.promo) {
+                        <img src="assets/images/promo.png" alt="">
+                      }
+                    </a>
+                  } @else {
                     <img [src]="picUtil.firstMiniPictureFullPath(order.article)" [attr.alt]="order.article.name">
-                    @if (order.article.promo) {
-                      <img src="assets/images/promo.png">
+                  }
+                </td>
+                <td class="name-cell" [attr.data-label]="'common.label.article' | trans">
+                  @if (!order.article.noLink) {
+                    <a href [routerLink]="['/detail', order.article.id]">{{order.article.name}}</a>
+                  } @else {
+                    {{order.article.name}}
+                  }
+                  <br/>
+                  @if (!order.engraving) {
+                    <a class="engraving-link" href (click)="engravingModal($event, order)">
+                      {{ 'page.mycart.engraving.addEngravingOption' | trans }}
+                    </a>
+                  } @else {
+                    <div class="engraving-cell">
+                      <span>{{ 'page.mycart.engraving.withEngravingOption' | trans }}:  <i>{{ order.engravingName }}</i></span>
+                      <a href (click)="removeEngraving($event, order)" class="action-icon">
+                        <i class="material-icons" title="{{'common.label.remove' | trans}}">close</i>
+                      </a>
+                    </div>
+                  }
+                </td>
+                <td class="price-cell" [attr.data-label]="'common.label.price' | trans">{{order.article.price | currency:'EUR'}}
+                  @if (order.engraving) {
+                    <span><br/>{{15 | currency:'EUR'}}</span>
+                  }
+                </td>
+                <td class="qty-cell" [attr.data-label]="'common.label.quantity' | trans">
+                  <div class="qty-controls">
+                    @if (order.count > 1) {
+                      <a href (click)="removeArticle($event, order.article.id)" class="action-icon">
+                        <i class="material-icons" title="{{'page.mycart.removearticle' | trans}}">remove_circle</i>
+                      </a>
                     }
-                  </a>
-                } @else {
-                  <img [src]="picUtil.firstMiniPictureFullPath(order.article)" [attr.alt]="order.article.name">
-                }
-              </td>
-              <td class="name-cell">
-                @if (!order.article.noLink) {
-                  <a href [routerLink]="['/detail', order.article.id]">{{order.article.name}}</a>
-                } @else {
-                  {{order.article.name}}
-                }
-                <br/>
-                @if (!order.engraving) {
-                  <a href (click)="engravingModal($event, order)">
-                    {{ 'page.mycart.engraving.addEngravingOption' | trans }}
-                  </a>
-                } @else {
-                  <div class="engraving-cell">
-                    <span>{{ 'page.mycart.engraving.withEngravingOption' | trans }}:  <i>{{ order.engravingName }}</i></span>
-                    <a href (click)="removeEngraving($event, order)" class="action-icon">
-                      <i class="material-icons" title="{{'common.label.remove' | trans}}">close</i>
+                    <span class="qty-number">{{order.count}}</span>
+                    <a href (click)="addArticle($event, order.article)" class="action-icon">
+                      <i class="material-icons" title="{{'page.mycart.addarticle' | trans}}">add_circle</i>
                     </a>
                   </div>
-                }
-              </td>
-              <td class="price-cell">{{order.article.price | currency:'EUR'}}
-                @if (order.engraving) {
-                  <span><br/>{{15 | currency:'EUR'}}</span>
-                }
-              </td>
-              <td class="qty-cell">{{order.count}}
-                <span>
-                  @if (order.count > 1) {
-                    <a href (click)="removeArticle($event, order.article.id)" class="action-icon">
-                      <i class="material-icons" title="{{'page.mycart.removearticle' | trans}}">remove_circle</i>
-                    </a>
-                  }
-                  <a href (click)="addArticle($event, order.article)" class="action-icon">
-                    <i class="material-icons" title="{{'page.mycart.addarticle' | trans}}">add_circle</i>
-                  </a>
-                </span>
-              </td>
-              <td class="amount-cell">{{orderTotalPrice(order) | currency:'EUR'}}</td>
-              <td>
-                <span>
+                </td>
+                <td class="amount-cell" [attr.data-label]="'common.label.total' | trans">{{orderTotalPrice(order) | currency:'EUR'}}</td>
+                <td class="actions-cell" data-label="Actions">
                   <a href (click)="removeOrder($event, order.article.id)" class="action-icon">
                     <i class="material-icons" title="{{'page.mycart.removefromcart' | trans}}">delete</i>
                   </a>
-                </span>
-              </td>
-            </tr>
-          }
-        </tbody>
-        <tfoot>
-          <tr>
-            <td colspan="4" class="foot-label-cell">{{'common.label.subtotal' | trans}} : </td>
-            <td class="cart-subtotal"> {{cart.subtotalAmount | currency:'EUR'}}</td>
-            <td>&nbsp;</td>
-          </tr>
-          @if (cart.promoAmount > 0) {
+                </td>
+              </tr>
+            }
+          </tbody>
+          <tfoot>
             <tr>
-              <td colspan="4" class="foot-label-cell">{{'common.label.promotion' | trans}} ({{cart.promoPercentage * 100 | number : '1.0-0'}}%) : </td>
-              <td class="cart-subtotal">- {{cart.promoAmount | currency:'EUR'}}</td>
+              <td colspan="4" class="foot-label-cell">{{'common.label.subtotal' | trans}} : </td>
+              <td class="cart-subtotal"> {{cart.subtotalAmount | currency:'EUR'}}</td>
               <td>&nbsp;</td>
             </tr>
-          }
-          @if (cart.shipping) {
+            @if (cart.promoAmount > 0) {
+              <tr>
+                <td colspan="4" class="foot-label-cell">{{'common.label.promotion' | trans}} ({{cart.promoPercentage * 100 | number : '1.0-0'}}%) : </td>
+                <td class="cart-subtotal">- {{cart.promoAmount | currency:'EUR'}}</td>
+                <td>&nbsp;</td>
+              </tr>
+            }
+            @if (cart.shipping) {
+              <tr>
+                <td colspan="4" class="foot-label-cell">{{'page.mycart.shipping' | trans}} : </td>
+                <td class="cart-subtotal">{{cart.shipping | currency:'EUR'}}</td>
+                <td>&nbsp;</td>
+              </tr>
+            }
             <tr>
-              <td colspan="4" class="foot-label-cell">{{'page.mycart.shipping' | trans}} : </td>
-              <td class="cart-subtotal">{{cart.shipping | currency:'EUR'}}</td>
+              <td colspan="4" class="foot-label-cell">{{'common.label.total' | trans}} : </td>
+              <td class="cart-total">{{cart.totalAmount | number : '1.2-2'}} €</td>
               <td>&nbsp;</td>
             </tr>
-          }
-          <tr>
-            <td colspan="4" class="foot-label-cell">{{'common.label.total' | trans}} : </td>
-            <td class="cart-total">{{cart.totalAmount | number : '1.2-2'}} €</td>
-            <td>&nbsp;</td>
-          </tr>
-        </tfoot>
-      </table>
+          </tfoot>
+        </table>
+      </div>
+    } @else {
+      <div class="cart-empty">
+        <i class="material-icons" aria-hidden="true">shopping_cart</i>
+        <p>{{'page.mycart.emptycart' | trans}}</p>
+        <a class="btn btn-arth" routerLink="/homemadeknives">{{'page.mycart.emptycartcta' | trans}}</a>
+      </div>
     }
-  </div>
+  </section>
 }

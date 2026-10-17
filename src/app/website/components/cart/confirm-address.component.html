@@ -1,15 +1,19 @@
-<h1>{{'page.profile.title' | trans}}</h1>
-@if (profileUpdated) {
-  <div class="alert alert-success">{{'page.profile.updatesuccess' | trans}}</div>
-}
-@if (!editMode) {
-  <div>
-    <form class="read-details-form" >
-      <arth-profile-display (edit)="editAddress()"></arth-profile-display>
-    </form>
-  </div>
-}
+<section class="confirm-address">
+  <h1 class="confirm-address-title">{{'page.profile.title' | trans}}</h1>
 
-@if (editedItem == 'address') {
-  <arth-profile-edit (onUpdateMetaData)="updateMetaData()" (onCancelEdit)="cancelEdit()"></arth-profile-edit>
-}
+  @if (profileUpdated) {
+    <div class="state-msg success" role="status" aria-live="polite">{{'page.profile.updatesuccess' | trans}}</div>
+  }
+
+  @if (!editMode) {
+    <div class="confirm-address-body">
+      <form class="read-details-form">
+        <arth-profile-display (edit)="editAddress()"></arth-profile-display>
+      </form>
+    </div>
+  }
+
+  @if (editedItem == 'address') {
+    <arth-profile-edit (onUpdateMetaData)="updateMetaData()" (onCancelEdit)="cancelEdit()"></arth-profile-edit>
+  }
+</section>

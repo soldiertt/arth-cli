@@ -14,6 +14,7 @@ import {CartNavigationComponent} from './cart-navigation.component';
 
 @Component({
     templateUrl: 'cart-wizard.component.html',
+    styleUrls: ['cart-wizard.component.css'],
     imports: [CartBreadcrumbComponent, MyCartComponent, ConfirmAddressComponent, CartNavigationComponent, AsyncPipe]
 })
 export class CartWizardComponent implements OnInit {

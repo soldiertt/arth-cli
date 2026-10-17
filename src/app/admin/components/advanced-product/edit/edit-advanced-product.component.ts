@@ -15,6 +15,7 @@ interface AdvancedProductCategory {
 
 @Component({
     selector: 'arth-admin-advanced-product-modal',
+    host: {class: 'admin-edit-dialog'},
     templateUrl: './edit-advanced-product.component.html',
     imports: [FormsModule, MatDialogModule]
 })

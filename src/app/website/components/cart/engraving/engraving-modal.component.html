@@ -1,20 +1,24 @@
 <form (ngSubmit)="save(f)" #f="ngForm">
-  <h2 mat-dialog-title class="d-flex align-items-center justify-content-between">
+  <h2 mat-dialog-title class="engraving-title">
     <span>{{ 'page.mycart.engraving.modalTitle' | trans }}</span>
-    <button type="button" class="btn-close" aria-label="Close" mat-dialog-close></button>
+    <button type="button" class="btn-close" aria-label="Fermer" mat-dialog-close></button>
   </h2>
   <mat-dialog-content>
     <p>{{ 'page.mycart.engraving.modalContent' | trans }}</p>
-    <p><b>{{ 'common.label.price' | trans }}: {{ 15 | currency:'EUR'}}</b></p>
+    <p class="engraving-price">
+      <span>{{ 'common.label.price' | trans }}</span>
+      <strong>{{ 15 | currency:'EUR'}}</strong>
+    </p>
     <div class="form-group row mb-2">
       <label for="name" class="col-sm-3 col-form-label">{{ 'page.mycart.engraving.label' | trans }} *</label>
       <div class="col-sm-9">
-        <input type="text" id="name" name="name" [(ngModel)]="engravingName" required="required" maxlength="18" class="form-control">
+        <input type="text" id="name" name="name" [(ngModel)]="engravingName" required="required"
+          maxlength="18" class="form-control">
       </div>
     </div>
   </mat-dialog-content>
   <mat-dialog-actions align="end">
-    <button type="submit" class="btn btn-primary" [disabled]="!f.valid ? 'disabled':''">{{'common.label.submit' | trans}}</button>
-    <button type="button" class="btn btn-secondary" mat-dialog-close>{{'common.label.cancel' | trans}}</button>
+    <button type="button" class="btn btn-arth-outline" mat-dialog-close>{{'common.label.cancel' | trans}}</button>
+    <button type="submit" class="btn btn-arth" [disabled]="!f.valid">{{'common.label.submit' | trans}}</button>
   </mat-dialog-actions>
 </form>

@@ -1,50 +1,56 @@
 <div id="main">
-  <div class="row">
-    <div class="col-md-3 col-sm-12">
-      <h1>{{'page.home.title' | trans}}</h1>
-      <section>
-        <div class="section-content amble" [innerHTML]="'page.home.presentation' | trans"></div>
-      </section>
+  <div class="home-hero row">
+    <div class="col-md-4 col-sm-12">
+      <h1 class="hero-title">{{'page.home.title' | trans}}</h1>
+      <div class="hero-intro amble" [innerHTML]="'page.home.presentation' | trans"></div>
     </div>
-    <div class="col-md-9 col-sm-12">
+    <div class="col-md-8 col-sm-12">
       <arth-slider></arth-slider>
     </div>
   </div>
-  <div class="content">
+
+  <section class="content">
     <div class="home-news">
-      <div class="news">
-        <img src="assets/home/notele/thumbnail.jpg" routerLink="homenews" [queryParams]="{type: 'notele'}" />
-      </div>
-      <div class="news">
-        <img src="assets/home/nordeclair/thumbnail.jpg" routerLink="homenews" [queryParams]="{type: 'nordeclair'}" />
-      </div>
+      <article class="news">
+        <img src="assets/home/notele/thumbnail.jpg" routerLink="homenews"
+          [queryParams]="{type: 'notele'}" alt="Arthurius dans l'émission Notele" />
+      </article>
+      <article class="news">
+        <img src="assets/home/nordeclair/thumbnail.jpg" routerLink="homenews"
+          [queryParams]="{type: 'nordeclair'}" alt="Arthurius dans Nord Éclair" />
+      </article>
     </div>
-  </div>
+  </section>
+
   @if ((videos$ | async).length) {
-    <div class="content">
-      <div class="home-news">
+    <section class="content">
+      <div class="section-heading">
+        <h2>{{'page.home.videos' | trans}}</h2>
+      </div>
+      <div class="home-videos">
         @for (video of (videos$ | async); track video.id) {
           <div class="news">
-            <a data-fancybox="gallery" class="fancybox.iframe" href="http://www.youtube.com/embed/{{video.ref}}" [title]="video.title">
-              <img src="https://img.youtube.com/vi/{{video.ref}}/hqdefault.jpg">
+            <a data-fancybox="gallery" class="fancybox.iframe"
+              href="http://www.youtube.com/embed/{{video.ref}}" [title]="video.title">
+              <img src="https://img.youtube.com/vi/{{video.ref}}/hqdefault.jpg"
+                [alt]="video.title || 'Vidéo Arthurius'">
             </a>
           </div>
         }
       </div>
-    </div>
+    </section>
   }
+
   @if ((promoArticles$ | async).length) {
-    <div class="content">
-      <div class="content_top">
-        <div class="heading">
-          <h2>{{'page.home.promotion' | trans}}</h2>
-        </div>
+    <section class="content">
+      <div class="section-heading">
+        <h2>{{'page.home.promotion' | trans}}</h2>
       </div>
-      <div class="section group">
+      <div class="article-grid">
         @for (promoArticle of (promoArticles$ | async); track promoArticle.id) {
           <arth-article-box [article]="promoArticle"></arth-article-box>
         }
       </div>
-    </div>
+    </section>
   }
 </div>

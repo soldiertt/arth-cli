@@ -1,20 +1,29 @@
 <div class="cart-nav">
-  @if (displayPrevious) {
-    <button class="btn previous" (click)="onPrevious()">{{'page.mycart.previous' | trans }}</button>
-  }
-  @if (displayNext) {
-    <button class="btn btn-arth next" (click)="onNext($event)">{{'page.mycart.next' | trans }}</button>
-  }
+  <div class="cart-nav-buttons">
+    @if (displayPrevious) {
+      <button type="button" class="btn btn-arth-outline previous" (click)="onPrevious()">
+        <i class="material-icons" aria-hidden="true">arrow_back</i>
+        {{(cartData.wizard.currentStep === 3 ? 'page.mycart.breadcrumb.myarticles' : 'page.mycart.previous') | trans}}
+      </button>
+    }
+    @if (displayNext) {
+      <button type="button" class="btn btn-arth next" (click)="onNext($event)">
+        {{'page.mycart.next' | trans }}
+        <i class="material-icons" aria-hidden="true">arrow_forward</i>
+      </button>
+    }
+  </div>
   <div id="paypal-button" [hidden]="!displayPaypalButton"></div>
 </div>
+
 @if (processingPayment) {
-  <div id="mainLoading">
-    <img src="assets/images/ajax-loader.gif" />
+  <div id="mainLoading" role="status" aria-live="polite" aria-label="Paiement en cours">
+    <span class="spinner" aria-hidden="true"></span>
   </div>
 }
 @if (paymentConfirmed) {
-  <div class="alert alert-success">{{'page.mycart.paymentsuccess' | trans}}</div>
+  <div class="state-msg success" role="status" aria-live="polite">{{'page.mycart.paymentsuccess' | trans}}</div>
 }
 @if (paymentError) {
-  <div class="alert alert-danger">{{'page.mycart.paymenterror' | trans}}</div>
+  <div class="state-msg error" role="alert">{{'page.mycart.paymenterror' | trans}}</div>
 }

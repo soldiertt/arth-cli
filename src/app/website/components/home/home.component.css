@@ -1,23 +1,67 @@
-.home-news {
-  border-top: 2px solid #ddd;
+#main {
+  padding-top: var(--arth-space-2);
+}
+
+/* ---------- Hero ---------- */
+.home-hero {
+  margin: 0;
+}
+
+.home-hero .hero-title {
+  margin-top: 0;
+}
+
+.home-hero .hero-intro {
+  margin-top: var(--arth-space-4);
+  padding: var(--arth-space-4);
+  background-color: var(--arth-surface);
+  border: 1px solid var(--arth-border);
+  border-radius: var(--arth-radius);
+  box-shadow: var(--arth-shadow-sm);
+  color: var(--arth-text);
+}
+
+.home-hero .hero-intro :first-child {
+  margin-top: 0;
+}
+
+.home-hero .hero-intro :last-child {
+  margin-bottom: 0;
+}
+
+/* ---------- Sections ---------- */
+.content {
+  margin-top: var(--arth-space-6);
+}
+
+.section-heading {
+  margin-bottom: var(--arth-space-4);
+}
+
+.section-heading h2 {
+  display: inline-block;
+  border-radius: var(--arth-radius-sm);
+}
+
+/* ---------- Actualites / videos ---------- */
+.home-news,
+.home-videos {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  padding: 20px;
-  grid-gap: 20px;
+  grid-template-columns: 1fr;
+  gap: var(--arth-space-5);
+  padding: var(--arth-space-5);
+  background-color: var(--arth-surface);
+  border: 1px solid var(--arth-border);
+  border-radius: var(--arth-radius);
+  box-shadow: var(--arth-shadow-sm);
 }
 
-@media (max-width: 900px) {
-  .home-news {
-    grid-template-columns: 1fr 1fr;
-  }
+.home-videos {
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
 }
 
-@media (max-width: 500px) {
-  .home-news {
-    grid-template-columns: 1fr;
-  }
+.home-news {
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
 }
 
 .news {
@@ -25,8 +69,36 @@
 }
 
 .news img {
-  max-width: 300px;
-  border: 5px solid #ddd;
-  border-radius: 8px;
+  max-width: 100%;
+  border: 1px solid var(--arth-border);
+  border-radius: var(--arth-radius);
   cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.news img:hover,
+.news img:focus-visible {
+  transform: translateY(-3px);
+  box-shadow: var(--arth-shadow-md);
+}
+
+/* ---------- Grille produits ---------- */
+.article-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--arth-space-4);
+}
+
+.article-grid .article-box {
+  float: none;
+  width: auto;
+  min-width: 0;
+  height: 100%;
+}
+
+@media (max-width: 600px) {
+  .home-news,
+  .home-videos {
+    padding: var(--arth-space-3);
+  }
 }

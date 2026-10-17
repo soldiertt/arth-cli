@@ -75,7 +75,9 @@ export default {
       previous: 'Vorig',
       removearticle: 'Een artikel wegnemen',
       removefromcart: 'Verwijderen uit mandje',
-      shipping: 'Bezorgkosten'
+      shipping: 'Bezorgkosten',
+      emptycart: 'Uw winkelmandje is momenteel leeg.',
+      emptycartcta: 'Ontdek onze messen'
     },
     profile: {
       choosecountry: 'Selecteer een land',

@@ -1,106 +1,117 @@
 <div id="header">
-  <div class="header-top-row clear">
+  <div class="header-top-row">
     <div class="call">
-      <p><span>{{'comp.header.questions' | trans}}</span> {{'comp.header.contactus' | trans}} <span class="number">+32 479.367.479</span>
-    </p>
-  </div>
-  <div class="account_desc">
-    <ul>
-      <li class="language" [class.active]="i18nService.isFr()">
-        <i class="famfamfam-flag-fr" (click)="i18nService.saveLang('fr')" title="Français"></i></li>
+      <span class="label">{{'comp.header.questions' | trans}}</span>
+      <span class="text">{{'comp.header.contactus' | trans}}</span>
+      <a class="number" href="tel:+32479367479">+32 479.367.479</a>
+    </div>
+    <nav class="account_desc" aria-label="Compte et langue">
+      <ul>
+        <li class="language" [class.active]="i18nService.isFr()">
+          <button type="button" (click)="i18nService.saveLang('fr')" title="Français"
+            [attr.aria-label]="'Français'" [attr.aria-pressed]="i18nService.isFr()">
+            <i class="famfamfam-flag-fr" aria-hidden="true"></i>
+          </button>
+        </li>
         <li class="language" [class.active]="i18nService.isNl()">
-          <i class="famfamfam-flag-nl" (click)="i18nService.saveLang('nl')" title="Nederlands"></i></li>
-          <li class="language" [class.active]="i18nService.isEn()">
-            <i class="famfamfam-flag-gb" (click)="i18nService.saveLang('en')" title="English"></i></li>
-            @if (!authService.authenticated()) {
-              <li>
-                <a href (click)="authService.login($event)">{{'common.links.login' | trans}}</a>
-              </li>
-            }
-            <li><a href routerLink="/mycart">{{'common.links.mycart' | trans}}</a></li>
-            @if (authService.authenticated()) {
-              <li>
-                <a href routerLink="/profile">{{'common.links.profile' | trans}}</a>
-              </li>
-            }
-            @if (authService.authenticated()) {
-              <li>
-                <a href (click)="authService.logout($event)">{{'common.links.logout' | trans}}</a>
-              </li>
-            }
-          </ul>
-        </div>
-      </div>
-      <div class="header-middle-row clear">
-        <div class="logo responsive-hidden-small">
-          <a href routerLink=""><img src="assets/images/logo.png" alt="Arthurius"/></a>
-        </div>
-        <arth-cart-dropdown></arth-cart-dropdown>
-      </div>
-      <div class="clear">
-        <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
-          <div class="container-fluid">
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse"
-              data-bs-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false"
-              aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
+          <button type="button" (click)="i18nService.saveLang('nl')" title="Nederlands"
+            [attr.aria-label]="'Nederlands'" [attr.aria-pressed]="i18nService.isNl()">
+            <i class="famfamfam-flag-nl" aria-hidden="true"></i>
+          </button>
+        </li>
+        <li class="language" [class.active]="i18nService.isEn()">
+          <button type="button" (click)="i18nService.saveLang('en')" title="English"
+            [attr.aria-label]="'English'" [attr.aria-pressed]="i18nService.isEn()">
+            <i class="famfamfam-flag-gb" aria-hidden="true"></i>
+          </button>
+        </li>
+        @if (!authService.authenticated()) {
+          <li>
+            <a href (click)="authService.login($event)">{{'common.links.login' | trans}}</a>
+          </li>
+        }
+        <li><a href routerLink="/mycart">{{'common.links.mycart' | trans}}</a></li>
+        @if (authService.authenticated()) {
+          <li>
+            <a href routerLink="/profile">{{'common.links.profile' | trans}}</a>
+          </li>
+        }
+        @if (authService.authenticated()) {
+          <li>
+            <a href (click)="authService.logout($event)">{{'common.links.logout' | trans}}</a>
+          </li>
+        }
+      </ul>
+    </nav>
+  </div>
+
+  <div class="header-middle-row">
+    <a class="logo" href routerLink="" aria-label="Arthurius - accueil">
+      <img src="assets/images/logo.png" alt="Arthurius"/>
+    </a>
+    <arth-cart-dropdown></arth-cart-dropdown>
+  </div>
+
+  <nav class="navbar navbar-dark navbar-expand-lg" aria-label="Navigation principale">
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+        data-bs-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false"
+        aria-label="Ouvrir la navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <span class="navbar-brand">
+        <img src="assets/images/arth-logo.png" width="30" height="30" alt="Arthurius">
+      </span>
+      <div class="collapse navbar-collapse" id="main-navbar">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">
+            <a href class="nav-link" routerLink="">{{'common.links.home' | trans}}</a>
+          </li>
+          <li class="nav-item" [routerLinkActive]="['active']" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">
+            <a href class="nav-link" routerLink="/homemadeknives">{{'common.links.homemadeknives' | trans}}</a>
+          </li>
+          <li class="nav-item" [routerLinkActive]="['active']" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">
+            <a href class="nav-link" routerLink="/sticks">{{'common.links.sticks' | trans}}</a>
+          </li>
+          <li class="nav-item" [routerLinkActive]="['active']" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">
+            <a href class="nav-link" routerLink="/brands">{{'common.links.ourbrands' | trans}}</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" id="categoriesDropdown" data-bs-toggle="dropdown"
+              role="button" aria-haspopup="true" aria-expanded="false">{{'common.links.categories' | trans}}</a>
+            <ul class="dropdown-menu" aria-labelledby="categoriesDropdown">
+              @for (category of (rootCategories$ | async); track category.id) {
+                <li data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">
+                  <a href class="dropdown-item" [routerLink]="['/categ', category.name]">{{category | catTitle}}</a>
+                </li>
+              }
+            </ul>
+          </li>
+          <li class="nav-item" [routerLinkActive]="['active']" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">
+            <a href class="nav-link" routerLink="/services">{{'common.links.sharpeningEngraving' | trans}}</a>
+          </li>
+          <li class="nav-item" [routerLinkActive]="['active']" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">
+            <a href class="nav-link" routerLink="/mycart">{{'common.links.mycart' | trans}}</a>
+          </li>
+          <li class="nav-item" [routerLinkActive]="['active']" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">
+            <a href class="nav-link" routerLink="/about">{{'common.links.contact' | trans}}</a>
+          </li>
+          @if (authService.authenticated()) {
+            <li class="nav-item" [routerLinkActive]="['active']" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">
+              <a class="nav-link" href routerLink="/profile">{{'common.links.profile' | trans}}</a>
+            </li>
+          }
+        </ul>
+        <form class="search-form" (ngSubmit)="search()" role="search">
+          <div class="input-group">
+            <input class="form-control" type="search" name="searchTerm" [(ngModel)]="searchTerm"
+              placeholder="Rechercher un produit" aria-label="Rechercher un produit">
+            <button class="btn btn-arth search-submit" type="submit" aria-label="Lancer la recherche">
+              <span class="material-icons" aria-hidden="true">search</span>
             </button>
-            <span class="navbar-brand">
-              <img src="assets/images/arth-logo.png" width="30" height="30" alt="">
-            </span>
-            <div class="collapse navbar-collapse" id="main-navbar">
-              <ul class="navbar-nav me-auto">
-                <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">
-                  <a href class="nav-link" routerLink="">{{'common.links.home' | trans}}</a>
-                </li>
-                <li class="nav-item" [routerLinkActive]="['active']" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">
-                  <a href class="nav-link"
-                  routerLink="/homemadeknives">{{'common.links.homemadeknives' | trans}}</a>
-                </li>
-                <li class="nav-item" [routerLinkActive]="['active']" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">
-                  <a href class="nav-link"
-                  routerLink="/sticks">{{'common.links.sticks' | trans}}</a>
-                </li>
-                <li class="nav-item" [routerLinkActive]="['active']" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">
-                  <a href class="nav-link" routerLink="/brands">{{'common.links.ourbrands' | trans}}</a>
-                </li>
-                <li class="nav-item dropdown">
-                  <a href="#" class="nav-link dropdown-toggle" id="categoriesDropdown" data-bs-toggle="dropdown"
-                  aria-haspopup="true" aria-expanded="false">{{'common.links.categories' | trans}}</a>
-                  <ul class="dropdown-menu" aria-labelledby="categoriesDropdown">
-                    @for (category of (rootCategories$ | async); track category.id) {
-                      <li data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">
-                        <a href class="dropdown-item" [routerLink]="['/categ', category.name]">{{category | catTitle}}</a>
-                      </li>
-                    }
-                  </ul>
-                </li>
-                <li class="nav-item" [routerLinkActive]="['active']" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">
-                  <a href class="nav-link" routerLink="/services">{{'common.links.sharpeningEngraving' | trans}}</a>
-                </li>
-                <li class="nav-item" [routerLinkActive]="['active']" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">
-                  <a href class="nav-link" routerLink="/mycart">{{'common.links.mycart' | trans}}</a>
-                </li>
-                <li class="nav-item" [routerLinkActive]="['active']" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">
-                  <a href class="nav-link" routerLink="/about">{{'common.links.contact' | trans}}</a>
-                </li>
-                @if (authService.authenticated()) {
-                  <li class="nav-item" [routerLinkActive]="['active']" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">
-                    <a class="nav-link" href routerLink="/profile">{{'common.links.profile' | trans}}</a>
-                  </li>
-                }
-              </ul>
-              <form class="d-flex" (ngSubmit)="search()">
-                <div class="input-group">
-                  <input class="form-control" type="text" name="searchTerm" [(ngModel)]="searchTerm" placeholder="Search"
-                    aria-describedby="basic-addon2">
-                    <div class="input-group-append submit-search">
-                      <span class="input-group-text" id="basic-addon2" (click)="search()"><i class="material-icons">search</i></span>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </nav>
-        </div>
+          </div>
+        </form>
       </div>
+    </div>
+  </nav>
+</div>
